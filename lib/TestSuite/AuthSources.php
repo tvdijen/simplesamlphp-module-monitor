@@ -9,7 +9,7 @@ final class sspmod_monitor_TestSuite_AuthSources extends sspmod_monitor_TestSuit
         $monitor = $this->getMonitor();
         $module_config = $monitor->getModuleConfig();
         $authsource_config = $monitor->getAuthsourceConfig();
-        $check_authsources = $module_config->getValue('check_authsources');
+        $check_authsources = $module_config->getValue('check_authsources', true);
 
         if ($check_authsources === true) {
             $authsources = $authsource_config->getOptions();
