@@ -7,7 +7,6 @@ use sspmod_monitor_State as State;
 $monitor = new sspmod_monitor_Monitor();
 
 $global_config = $monitor->getGlobalConfig();
-$module_config = $monitor->getModuleConfig();
 
 $monitor->invokeTestSuites();
 $results = $monitor->getResults();
