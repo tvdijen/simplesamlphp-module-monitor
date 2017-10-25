@@ -16,7 +16,6 @@ final class sspmod_monitor_TestSuite_AuthSources extends sspmod_monitor_TestSuit
         } else if (is_array($check_authsources)) {
             $authsources = array_intersect($authsource_config->getOptions(), $check_authsources);
         } else { // false or invalid value
-            $this->setState(State::SKIPPED);
             return;
         }
 
