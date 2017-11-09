@@ -22,7 +22,7 @@ final class sspmod_monitor_TestCase_AuthSource_Negotiate extends sspmod_monitor_
         if ($xml === false) {
             $auth = new KRB5NegotiateAuth($this->keytab);
             try {
-                $reply = $auth->doAuthentication();
+                $reply = @$auth->doAuthentication();
             } catch (Exception $e) {
                 // Fallthru
                 $this->setState(State::WARNING);
