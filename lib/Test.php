@@ -44,7 +44,9 @@ abstract class sspmod_monitor_Test
         if ($index === null) {
             $this->messages = array_merge($this->messages, $messages);
         } else {
-            $this->messages[$index] = $messages;
+            foreach ($messages as $message) {
+                $this->messages[$index][] = $message;
+            }
         }
     }
 
