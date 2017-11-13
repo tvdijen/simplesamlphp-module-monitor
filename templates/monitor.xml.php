@@ -7,6 +7,7 @@ $configuration = $this->data['configuration'];
 $store = $this->data['store'];
 $state = $this->data['overall'];
 $authsources = $this->data['authsources'];
+$metadata = $this->data['metadata'];
 $health_info = $this->data['health_info'];
 
 $protocol = (isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.0');
@@ -65,6 +66,19 @@ foreach ($store as $check) {
 
 foreach ($authsources as $name => $authsource) {
     foreach ($authsource as $check) {
+        list($health, $category, $subject, $summary) = $check;
+        list($health_state, $health_color) = $health_info[$health];
+
+        $output .= '<check category="' . $category . '">';
+        $output .= '<subject>' . $subject . '</subject>';
+        $output .= '<health>' . $health_state . '</health>';
+        $output .= '<summary>' . $summary . '</summary>';
+        $output .= '</check>';
+    }
+}
+
+foreach ($metadata as $entityId => $entity_metadata) {
+    foreach ($entity_metadata as $check) {
         list($health, $category, $subject, $summary) = $check;
         list($health_state, $health_color) = $health_info[$health];
 
