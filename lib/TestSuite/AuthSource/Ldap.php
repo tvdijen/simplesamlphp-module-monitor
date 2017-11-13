@@ -26,7 +26,6 @@ final class sspmod_monitor_TestSuite_AuthSource_Ldap extends sspmod_monitor_Test
             $this->addTest($conn_test);
             $state = $conn_test->getState();
             if ($state !== State::OK) {
-//                $this->setState($state);
                 $this->addMessages($conn_test->getMessages());
                 continue;
             } else {
@@ -71,14 +70,11 @@ final class sspmod_monitor_TestSuite_AuthSource_Ldap extends sspmod_monitor_Test
                 $state = $search_test->getState();
 
                 if ($state === State::OK) {
-//                    $this->setState(State::OK);
                     $this->addMessages($search_test->getMessages());
                 } else {
-//                    $this->setState(State::ERROR);
                     $this->addMessages($search_test->getMessages());
                 }
             } else {
-//                $this->setState(State::ERROR);
                 $this->addMessages($search_test->getMessages());
             }
         }
