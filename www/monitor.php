@@ -33,6 +33,7 @@ $t->data['modules'] = array_map(function($i) {
     return $i[0];
 }, array_merge($results['modules']));
 $t->data['store'] = $results['store'];
+$t->data['metadata'] = $results['metadata'];
 $t->data['overall'] = $monitor->getState();
 $t->data['health_info'] = $health_info;
 

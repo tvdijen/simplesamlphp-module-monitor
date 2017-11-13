@@ -35,6 +35,7 @@ class sspmod_monitor_Monitor
         $this->invokeConfigurationCheck();
         $this->invokeStoreCheck();
         $this->invokeAuthSourceCheck();
+        $this->invokeMetadataCheck();
     }
 
     // Setters
@@ -56,12 +57,15 @@ class sspmod_monitor_Monitor
     private function setMetadataConfig()
     {
         $sets = $this->getAvailableMetadataSets();
-        $metadata = array();
+        $sources = $this->global_config->getValue('metadata.sources');
+        $handlers = SimpleSAML_Metadata_MetaDataStorageSource::parseSources($sources);
 
+        $metadata = array();
         if (!empty($sets)) {
-            $handler = SimpleSAML_Metadata_MetaDataStorageHandler::getMetadataHandler();
-            foreach ($sets as $set) {
-                $metadata[$set] = $handler->getList($set);
+            foreach ($handlers as $handler) {
+                foreach ($sets as $set) {
+                    $metadata[$set] = $handler->getMetadataSet($set);
+                }
             }
         }
         $this->metadata_config = $metadata;
@@ -185,6 +189,13 @@ class sspmod_monitor_Monitor
     {
         $testsuite = new sspmod_monitor_TestSuite_AuthSources($this, array());
         $this->results['authsources'] = $testsuite->getMessages();
+        $this->state[] = $testsuite->getState();
+    }
+
+    private function invokeMetadataCheck()
+    {
+        $testsuite = new sspmod_monitor_TestSuite_Metadata($this, array());
+        $this->results['metadata'] = $testsuite->getMessages();
         $this->state[] = $testsuite->getState();
     }
 }

@@ -4,6 +4,7 @@ $configuration = $this->data['configuration'];
 $store = $this->data['store'];
 $state = $this->data['overall'];
 $authsources = $this->data['authsources'];
+$metadata = $this->data['metadata'];
 $health_info = $this->data['health_info'];
 
 $this->includeAtTemplateBase('includes/header.php');
@@ -63,10 +64,29 @@ foreach ($authsources as $name => $authsource) {
     foreach ($authsource as $check) {
         list($health, $type, $item, $summary) = $check;
         list($health_state, $health_color) = $health_info[$health];
-        echo " <tr><td style='color:$health_color;'>$health_state</td><td>$type</td><td>$item</td><td>$summary</td></tr>\n";
+        echo "    <tr><td style='color:$health_color;'>$health_state</td><td>$type</td><td>$item</td><td>$summary</td></tr>\n";
     }
-echo "</table>";
-echo "<br />";
+?>
+  </table>
+  <br />
+<?php
+}
+
+foreach ($metadata as $entityId => $entity) {
+?>
+  <table style='width: 98%;'>
+    <tr><th colspan='4'>Metadata Endpoint - <?php echo $entityId; ?></th></tr>
+    <tr><th>State</th><th style="width:20%;">Category</th><th style="width:40%;">Subject</th><th>Summary</th></tr>
+<?php
+    foreach ($entity as $entityId => $check) {
+        list($health, $type, $item, $summary) = $check;
+        list($health_state, $health_color) = $health_info[$health];
+        echo "    <tr><td style='color:$health_color;'>$health_state</td><td>$type</td><td>$item</td><td>$summary</td></tr>\n";
+    }
+?>
+  </table>
+  <br />
+<?php
 }
 ?>
 </div>
