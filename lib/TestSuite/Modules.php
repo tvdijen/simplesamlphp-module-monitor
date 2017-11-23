@@ -137,7 +137,7 @@ final class sspmod_monitor_TestSuite_Modules extends sspmod_monitor_TestSuite
         // Test for the availability of required modules
         foreach ($available_modules as $category => $available) {
             if (is_null($available)) {
-                $output[$category][] = array(State::WARNING, $category, implode(', ', $required_modules[$category]), 'Unable to verify installed modules');
+                $output[$category][] = array(State::SKIPPED, $category, implode(', ', $required_modules[$category]), 'Unable to verify installed modules');
             } else {
                 $class = 'sspmod_monitor_TestCase_Module_' . $category;
                 $dependencies = array_key_exists($category, $module_dependencies) ? $module_dependencies[$category] : array();
