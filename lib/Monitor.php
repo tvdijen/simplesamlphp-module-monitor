@@ -100,6 +100,8 @@ class sspmod_monitor_Monitor
                 exec('/usr/sbin/httpd -t -D DUMP_MODULES', $output);
             } else if (file_exists('/usr/sbin/apache2')) {
                 exec('/usr/sbin/apache2 -t -D DUMP_MODULES', $output);
+            } else {
+                return; // Cannot determine available modules
             }
             array_shift($output);
 
