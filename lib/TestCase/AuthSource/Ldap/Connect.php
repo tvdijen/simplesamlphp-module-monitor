@@ -51,7 +51,7 @@ final class sspmod_monitor_TestCase_AuthSource_Ldap_Connect extends sspmod_monit
         // Actually connect and pull certificates whenever possible
         if (preg_match('/^(ldaps:\/\/(.*))$/', $this->hostname, $matches)) {
             $uri = str_replace('ldaps://', 'ssl://', $this->hostname) . ':636';
-            $context = stream_context_create(array("ssl" => array("capture_peer_cert" => true, "verify_peer" => false)));
+            $context = stream_context_create(array("ssl" => array("capture_peer_cert" => true, "verify_peer" => true)));
         } else {
             $uri = 'tcp://' . $this->hostname . ':' . $this->port;
             $context = stream_context_create();
