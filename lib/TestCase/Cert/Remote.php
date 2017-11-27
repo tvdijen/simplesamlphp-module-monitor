@@ -14,7 +14,15 @@ final class sspmod_monitor_TestCase_Cert_Remote extends sspmod_monitor_TestCase
         $port = $this->getInput('port');
         $this->setCategory($this->getInput('category'));
         $this->connect_string = 'ssl://' . $hostname . ':' . $port;
-        $this->context = stream_context_create(array("ssl" => array("capture_peer_cert" => true, "verify_peer" => false)));
+        $this->context = stream_context_create(
+            array(
+                "ssl" => array(
+                    "capture_peer_cert" => true,
+                    "verify_peer" => false,
+                    "verify_peer_name" => false
+                )
+            )
+        );
     }
 
     protected function invokeTest()
