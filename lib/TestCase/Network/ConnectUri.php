@@ -52,7 +52,7 @@ final class sspmod_monitor_TestCase_Network_ConnectUri extends sspmod_monitor_Te
             $this->addOutput($connection, 'connection');
         } else {
             $this->setState(State::ERROR);
-            $this->addMessage(State::ERROR, 'Network connection', $uri, $errstr . ' (' . $errno . ')');
+            $this->addMessage(State::ERROR, 'Network connection', $this->uri, $errstr . ' (' . $errno . ')');
         }
     }
 
