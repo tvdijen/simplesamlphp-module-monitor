@@ -20,9 +20,9 @@ final class sspmod_monitor_TestCase_AuthSource_Ldap_Connect extends sspmod_monit
         $authsource_data = $this->getInput('authsource_data');
         $this->port = $authsource_data['port'];
         $this->enable_tls = $authsource_data['enable_tls'];
-        $this->timeout = $authsource_data['timeout'];
-        $this->referrals = $authsource_data['referrals'];
-        $this->debug = $authsource_data['debug'];
+        $this->timeout = isSet($authsource_data['timeout']) ? $authsource_data['timeout'] : 30;
+        $this->referrals = isSet($authsource_data['referrals']) ? $authsource_data['referrals'] : true;
+        $this->debug = isSet($authsource_data['debug']) ? $authsource_data['debug'] : false;
     }
 
     protected function invokeTest()
