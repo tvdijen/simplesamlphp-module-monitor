@@ -16,13 +16,13 @@ list($health_state, $health_color) = $health_info[$state];
 $overall = $health_state;
 
 if ($state === State::OK) {
-  header($protocol . '200 OK');
+  header($protocol . ' 200 OK');
   $GLOBALS['http_response_code'] = 200;
 } else if ($state === State::WARNING) {
-  header($protocol . '417 Expectation failed');
+  header($protocol . ' 417 Expectation failed');
   $GLOBALS['http_response_code'] = 417;
 } else {
-  header($protocol . '500 Internal Server Error');
+  header($protocol . ' 500 Internal Server Error');
   $GLOBALS['http_response_code'] = 500;
 }
 
