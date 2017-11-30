@@ -9,7 +9,7 @@ final class sspmod_monitor_TestCase_AuthSource_Negotiate extends sspmod_monitor_
 
     protected function initialize()
     {
-        $this->keytab = $authsource_data['keytab'];
+        $this->keytab = $this->getInput('keytab');
         $this->xml = isSet($_REQUEST['xml']);
     }
 
