@@ -44,7 +44,7 @@ final class sspmod_monitor_TestCase_Network_ConnectUri extends sspmod_monitor_Te
 
     protected function invokeTest()
     {
-        $connection = stream_socket_client($this->uri, $errno, $errstr, $this->timeout, STREAM_CLIENT_CONNECT, $this->context);
+        $connection = @stream_socket_client($this->uri, $errno, $errstr, $this->timeout, STREAM_CLIENT_CONNECT, $this->context);
         if ($connection !== false) {
             $this->connection = $connection;
 
