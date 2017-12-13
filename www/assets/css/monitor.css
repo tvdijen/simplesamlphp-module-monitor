@@ -1,0 +1,19 @@
+.pure-table {
+    width: 100%;
+    font-size: 8pt;
+}
+
+.pure-table thead {
+    border-bottom: 1px solid lightgrey;
+    background-color: transparent;
+}
+
+.pure-table thead tr th {
+    font-weight: bold;
+}
+
+.pure-table thead tr:first-child {
+    background-color: firebrick;
+    font-size: 9pt;
+    font-weight: bold;
+}
