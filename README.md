@@ -15,5 +15,6 @@ The XML-page will also set a HTTP reponse-code corresponding to the 'overall sta
 500 - There is at least one error
 
 # Installation
+- Run `composer.phar require tvdijen/simplesamlphp-module-monitor:dev-master`
 - Copy `config-templates/module_monitor.php` to the SimpleSAML config-directory
 - Enable the module by adding it to the `module.enable` directive in config.php
