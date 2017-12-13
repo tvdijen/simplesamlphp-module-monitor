@@ -1,0 +1,152 @@
+{% set pagetitle = 'SimpleSAMLphp Monitoring'|trans %}
+{% extends "base.twig" %}
+
+{% block preload %}
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+{% endblock %}
+
+{% block content %}
+    <table class="pure-table pure-table-bordered pure-table-attributes">
+        <thead>
+            <tr>
+                <th colspan="4">Required modules</th>
+            </tr>
+            <tr>
+                <th style="width: 10%;">State</th>
+                <th style="width: 20%;">Category</th>
+                <th style="width: 40%;">Subject</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+{% for key, check in modules %}
+{% set health = check[0] %}
+            <tr>
+                <td style="color:{{ health_info[health][1] }};">{{ health_info[health][0] }}</td>
+                <td>{{ check[1] }}</td>
+                <td>{{ check[2] }}</td>
+                <td>{{ check[3] }}</td>
+            </tr>
+{% endfor %}
+        </tbody>
+    </table>
+
+    <br />
+
+    <table class="pure-table pure-table-bordered pure-table-attributes">
+        <thead>
+            <tr>
+                <th colspan="4">Global configuration</th>
+            </tr>
+            <tr>
+                <th style="width:10%;">State</th>
+                <th style="width:20%;">Category</th>
+                <th style="width:40%;">Subject</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+{% for key, check in configuration %}
+{% set health = check[0] %}
+            <tr>
+                <td style="color:{{ health_info[health][1] }};">{{ health_info[health][0] }}</td>
+                <td>{{ check[1] }}</td>
+                <td>{{ check[2] }}</td>
+                <td>{{ check[3] }}</td>
+            </tr>
+{% endfor %}
+        </tbody>
+    </table>
+
+    <br />
+
+    <table class="pure-table pure-table-bordered pure-table-attributes">
+        <thead>
+            <tr>
+                <th colspan="4">Session store</th>
+            </tr>
+            <tr>
+                <th style="width:10%;">State</th>
+                <th style="width:20%;">Category</th>
+                <th style="width:40%;">Subject</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+{% for key, check in store %}
+{% set health = check[0] %}
+            <tr>
+                <td style="color:{{ health_info[health][1] }};">{{ health_info[health][0] }}</td>
+                <td>{{ check[1] }}</td>
+                <td>{{ check[2] }}</td>
+                <td>{{ check[3] }}</td>
+            </tr>
+{% endfor %}
+        </tbody>
+    </table>
+
+    <br />
+
+{% for name, authsource in authsources %}
+    <table class="pure-table pure-table-bordered pure-table-attributes">
+        <thead>
+            <tr>
+                <th colspan="4">Authsource '{{ name }}'</th>
+            </tr>
+{% if loop.index == 1 %}
+            <tr>
+                <th style="width:10%;">State</th>
+                <th style="width:20%;">Category</th>
+                <th style="width:40%;">Subject</th>
+                <th>Summary</th>
+            </tr>
+{% endif %}
+        </thead>
+        <tbody>
+{% for key, check in authsource %}
+{% set health = check[0] %}
+            <tr>
+                <td style="width:10%; color:{{ health_info[health][1] }};">{{ health_info[health][0] }}</td>
+                <td style="width:20%;">{{ check[1] }}</td>
+                <td style="width:40%;">{{ check[2] }}</td>
+                <td>{{ check[3] }}</td>
+            </tr>
+{% endfor %}
+        </tbody>
+    </table>
+{% endfor %}
+
+    <br />
+
+{% for entityid, entity in metadata %}
+    <table class="pure-table pure-table-bordered pure-table-attributes">
+        <thead>
+            <tr>
+                <th colspan="4">Metadata Endpoint - {{ entityid }}</th>
+            </tr>
+{% if loop.index == 1 %}
+            <tr>
+                <th style="width:10%;">State</th>
+                <th style="width:20%;">Category</th>
+                <th style="width:40%;">Subject</th>
+                <th>Summary</th>
+            </tr>
+{% endif %}
+        </thead>
+        <tbody>
+{% for entityid, check in entity %}
+{% set health = check[0] %}
+            <tr>
+                <td style="width:10%; color:{{ health_info[health][1] }}">{{ health_info[health][0] }}</td>
+                <td style="width:20%;">{{ check[1] }}</td>
+                <td style="width:40%;">{{ check[2] }}</td>
+                <td>{{ check[3] }}</td>
+            </tr>
+{% endfor %}
+        </tbody>
+    </table>
+{% endfor %}
+
+    <br />
+    <span>Overall status: <span style="color: {{ health_info[overall][1] }};">{{ health_info[overall][0] }}</span></span>
+{% endblock %}
