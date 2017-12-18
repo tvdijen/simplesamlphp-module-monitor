@@ -23,6 +23,7 @@ final class sspmod_monitor_TestSuite_Modules extends sspmod_monitor_TestSuite
     );
     private $module_php_dependencies = array(
         'authfacebook' => array('curl', 'json'),
+        'authYubiKey' => 'curl';
 // TODO: consent only requires pdo when database backend is used.. Should probably add this to required-list when processing metadata
 //        'consent' => 'PDO',
         'consentAdmin' => 'PDO',
