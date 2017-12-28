@@ -1,28 +1,42 @@
 <?php
 
-use sspmod_monitor_State as State;
+namespace SimpleSAML\Module\monitor\TestCase\FileSystem;
 
-final class sspmod_monitor_TestCase_FileSystem_FreeSpace extends sspmod_monitor_TestCase
+use \SimpleSAML\Module\monitor\State as State;
+
+final class FreeSpace extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     private $path = null;
 
+    /*
+     * @return void
+     */
     protected function initialize()
     {
         $this->setPath($this->getInput('path'));
     }
 
+    /*
+     * @return void
+     */
     private function setPath($path)
     {
         assert(is_string($path));
         $this->path = $path;
     }
 
+    /*
+     * @return string
+     */
     private function getPath()
     {
         assert(is_string($this->path));
         return $this->path;
     }
 
+    /*
+     * @return void
+     */
     protected function invokeTest()
     {
         $path = $this->getPath();

@@ -1,6 +1,8 @@
 <?php
 
-abstract class sspmod_monitor_State
+namespace SimpleSAML\Module\monitor;
+
+class State
 {
     const OK = 2;
     const WARNING = 1;

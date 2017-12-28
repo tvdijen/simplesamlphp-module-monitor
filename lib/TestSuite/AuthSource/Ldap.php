@@ -1,84 +1,93 @@
 <?php
 
-use sspmod_monitor_State as State;
+namespace SimpleSAML\Module\monitor\TestSuite\AuthSource;
 
-final class sspmod_monitor_TestSuite_AuthSource_Ldap extends sspmod_monitor_TestSuite
+use \SimpleSAML\Module\monitor\State as State;
+use \SimpleSAML\Module\monitor\TestCase as TestCase;
+
+final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
-    private $authsource_data = null;
+    private $authsourceData = null;
 
+    /*
+     * @return void
+     */
     protected function initialize()
     {
-        $this->authsource_data = $this->getInput('authsource_data');
+        $this->authsourceData = $this->getInput('authsource_data');
     }
 
+    /*
+     * @return void
+     */
     protected function invokeTestSuite()
     {
         // Test connection
-        $hosts = explode(' ', $this->authsource_data['hostname']);
+        $hosts = explode(' ', $this->authsourceData['hostname']);
         foreach ($hosts as $host) {
-            $conn_test = new sspmod_monitor_TestCase_AuthSource_Ldap_Connect(
+            $connTest = new TestCase\AuthSource\Ldap\Connect(
                 $this,
                 array(
-                    'authsource_data' => $this->authsource_data,
+                    'authsource_data' => $this->authsourceData,
                     'hostname' => $host
                 )
             );
-            $this->addTest($conn_test);
-            $state = $conn_test->getState();
+            $this->addTest($connTest);
+            $state = $connTest->getState();
             if ($state !== State::OK) {
-                $this->addMessages($conn_test->getMessages());
+                $this->addMessages($connTest->getMessages());
                 continue;
             } else {
-                $this->addMessages($conn_test->getMessages());
+                $this->addMessages($connTest->getMessages());
 
                 // Test certificate when available
-                $certData = $conn_test->getOutput('certData');
+                $certData = $connTest->getOutput('certData');
                 if ($certData !== null) {
                     $input = array(
                         'certData' => $certData,
                         'category' => 'LDAP Server Certificate'
                     );
-                    $cert_test = new sspmod_monitor_TestCase_Cert($this, $input);
-                    $this->addTest($cert_test);
-                    $this->addMessages($cert_test->getMessages());
+                    $certTest = new TestCase\Cert($this, $input);
+                    $this->addTest($certTest);
+                    $this->addMessages($certTest->getMessages());
                 }
             }
 
             // Test bind
-            $connection = $conn_test->getOutput('connection');
-            $bind_test = new sspmod_monitor_TestCase_AuthSource_Ldap_Bind(
+            $connection = $connTest->getOutput('connection');
+            $bindTest = new TestCase\AuthSource\Ldap\Bind(
                 $this,
                 array(
-                    'authsource_data' => $this->authsource_data,
+                    'authsource_data' => $this->authsourceData,
                     'connection' => $connection
                 )
             );
-            $this->addTest($bind_test);
-            $state = $bind_test->getState();
+            $this->addTest($bindTest);
+            $state = $bindTest->getState();
             if ($state === State::OK) {
-                $this->addMessages($bind_test->getMessages());
+                $this->addMessages($bindTest->getMessages());
 
                 // Test search
-                $search_test = new sspmod_monitor_TestCase_AuthSource_Ldap_Search(
+                $searchTest = new TestCase\AuthSource\Ldap\Search(
                     $this,
                     array(
-                        'authsource_data' => $this->authsource_data,
+                        'authsource_data' => $this->authsourceData,
                         'connection' => $connection
                     )
                 );
-                $this->addTest($search_test);
-                $state = $search_test->getState();
+                $this->addTest($searchTest);
+                $state = $searchTest->getState();
 
                 if ($state === State::OK) {
-                    $this->addMessages($search_test->getMessages());
+                    $this->addMessages($searchTest->getMessages());
                 } else {
-                    $this->addMessages($search_test->getMessages());
+                    $this->addMessages($searchTest->getMessages());
                 }
             } else {
-                $this->addMessages($search_test->getMessages());
+                $this->addMessages($bindTest->getMessages());
             }
         }
 
-        parent::invokeTestSuite();
+        $this->calculateState();
     }
 }

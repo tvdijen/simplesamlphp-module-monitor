@@ -1,21 +1,29 @@
 <?php
 
-use sspmod_monitor_State as State;
+namespace SimpleSAML\Module\monitor\TestSuite\AuthSource;
 
-final class sspmod_monitor_TestSuite_AuthSource_Negotiate extends sspmod_monitor_TestSuite
+use \SimpleSAML\Module\monitor\TestCase as TestCase;
+
+final class Negotiate extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
-    private $authsource_data = null;
+    private $authsourceData = null;
 
+    /*
+     * @return void
+     */
     protected function initialize()
     {
-        $this->authsource_data = $this->getInput('authsource_data');
+        $this->authsourceData = $this->getInput('authsource_data');
     }
 
+    /*
+     * @return void
+     */
     protected function invokeTestSuite()
     {
-        $test = new sspmod_monitor_TestCase_AuthSource_Negotiate($this, array('keytab' => $this->authsource_data['keytab']));
+        $test = new TestCase\AuthSource\Negotiate($this, array('keytab' => $this->authsourceData['keytab']));
         $this->addTest($test);
         $this->addMessages($test->getMessages());
-        parent::invokeTestSuite();
+        $this->calculateState();
     }
 }

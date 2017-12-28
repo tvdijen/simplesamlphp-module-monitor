@@ -1,17 +1,25 @@
 <?php
 
-use sspmod_monitor_State as State;
+namespace SimpleSAML\Module\monitor\TestCase;
 
-class sspmod_monitor_TestCase_Module extends sspmod_monitor_TestCase
+use \SimpleSAML\Module\monitor\State as State;
+
+class Module extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     private $available = null;
     private $module = null;
 
+    /*
+     * @return void
+     */
     protected function initialize()
     {
         $this->setModule($this->getInput('module'));
     }
 
+    /*
+     * @return void
+     */
     protected function invokeTest()
     {
         $loaded = State::ERROR;
@@ -28,24 +36,36 @@ class sspmod_monitor_TestCase_Module extends sspmod_monitor_TestCase
         $this->setState($loaded);
     }
 
+    /*
+     * @return void
+     */
     protected function setAvailable($available)
     {
         assert(is_array($available));
         $this->available = $available;
     }
 
+    /*
+     * @return array|null
+     */
     protected function getAvailable()
     {
         assert(is_array($this->available));
         return $this->available;
     }
 
+    /*
+     * @return void
+     */
     protected function setModule($module)
     {
         assert(is_string($module));
         $this->module = $module;
     }
 
+    /*
+     * @return string
+     */
     public function getModule()
     {
         assert(is_string($this->module));

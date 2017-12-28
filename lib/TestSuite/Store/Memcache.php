@@ -1,45 +1,57 @@
 <?php
 
-final class sspmod_monitor_TestSuite_Store_Memcache extends sspmod_monitor_TestSuite
+namespace SimpleSAML\Module\monitor\TestSuite\Store;
+
+use \SimpleSAML\Module\monitor\TestCase as TestCase;
+
+final class Memcache extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
+    /*
+     * @return void
+     */
+    protected function initialize() {}
+
+    /*
+     * @return void
+     */
     protected function invokeTestSuite()
     {
         $monitor = $this->getMonitor();
-        $global_config = $monitor->getGlobalConfig();
+        $globalConfig = $monitor->getGlobalConfig();
 
         // Check Memcache-servers
         $class = class_exists('Memcache') ? 'Memcache' : (class_exists('Memcached') ? 'Memcached' : false);
         if ($class === false) {
-            $server_groups = $global_config->getValue('memcache_store.servers');
-            $server_groups_name = array_map(function($i) {
+            $serverGroups = $globalConfig->getValue('memcache_store.servers');
+            $serverGroupName = array_map(function($i) {
                 $tmp = array_keys($i);
                 return 'Server Group #' . ++$tmp[0];
-            }, $server_groups);
+            }, $serverGroups);
 
             $this->setState(State::FATAL);
-            $this->addMessage(State::FATAL, 'Memcache health', implode(PHP_EOL, $server_groups_name), 'Missing PHP module');
+            $this->addMessage(State::FATAL, 'Memcache health', implode(PHP_EOL, $serverGroupName), 'Missing PHP module');
             
         } else {
-            $stats = SimpleSAML_Memcache::getRawStats();
+            $stats = \SimpleSAML_Memcache::getRawStats();
 
-            foreach ($stats as $key => $server_group) {
-                $group_name = is_numeric($key) ? '#' . ++$key : "`$key'";
-                $group_tests = array();
+            foreach ($stats as $key => $serverGroup) {
+                $groupName = is_numeric($key) ? '#' . ++$key : "`$key'";
+                $groupTests = array();
 
-                foreach ($server_group as $host => $server_stats) {
-                    $group_tests[] = new sspmod_monitor_TestCase_Store_Memcache_Server($this, array('server_stats' => $server_stats, 'host' => $host));
+                foreach ($serverGroup as $host => $serverStats) {
+                    $groupTests[] = new TestCase\Store\Memcache\Server($this, array('server_stats' => $serverStats, 'host' => $host));
                 }
 
-                $test = new sspmod_monitor_TestCase_Store_Memcache_ServerGroup($this, array('tests' => $group_tests, 'group' => $group_name));
+                $test = new TestCase\Store\Memcache\ServerGroup($this, array('tests' => $groupTests, 'group' => $groupName));
                 $this->addTest($test);
             }
 
             $tests = $this->getTests();
-            foreach ($tests as $server_group) {
-                $this->addMessages($server_group->getMessages());
+            foreach ($tests as $serverGroup) {
+                $this->addMessages($serverGroup->getMessages());
             }
         }
 
-        parent::invokeTestSuite();
+        $this->calculateState();
     }
 }

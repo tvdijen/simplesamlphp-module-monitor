@@ -1,7 +1,12 @@
 <?php
 
-final class sspmod_monitor_TestCase_Module_Apache extends sspmod_monitor_TestCase_Module
+namespace SimpleSAML\Module\monitor\TestCase\Module;
+
+final class Apache extends \SimpleSAML\Module\monitor\TestCase\Module
 {
+    /*
+     * @return void
+     */
     protected function initialize()
     {
         $testsuite = $this->getTestSuite();

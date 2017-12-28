@@ -1,17 +1,18 @@
 <?php
-use sspmod_monitor_State as State;
+use \SimpleSAML\Module\monitor\State as State;
+use \SimpleSAML\Module\monitor\Monitor as Monitor;
 
 //assert_options(ASSERT_ACTIVE, 1);
 //assert_options(ASSERT_WARNING, 1);
 
-$monitor = new sspmod_monitor_Monitor();
+$monitor = new Monitor();
 
-$global_config = $monitor->getGlobalConfig();
+$globalConfig = $monitor->getGlobalConfig();
 
 $monitor->invokeTestSuites();
 $results = $monitor->getResults();
 
-$health_info = array(
+$healthInfo = array(
     State::SKIPPED => array('SKIPPED', 'yellow'),
     State::FATAL   => array('FATAL',   'purple'),
     State::ERROR   => array('NOK',     'red'   ),
@@ -21,9 +22,9 @@ $health_info = array(
 );
 
 if (isSet($_REQUEST['xml'])) {
-    $t = new SimpleSAML_XHTML_Template($global_config, 'monitor:monitor.xml.php');
+    $t = new SimpleSAML_XHTML_Template($globalConfig, 'monitor:monitor.xml.php');
 } else {
-    $t = new SimpleSAML_XHTML_Template($global_config, 'monitor:monitor.php');
+    $t = new SimpleSAML_XHTML_Template($globalConfig, 'monitor:monitor.php');
 }
 
 $t->data['header'] = 'Monitor';
@@ -35,7 +36,7 @@ $t->data['modules'] = array_map(function($i) {
 $t->data['store'] = $results['store'];
 $t->data['metadata'] = $results['metadata'];
 $t->data['overall'] = $monitor->getState();
-$t->data['health_info'] = $health_info;
+$t->data['healthInfo'] = $healthInfo;
 
-unset($monitor, $results, $global_config, $health_info);
+unset($monitor, $results, $globalConfig, $healthInfo);
 $t->show();

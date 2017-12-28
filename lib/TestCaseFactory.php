@@ -1,6 +1,8 @@
 <?php
 
-abstract class sspmod_monitor_TestCase extends sspmod_monitor_Test
+namespace SimpleSAML\Module\monitor;
+
+abstract class TestCaseFactory extends TestFactory
 {
     private $testsuite = null;
     private $category = null;
@@ -8,50 +10,84 @@ abstract class sspmod_monitor_TestCase extends sspmod_monitor_Test
 
     public function __construct($testsuite, $input)
     {
-        assert(is_a($testsuite, 'sspmod_monitor_TestSuite'));
+        assert($testsuite instanceof TestSuiteFactory);
         assert(is_array($input));
         $this->setTestSuite($testsuite);
         $this->setInput($input);
-        is_callable(array($this, 'initialize')) && $this->initialize();
+        $this->initialize();
         $this->setInput(null);
         $this->invokeTest();
     }
 
+    /*
+     * @return void
+     */
+    protected function initialize()
+    {
+    }
+
+    /*
+     * @return void
+     */
     private function setTestSuite($testsuite)
     {
-        assert(is_a($testsuite, 'sspmod_monitor_TestSuite'));
+        assert($testsuite instanceof TestSuiteFactory);
         $this->testsuite = $testsuite;
     }
 
+
+    /*
+     * @return TestSuiteFactory
+     */
     public function getTestSuite()
     {
-        assert(is_a($this->testsuite, 'sspmod_monitor_TestSuite'));
+        assert($this->testsuite instanceof TestSuiteFactory);
         return $this->testsuite;
     }
 
+
+    /*
+     * @return void
+     */
     protected function setSubject($subject)
     {
         assert(is_string($subject));
         $this->subject = $subject;
     }
 
+
+    /*
+     * @return string
+     */
     public function getSubject()
     {
         assert(is_string($this->subject));
         return $this->subject;
     }
 
+
+    /*
+     * @return void
+     */
     protected function setCategory($category)
     {
         assert(is_string($category));
         $this->category = $category;
     }
 
+
+    /*
+     * @return string
+     */
     public function getCategory()
     {
         assert(is_string($this->category));
         return $this->category;
     }
 
-    protected abstract function invokeTest();
+    
+    /*
+     * @return void
+     */
+    abstract protected function invokeTest();
 }

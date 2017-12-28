@@ -1,29 +1,39 @@
 <?php
 
-use sspmod_monitor_State as State;
+namespace SimpleSAML\Module\monitor\TestSuite;
 
-final class sspmod_monitor_TestSuite_Store extends sspmod_monitor_TestSuite
+use \SimpleSAML\Module\monitor\State as State;
+
+final class Store extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
+    /*
+     * @return void
+     */
+    protected function initialize() {}
+
+    /*
+     * @return void
+     */
     protected function invokeTestSuite()
     {
         $monitor = $this->getMonitor();
-        $global_config = $monitor->getGlobalConfig();
+        $globalConfig = $monitor->getGlobalConfig();
 
-        $store = $global_config->getString('store.type');
+        $store = $globalConfig->getString('store.type');
         switch ($store) {
             case 'phpsession':
-                $test = new sspmod_monitor_TestSuite_Store_Phpsession($monitor, array());
+                $test = new Store\Phpsession($monitor, array());
                 break;
             case 'memcache':
-                $test = new sspmod_monitor_TestSuite_Store_Memcache($monitor, array());
+                $test = new Store\Memcache($monitor, array());
                 break;
 // TODO:
 //            case 'redis':
 //            case 'redissentinel':
-//                $test = new sspmod_monitor_TestSuite_Store_Redis($monitor, array());
+//                $test = new Store\Redis($monitor, array());
 //                break;
 //            case 'sql':
-//                $test = new sspmod_monitor_TestSuite_Store_Sql($monitor, array());
+//                $test = new Store\Sql($monitor, array());
 //                break;
             default:
                 SimpleSAML_Logger::warning("Not implemented;  $store - Skipping Store TestSuite.");
@@ -34,6 +44,6 @@ final class sspmod_monitor_TestSuite_Store extends sspmod_monitor_TestSuite
         $this->addTest($test);
         $this->setMessages($test->getMessages());
 
-        parent::invokeTestSuite();
+        $this->calculateState();
     }
 }

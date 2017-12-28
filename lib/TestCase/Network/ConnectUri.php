@@ -1,14 +1,19 @@
 <?php
 
-use sspmod_monitor_State as State;
+namespace SimpleSAML\Module\monitor\TestCase\Network;
 
-final class sspmod_monitor_TestCase_Network_ConnectUri extends sspmod_monitor_TestCase
+use \SimpleSAML\Module\monitor\State as State;
+
+final class ConnectUri extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     private $connection = null;
     private $timeout = null;
     private $context = null;
     private $uri = null;
 
+    /*
+     * @return void
+     */
     protected function initialize()
     {
         $this->setUri();
@@ -16,12 +21,18 @@ final class sspmod_monitor_TestCase_Network_ConnectUri extends sspmod_monitor_Te
         $this->setContext();
     }
 
+    /*
+     * @return void
+     */
     private function setUri()
     {
         assert(is_string($this->getInput('uri')));
         $this->uri = $this->getInput('uri');
     }
 
+    /*
+     * @return void
+     */
     private function setContext()
     {
         assert(is_resource($this->getInput('context')));
@@ -34,6 +45,9 @@ final class sspmod_monitor_TestCase_Network_ConnectUri extends sspmod_monitor_Te
         }
     }
 
+    /*
+     * @return void
+     */
     private function setTimeout()
     {
         $timeout = $this->getInput('timeout');
@@ -42,6 +56,9 @@ final class sspmod_monitor_TestCase_Network_ConnectUri extends sspmod_monitor_Te
         $this->timeout = $timeout;
     }
 
+    /*
+     * @return void
+     */
     protected function invokeTest()
     {
         $connection = @stream_socket_client($this->uri, $errno, $errstr, $this->timeout, STREAM_CLIENT_CONNECT, $this->context);

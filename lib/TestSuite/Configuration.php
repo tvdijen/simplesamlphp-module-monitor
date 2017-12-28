@@ -1,13 +1,23 @@
 <?php
 
-use sspmod_monitor_State as State;
+namespace SimpleSAML\Module\monitor\TestSuite;
 
-final class sspmod_monitor_TestSuite_Configuration extends sspmod_monitor_TestSuite
+use \SimpleSAML\Module\monitor\TestCase as TestCase;
+
+final class Configuration extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
+    /*
+     * @return void
+     */
+    protected function initialize() {}
+
+    /*
+     * @return void
+     */
     protected function invokeTestSuite()
     {
         $monitor = $this->getMonitor();
-        $global_config = $monitor->getGlobalConfig();
+        $globalConfig = $monitor->getGlobalConfig();
         // Check Service Communications Certificate
         if (\SimpleSAML\Utils\HTTP::isHTTPS()) {
             $input = array(
@@ -16,20 +26,20 @@ final class sspmod_monitor_TestSuite_Configuration extends sspmod_monitor_TestSu
                 'port' => $_SERVER['SERVER_PORT']
             );
 
-            $test = new sspmod_monitor_TestCase_Cert_Remote($this, $input);
+            $test = new TestCase\Cert\Remote($this, $input);
             $this->addTest($test);
         }
 
         // Check metadata signing certificate when available
-        if ($global_config->hasValue('metadata.sign.certificate')) {
-            $metadata_cert = $global_config->getString('metadata.sign.certificate');
+        if ($globalConfig->hasValue('metadata.sign.certificate')) {
+            $metadataCert = $globalConfig->getString('metadata.sign.certificate');
 
             $input = array(
-                'certFile' => \SimpleSAML\Utils\Config::getCertPath($metadata_cert),
+                'certFile' => \SimpleSAML\Utils\Config::getCertPath($metadataCert),
                 'category' => 'Metadata Signing Certificate'
             );
 
-            $test = new sspmod_monitor_TestCase_Cert_File($this, $input);
+            $test = new TestCase\Cert\File($this, $input);
             $this->addTest($test);
         }
 
@@ -38,6 +48,7 @@ final class sspmod_monitor_TestSuite_Configuration extends sspmod_monitor_TestSu
         {
             $this->addMessages($test->getMessages());
         }
-        parent::invokeTestSuite();
+
+        $this->calculateState();
     }
 }

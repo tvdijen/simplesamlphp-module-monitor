@@ -1,23 +1,31 @@
 <?php
 
-use sspmod_monitor_State as State;
+namespace SimpleSAML\Module\monitor\TestCase\AuthSource\Ldap;
 
-final class sspmod_monitor_TestCase_AuthSource_Ldap_Bind extends sspmod_monitor_TestCase
+use \SimpleSAML\Module\monitor\State as State;
+
+final class Bind extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     private $connection = null;
     private $username = null;
     private $password = null;
 
+    /*
+     * @return void
+     */
     protected function initialize()
     {
-        $authsource_data = $this->getInput('authsource_data');
+        $authsourceData = $this->getInput('authsource_data');
 
         $this->connection = $this->getInput('connection');
-        $this->username = $authsource_data['search.username'];
-        $this->password = $authsource_data['search.password'];
+        $this->username = $authsourceData['search.username'];
+        $this->password = $authsourceData['search.password'];
         $this->setSubject($this->username);
     }
 
+    /*
+     * @return void
+     */
     protected function invokeTest()
     {
         $connection = $this->connection;
@@ -25,7 +33,7 @@ final class sspmod_monitor_TestCase_AuthSource_Ldap_Bind extends sspmod_monitor_
 
         try {
             $connection->bind($this->username, $this->password);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $msg = str_replace('Library - LDAP bind(): ', '', $e->getMessage());
             $this->setState(State::ERROR);
             $this->addMessage(State::ERROR, 'LDAP Bind', $subject, $msg);

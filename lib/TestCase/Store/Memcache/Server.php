@@ -1,27 +1,35 @@
 <?php
 
-use sspmod_monitor_State as State;
+namespace SimpleSAML\Module\monitor\TestCase\Store\Memcache;
 
-final class sspmod_monitor_TestCase_Store_Memcache_Server extends sspmod_monitor_TestCase
+use \SimpleSAML\Module\monitor\State as State;
+
+final class Server extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     private $host = null;
-    private $server_stats = null;
+    private $serverStats = null;
 
+    /*
+     * @return void
+     */
     protected function initialize()
     {
-        $this->server_stats = $this->getInput('server_stats');
+        $this->serverStats = $this->getInput('server_stats');
         $this->host = $this->getInput('host');
     }
 
+    /*
+     * @return void
+     */
     protected function invokeTest()
     {
-        if ($this->server_stats === false) {
+        if ($this->serverStats === false) {
             $this->setState(State::ERROR);
             $this->addMessage(State::ERROR, 'Memcache Server Health', $this->host, 'Host is down');
         } else {
-            $bytes_used = $this->server_stats['bytes'];
-            $bytes_limit = $this->server_stats['limit_maxbytes'];
-            $free = round(100.0 - (($bytes_used / $bytes_limit) * 100));
+            $bytesUsed = $this->serverStats['bytes'];
+            $bytesLimit = $this->serverStats['limit_maxbytes'];
+            $free = round(100.0 - (($bytesUsed / $bytesLimit) * 100));
             $this->addOutput($free, 'free_percentage');
 
             $this->setState(State::OK);

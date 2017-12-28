@@ -11,10 +11,11 @@
         }
     ],
     "require": {
+        "php": ">=5.4",
         "simplesamlphp/composer-module-installer": "~1.0"
     },
     "require-dev": {
-        "simplesamlphp/simplesamlphp": "1.14"
+        "simplesamlphp/simplesamlphp": "1.15"
     },
     "support": {
         "issues": "https://github.com/tvdijen/simplesamlphp-module-monitor/issues",

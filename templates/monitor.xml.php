@@ -8,12 +8,12 @@ $store = $this->data['store'];
 $state = $this->data['overall'];
 $authsources = $this->data['authsources'];
 $metadata = $this->data['metadata'];
-$health_info = $this->data['health_info'];
+$healthInfo = $this->data['healthInfo'];
 
 $protocol = (isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.0');
 
-list($health_state, $health_color) = $health_info[$state];
-$overall = $health_state;
+list($healthState, $healthColor) = $healthInfo[$state];
+$overall = $healthState;
 
 if ($state === State::OK) {
   header($protocol . ' 200 OK');
@@ -33,33 +33,33 @@ $output .= '<checks>';
 
 foreach ($modules as $check) {
     list($health, $category, $subject, $summary) = $check;
-    list($health_state, $health_color) = $health_info[$health];
+    list($healthState, $healthColor) = $healthInfo[$health];
 
     $output .= '<check category="' . $category . '">';
     $output .= '<subject>' . $subject . '</subject>';
-    $output .= '<health>' . $health_state . '</health>';
+    $output .= '<health>' . $healthState . '</health>';
     $output .= '<summary>' . $summary . '</summary>';
     $output .= '</check>';
 }
 
 foreach ($configuration as $check) {
     list($health, $category, $subject, $summary) = $check;
-    list($health_state, $health_color) = $health_info[$health];
+    list($healthState, $healthColor) = $healthInfo[$health];
 
     $output .= '<check category="' . $category . '">';
     $output .= '<subject>' . $subject . '</subject>';
-    $output .= '<health>' . $health_state . '</health>';
+    $output .= '<health>' . $healthState . '</health>';
     $output .= '<summary>' . $summary . '</summary>';
     $output .= '</check>';
 }
 
 foreach ($store as $check) {
     list($health, $category, $subject, $summary) = $check;
-    list($health_state, $health_color) = $health_info[$health];
+    list($healthState, $healthColor) = $healthInfo[$health];
 
     $output .= '<check category="' . $category . '">';
     $output .= '<subject>' . $subject . '</subject>';
-    $output .= '<health>' . $health_state . '</health>';
+    $output .= '<health>' . $healthState . '</health>';
     $output .= '<summary>' . $summary . '</summary>';
     $output .= '</check>';
 }
@@ -67,24 +67,24 @@ foreach ($store as $check) {
 foreach ($authsources as $name => $authsource) {
     foreach ($authsource as $check) {
         list($health, $category, $subject, $summary) = $check;
-        list($health_state, $health_color) = $health_info[$health];
+        list($healthState, $healthColor) = $healthInfo[$health];
 
         $output .= '<check category="' . $category . '">';
         $output .= '<subject>' . $subject . '</subject>';
-        $output .= '<health>' . $health_state . '</health>';
+        $output .= '<health>' . $healthState . '</health>';
         $output .= '<summary>' . $summary . '</summary>';
         $output .= '</check>';
     }
 }
 
-foreach ($metadata as $entityId => $entity_metadata) {
-    foreach ($entity_metadata as $check) {
+foreach ($metadata as $entityId => $entityMetadata) {
+    foreach ($entityMetadata as $check) {
         list($health, $category, $subject, $summary) = $check;
-        list($health_state, $health_color) = $health_info[$health];
+        list($healthState, $healthColor) = $healthInfo[$health];
 
         $output .= '<check category="' . $category . '">';
         $output .= '<subject>' . $subject . '</subject>';
-        $output .= '<health>' . $health_state . '</health>';
+        $output .= '<health>' . $healthState . '</health>';
         $output .= '<summary>' . $summary . '</summary>';
         $output .= '</check>';
     }

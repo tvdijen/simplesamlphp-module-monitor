@@ -1,24 +1,22 @@
 <?php
 
+namespace SimpleSAML\Module\monitor;
+
 use \SimpleSAML_Configuration as Configuration;
-use sspmod_monitor_State as State;
 
-class sspmod_monitor_Monitor
+class Monitor
 {
-    private $module_config = null;
-    private $global_config = null;
-    private $authsource_config = null;
-    private $metadata_config = null;
+    private $moduleConfig = null;
+    private $globalConfig = null;
+    private $authsourceConfig = null;
+    private $metadataConfig = null;
 
-    private $available_apache_modules = null;
-    private $available_php_modules = null;
+    private $availableApacheModules = null;
+    private $availablePhpModules = null;
 
     private $results = null;
     private $state = array();
 
-    private $available_metadata_sets = null;
-
-    // Constructor
     public function __construct()
     {
         $this->setAuthsourceConfig();
@@ -29,6 +27,10 @@ class sspmod_monitor_Monitor
         $this->setAvailablePhpModules();
     }
 
+    
+    /*
+     * @return void
+     */
     public function invokeTestSuites()
     {
         $this->invokeModuleCheck();
@@ -38,27 +40,40 @@ class sspmod_monitor_Monitor
         $this->invokeMetadataCheck();
     }
 
-    // Setters
+    /*
+     * @return void
+     */
     private function setAuthsourceConfig()
     {
-        $this->authsource_config = Configuration::getOptionalConfig('authsources.php');
+        $this->authsourceConfig = Configuration::getOptionalConfig('authsources.php');
     }
 
+
+    /*
+     * @return void
+     */
     private function setModuleConfig()
     {
-        $this->module_config = Configuration::getOptionalConfig('module_monitor.php');
+        $this->moduleConfig = Configuration::getOptionalConfig('module_monitor.php');
     }
 
+    /*
+     * @return void
+     */
     private function setGlobalConfig()
     {
-        $this->global_config = Configuration::getInstance();
+        $this->globalConfig = Configuration::getInstance();
     }
 
+
+    /*
+     * @return void
+     */
     private function setMetadataConfig()
     {
         $sets = $this->getAvailableMetadataSets();
-        $sources = $this->global_config->getValue('metadata.sources');
-        $handlers = SimpleSAML_Metadata_MetaDataStorageSource::parseSources($sources);
+        $sources = $this->globalConfig->getValue('metadata.sources');
+        $handlers = \SimpleSAML_Metadata_MetaDataStorageSource::parseSources($sources);
 
         $metadata = array();
         if (!empty($sets)) {
@@ -68,9 +83,12 @@ class sspmod_monitor_Monitor
                 }
             }
         }
-        $this->metadata_config = $metadata;
+        $this->metadataConfig = $metadata;
     }
 
+    /*
+     * @return array
+     */
     protected function getAvailableMetadataSets()
     {
         $globalConfig = $this->getGlobalConfig();
@@ -90,19 +108,30 @@ class sspmod_monitor_Monitor
         return $sets;
     }
 
+    /*
+     * @return void
+     */
     private function setAvailableApacheModules()
     {
         // Determine available Apache-modules
         if (function_exists('apache_get_modules')) {
-            $this->available_apache_modules = apache_get_modules();
+            $this->availableApacheModules = apache_get_modules();
         } else { // CGI-mode
-            if (file_exists('/usr/sbin/httpd')) {
-                exec('/usr/sbin/httpd -t -D DUMP_MODULES', $output);
-            } else if (file_exists('/usr/sbin/apache2')) {
-                exec('/usr/sbin/apache2 -t -D DUMP_MODULES', $output);
-            } else if (file_exists('/opt/rh/httpd24/root/usr/sbin/httpd')) {
-                exec('/opt/rh/httpd24/root/usr/sbin/httpd -t -D DUMP_MODULES', $output);
-            } else {
+            $knownLocations = array(
+                '/usr/sbin/httpd',
+                '/usr/sbin/apache2',
+                '/opt/rh/httpd24/root/usr/sbin/httpd'
+            );
+
+            $output = null;
+            foreach ($knownLocations as $location) {
+                if (file_exists($location)) {
+                    exec("$location -t -D DUMP_MODULES", $output);
+                    break;
+                }
+            }
+
+            if ($output === null) {
                 return; // Cannot determine available modules
             }
             array_shift($output);
@@ -110,95 +139,134 @@ class sspmod_monitor_Monitor
             $modules = array();
             foreach ($output as $module) {
                 $module = ltrim($module);
-                if (($res = preg_replace('/(_module \(shared\))/', '', $module)) !== $module) {
-                    $modules[] = 'mod_' . $res;
-                } else if (($res = preg_replace('/(_module \(static\))/', '', $module)) !== $module) {
+                if (($res = preg_replace('/(_module \((shared|static)\))/', '', $module)) !== $module) {
                     $modules[] = 'mod_' . $res;
                 } // else skip
             }
 
-            $this->available_apache_modules = $modules;
+            $this->availableApacheModules = $modules;
         }
     }
 
+    /*
+     * @return void
+     */
     private function setAvailablePhpModules()
     {
-        $this->available_php_modules = array_merge(get_loaded_extensions(), get_loaded_extensions(true));
+        $this->availablePhpModules = array_merge(get_loaded_extensions(), get_loaded_extensions(true));
     }
 
-    // Getters
+    /*
+     * @return array
+     */
     public function getAvailableApacheModules()
     {
-        return $this->available_apache_modules;
+        return $this->availableApacheModules;
     }
 
+    /*
+     * @return array
+     */
     public function getAvailablePhpModules()
     {
-        return $this->available_php_modules;
+        return $this->availablePhpModules;
     }
 
+    /*
+     * @return Configuration
+     */
     public function getModuleConfig()
     {
-        return $this->module_config;
+        return $this->moduleConfig;
     }
 
+    /*
+     * @return Configuration
+     */
     public function getGlobalConfig()
     {
-        return $this->global_config;
+        return $this->globalConfig;
     }
 
+    /*
+     * @return Configuration
+     */
     public function getAuthSourceConfig()
     {
-        return $this->authsource_config;
+        return $this->authsourceConfig;
     }
 
+    /*
+     * @return array
+     */
     public function getMetadataConfig()
     {
-        return $this->metadata_config;
+        return $this->metadataConfig;
     }
 
+    /*
+     * @return array
+     */
     public function getResults()
     {
         return $this->results;
     }
 
+    /*
+     * @return int
+     */
     public function getState()
     {
         $filtered = array_diff($this->state, array(State::SKIPPED));
         return empty($filtered) ? State::NOSTATE : min($filtered);
     }
 
+    /*
+     * @return void
+     */
     private function invokeModuleCheck()
     {
-        $testsuite = new sspmod_monitor_TestSuite_Modules($this, array());
+        $testsuite = new TestSuite\Modules($this, array());
         $this->results['modules'] = $testsuite->getMessages();
         $this->state[] = $testsuite->getState();
     }
 
+    /*
+     * @return void
+     */
     private function invokeConfigurationCheck()
     {
-        $testsuite = new sspmod_monitor_TestSuite_Configuration($this, array());
+        $testsuite = new TestSuite\Configuration($this, array());
         $this->results['configuration'] = $testsuite->getMessages();
         $this->state[] = $testsuite->getState();
     }
 
+    /*
+     * @return void
+     */
     private function invokeStoreCheck()
     {
-        $testsuite = new sspmod_monitor_TestSuite_Store($this, array());
+        $testsuite = new TestSuite\Store($this, array());
         $this->results['store'] = $testsuite->getMessages();
         $this->state[] = $testsuite->getState();
     }
 
+    /*
+     * @return void
+     */
     private function invokeAuthSourceCheck()
     {
-        $testsuite = new sspmod_monitor_TestSuite_AuthSources($this, array());
+        $testsuite = new TestSuite\AuthSources($this, array());
         $this->results['authsources'] = $testsuite->getMessages();
         $this->state[] = $testsuite->getState();
     }
 
+    /*
+     * @return void
+     */
     private function invokeMetadataCheck()
     {
-        $testsuite = new sspmod_monitor_TestSuite_Metadata($this, array());
+        $testsuite = new TestSuite\Metadata($this, array());
         $this->results['metadata'] = $testsuite->getMessages();
         $this->state[] = $testsuite->getState();
     }

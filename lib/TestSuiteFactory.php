@@ -1,48 +1,73 @@
 <?php
 
-use sspmod_monitor_State as State;
+namespace SimpleSAML\Module\monitor;
 
-class sspmod_monitor_TestSuite extends sspmod_monitor_Test
+abstract class TestSuiteFactory extends TestFactory
 {
     private $monitor = null;
     private $tests = null;
 
+    /**
+     * @param Monitor $monitor
+     */
     public function __construct($monitor, $input)
     {
-        assert(is_a($monitor, 'sspmod_monitor_Monitor'));
+        assert($monitor instanceof Monitor);
         assert(is_array($input));
 
         $this->setMonitor($monitor);
         $this->setInput($input);
-        is_callable(array($this, 'initialize')) && $this->initialize();
+        $this->initialize();
         $this->setInput(null);
         $this->invokeTestSuite();
     }
 
+    /*
+     * @return void
+     */
+    abstract protected function initialize();
+
+    /*
+     * @param Monitor $monitor
+     *
+     * @return void
+     */
     private function setMonitor($monitor)
     {
-        assert(is_a($monitor, 'sspmod_monitor_Monitor'));
+        assert($monitor instanceof Monitor);
         $this->monitor = $monitor;
     }
 
+    /*
+     * @return Monitor
+     */
     public function getMonitor()
     {
         assert(is_a($this->monitor, 'sspmod_monitor_Monitor'));
         return $this->monitor;
     }
 
+    /*
+     * @return void
+     */
     protected function addTest($test)
     {
         assert(is_a($test, 'sspmod_monitor_Test'));
         $this->tests[] = $test;
     }
 
+    /*
+     * @return array
+     */
     public function getTests()
     {
         assert(is_array($this->tests));
         return $this->tests;
     }
 
+    /*
+     * @return void
+     */
     protected function calculateState()
     {
         $tests = $this->getTests();
@@ -56,8 +81,8 @@ class sspmod_monitor_TestSuite extends sspmod_monitor_Test
         }
     }
 
-    protected function invokeTestSuite()
-    {
-        $this->calculateState();
-    }
+    /*
+     * @return void
+     */
+    abstract protected function invokeTestSuite();
 }

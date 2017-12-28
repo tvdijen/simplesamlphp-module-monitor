@@ -1,18 +1,26 @@
 <?php
 
-use sspmod_monitor_State as State;
+namespace SimpleSAML\Module\monitor\TestCase\Store\Memcache;
 
-final class sspmod_monitor_TestCase_Store_Memcache_ServerGroup extends sspmod_monitor_TestCase
+use \SimpleSAML\Module\monitor\State as State;
+
+final class ServerGroup extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     private $tests = null;
     private $group = null;
 
+    /*
+     * @return void
+     */
     protected function initialize()
     {
         $this->tests = $this->getInput('tests');
         $this->group = $this->getInput('group');
     }
 
+    /*
+     * @return void
+     */
     protected function invokeTest()
     {
         $states = array();

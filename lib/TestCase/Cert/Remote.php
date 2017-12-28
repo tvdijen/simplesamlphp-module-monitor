@@ -1,19 +1,25 @@
 <?php
 
-use sspmod_monitor_State as State;
+namespace SimpleSAML\Module\monitor\TestCase\Cert;
+
+use \SimpleSAML\Module\monitor\State as State;
+use \SimpleSAML\Module\monitor\TestCase as TestCase;
 
 // We're cheating here, because this TestCase doesn't decent from Cert, like Data and File do.
-final class sspmod_monitor_TestCase_Cert_Remote extends sspmod_monitor_TestCase
+final class Remote extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
-    private $connect_string = null;
+    private $connectString = null;
     private $context = null;
 
+    /*
+     * @return void
+     */
     protected function initialize()
     {
         $hostname = $this->getInput('hostname');
         $port = $this->getInput('port');
         $this->setCategory($this->getInput('category'));
-        $this->connect_string = 'ssl://' . $hostname . ':' . $port;
+        $this->connectString = 'ssl://' . $hostname . ':' . $port;
         $this->context = stream_context_create(
             array(
                 "ssl" => array(
@@ -28,10 +34,10 @@ final class sspmod_monitor_TestCase_Cert_Remote extends sspmod_monitor_TestCase
     protected function invokeTest()
     {
         $testsuite = $this->getTestSuite();
-        $test = new sspmod_monitor_TestCase_Network_ConnectUri(
+        $test = new TestCase\Network\ConnectUri(
             $testsuite,
             array(
-                'uri' => $this->connect_string,
+                'uri' => $this->connectString,
                 'context' => $this->context
             )
         );
@@ -41,7 +47,7 @@ final class sspmod_monitor_TestCase_Cert_Remote extends sspmod_monitor_TestCase
             $connection = $test->getOutput('connection');
             $cert = stream_context_get_params($connection);
             if (isSet($cert['options']['ssl']['peer_certificate'])) {
-                $test = new sspmod_monitor_TestCase_Cert_Data(
+                $test = new TestCase\Cert\Data(
                     $testsuite,
                     array(
                         'certData' => $cert['options']['ssl']['peer_certificate'],
@@ -52,7 +58,7 @@ final class sspmod_monitor_TestCase_Cert_Remote extends sspmod_monitor_TestCase
                 $this->setMessages($test->getMessages());
             } else {
                 $this->setState(State::SKIPPED);
-                $this->addMessage(State::SKIPPED, $this->getCategory(), $connect_string, 'Unable to capture peer certificate');
+                $this->addMessage(State::SKIPPED, $this->getCategory(), $this->connectString, 'Unable to capture peer certificate');
             }
         } else {
             $this->setState(State::FATAL);

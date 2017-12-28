@@ -5,7 +5,7 @@ $store = $this->data['store'];
 $state = $this->data['overall'];
 $authsources = $this->data['authsources'];
 $metadata = $this->data['metadata'];
-$health_info = $this->data['health_info'];
+$healthInfo = $this->data['health_info'];
 
 $this->includeAtTemplateBase('includes/header.php');
 
@@ -18,8 +18,8 @@ $this->includeAtTemplateBase('includes/header.php');
 
 foreach ($modules as $check) {
     list($health, $type, $item, $summary) = $check;
-    list($health_state, $health_color) = $health_info[$health];
-    echo " <tr><td style='color:$health_color;'>$health_state</td><td>$type</td><td>$item</td><td>$summary</td></tr>\n";
+    list($healthState, $healthColor) = $healthInfo[$health];
+    echo " <tr><td style='color:$healthColor;'>$healthState</td><td>$type</td><td>$item</td><td>$summary</td></tr>\n";
 }
 
 ?>
@@ -32,8 +32,8 @@ foreach ($modules as $check) {
 
 foreach ($configuration as $check) {
     list($health, $type, $item, $summary) = $check;
-    list($health_state, $health_color) = $health_info[$health];
-    echo " <tr><td style='color:$health_color;'>$health_state</td><td>$type</td><td>$item</td><td>$summary</td></tr>\n";
+    list($healthState, $healthColor) = $healthInfo[$health];
+    echo " <tr><td style='color:$healthColor;'>$healthState</td><td>$type</td><td>$item</td><td>$summary</td></tr>\n";
 }
 
 ?>
@@ -46,8 +46,8 @@ foreach ($configuration as $check) {
 
 foreach ($store as $check) {
     list($health, $type, $item, $summary) = $check;
-    list($health_state, $health_color) = $health_info[$health];
-    echo " <tr><td style='color:$health_color;'>$health_state</td><td>$type</td><td>$item</td><td>$summary</td></tr>\n";
+    list($healthState, $healthColor) = $healthInfo[$health];
+    echo " <tr><td style='color:$healthColor;'>$healthState</td><td>$type</td><td>$item</td><td>$summary</td></tr>\n";
 }
 
 ?>
@@ -63,8 +63,8 @@ foreach ($authsources as $name => $authsource) {
 <?php
     foreach ($authsource as $check) {
         list($health, $type, $item, $summary) = $check;
-        list($health_state, $health_color) = $health_info[$health];
-        echo "    <tr><td style='color:$health_color;'>$health_state</td><td>$type</td><td>$item</td><td>$summary</td></tr>\n";
+        list($healthState, $healthColor) = $healthInfo[$health];
+        echo "    <tr><td style='color:$healthColor;'>$healthState</td><td>$type</td><td>$item</td><td>$summary</td></tr>\n";
     }
 ?>
   </table>
@@ -80,8 +80,8 @@ foreach ($metadata as $entityId => $entity) {
 <?php
     foreach ($entity as $entityId => $check) {
         list($health, $type, $item, $summary) = $check;
-        list($health_state, $health_color) = $health_info[$health];
-        echo "    <tr><td style='color:$health_color;'>$health_state</td><td>$type</td><td>$item</td><td>$summary</td></tr>\n";
+        list($healthState, $healthColor) = $healthInfo[$health];
+        echo "    <tr><td style='color:$healthColor;'>$healthState</td><td>$type</td><td>$item</td><td>$summary</td></tr>\n";
     }
 ?>
   </table>
@@ -91,7 +91,7 @@ foreach ($metadata as $entityId => $entity) {
 ?>
 </div>
 <?php
-list($health_state, $health_color) = $health_info[$state];
-echo " <span>Overall status: <span style='color: $health_color;'>$health_state</span></span>\n";
+list($healthState, $healthColor) = $healthInfo[$state];
+echo " <span>Overall status: <span style='color: $healthColor;'>$healthState</span></span>\n";
 
 $this->includeAtTemplateBase('includes/footer.php');

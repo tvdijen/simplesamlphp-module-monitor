@@ -1,49 +1,58 @@
 <?php
 
-use sspmod_monitor_State as State;
+namespace SimpleSAML\Module\monitor\TestCase\AuthSource\Ldap;
 
-final class sspmod_monitor_TestCase_AuthSource_Ldap_Connect extends sspmod_monitor_TestCase
+use \SimpleSAML\Module\monitor\State as State;
+use \SimpleSAML\Module\monitor\TestCase as TestCase;
+
+final class Connect extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     private $connection = null;
 
     private $hostname = null;
     private $port = null;
-    private $enable_tls = null;
+    private $enableTls = null;
     private $timeout = null;
     private $referrals = null;
     private $debug = null;
 
+    /*
+     * @return void
+     */
     protected function initialize()
     {
         $this->hostname = $this->getInput('hostname');
 
-        $authsource_data = $this->getInput('authsource_data');
-        $this->port = $authsource_data['port'];
-        $this->enable_tls = $authsource_data['enable_tls'];
-        $this->timeout = isSet($authsource_data['timeout']) ? $authsource_data['timeout'] : 30;
-        $this->referrals = isSet($authsource_data['referrals']) ? $authsource_data['referrals'] : true;
-        $this->debug = isSet($authsource_data['debug']) ? $authsource_data['debug'] : false;
+        $authsourceData = $this->getInput('authsource_data');
+        $this->port = $authsourceData['port'];
+        $this->enableTls = $authsourceData['enable_tls'];
+        $this->timeout = isSet($authsourceData['timeout']) ? $authsourceData['timeout'] : 30;
+        $this->referrals = isSet($authsourceData['referrals']) ? $authsourceData['referrals'] : true;
+        $this->debug = isSet($authsourceData['debug']) ? $authsourceData['debug'] : false;
     }
 
+    /*
+     * @return void
+     */
     protected function invokeTest()
     {
         try {
-            $this->connection = new SimpleSAML_Auth_LDAP(
+            $this->connection = new \SimpleSAML_Auth_LDAP(
                 $this->hostname,
-                $this->enable_tls,
+                $this->enableTls,
                 $this->debug,
                 $this->timeout,
                 $this->port,
                 $this->referrals
             );
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->setState(State::FATAL);
             $msg = str_replace('Library - LDAP __construct(): ', '', $e->getMessage());
-            $connect_string = $this->hostname;
+            $connectString = $this->hostname;
             if (!preg_match('/^(ldap[s]?:\/\/(.*))$/', $this->hostname, $matches)) {
-                $connect_string = $this->hostname . ':' . $this->port;
+                $connectString = $this->hostname . ':' . $this->port;
             }
-            $this->addMessage(State::FATAL, 'Network connection', $connect_string, $msg);
+            $this->addMessage(State::FATAL, 'Network connection', $connectString, $msg);
             return;
         }
         $testsuite = $this->getTestSuite();
@@ -57,7 +66,7 @@ final class sspmod_monitor_TestCase_AuthSource_Ldap_Connect extends sspmod_monit
             $context = stream_context_create();
         }
 
-        $test = new sspmod_monitor_TestCase_Network_ConnectUri($testsuite, array('uri' => $uri, 'context' => $context));
+        $test = new TestCase\Network\ConnectUri($testsuite, array('uri' => $uri, 'context' => $context));
         $state = $test->getState();
 
         if ($state === State::OK) {

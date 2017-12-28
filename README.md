@@ -11,7 +11,7 @@ Add ?xml to the url to get an XML-representation of the monitoring-page, for use
 
 The XML-page will also set a HTTP reponse-code corresponding to the 'overall status':
 200 - Everything is OK
-417 - The is at least one warning
+417 - There is at least one warning
 500 - There is at least one error
 
 # Installation

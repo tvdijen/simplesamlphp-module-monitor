@@ -1,14 +1,26 @@
 <?php
 
-final class sspmod_monitor_TestSuite_Store_Phpsession extends sspmod_monitor_TestSuite
+namespace SimpleSAML\Module\monitor\TestSuite\Store;
+
+use \SimpleSAML\Module\monitor\TestCase as TestCase;
+
+final class Phpsession extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
+    /*
+     * @return void
+     */
+    protected function initialize() {}
+
+    /*
+     * @return void
+     */
     protected function invokeTestSuite()
     {
         $path = session_save_path();
-        $test = new sspmod_monitor_TestCase_FileSystem_FreeSpace($this, array('path' => $path));
+        $test = new TestCase\FileSystem\FreeSpace($this, array('path' => $path));
         $this->addTest($test);
 
         $this->setMessages($test->getMessages());
-        parent::invokeTestSuite();
+        $this->calculateState();
     }
 }

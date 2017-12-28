@@ -1,23 +1,34 @@
 <?php
 
-use sspmod_monitor_State as State;
+namespace SimpleSAML\Module\monitor\TestSuite;
 
-final class sspmod_monitor_TestSuite_Metadata extends sspmod_monitor_TestSuite
+use \SimpleSAML\Module\monitor\TestCase as TestCase;
+
+final class Metadata extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
+    /*
+     * @return void
+     */
+    protected function initialize() {}
+
+    /*
+     * @return void
+     */
     protected function invokeTestSuite()
     {
         $monitor = $this->getMonitor();
-        $module_config = $monitor->getModuleConfig();
-        $metadata_config = $monitor->getMetadataConfig();
-        $check_metadata = $module_config->getValue('check_metadata', true);
+        $moduleConfig = $monitor->getModuleConfig();
+        $metadataConfig = $monitor->getMetadataConfig();
+        $checkMetadata = $moduleConfig->getValue('check_metadata', true);
 
-        if ($check_metadata === true) {
-            $metadata = $metadata_config;
-        } else if (is_array($check_metadata)) {
-            foreach ($check_metadata as $set => $entityId) {
-                if (array_key_exists($set, $metadata_config)) {
-                    if (array_key_exists($entityId, $metadata_config[$set])) {
-                        $metadata[$set][$entityId] = $metadata_config[$set][$entityId];
+        if ($checkMetadata === true) {
+            $metadata = $metadataConfig;
+        } else if (is_array($checkMetadata)) {
+            $metadata = array();
+            foreach ($checkMetadata as $set => $entityId) {
+                if (array_key_exists($set, $metadataConfig)) {
+                    if (array_key_exists($entityId, $metadataConfig[$set])) {
+                        $metadata[$set][$entityId] = $metadataConfig[$set][$entityId];
                     }
                 }
             }
@@ -25,20 +36,18 @@ final class sspmod_monitor_TestSuite_Metadata extends sspmod_monitor_TestSuite
             return;
         }
 
-        $output = array();
-        foreach ($metadata as $set => $metadata_set) {
-            foreach ($metadata_set as $entityId => $entity_metadata) {
-                $output = array();
+        foreach ($metadata as $set => $metadataSet) {
+            foreach ($metadataSet as $entityId => $entityMetadata) {
                 if (preg_match('/__DYNAMIC(:[0-9]+)?__/', $entityId)) {
                     $entityId = $this->generateDynamicHostedEntityID($set);
                 }
 
-                $expiration_test = new sspmod_monitor_TestCase_Metadata_Expiration($monitor, array('entityId' => $entityId, 'metadata' => $entity_metadata));
-                $this->addTest($expiration_test);
-                $this->addMessages($expiration_test->getMessages(), $entityId);
+                $expirationTest = new TestCase\Metadata\Expiration($monitor, array('entityId' => $entityId, 'metadata' => $entityMetadata));
+                $this->addTest($expirationTest);
+                $this->addMessages($expirationTest->getMessages(), $entityId);
 
-                if (array_key_exists('keys', $entity_metadata)) {
-                    $keys = $entity_metadata['keys'];
+                if (array_key_exists('keys', $entityMetadata)) {
+                    $keys = $entityMetadata['keys'];
                     foreach ($keys as $key) {
                         if ($key['encryption'] === true && $key['signing'] === false) {
                             $category = 'Encryption certificate';
@@ -52,17 +61,21 @@ final class sspmod_monitor_TestSuite_Metadata extends sspmod_monitor_TestSuite
                             'category' => $category,
                             'certData' => "-----BEGIN CERTIFICATE-----\n" . $key['X509Certificate'] . "\n-----END CERTIFICATE-----"
                         );
-                        $certificate_test = new sspmod_monitor_TestCase_Cert_Data($this, $input);
-                        $this->addTest($certificate_test);
-                        $this->addMessages($certificate_test->getMessages(), $entityId);
+                        $certificateTest = new TestCase\Cert\Data($this, $input);
+                        $this->addTest($certificateTest);
+                        $this->addMessages($certificateTest->getMessages(), $entityId);
                     }
                 }
             }
         }
-        parent::invokeTestSuite();
+
+        $this->calculateState();
     }
 
     // Borrowed this from lib/SimpleSAML/Metadata/MetaDataStorageHandlerFlatFile.php until we take care of different sources properly
+    /*
+     * @return string
+     */
     private function generateDynamicHostedEntityID($set)
     {
         // get the configuration
@@ -77,7 +90,7 @@ final class sspmod_monitor_TestSuite_Metadata extends sspmod_monitor_TestSuite
         } elseif ($set === 'adfs-idp-hosted') {
             return 'urn:federation:'.\SimpleSAML\Utils\HTTP::getSelfHost().':idp';
         } else {
-            throw new Exception('Can not generate dynamic EntityID for metadata of this type: ['.$set.']');
+            throw new \Exception('Can not generate dynamic EntityID for metadata of this type: ['.$set.']');
         }
     }
 

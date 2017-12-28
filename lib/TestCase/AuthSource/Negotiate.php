@@ -1,26 +1,34 @@
 <?php
 
-use sspmod_monitor_State as State;
+namespace SimpleSAML\Module\monitor\TestCase\AuthSource;
 
-final class sspmod_monitor_TestCase_AuthSource_Negotiate extends sspmod_monitor_TestCase
+use \SimpleSAML\Module\monitor\State as State;
+
+final class Negotiate extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     private $xml = null;
     private $keytab = null;
 
+    /*
+     * @return void
+     */
     protected function initialize()
     {
         $this->keytab = $this->getInput('keytab');
         $this->xml = isSet($_REQUEST['xml']);
     }
 
+    /*
+     * @return void
+     */
     protected function invokeTest()
     {
         $xml = $this->xml;
         if ($xml === false) {
-            $auth = new KRB5NegotiateAuth($this->keytab);
+            $auth = new \KRB5NegotiateAuth($this->keytab);
             try {
                 $reply = @$auth->doAuthentication();
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 // Fallthru
                 $this->setState(State::WARNING);
                 $this->addMessage(State::WARNING, 'Authentication', 'Kerberos token validation', $e->getMessage());

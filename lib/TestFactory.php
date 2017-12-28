@@ -1,44 +1,88 @@
 <?php
 
-use sspmod_monitor_State as State;
+namespace SimpleSAML\Module\monitor;
 
-abstract class sspmod_monitor_Test
+abstract class TestFactory
 {
+    /*
+     * @var array|null
+     */
     private $input = array('category' => 'Unknown category');
+
+    /*
+     * @var array|null
+     */
     private $output = array();
+
+    /*
+     * @var State
+     */
     private $state = State::NOSTATE;
+
+    /*
+     * @var array
+     */
     private $messages = array();
 
+    /*
+     * @return array
+     */
     public function getMessages()
     {
         assert(is_array($this->messages));
         return $this->messages;
     }
 
+
+    /*
+     * @param string|null $item
+     *
+     * @return mixed
+     */
     protected function getInput($item = null)
     {
         assert(is_string($item) || is_null($item));
         return is_null($item) ? $this->input : (isSet($this->input[$item]) ? $this->input[$item] : null);
     }
 
+
+    /*
+     * @param string|null $item
+     *
+     * @return mixed
+     */
     public function getOutput($item = null)
     {
         assert(is_string($item) || is_null($item));
         return is_null($item) ? $this->output : (isSet($this->output[$item]) ? $this->output[$item] : null);
     }
 
+
+    /*
+     * @return State
+     */
     public function getState()
     {
-        assert(is_int($this->state));
+        assert($this->state instanceof State);
         return $this->state;
     }
 
+
+    /*
+     * @return void
+     */
     protected function setMessages($messages)
     {
         assert(is_array($messages));
         $this->messages = $messages;
     }
 
+
+    /*
+     * @param array $messages
+     * @param string|null $index
+     * @return void
+     */
     protected function addMessages($messages, $index = null)
     {
         if ($index === null) {
@@ -50,18 +94,40 @@ abstract class sspmod_monitor_Test
         }
     }
 
+
+    /*
+     * @param sspmod_monitor_State
+     * @param string $category
+     * @param string $subject
+     * @param string $message
+     *
+     * @return void
+     */
     protected function addMessage($state, $category, $subject, $message)
     {
-        assert(is_int($state) && is_string($category) && is_string($subject) && is_string($message));
+        assert(($state instanceof State) && is_string($category) && is_string($subject) && is_string($message));
         $this->messages[] = array($state, $category, $subject, $message);
     }
 
-    protected function setInput($input)
+
+    /*
+     * @param array|null $input
+     *
+     * @return void
+     */
+    protected function setInput($input = null)
     {
         assert(is_array($input) || is_null($input));
         $this->input = $input;
     }
 
+
+    /*
+     * @param mixed $value
+     * @param string|null $index
+     *
+     * @return void
+     */
     protected function addOutput($value, $index = null)
     {
         if ($index === null) {
@@ -71,15 +137,23 @@ abstract class sspmod_monitor_Test
         }
     }
 
+
+    /*
+     * @return void
+     */
     protected function setOutput($output)
     {
         assert(is_array($output));
         $this->output = $output;
     }
 
+
+    /*
+     * @return void
+     */
     protected function setState($state)
     {
-        assert(is_int($state));
+        assert($state instanceof State);
         $this->state = $state;
     }
 }

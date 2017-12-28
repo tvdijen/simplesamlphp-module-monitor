@@ -1,18 +1,26 @@
 <?php
 
-use sspmod_monitor_State as State;
+namespace SimpleSAML\Module\monitor\TestCase\Metadata;
 
-final class sspmod_monitor_TestCase_Metadata_Expiration extends sspmod_monitor_TestCase
+use \SimpleSAML\Module\monitor\State as State;
+
+final class Expiration extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     private $entityId = null;
     private $metadata = null;
 
+    /*
+     * @return void
+     */
     protected function initialize()
     {
         $this->entityId = $this->getInput('entityId');
         $this->metadata = $this->getInput('metadata');
     }
 
+    /*
+     * @return void
+     */
     protected function invokeTest()
     {
         if (array_key_exists('expire', $this->metadata)) {

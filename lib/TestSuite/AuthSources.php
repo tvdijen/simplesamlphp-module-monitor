@@ -1,59 +1,67 @@
 <?php
 
-use sspmod_monitor_State as State;
+namespace SimpleSAML\Module\monitor\TestSuite;
 
-final class sspmod_monitor_TestSuite_AuthSources extends sspmod_monitor_TestSuite
+final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
+    /*
+     * @return void
+     */
+    protected function initialize() {}
+
+    /*
+     * @return void
+     */
     protected function invokeTestSuite()
     {
         $monitor = $this->getMonitor();
-        $module_config = $monitor->getModuleConfig();
-        $authsource_config = $monitor->getAuthsourceConfig();
-        $check_authsources = $module_config->getValue('check_authsources', true);
+        $moduleConfig = $monitor->getModuleConfig();
+        $authsourceConfig = $monitor->getAuthsourceConfig();
+        $checkAuthsources = $moduleConfig->getValue('check_authsources', true);
 
-        if ($check_authsources === true) {
-            $authsources = $authsource_config->getOptions();
-        } else if (is_array($check_authsources)) {
-            $authsources = array_intersect($authsource_config->getOptions(), $check_authsources);
+        if ($checkAuthsources === true) {
+            $authsources = $authsourceConfig->getOptions();
+        } else if (is_array($checkAuthsources)) {
+            $authsources = array_intersect($authsourceConfig->getOptions(), $checkAuthsources);
         } else { // false or invalid value
             return;
         }
 
-        foreach ($authsources as $authsource_id) {
-            $authsource_data = $authsource_config->getValue($authsource_id);
+        foreach ($authsources as $authsourceId) {
+            $authsourceData = $authsourceConfig->getValue($authsourceId);
             
-            switch ($authsource_data[0]) {
+            switch ($authsourceData[0]) {
                 case 'ldap:LDAP':
-                    $test = new sspmod_monitor_TestSuite_AuthSource_Ldap($monitor, array('authsource_id' => $authsource_id, 'authsource_data' => $authsource_data));
+                    $test = new AuthSource\Ldap($monitor, array('authsource_id' => $authsourceId, 'authsource_data' => $authsourceData));
                     $this->addTest($test);
-                    $this->addMessages($test->getMessages(), $authsource_id);
+                    $this->addMessages($test->getMessages(), $authsourceId);
                     break;
                 case 'negotiate:Negotiate':
-                    $test = new sspmod_monitor_TestSuite_AuthSource_Negotiate($monitor, array('authsource_id' => $authsource_id, 'authsource_data' => $authsource_data));
+                    $test = new AuthSource\Negotiate($monitor, array('authsource_id' => $authsourceId, 'authsource_data' => $authsourceData));
                     $this->addTest($test);
-                    $this->addMessages($test->getMessages(), $authsource_id);
+                    $this->addMessages($test->getMessages(), $authsourceId);
 
                     // Prep authsource data
-                    if (isSet($authsource_data['debugLDAP'])) {
-                        $authsource_data['debug'] = $authsource_data['debugLDAP'];
-                        unset($authsource_data['debugLDAP']);
+                    if (isSet($authsourceData['debugLDAP'])) {
+                        $authsourceData['debug'] = $authsourceData['debugLDAP'];
+                        unset($authsourceData['debugLDAP']);
                     }
-                    if (isSet($authsource_data['adminUser'])) {
-                        $authsource_data['search.username'] = $authsource_data['adminUser'];
-                        unset($authsource_data['adminUser']);
+                    if (isSet($authsourceData['adminUser'])) {
+                        $authsourceData['search.username'] = $authsourceData['adminUser'];
+                        unset($authsourceData['adminUser']);
                     }
-                    if (isSet($authsource_data['adminPassword'])) {
-                        $authsource_data['search.password'] = $authsource_data['adminPassword'];
-                        unset($authsource_data['adminPassword']);
+                    if (isSet($authsourceData['adminPassword'])) {
+                        $authsourceData['search.password'] = $authsourceData['adminPassword'];
+                        unset($authsourceData['adminPassword']);
                     }
-                    if (isSet($authsource_data['base'])) {
-                        $authsource_data['search.base'] = $authsource_data['base'];
-                        unset($authsource_data['base']);
+                    if (isSet($authsourceData['base'])) {
+                        $authsourceData['search.base'] = $authsourceData['base'];
+                        unset($authsourceData['base']);
                     }
 
-                    $ldap_test = new sspmod_monitor_TestSuite_AuthSource_Ldap($monitor, array('authsource_id' => $authsource_id, 'authsource_data' => $authsource_data));
-                    $this->addTest($ldap_test);
-                    $this->addMessages($ldap_test->getMessages(), $authsource_id);
+                    $ldapTest = new AuthSource\Ldap($monitor, array('authsource_id' => $authsourceId, 'authsource_data' => $authsourceData));
+                    $this->addTest($ldapTest);
+                    $this->addMessages($ldapTest->getMessages(), $authsourceId);
 
                     break;
                 case 'multiauth:MultiAuth':
@@ -65,6 +73,6 @@ final class sspmod_monitor_TestSuite_AuthSources extends sspmod_monitor_TestSuit
             }
         }
 
-        parent::invokeTestSuite();
+        $this->calculateState();
     }
 }

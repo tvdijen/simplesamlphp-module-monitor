@@ -1,15 +1,17 @@
 <?php
 
-use sspmod_monitor_State as State;
+namespace SimpleSAML\Module\monitor\TestSuite;
 
-final class sspmod_monitor_TestSuite_Modules extends sspmod_monitor_TestSuite
+use \SimpleSAML\Module\monitor\State as State;
+
+final class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
-    private $required_apache_modules = array();
-    private $required_php_modules = array();
+    private $requiredApacheModules = array();
+    private $requiredPhpModules = array();
 
     // Important!!  Modules-names are handled case-sensitive!!
-    private $store_apache_dependencies = array();
-    private $store_php_dependencies = array(
+    private $storeApacheDependencies = array();
+    private $storePhpDependencies = array(
         'memcache' => 'memcached|memcache',
         'phpsession' => 'session',
         'redis' => 'redis',
@@ -18,12 +20,12 @@ final class sspmod_monitor_TestSuite_Modules extends sspmod_monitor_TestSuite
         'sql' => 'PDO'
     );
 
-    private $module_apache_dependencies = array(
+    private $moduleApacheDependencies = array(
         'negotiateext' => 'mod_auth_kerb|mod_auth_gssapi'
     );
-    private $module_php_dependencies = array(
+    private $modulePhpDependencies = array(
         'authfacebook' => array('curl', 'json'),
-        'authYubiKey' => 'curl';
+        'authYubiKey' => 'curl',
 // TODO: consent only requires pdo when database backend is used.. Should probably add this to required-list when processing metadata
 //        'consent' => 'PDO',
         'consentAdmin' => 'PDO',
@@ -35,24 +37,49 @@ final class sspmod_monitor_TestSuite_Modules extends sspmod_monitor_TestSuite
         'sqlauth' => 'PDO'
     );
 
+    /*
+     * @return void
+     */
     protected function initialize()
     {
         $this->setRequiredModules();
     }
 
-    private function addRequiredApacheModule($module) {
-        if (!in_array($module, $this->required_apache_modules)) {
-            $this->required_apache_modules[] = $module;
+    /*
+     * @return void
+     */
+    private function addRequiredApacheModule($module)
+    {
+        if (!in_array($module, $this->requiredApacheModules)) {
+            $this->requiredApacheModules[] = $module;
         }
     }
 
-    private function addRequiredPhpModule($module) {
-        if (!in_array($module, $this->required_php_modules)) {
-            $this->required_php_modules[] = $module;
+    /*
+     * @return void
+     */
+    private function addRequiredPhpModule($module)
+    {
+        if (!in_array($module, $this->requiredPhpModules)) {
+            $this->requiredPhpModules[] = $module;
         }
     }
 
-    private function setRequiredModules() {
+    /*
+     * @return void
+     */
+    private function setRequiredModules()
+    {
+        $this->setRequiredApacheModules();
+        $this->setRequiredPhpModules();
+        $this->setRequiredSspModules();
+    }
+
+    /*
+     * @return void
+     */
+    private function setRequiredApacheModules()
+    {
         // Apache Modules
         if (\SimpleSAML\Utils\HTTP::isHTTPS()) {
             $this->addRequiredApacheModule('mod_ssl');
@@ -61,14 +88,27 @@ final class sspmod_monitor_TestSuite_Modules extends sspmod_monitor_TestSuite
             $this->addRequiredApacheModule('mod_php|mod_php5');
         }
 
-        // PHP modules
-        $composer_file = \SimpleSAML\Utils\System::resolvePath('composer.json');
-        $composer_data = file_get_contents($composer_file);
-        $composer = json_decode($composer_data, true);
-        $composer_required = $composer['require'];
+        // Determine extra required modules
+        $monitor = $this->getMonitor();
+        $globalConfig = $monitor->getGlobalConfig();
+        $store = $globalConfig->getValue('store.type');
+        if (array_key_exists($store, $this->storeApacheDependencies)) {
+            $this->addRequiredApacheModule($this->storeApacheDependencies[$store]);
+        }
+    }
 
-        $required = array();
-        foreach ($composer_required as $ext => $ver) {
+    /*
+     * @return void
+     */
+    private function setRequiredPhpModules()
+    {
+        // PHP modules
+        $composerFile = \SimpleSAML\Utils\System::resolvePath('composer.json');
+        $composerData = file_get_contents($composerFile);
+        $composer = json_decode($composerData, true);
+        $composerRequired = $composer['require'];
+
+        foreach ($composerRequired as $ext => $ver) {
             if (preg_match('/^ext-/', $ext)) {
                 $this->addRequiredPhpModule(substr($ext, 4));
             }
@@ -76,26 +116,29 @@ final class sspmod_monitor_TestSuite_Modules extends sspmod_monitor_TestSuite
 
         // Determine extra required modules
         $monitor = $this->getMonitor();
-        $global_config = $monitor->getGlobalConfig();
-        $store = $global_config->getValue('store.type');
-        if (array_key_exists($store, $this->store_apache_dependencies)) {
-            $this->addRequiredApacheModule($this->store_apache_dependencies[$store]);
+        $globalConfig = $monitor->getGlobalConfig();
+        $store = $globalConfig->getValue('store.type');
+        if (array_key_exists($store, $this->storePhpDependencies)) {
+            $this->addRequiredPhpModule($this->storePhpDependencies[$store]);
         }
-        if (array_key_exists($store, $this->store_php_dependencies)) {
-            $this->addRequiredPhpModule($this->store_php_dependencies[$store]);
-        }
+    }
 
+    /*
+     * @return void
+     */
+    private function setRequiredSspModules()
+    {
         $modules = \SimpleSAML\Module::getModules();
         foreach ($modules as $module) {
             if (\SimpleSAML\Module::isModuleEnabled($module)) {
-                if (array_key_exists($module, $this->module_apache_dependencies)) {
-                    $dependencies = \SimpleSAML\Utils\Arrays::Arrayize($this->module_apache_dependencies[$module]);
+                if (array_key_exists($module, $this->moduleApacheDependencies)) {
+                    $dependencies = \SimpleSAML\Utils\Arrays::Arrayize($this->moduleApacheDependencies[$module]);
                     foreach ($dependencies as $dependency) {
                         $this->addRequiredApacheModule($dependency);
                     }
                 }
-                if (array_key_exists($module, $this->module_php_dependencies)) {
-                    $dependencies = \SimpleSAML\Utils\Arrays::Arrayize($this->module_php_dependencies[$module]);
+                if (array_key_exists($module, $this->modulePhpDependencies)) {
+                    $dependencies = \SimpleSAML\Utils\Arrays::Arrayize($this->modulePhpDependencies[$module]);
                     foreach ($dependencies as $dependency) {
                         $this->addRequiredPhpModule($dependency);
                     }
@@ -104,45 +147,60 @@ final class sspmod_monitor_TestSuite_Modules extends sspmod_monitor_TestSuite
         }
     }
 
+    /*
+     * @return array
+     */
     public function getAvailableApacheModules()
     {
         $monitor = $this->getMonitor();
         return $monitor->getAvailableApacheModules();
     }
 
+    /*
+     * @return array
+     */
     public function getAvailablePhpModules()
     {
         $monitor = $this->getMonitor();
         return $monitor->getAvailablePhpModules();
     }
 
+    /*
+     * @return array<string,array>
+     */
     private function getRequiredModules()
     {
-        return array('Apache' => $this->required_apache_modules, 'Php' => $this->required_php_modules);
+        return array('Apache' => $this->requiredApacheModules, 'Php' => $this->requiredPhpModules);
     }
 
+    /*
+     * @return array<string,array>
+     */
     private function getModuleDependencies()
     {
-        return array('Apache' => $this->module_apache_dependencies, 'Php' => $this->module_php_dependencies);
+        return array('Apache' => $this->moduleApacheDependencies, 'Php' => $this->modulePhpDependencies);
     }
 
+    /*
+     * @return void
+     */
     protected function invokeTestSuite()
     {
         $monitor = $this->getMonitor();
-        $available_modules = array('Apache' => $monitor->getAvailableApacheModules(), 'Php' => $monitor->getAvailablePhpModules());
+        $availableModules = array('Apache' => $monitor->getAvailableApacheModules(), 'Php' => $monitor->getAvailablePhpModules());
 
-        $required_modules = $this->getRequiredModules();
-        $module_dependencies = $this->getModuleDependencies();
+        $requiredModules = $this->getRequiredModules();
+        $moduleDependencies = $this->getModuleDependencies();
         $output = array();
 
         // Test for the availability of required modules
-        foreach ($available_modules as $category => $available) {
+        foreach ($availableModules as $category => $available) {
             if (is_null($available)) {
-                $output[$category][] = array(State::SKIPPED, $category, implode(', ', $required_modules[$category]), 'Unable to verify installed modules');
+                $output[$category][] = array(State::SKIPPED, $category, implode(', ', $requiredModules[$category]), 'Unable to verify installed modules');
             } else {
-                $class = 'sspmod_monitor_TestCase_Module_' . $category;
-                $dependencies = array_key_exists($category, $module_dependencies) ? $module_dependencies[$category] : array();
-                $required = array_key_exists($category, $required_modules) ? $required_modules[$category] : array();
+                $class = '\\SimpleSAML\\Module\\monitor\\TestCase\\Module\\' . $category;
+                $dependencies = array_key_exists($category, $moduleDependencies) ? $moduleDependencies[$category] : array();
+                $required = array_key_exists($category, $requiredModules) ? $requiredModules[$category] : array();
 
                 foreach ($required as $require) {
                     $test = new $class($this, array('module' => $require));
@@ -169,7 +227,7 @@ final class sspmod_monitor_TestSuite_Modules extends sspmod_monitor_TestSuite
         }
 
         $tests = $this->getTests();
-        foreach ($available_modules as $category => $available) {
+        foreach ($availableModules as $category => $available) {
             $categories = array_fill(0, count($tests), $category);
             if (!isSet($output[$category])) {
                 $modules = array_map(
@@ -183,6 +241,6 @@ final class sspmod_monitor_TestSuite_Modules extends sspmod_monitor_TestSuite
             $this->addMessages($output[$category], $category);
         }
 
-        parent::invokeTestSuite();
+        $this->calculateState();
     }
 }
