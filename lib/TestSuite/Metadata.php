@@ -16,9 +16,9 @@ final class Metadata extends \SimpleSAML\Module\monitor\TestSuiteFactory
      */
     protected function invokeTestSuite()
     {
-        $monitor = $this->getMonitor();
-        $moduleConfig = $monitor->getModuleConfig();
-        $metadataConfig = $monitor->getMetadataConfig();
+        $configuration = $this->getConfiguration();
+        $moduleConfig = $configuration->getModuleConfig();
+        $metadataConfig = $configuration->getMetadataConfig();
         $checkMetadata = $moduleConfig->getValue('check_metadata', true);
 
         if ($checkMetadata === true) {
@@ -42,7 +42,7 @@ final class Metadata extends \SimpleSAML\Module\monitor\TestSuiteFactory
                     $entityId = $this->generateDynamicHostedEntityID($set);
                 }
 
-                $expirationTest = new TestCase\Metadata\Expiration($monitor, array('entityId' => $entityId, 'metadata' => $entityMetadata));
+                $expirationTest = new TestCase\Metadata\Expiration($this, array('entityId' => $entityId, 'metadata' => $entityMetadata));
                 $this->addTest($expirationTest);
                 $this->addMessages($expirationTest->getMessages(), $entityId);
 

@@ -7,7 +7,8 @@ use \SimpleSAML\Module\monitor\Monitor as Monitor;
 
 $monitor = new Monitor();
 
-$globalConfig = $monitor->getGlobalConfig();
+$configuration = $monitor->getConfiguration();
+$globalConfig = $configuration->getGlobalConfig();
 
 $monitor->invokeTestSuites();
 $results = $monitor->getResults();

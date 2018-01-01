@@ -4,18 +4,18 @@ namespace SimpleSAML\Module\monitor;
 
 abstract class TestSuiteFactory extends TestFactory
 {
-    private $monitor = null;
+    private $configuration = null;
     private $tests = null;
 
     /**
-     * @param Monitor $monitor
+     * @param Configuration $configuration
      */
-    public function __construct($monitor, $input)
+    public function __construct($configuration, $input)
     {
-        assert($monitor instanceof Monitor);
+        assert($configuration instanceof Configuration);
         assert(is_array($input));
 
-        $this->setMonitor($monitor);
+        $this->setConfiguration($configuration);
         $this->setInput($input);
         $this->initialize();
         $this->setInput(null);
@@ -28,23 +28,23 @@ abstract class TestSuiteFactory extends TestFactory
     abstract protected function initialize();
 
     /*
-     * @param Monitor $monitor
+     * @param Configuration $configuration
      *
      * @return void
      */
-    private function setMonitor($monitor)
+    private function setConfiguration($configuration)
     {
-        assert($monitor instanceof Monitor);
-        $this->monitor = $monitor;
+        assert($configuration instanceof Configuration);
+        $this->configuration = $configuration;
     }
 
     /*
-     * @return Monitor
+     * @return Configuration
      */
-    public function getMonitor()
+    public function getConfiguration()
     {
-        assert(is_a($this->monitor, 'sspmod_monitor_Monitor'));
-        return $this->monitor;
+        assert($configuration instanceof Configuration);
+        return $this->configuration;
     }
 
     /*
@@ -52,7 +52,7 @@ abstract class TestSuiteFactory extends TestFactory
      */
     protected function addTest($test)
     {
-        assert(is_a($test, 'sspmod_monitor_Test'));
+        assert($test instanceof TestFactory);
         $this->tests[] = $test;
     }
 

@@ -16,8 +16,8 @@ final class Configuration extends \SimpleSAML\Module\monitor\TestSuiteFactory
      */
     protected function invokeTestSuite()
     {
-        $monitor = $this->getMonitor();
-        $globalConfig = $monitor->getGlobalConfig();
+        $configuration = $this->getConfiguration();
+        $globalConfig = $configuration->getGlobalConfig();
         // Check Service Communications Certificate
         if (\SimpleSAML\Utils\HTTP::isHTTPS()) {
             $input = array(

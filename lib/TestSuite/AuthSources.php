@@ -14,9 +14,9 @@ final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
      */
     protected function invokeTestSuite()
     {
-        $monitor = $this->getMonitor();
-        $moduleConfig = $monitor->getModuleConfig();
-        $authsourceConfig = $monitor->getAuthsourceConfig();
+        $configuration = $this->getConfiguration();
+        $moduleConfig = $configuration->getModuleConfig();
+        $authsourceConfig = $configuration->getAuthsourceConfig();
         $checkAuthsources = $moduleConfig->getValue('check_authsources', true);
 
         if ($checkAuthsources === true) {
@@ -32,12 +32,12 @@ final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
             
             switch ($authsourceData[0]) {
                 case 'ldap:LDAP':
-                    $test = new AuthSource\Ldap($monitor, array('authsource_id' => $authsourceId, 'authsource_data' => $authsourceData));
+                    $test = new AuthSource\Ldap($configuration, array('authsource_id' => $authsourceId, 'authsource_data' => $authsourceData));
                     $this->addTest($test);
                     $this->addMessages($test->getMessages(), $authsourceId);
                     break;
                 case 'negotiate:Negotiate':
-                    $test = new AuthSource\Negotiate($monitor, array('authsource_id' => $authsourceId, 'authsource_data' => $authsourceData));
+                    $test = new AuthSource\Negotiate($configuration, array('authsource_id' => $authsourceId, 'authsource_data' => $authsourceData));
                     $this->addTest($test);
                     $this->addMessages($test->getMessages(), $authsourceId);
 
@@ -59,7 +59,7 @@ final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
                         unset($authsourceData['base']);
                     }
 
-                    $ldapTest = new AuthSource\Ldap($monitor, array('authsource_id' => $authsourceId, 'authsource_data' => $authsourceData));
+                    $ldapTest = new AuthSource\Ldap($configuration, array('authsource_id' => $authsourceId, 'authsource_data' => $authsourceData));
                     $this->addTest($ldapTest);
                     $this->addMessages($ldapTest->getMessages(), $authsourceId);
 

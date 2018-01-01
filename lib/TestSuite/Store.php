@@ -16,16 +16,16 @@ final class Store extends \SimpleSAML\Module\monitor\TestSuiteFactory
      */
     protected function invokeTestSuite()
     {
-        $monitor = $this->getMonitor();
-        $globalConfig = $monitor->getGlobalConfig();
+        $configuration = $this->getConfiguration();
+        $globalConfig = $configuration->getGlobalConfig();
 
         $store = $globalConfig->getString('store.type');
         switch ($store) {
             case 'phpsession':
-                $test = new Store\Phpsession($monitor, array());
+                $test = new Store\Phpsession($configuration, array());
                 break;
             case 'memcache':
-                $test = new Store\Memcache($monitor, array());
+                $test = new Store\Memcache($configuration, array());
                 break;
 // TODO:
 //            case 'redis':

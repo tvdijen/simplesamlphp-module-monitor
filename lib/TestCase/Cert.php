@@ -91,8 +91,8 @@ class Cert extends \SimpleSAML\Module\monitor\TestCaseFactory
         $this->calculateExpiration();
 
         $testsuite = $this->getTestSuite();
-        $monitor = $testsuite->getMonitor();
-        $moduleConfig = $monitor->getModuleConfig();
+        $configuration = $testsuite->getConfiguration();
+        $moduleConfig = $configuration->getModuleConfig();
 
         $expiration = $this->getExpiration();
         $subject = $this->getSubject();

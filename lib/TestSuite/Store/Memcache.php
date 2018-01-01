@@ -16,8 +16,8 @@ final class Memcache extends \SimpleSAML\Module\monitor\TestSuiteFactory
      */
     protected function invokeTestSuite()
     {
-        $monitor = $this->getMonitor();
-        $globalConfig = $monitor->getGlobalConfig();
+        $configuration = $this->getConfiguration();
+        $globalConfig = $configuration->getGlobalConfig();
 
         // Check Memcache-servers
         $class = class_exists('Memcache') ? 'Memcache' : (class_exists('Memcached') ? 'Memcached' : false);

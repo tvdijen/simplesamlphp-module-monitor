@@ -89,8 +89,8 @@ final class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
         }
 
         // Determine extra required modules
-        $monitor = $this->getMonitor();
-        $globalConfig = $monitor->getGlobalConfig();
+        $configuration = $this->getConfiguration();
+        $globalConfig = $configuration->getGlobalConfig();
         $store = $globalConfig->getValue('store.type');
         if (array_key_exists($store, $this->storeApacheDependencies)) {
             $this->addRequiredApacheModule($this->storeApacheDependencies[$store]);
@@ -115,8 +115,8 @@ final class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
         }
 
         // Determine extra required modules
-        $monitor = $this->getMonitor();
-        $globalConfig = $monitor->getGlobalConfig();
+        $configuration = $this->getConfiguration();
+        $globalConfig = $configuration->getGlobalConfig();
         $store = $globalConfig->getValue('store.type');
         if (array_key_exists($store, $this->storePhpDependencies)) {
             $this->addRequiredPhpModule($this->storePhpDependencies[$store]);
@@ -152,8 +152,8 @@ final class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
      */
     public function getAvailableApacheModules()
     {
-        $monitor = $this->getMonitor();
-        return $monitor->getAvailableApacheModules();
+        $configuration = $this->getConfiguration();
+        return $configuration->getAvailableApacheModules();
     }
 
     /*
@@ -161,8 +161,8 @@ final class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
      */
     public function getAvailablePhpModules()
     {
-        $monitor = $this->getMonitor();
-        return $monitor->getAvailablePhpModules();
+        $configuration = $this->getConfiguration();
+        return $configuration->getAvailablePhpModules();
     }
 
     /*
@@ -186,8 +186,8 @@ final class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
      */
     protected function invokeTestSuite()
     {
-        $monitor = $this->getMonitor();
-        $availableModules = array('Apache' => $monitor->getAvailableApacheModules(), 'Php' => $monitor->getAvailablePhpModules());
+        $configuration = $this->getConfiguration();
+        $availableModules = array('Apache' => $configuration->getAvailableApacheModules(), 'Php' => $configuration->getAvailablePhpModules());
 
         $requiredModules = $this->getRequiredModules();
         $moduleDependencies = $this->getModuleDependencies();
