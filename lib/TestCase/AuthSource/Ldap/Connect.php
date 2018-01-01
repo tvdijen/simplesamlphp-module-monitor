@@ -4,31 +4,72 @@ namespace SimpleSAML\Module\monitor\TestCase\AuthSource\Ldap;
 
 use \SimpleSAML\Module\monitor\State as State;
 use \SimpleSAML\Module\monitor\TestCase as TestCase;
+use \SimpleSAML\Module\monitor\TestData as TestData;
+use \SimpleSAML\Module\monitor\TestSuite as TestSuite;
 
 final class Connect extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
+    /*
+     * @var \SimpleSAML_Auth_LDAP|null
+     */
     private $connection = null;
 
+    /*
+     * @var string|null
+     */
     private $hostname = null;
-    private $port = null;
-    private $enableTls = null;
-    private $timeout = null;
-    private $referrals = null;
-    private $debug = null;
 
     /*
+     * @var integer
+     */
+    private $port = 636;
+
+    /*
+     * @var bool
+     */
+    private $enableTls = true;
+
+    /*
+     * @var integer
+     */
+    private $timeout = 30;
+
+    /*
+     * @var bool
+     */
+    private $referrals = false;
+
+    /*
+     * @var bool
+     */
+    private $debug = false;
+
+    /*
+     * @param TestData $testData
+     *
      * @return void
      */
-    protected function initialize()
+    protected function initialize($testData)
     {
-        $this->hostname = $this->getInput('hostname');
+        $this->hostname = $testData->getInput('hostname');
 
-        $authsourceData = $this->getInput('authsource_data');
-        $this->port = $authsourceData['port'];
-        $this->enableTls = $authsourceData['enable_tls'];
-        $this->timeout = isSet($authsourceData['timeout']) ? $authsourceData['timeout'] : 30;
-        $this->referrals = isSet($authsourceData['referrals']) ? $authsourceData['referrals'] : true;
-        $this->debug = isSet($authsourceData['debug']) ? $authsourceData['debug'] : false;
+        $authsource = $testData->getInput('authsource');
+        if (isSet($authsource['port'])) {
+            $this->port = $authsource['port'];
+        }
+        if (isSet($authsource['enable_tls'])) {
+            $this->enableTls = $authsource['enable_tls'];
+        }
+        if (isSet($authsource['timeout'])) {
+            $this->timeout = $authsource['timeout'];
+        }
+        if (isSet($authsource['referrals'])) {
+            $this->referrals = $authsource['referrals'];
+        }
+        if (isSet($authsource['debug'])) {
+            $this->debug = $authsource['debug'];
+        }
+        parent::initialize($testData);
     }
 
     /*
@@ -66,7 +107,13 @@ final class Connect extends \SimpleSAML\Module\monitor\TestCaseFactory
             $context = stream_context_create();
         }
 
-        $test = new TestCase\Network\ConnectUri($testsuite, array('uri' => $uri, 'context' => $context));
+        $testData = new TestData(
+            array(
+                'uri' => $uri,
+                'context' => $context
+            )
+        );
+        $test = new TestCase\Network\ConnectUri($testsuite, $testData);
         $state = $test->getState();
 
         if ($state === State::OK) {

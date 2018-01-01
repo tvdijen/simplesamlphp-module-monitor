@@ -2,70 +2,79 @@
 
 namespace SimpleSAML\Module\monitor\TestSuite;
 
+use \SimpleSAML_Configuration as ApplicationConfiguration;
+use \SimpleSAML\Module\monitor\TestConfiguration as TestConfiguration;
+use \SimpleSAML\Module\monitor\TestData as TestData;
+
 final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
-    /*
-     * @return void
+    /**
+     * @var array|bool
      */
-    protected function initialize() {}
+    private $checkAuthSources = true;
 
-    /*
+    /**
+     * @var ApplicationConfiguration
+     */
+    private $authSourceConfig;
+
+    /**
+     * @param TestConfiguration $configuration
+     */
+    public function __construct($configuration)
+    {
+        $moduleConfig = $configuration->getModuleConfig();
+
+        $this->authSourceConfig = $configuration->getAuthSourceConfig();
+        $this->checkAuthSources = $moduleConfig->getValue('checkAuthSources', true);
+
+        parent::__construct($configuration);
+    }
+
+    /**
      * @return void
      */
     protected function invokeTestSuite()
     {
-        $configuration = $this->getConfiguration();
-        $moduleConfig = $configuration->getModuleConfig();
-        $authsourceConfig = $configuration->getAuthsourceConfig();
-        $checkAuthsources = $moduleConfig->getValue('check_authsources', true);
-
-        if ($checkAuthsources === true) {
-            $authsources = $authsourceConfig->getOptions();
-        } else if (is_array($checkAuthsources)) {
-            $authsources = array_intersect($authsourceConfig->getOptions(), $checkAuthsources);
+        if ($this->checkAuthSources === true) {
+            $authSources = $this->authSourceConfig->getOptions();
+        } else if (is_array($this->checkAuthSources)) {
+            $authSources = array_intersect($this->authSourceConfig->getOptions(), $this->checkAuthSources);
         } else { // false or invalid value
             return;
         }
 
-        foreach ($authsources as $authsourceId) {
-            $authsourceData = $authsourceConfig->getValue($authsourceId);
-            
-            switch ($authsourceData[0]) {
+        $configuration = $this->getConfiguration();
+        foreach ($authSources as $authSourceId) {
+            $authSourceData = $this->authSourceConfig->getValue($authSourceId);
+            $input = array(
+                'authSourceId' => $authSourceId,
+                'authSourceData' => $authSourceData
+            );
+            $testData = new TestData($input);
+
+            switch ($authSourceData[0]) {
                 case 'ldap:LDAP':
-                    $test = new AuthSource\Ldap($configuration, array('authsource_id' => $authsourceId, 'authsource_data' => $authsourceData));
+                    $test = new AuthSource\Ldap($configuration, $testData);
                     $this->addTest($test);
-                    $this->addMessages($test->getMessages(), $authsourceId);
+                    $this->addMessages($test->getMessages(), $authSourceId);
                     break;
                 case 'negotiate:Negotiate':
-                    $test = new AuthSource\Negotiate($configuration, array('authsource_id' => $authsourceId, 'authsource_data' => $authsourceData));
+                    $test = new AuthSource\Negotiate($configuration, $testData);
                     $this->addTest($test);
-                    $this->addMessages($test->getMessages(), $authsourceId);
+                    $this->addMessages($test->getMessages(), $authSourceId);
 
-                    // Prep authsource data
-                    if (isSet($authsourceData['debugLDAP'])) {
-                        $authsourceData['debug'] = $authsourceData['debugLDAP'];
-                        unset($authsourceData['debugLDAP']);
-                    }
-                    if (isSet($authsourceData['adminUser'])) {
-                        $authsourceData['search.username'] = $authsourceData['adminUser'];
-                        unset($authsourceData['adminUser']);
-                    }
-                    if (isSet($authsourceData['adminPassword'])) {
-                        $authsourceData['search.password'] = $authsourceData['adminPassword'];
-                        unset($authsourceData['adminPassword']);
-                    }
-                    if (isSet($authsourceData['base'])) {
-                        $authsourceData['search.base'] = $authsourceData['base'];
-                        unset($authsourceData['base']);
-                    }
+                    // We need to do some convertions from Negotiate > LDAP
+                    $this->convertAuthSourceData($authSourceData);
+                    $testData->setInput($authSourceData, 'authSourceData');
 
-                    $ldapTest = new AuthSource\Ldap($configuration, array('authsource_id' => $authsourceId, 'authsource_data' => $authsourceData));
+                    $ldapTest = new AuthSource\Ldap($configuration, $testData);
                     $this->addTest($ldapTest);
-                    $this->addMessages($ldapTest->getMessages(), $authsourceId);
+                    $this->addMessages($ldapTest->getMessages(), $authSourceId);
 
                     break;
                 case 'multiauth:MultiAuth':
-                    // Relies on other authsources
+                    // Relies on other authSources
                     continue 2;
                 default:
                     // Not implemented
@@ -74,5 +83,32 @@ final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
         }
 
         $this->calculateState();
+    }
+
+    /**
+     * @param array $authSourceData
+     *
+     * @return void
+     */
+    private function convertAuthSourceData(&$authSourceData)
+    {
+        // LDAP and Negotiate authSources use different names for equal properties
+        // Hopefully this function can go away in SSP 2.0
+        if (isSet($authSourceData['debugLDAP'])) {
+            $authSourceData['debug'] = $authSourceData['debugLDAP'];
+            unset($authSourceData['debugLDAP']);
+        }
+        if (isSet($authSourceData['adminUser'])) {
+            $authSourceData['search.username'] = $authSourceData['adminUser'];
+            unset($authSourceData['adminUser']);
+        }
+        if (isSet($authSourceData['adminPassword'])) {
+            $authSourceData['search.password'] = $authSourceData['adminPassword'];
+            unset($authSourceData['adminPassword']);
+        }
+        if (isSet($authSourceData['base'])) {
+            $authSourceData['search.base'] = $authSourceData['base'];
+            unset($authSourceData['base']);
+        }
     }
 }

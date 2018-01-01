@@ -2,66 +2,74 @@
 
 namespace SimpleSAML\Module\monitor\TestSuite;
 
+use \SimpleSAML\Module\monitor\TestConfiguration as TestConfiguration;
 use \SimpleSAML\Module\monitor\TestCase as TestCase;
+use \SimpleSAML\Module\monitor\TestData as TestData;
 
 final class Metadata extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
-    /*
-     * @return void
+    /**
+     * @param array
      */
-    protected function initialize() {}
+    private $metadata = array();
 
-    /*
+    /**
+     * @param TestConfiguration $configuration
+     */
+    public function __construct($configuration)
+    {
+        $moduleConfig = $configuration->getModuleConfig();
+        $metadataConfig = $configuration->getMetadataConfig();
+
+        $checkMetadata = $moduleConfig->getValue('checkMetadata', true);
+        if ($checkMetadata === true) {
+            $metadata = $metadataConfig;
+        } else {
+            $metadata = array();
+            if (is_array($checkMetadata)) {
+                foreach ($checkMetadata as $set => $entityId) {
+                    if (array_key_exists($set, $metadataConfig)) {
+                        if (array_key_exists($entityId, $metadataConfig[$set])) {
+                            $metadata[$set][$entityId] = $metadataConfig[$set][$entityId];
+                        }
+                    }
+                }
+            }
+        } 
+
+        $this->fixEntityIds($metadata);
+        $this->metadata = $metadata;
+
+        parent::__construct($configuration);
+    }
+
+    /**
      * @return void
      */
     protected function invokeTestSuite()
     {
-        $configuration = $this->getConfiguration();
-        $moduleConfig = $configuration->getModuleConfig();
-        $metadataConfig = $configuration->getMetadataConfig();
-        $checkMetadata = $moduleConfig->getValue('check_metadata', true);
-
-        if ($checkMetadata === true) {
-            $metadata = $metadataConfig;
-        } else if (is_array($checkMetadata)) {
-            $metadata = array();
-            foreach ($checkMetadata as $set => $entityId) {
-                if (array_key_exists($set, $metadataConfig)) {
-                    if (array_key_exists($entityId, $metadataConfig[$set])) {
-                        $metadata[$set][$entityId] = $metadataConfig[$set][$entityId];
-                    }
-                }
-            }
-        } else { // false or invalid value
-            return;
-        }
-
-        foreach ($metadata as $set => $metadataSet) {
+        foreach ($this->metadata as $set => $metadataSet) {
             foreach ($metadataSet as $entityId => $entityMetadata) {
-                if (preg_match('/__DYNAMIC(:[0-9]+)?__/', $entityId)) {
-                    $entityId = $this->generateDynamicHostedEntityID($set);
-                }
+                $input = array(
+                    'entityId' => $entityId,
+                    'metadata' => $entityMetadata
+                );
+                $testData = new TestData($input);
 
-                $expirationTest = new TestCase\Metadata\Expiration($this, array('entityId' => $entityId, 'metadata' => $entityMetadata));
+                $expirationTest = new TestCase\Metadata\Expiration($this, $testData);
                 $this->addTest($expirationTest);
                 $this->addMessages($expirationTest->getMessages(), $entityId);
 
                 if (array_key_exists('keys', $entityMetadata)) {
                     $keys = $entityMetadata['keys'];
                     foreach ($keys as $key) {
-                        if ($key['encryption'] === true && $key['signing'] === false) {
-                            $category = 'Encryption certificate';
-                        } elseif ($key['encryption'] === false && $key['signing'] === true) {
-                            $category = 'Signing certificate';
-                        } else {
-                            $category = 'Unknown type';
-                        }
-
                         $input = array(
-                            'category' => $category,
+                            'category' => $this->getCategory($key),
                             'certData' => "-----BEGIN CERTIFICATE-----\n" . $key['X509Certificate'] . "\n-----END CERTIFICATE-----"
                         );
-                        $certificateTest = new TestCase\Cert\Data($this, $input);
+                        $testData = new TestData($input);
+
+                        $certificateTest = new TestCase\Cert\Data($this, $testData);
                         $this->addTest($certificateTest);
                         $this->addMessages($certificateTest->getMessages(), $entityId);
                     }
@@ -72,8 +80,45 @@ final class Metadata extends \SimpleSAML\Module\monitor\TestSuiteFactory
         $this->calculateState();
     }
 
+
+    /**
+     * @param array $key
+     *
+     * @return string
+     */
+    private function getCategory($key)
+    {
+        if ($key['encryption'] === true && $key['signing'] === false) {
+            $category = 'Encryption certificate';
+        } elseif ($key['encryption'] === false && $key['signing'] === true) {
+            $category = 'Signing certificate';
+        } else {
+            $category = 'Unknown type';
+        }
+        return $category;
+    }
+
+    /**
+     * @param array $metadata
+     *
+     * @return void
+     */
+    private function fixEntityIds(&$metadata)
+    {
+        foreach ($metadata as $set => $metadataSet) {
+            foreach ($metadataSet as $entityId => $entityMetadata) {
+                if (preg_match('/__DYNAMIC(:[0-9]+)?__/', $entityId)) {
+                    // Remove old entry and create a new one based on new entityId
+                    unset($metadata[$set][$entityId]);
+                    $newEntityId = $this->generateDynamicHostedEntityID($set);
+                    $metadata[$set][$newEntityId] = $entityMetadata;
+                }
+            }
+        }
+    }
+
     // Borrowed this from lib/SimpleSAML/Metadata/MetaDataStorageHandlerFlatFile.php until we take care of different sources properly
-    /*
+    /**
      * @return string
      */
     private function generateDynamicHostedEntityID($set)
@@ -93,6 +138,5 @@ final class Metadata extends \SimpleSAML\Module\monitor\TestSuiteFactory
             throw new \Exception('Can not generate dynamic EntityID for metadata of this type: ['.$set.']');
         }
     }
-
 }
 

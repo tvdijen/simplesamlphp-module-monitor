@@ -2,41 +2,52 @@
 
 namespace SimpleSAML\Module\monitor\TestSuite;
 
+use \SimpleSAML\Module\monitor\TestConfiguration as TestConfiguration;
 use \SimpleSAML\Module\monitor\State as State;
+use \SimpleSAML\Module\monitor\TestData as TestData;
 
 final class Store extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
-    /*
-     * @return void
+    /**
+     * var string|null
      */
-    protected function initialize() {}
+    private $store = null;
 
-    /*
+    /**
+     * @param TestConfiguration $configuration
+     */
+    public function __construct($configuration)
+    {
+        $globalConfig = $configuration->getGlobalConfig();
+        $this->store = $globalConfig->getString('store.type', 'phpsession');
+
+        parent::__construct($configuration);
+    }
+
+    /**
      * @return void
      */
     protected function invokeTestSuite()
     {
         $configuration = $this->getConfiguration();
-        $globalConfig = $configuration->getGlobalConfig();
 
-        $store = $globalConfig->getString('store.type');
-        switch ($store) {
+        switch ($this->store) {
             case 'phpsession':
-                $test = new Store\Phpsession($configuration, array());
+                $test = new Store\Phpsession($configuration);
                 break;
             case 'memcache':
-                $test = new Store\Memcache($configuration, array());
+                $test = new Store\Memcache($configuration);
                 break;
 // TODO:
 //            case 'redis':
 //            case 'redissentinel':
-//                $test = new Store\Redis($monitor, array());
+//                $test = new Store\Redis($configuration);
 //                break;
 //            case 'sql':
-//                $test = new Store\Sql($monitor, array());
+//                $test = new Store\Sql($configuration);
 //                break;
             default:
-                SimpleSAML_Logger::warning("Not implemented;  $store - Skipping Store TestSuite.");
+                SimpleSAML_Logger::warning("Not implemented;  $this->store - Skipping Store TestSuite.");
                 $this->setState(State::SKIPPED);
                 return;
         }

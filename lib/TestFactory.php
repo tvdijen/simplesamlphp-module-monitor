@@ -4,27 +4,86 @@ namespace SimpleSAML\Module\monitor;
 
 abstract class TestFactory
 {
-    /*
+    /**
+     * @var TestData|null
+     */
+    private $testData = null;
+
+    /**
+     * @var TestConfiguration|null
+     */
+    private $configuration = null;
+
+    /**
      * @var array|null
      */
     private $input = array('category' => 'Unknown category');
-
-    /*
+    
+    /**
      * @var array|null
      */
     private $output = array();
 
-    /*
+    /**
      * @var State
      */
     private $state = State::NOSTATE;
 
-    /*
+    /**
      * @var array
      */
     private $messages = array();
 
-    /*
+
+    /**
+     * @param TestConfiguration|null $configuration
+     *
+     * @return void
+     */
+    protected function setConfiguration($configuration = null)
+    {
+        assert($configuration instanceof TestConfiguration);
+        if (!is_null($configuration)) {
+            $this->configuration = $configuration;
+        }
+    }
+
+
+    /**
+     * @return TestConfiguration
+     */
+    public function getConfiguration()
+    {
+        assert($this->configuration instanceof TestConfiguration);
+        return $this->configuration;
+    }
+
+
+    /**
+     * @return TestData|null
+     */
+    public function getTestData()
+    {
+        assert($this->testData instanceof TestData || is_null($this->testData));
+        return $this->testData;
+    }
+
+
+    /**
+     * @param TestData|null $testData
+     *
+     * @return void
+     */
+    protected function setTestData($testData = null)
+    {
+        assert($testData instanceof TestData || is_null($testData));
+        if (!is_null($testData)) {
+            $this->testData = $testData;
+        }
+    }
+
+
+    /**
      * @return array
      */
     public function getMessages()
@@ -34,7 +93,7 @@ abstract class TestFactory
     }
 
 
-    /*
+    /**
      * @param string|null $item
      *
      * @return mixed
@@ -46,7 +105,7 @@ abstract class TestFactory
     }
 
 
-    /*
+    /**
      * @param string|null $item
      *
      * @return mixed
@@ -58,7 +117,7 @@ abstract class TestFactory
     }
 
 
-    /*
+    /**
      * @return State
      */
     public function getState()
@@ -68,7 +127,7 @@ abstract class TestFactory
     }
 
 
-    /*
+    /**
      * @return void
      */
     protected function setMessages($messages)
@@ -78,9 +137,10 @@ abstract class TestFactory
     }
 
 
-    /*
+    /**
      * @param array $messages
      * @param string|null $index
+     *
      * @return void
      */
     protected function addMessages($messages, $index = null)
@@ -95,8 +155,8 @@ abstract class TestFactory
     }
 
 
-    /*
-     * @param sspmod_monitor_State
+    /**
+     * @param State $state
      * @param string $category
      * @param string $subject
      * @param string $message
@@ -110,7 +170,7 @@ abstract class TestFactory
     }
 
 
-    /*
+    /**
      * @param array|null $input
      *
      * @return void
@@ -122,7 +182,7 @@ abstract class TestFactory
     }
 
 
-    /*
+    /**
      * @param mixed $value
      * @param string|null $index
      *
@@ -138,7 +198,7 @@ abstract class TestFactory
     }
 
 
-    /*
+    /**
      * @return void
      */
     protected function setOutput($output)
@@ -148,7 +208,7 @@ abstract class TestFactory
     }
 
 
-    /*
+    /**
      * @return void
      */
     protected function setState($state)

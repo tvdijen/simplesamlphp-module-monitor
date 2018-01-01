@@ -3,32 +3,53 @@
 namespace SimpleSAML\Module\monitor\TestCase\AuthSource\Ldap;
 
 use \SimpleSAML\Module\monitor\State as State;
+use \SimpleSAML\Module\monitor\TestData as TestData;
+use \SimpleSAML\Module\monitor\TestSuite as TestSuite;
 
 final class Search extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
-    // @var SimpleSAML_Auth_LDAP|null
+    /*
+     * @var \SimpleSAML_Auth_LDAP|null
+     */
     private $connection = null;
-    private $base = null;
-    private $username = null;
-    private $password = null;
-    private $attributes = null;
 
     /*
+     * @var string|null
+     */
+    private $base = null;
+
+    /*
+     * @var string|null
+     */
+    private $username = null;
+
+    /*
+     * @var string|null
+     */
+    private $password = null;
+
+    /*
+     * @var array
+     */
+    private $attributes = array();
+
+    /*
+     * @param TestData $testData
+     *
      * @return void
      */
-    protected function initialize()
+    protected function initialize($testData)
     {
-        $authsourceData = $this->getInput('authsource_data');
-        $this->connection = $this->getInput('connection');
+        $authsource = $testData->getInput('authSource');
 
-        $base = $authsourceData['search.base'];
+        $base = $authsource['search.base'];
         $base = is_array($base) ? $base[0] : $base;
         if (($i = stripos($base, 'DC=')) > 0) {
             $base = substr($base, $i);
         }
         $this->base = $base;
 
-        $username = $authsourceData['search.username'];
+        $username = $authsource['search.username'];
         $this->setSubject($username);
         if (strpos($username, 'DC=') > 0) {
             // We have been given a DN
@@ -40,8 +61,9 @@ final class Search extends \SimpleSAML\Module\monitor\TestCaseFactory
             $this->username = $username;
             $this->attributes = array('sAMAccountName');
         }
+        $this->password = $authsource['search.password'];
 
-        $this->password = $authsourceData['search.password'];
+        parent::initialize($testData);
     }
 
     /*

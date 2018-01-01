@@ -2,18 +2,40 @@
 
 namespace SimpleSAML\Module\monitor;
 
-use \SimpleSAML_Configuration as SspConfiguration;
+use \SimpleSAML_Configuration as ApplicationConfiguration;
 use \SimpleSAML_Metadata_MetaDataStorageSource as MetaDataStorageSource;
 
-final class Configuration
+final class TestConfiguration
 {
+    /**
+     * @var ApplicationConfiguration|null
+     */
     private $globalConfig = null;
-    private $moduleConfig = null;
-    private $authsourceConfig = null;
-    private $metadataConfig = null;
 
-    private $availableApacheModules = null;
-    private $availablePhpModules = null;
+    /**
+     * @var ApplicationConfiguration|null
+     */
+    private $moduleConfig = null;
+
+    /**
+     * @var ApplicationConfiguration|null
+     */
+    private $authsourceConfig = null;
+
+    /**
+     * @var array
+     */
+    private $metadataConfig = array();
+
+    /**
+     * @var array
+     */
+    private $availableApacheModules = array();
+
+    /**
+     * @var array
+     */
+    private $availablePhpModules = array();
 
     public function __construct()
     {
@@ -25,31 +47,31 @@ final class Configuration
         $this->setAvailablePhpModules();
     }
 
-    /*
+    /**
      * @return void
      */
     private function setAuthsourceConfig()
     {
-        $this->authsourceConfig = SspConfiguration::getOptionalConfig('authsources.php');
+        $this->authsourceConfig = ApplicationConfiguration::getOptionalConfig('authsources.php');
     }
 
-    /*
+    /**
      * @return void
      */
     private function setModuleConfig()
     {
-        $this->moduleConfig = SspConfiguration::getOptionalConfig('module_monitor.php');
+        $this->moduleConfig = ApplicationConfiguration::getOptionalConfig('module_monitor.php');
     }
 
-    /*
+    /**
      * @return void
      */
     private function setGlobalConfig()
     {
-        $this->globalConfig = SspConfiguration::getInstance();
+        $this->globalConfig = ApplicationConfiguration::getInstance();
     }
 
-    /*
+    /**
      * @return void
      */
     private function setMetadataConfig()
@@ -68,7 +90,7 @@ final class Configuration
         $this->metadataConfig = $metadata;
     }
 
-    /*
+    /**
      * @return array
      */
     protected function getAvailableMetadataSets()
@@ -90,7 +112,7 @@ final class Configuration
         return $sets;
     }
 
-    /*
+    /**
      * @return void
      */
     private function setAvailableApacheModules()
@@ -99,34 +121,45 @@ final class Configuration
         if (function_exists('apache_get_modules')) {
             $this->availableApacheModules = apache_get_modules();
         } else { // CGI-mode
-            $knownLocations = array(
-                '/usr/sbin/httpd',
-                '/usr/sbin/apache2',
-                '/opt/rh/httpd24/root/usr/sbin/httpd'
-            );
-            $output = null;
-            foreach ($knownLocations as $location) {
-                if (file_exists($location)) {
-                    exec("$location -t -D DUMP_MODULES", $output);
-                    break;
-                }
-            }
-            if ($output === null) {
-                return; // Cannot determine available modules
-            }
-            array_shift($output);
-            $modules = array();
-            foreach ($output as $module) {
-                $module = ltrim($module);
-                if (($res = preg_replace('/(_module \((shared|static)\))/', '', $module)) !== $module) {
-                    $modules[] = 'mod_' . $res;
-                } // else skip
-            }
-            $this->availableApacheModules = $modules;
+            $this->availableApacheModules = $this->getAvailableApacheModulesCgi();
         }
     }
 
-    /*
+    /**
+     * @return array
+     */
+    private function getAvailableApacheModulesCgi()
+    {
+        $knownLocations = array(
+            '/usr/sbin/httpd',
+            '/usr/sbin/apache2',
+            '/opt/rh/httpd24/root/usr/sbin/httpd'
+        );
+
+        $output = null;
+        foreach ($knownLocations as $location) {
+            if (file_exists($location)) {
+                exec("$location -t -D DUMP_MODULES", $output);
+                break;
+            }
+        }
+
+        if ($output === null) {
+            return array(); // Cannot determine available modules
+        }
+        array_shift($output);
+
+        $modules = array();
+        foreach ($output as $module) {
+            $module = ltrim($module);
+            if (($res = preg_replace('/(_module \((shared|static)\))/', '', $module)) !== $module) {
+                $modules[] = 'mod_' . $res;
+            } // else skip
+        }
+        return $modules;
+    }
+
+    /**
      * @return void
      */
     private function setAvailablePhpModules()
@@ -134,7 +167,7 @@ final class Configuration
         $this->availablePhpModules = array_merge(get_loaded_extensions(), get_loaded_extensions(true));
     }
 
-    /*
+    /**
      * @return array
      */
     public function getAvailableApacheModules()
@@ -142,7 +175,7 @@ final class Configuration
         return $this->availableApacheModules;
     }
 
-    /*
+    /**
      * @return array
      */
     public function getAvailablePhpModules()
@@ -150,31 +183,31 @@ final class Configuration
         return $this->availablePhpModules;
     }
 
-    /*
-     * @return SspConfiguration
+    /**
+     * @return ApplicationConfiguration|null
      */
     public function getModuleConfig()
     {
         return $this->moduleConfig;
     }
 
-    /*
-     * @return SspConfiguration
+    /**
+     * @return ApplicationConfiguration|null
      */
     public function getGlobalConfig()
     {
         return $this->globalConfig;
     }
 
-    /*
-     * @return SspConfiguration
+    /**
+     * @return ApplicationConfiguration|null
      */
     public function getAuthSourceConfig()
     {
         return $this->authsourceConfig;
     }
 
-    /*
+    /**
      * @return array
      */
     public function getMetadataConfig()

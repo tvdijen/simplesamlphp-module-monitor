@@ -10,6 +10,8 @@ $monitor = new Monitor();
 $configuration = $monitor->getConfiguration();
 $globalConfig = $configuration->getGlobalConfig();
 
+assert(!is_null($globalConfig));
+
 $monitor->invokeTestSuites();
 $results = $monitor->getResults();
 

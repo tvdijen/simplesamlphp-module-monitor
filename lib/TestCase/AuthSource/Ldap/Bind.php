@@ -3,24 +3,43 @@
 namespace SimpleSAML\Module\monitor\TestCase\AuthSource\Ldap;
 
 use \SimpleSAML\Module\monitor\State as State;
+use \SimpleSAML\Module\monitor\TestData as TestData;
+use \SimpleSAML\Module\monitor\TestSuite as TestSuite;
 
 final class Bind extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
+    /*
+     * @var \SimpleSAML_Auth_LDAP|null
+     */
     private $connection = null;
+
+    /*
+     * @var string|null
+     */
     private $username = null;
+
+    /*
+     * @var string|null
+     */
+
     private $password = null;
 
     /*
+     * @param TestData $testData
+     *
      * @return void
      */
-    protected function initialize()
+    protected function initialize($testData)
     {
-        $authsourceData = $this->getInput('authsource_data');
+        $this->connection = $testData->getInput('connection');
+        $authSource = $testData->getInput('authSource');
 
-        $this->connection = $this->getInput('connection');
-        $this->username = $authsourceData['search.username'];
-        $this->password = $authsourceData['search.password'];
+        $this->username = $authSource['search.username'];
+        $this->password = $authSource['search.password'];
+
         $this->setSubject($this->username);
+
+        parent::initialize($testData);
     }
 
     /*

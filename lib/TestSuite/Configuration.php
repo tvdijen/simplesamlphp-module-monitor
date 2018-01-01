@@ -2,44 +2,68 @@
 
 namespace SimpleSAML\Module\monitor\TestSuite;
 
+use \SimpleSAML\Module\monitor\TestConfiguration as TestConfiguration;
 use \SimpleSAML\Module\monitor\TestCase as TestCase;
+use \SimpleSAML\Module\monitor\TestData as TestData;
+use \SimpleSAML\Utils as Utils;
 
 final class Configuration extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
-    /*
-     * @return void
+    /**
+     * @param string|null
      */
-    protected function initialize() {}
+    private $metadataCert = null;
 
-    /*
+    /**
+     * @param string|null;
+     */
+    private $serverName = null;
+
+    /**
+     * @param integer|null;
+     */
+    private $serverPort = null;
+
+    /**
+     * @param TestConfiguration $configuration
+     */
+    public function __construct($configuration)
+    {
+        $globalConfig = $configuration->getGlobalConfig();
+        $this->metadataCert = $globalConfig->getString('metadata.sign.certificate', null);
+        $this->serverName = Utils\HTTP::getSelfHost();
+        $this->serverPort = Utils\HTTP::getServerPort();
+
+        parent::__construct($configuration);
+    }
+
+    /**
      * @return void
      */
     protected function invokeTestSuite()
     {
-        $configuration = $this->getConfiguration();
-        $globalConfig = $configuration->getGlobalConfig();
         // Check Service Communications Certificate
-        if (\SimpleSAML\Utils\HTTP::isHTTPS()) {
+        if (Utils\HTTP::isHTTPS()) {
             $input = array(
                 'category' => 'Service Communications Certificate',
-                'hostname' => $_SERVER['SERVER_NAME'],
-                'port' => $_SERVER['SERVER_PORT']
+                'hostname' => $this->serverName,
+                'port' => $this->serverPort
             );
+            $testData = new TestData($input);
 
-            $test = new TestCase\Cert\Remote($this, $input);
+            $test = new TestCase\Cert\Remote($this, $testData);
             $this->addTest($test);
         }
 
         // Check metadata signing certificate when available
-        if ($globalConfig->hasValue('metadata.sign.certificate')) {
-            $metadataCert = $globalConfig->getString('metadata.sign.certificate');
-
+        if (is_string($this->metadataCert)) {
             $input = array(
-                'certFile' => \SimpleSAML\Utils\Config::getCertPath($metadataCert),
+                'certFile' => Utils\Config::getCertPath($this->metadataCert),
                 'category' => 'Metadata Signing Certificate'
             );
+            $testData = new TestData($input);
 
-            $test = new TestCase\Cert\File($this, $input);
+            $test = new TestCase\Cert\File($this, $testData);
             $this->addTest($test);
         }
 

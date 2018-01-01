@@ -3,55 +3,83 @@
 namespace SimpleSAML\Module\monitor\TestCase\Network;
 
 use \SimpleSAML\Module\monitor\State as State;
+use \SimpleSAML\Module\monitor\TestData as TestData;
 
 final class ConnectUri extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
+    /**
+     * @param resource|null
+     */
     private $connection = null;
+
+    /**
+     * @param integer|null
+     */
     private $timeout = null;
+
+    /**
+     * @param resource|null
+     */
     private $context = null;
+
+    /**
+     * @param string|null
+     */
     private $uri = null;
 
-    /*
+    /**
+     * @var TestData $testData
+     *
      * @return void
      */
-    protected function initialize()
+    protected function initialize($testData)
     {
-        $this->setUri();
-        $this->setTimeout();
-        $this->setContext();
-    }
+        $uri = $testData->getInput('uri');
+        $context = $testData->getInput('context');
 
-    /*
-     * @return void
-     */
-    private function setUri()
-    {
-        assert(is_string($this->getInput('uri')));
-        $this->uri = $this->getInput('uri');
-    }
-
-    /*
-     * @return void
-     */
-    private function setContext()
-    {
-        assert(is_resource($this->getInput('context')));
-
-        $context = $this->getInput('context');
         if (is_null($context)) {
-            $this->context = stream_context_create();
-        } else {
-            $this->context = $context;
+            $context = stream_context_create();
         }
+
+        $timeout = $testData->getInput('timeout');
+        $timeout = is_null($timeout) ? (int)ini_get("default_socket_timeout") : $timeout;
+
+        $this->setUri($uri);
+        $this->setContext($context);
+        $this->setTimeout($timeout);
+
+        parent::initialize($testData);
     }
 
     /*
+     * @param string $uri
+     *
      * @return void
      */
-    private function setTimeout()
+    private function setUri($uri)
     {
-        $timeout = $this->getInput('timeout');
-        $timeout = is_null($timeout) ? (int)ini_get("default_socket_timeout") : $timeout;
+        assert(is_string($uri));
+        $this->uri = $uri;
+    }
+
+    /*
+     * @param resource $context
+     *
+     * @return void
+     */
+    private function setContext($context)
+    {
+        assert(is_resource($context));
+        $this->context = $context;
+    }
+
+    /*
+     * @param integer $timeout
+     *
+     * @return void
+     */
+    private function setTimeout($timeout)
+    {
         assert(is_int($timeout));
         $this->timeout = $timeout;
     }

@@ -3,22 +3,34 @@
 namespace SimpleSAML\Module\monitor\TestCase\Store\Memcache;
 
 use \SimpleSAML\Module\monitor\State as State;
+use \SimpleSAML\Module\monitor\TestData as TestData;
 
 final class ServerGroup extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
-    private $tests = null;
+    /**
+     * @var array
+     */
+    private $tests = array();
+
+    /**
+     * @var string|null
+     */
     private $group = null;
 
-    /*
+    /**
+     * @param TestData $testData
+     *
      * @return void
      */
-    protected function initialize()
+    protected function initialize($testData = null)
     {
-        $this->tests = $this->getInput('tests');
-        $this->group = $this->getInput('group');
+        $this->tests = \SimpleSAML\Utils\Arrays::Arrayize($testData->getInput('tests'));
+        $this->group = $testData->getInput('group');
+
+        parent::initialize($testData);
     }
 
-    /*
+    /**
      * @return void
      */
     protected function invokeTest()

@@ -3,54 +3,63 @@
 namespace SimpleSAML\Module\monitor\TestCase;
 
 use \SimpleSAML\Module\monitor\State as State;
+use \SimpleSAML\Module\monitor\TestData as TestData;
 
 class Cert extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
-    private $certinfo = null;
+    /**
+     * @var array
+     */
+    private $certInfo = array();
+
+    /**
+     * @return integer|null
+     */
     private $expiration = null;
 
-
-    /*
+    /**
+     * @var TestData $testData
+     *
      * @return void
      */
-    protected function initialize()
+    protected function initialize($testData)
     {
-        $this->setCertInfo($this->getInput('certData'));
-        $this->setCategory($this->getInput('category'));
+        $this->setCertInfo($testData->getInput('certData'));
+        $this->setCategory($testData->getInput('category'));
+
+        parent::initialize($testData);
     }
 
-
-    /*
+    /**
      * @return string
      */
     public function getSubject()
     {
-        $certinfo = $this->getCertInfo();
-        return $certinfo['subject']['CN'];
+        $certInfo = $this->getCertInfo();
+        return $certInfo['subject']['CN'];
     }
 
-
-    /*
+    /**
+     * @param array $certInfo
+     *
      * @return void
      */
-    protected function setCertInfo($certinfo)
+    protected function setCertInfo($certInfo)
     {
-        assert(is_array($certinfo));
-        $this->certinfo = $certinfo;
+        assert(is_array($certInfo));
+        $this->certInfo = $certInfo;
     }
 
-
-    /*
+    /**
      * @return array|null
      */
     protected function getCertInfo()
     {
-        assert(is_array($this->certinfo));
-        return $this->certinfo;
+        assert(is_array($this->certInfo));
+        return $this->certInfo;
     }
 
-
-    /*
+    /**
      * @return integer
      */
     protected function getExpiration()
@@ -59,8 +68,7 @@ class Cert extends \SimpleSAML\Module\monitor\TestCaseFactory
         return $this->expiration;
     }
 
-
-    /*
+    /**
      * @param integer $expiration
      * 
      * @return void
@@ -71,19 +79,17 @@ class Cert extends \SimpleSAML\Module\monitor\TestCaseFactory
         $this->expiration = $expiration;
     }
 
-
-    /*
+    /**
      * @return void
      */
     protected function calculateExpiration()
     {
-        $certinfo = $this->getCertInfo();
-        $expiration = (int)(($certinfo['validTo_time_t'] - time()) / 86400);
+        $certInfo = $this->getCertInfo();
+        $expiration = (int)(($certInfo['validTo_time_t'] - time()) / 86400);
         $this->setExpiration($expiration);
     }
 
-
-    /*
+    /**
      * @return void
      */
     protected function invokeTest()
@@ -100,7 +106,7 @@ class Cert extends \SimpleSAML\Module\monitor\TestCaseFactory
         $days = abs($expiration);
         $daysStr = $days . ' ' . (($days === 1) ? 'day' : 'days');
 
-        $threshold = $moduleConfig->getValue('cert_expiration_warning', 28);
+        $threshold = $moduleConfig->getValue('certExpirationWarning', 28);
         if ($expiration < 0) {
             $this->setState(State::ERROR);
             $this->addMessage(State::ERROR, $this->getCategory(), $subject, 'Certificate has expired ' . $daysStr . ' ago');

@@ -4,50 +4,38 @@ namespace SimpleSAML\Module\monitor;
 
 abstract class TestSuiteFactory extends TestFactory
 {
-    private $configuration = null;
+    /**
+     * @var array|null
+     */
     private $tests = null;
 
     /**
-     * @param Configuration $configuration
+     * @param TestConfiguration|null $configuration
+     * @param TestData|null $testData
      */
-    public function __construct($configuration, $input)
+    public function __construct($configuration = null, $testData = null)
     {
-        assert($configuration instanceof Configuration);
-        assert(is_array($input));
+        assert($configuration instanceof TestConfiguration || is_null($configuration));
 
         $this->setConfiguration($configuration);
-        $this->setInput($input);
-        $this->initialize();
-        $this->setInput(null);
+        $this->initialize($testData);
         $this->invokeTestSuite();
     }
 
-    /*
-     * @return void
-     */
-    abstract protected function initialize();
 
-    /*
-     * @param Configuration $configuration
+    /**
+     * @param TestData|null $testData
      *
      * @return void
      */
-    private function setConfiguration($configuration)
+    protected function initialize($testData = null)
     {
-        assert($configuration instanceof Configuration);
-        $this->configuration = $configuration;
+        $this->setTestData($testData);
     }
 
-    /*
-     * @return Configuration
-     */
-    public function getConfiguration()
-    {
-        assert($configuration instanceof Configuration);
-        return $this->configuration;
-    }
-
-    /*
+    /**
+     * @param TestFactory $test
+     *
      * @return void
      */
     protected function addTest($test)
@@ -56,7 +44,7 @@ abstract class TestSuiteFactory extends TestFactory
         $this->tests[] = $test;
     }
 
-    /*
+    /**
      * @return array
      */
     public function getTests()
@@ -65,7 +53,7 @@ abstract class TestSuiteFactory extends TestFactory
         return $this->tests;
     }
 
-    /*
+    /**
      * @return void
      */
     protected function calculateState()
@@ -81,7 +69,7 @@ abstract class TestSuiteFactory extends TestFactory
         }
     }
 
-    /*
+    /**
      * @return void
      */
     abstract protected function invokeTestSuite();

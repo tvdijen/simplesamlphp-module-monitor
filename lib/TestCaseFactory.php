@@ -4,49 +4,70 @@ namespace SimpleSAML\Module\monitor;
 
 abstract class TestCaseFactory extends TestFactory
 {
-    private $testsuite = null;
+    /**
+     * @var TestSuiteFactory|null
+     */
+    private $testSuite = null;
+
+    /**
+     * @var string|null
+     */
     private $category = null;
+
+    /**
+     * @var string|null
+     */
     private $subject = null;
 
-    public function __construct($testsuite, $input)
+    /**
+     * @param TestSuiteFactory|null $testSuite
+     * @param TestData|null $testData
+     */
+    public function __construct($testSuite = null, $testData = null)
     {
-        assert($testsuite instanceof TestSuiteFactory);
-        assert(is_array($input));
-        $this->setTestSuite($testsuite);
-        $this->setInput($input);
-        $this->initialize();
-        $this->setInput(null);
+        assert($testSuite instanceof TestSuiteFactory);
+        assert($testData instanceof TestData || is_null($testData));
+
+        $this->setTestSuite($testSuite);
+        $this->initialize($testData);
         $this->invokeTest();
     }
 
-    /*
+    /**
+     * @param Testdata|null $testData
+     *
      * @return void
      */
-    protected function initialize()
+    protected function initialize($testData = null)
     {
+        $this->setTestData($testData);
     }
 
-    /*
+    /**
+     * @param TestSuiteFactory $testSuite
+     *
      * @return void
      */
-    private function setTestSuite($testsuite)
+    private function setTestSuite($testSuite)
     {
-        assert($testsuite instanceof TestSuiteFactory);
-        $this->testsuite = $testsuite;
+        assert($testSuite instanceof TestSuiteFactory);
+        $this->testSuite = $testSuite;
     }
 
 
-    /*
+    /**
      * @return TestSuiteFactory
      */
     public function getTestSuite()
     {
-        assert($this->testsuite instanceof TestSuiteFactory);
-        return $this->testsuite;
+        assert($this->testSuite instanceof TestSuiteFactory);
+        return $this->testSuite;
     }
 
 
-    /*
+    /**
+     * @param string $subject
+     *
      * @return void
      */
     protected function setSubject($subject)
@@ -56,7 +77,7 @@ abstract class TestCaseFactory extends TestFactory
     }
 
 
-    /*
+    /**
      * @return string
      */
     public function getSubject()
@@ -66,7 +87,9 @@ abstract class TestCaseFactory extends TestFactory
     }
 
 
-    /*
+    /**
+     * @param string $category
+     *
      * @return void
      */
     protected function setCategory($category)
@@ -76,7 +99,7 @@ abstract class TestCaseFactory extends TestFactory
     }
 
 
-    /*
+    /**
      * @return string
      */
     public function getCategory()
@@ -86,7 +109,7 @@ abstract class TestCaseFactory extends TestFactory
     }
 
     
-    /*
+    /**
      * @return void
      */
     abstract protected function invokeTest();

@@ -3,34 +3,55 @@
 namespace SimpleSAML\Module\monitor\TestSuite\AuthSource;
 
 use \SimpleSAML\Module\monitor\State as State;
+use \SimpleSAML\Module\monitor\TestConfiguration as TestConfiguration;
 use \SimpleSAML\Module\monitor\TestCase as TestCase;
+use \SimpleSAML\Module\monitor\TestData as TestData;
 
 final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
-    private $authsourceData = null;
-
-    /*
-     * @return void
+    /**
+     * @var array
      */
-    protected function initialize()
+    private $authSource = array();
+
+    /**
+     * @var array
+     */
+    private $hosts = array();
+
+    /**
+     * @param TestConfiguration|null $configuration
+     * @param TestData $testData
+     */
+    public function __construct($configuration = null, $testData)
     {
-        $this->authsourceData = $this->getInput('authsource_data');
+        $authSource = $testData->getInput('authSource');
+        assert(is_array($authSource));
+
+        $this->hosts = explode(' ', $authSource['hostname']);
+        $this->authSource = $authSource;
+
+        parent::__construct($configuration);
     }
 
-    /*
+    /**
      * @return void
      */
     protected function invokeTestSuite()
     {
+        $hosts = $this->hosts;
+
         // Test connection
-        $hosts = explode(' ', $this->authsourceData['hostname']);
         foreach ($hosts as $host) {
+            $input = array(
+                'authSource' => $this->authSource,
+                'hostname' => $host
+            );
+            $testData = new TestData($input);
+
             $connTest = new TestCase\AuthSource\Ldap\Connect(
                 $this,
-                array(
-                    'authsource_data' => $this->authsourceData,
-                    'hostname' => $host
-                )
+                $testData
             );
             $this->addTest($connTest);
             $state = $connTest->getState();
@@ -47,7 +68,9 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
                         'certData' => $certData,
                         'category' => 'LDAP Server Certificate'
                     );
-                    $certTest = new TestCase\Cert($this, $input);
+                    $testData = new TestData($input);
+
+                    $certTest = new TestCase\Cert($this, $testData);
                     $this->addTest($certTest);
                     $this->addMessages($certTest->getMessages());
                 }
@@ -55,12 +78,14 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
 
             // Test bind
             $connection = $connTest->getOutput('connection');
+            $input = array(
+                'authSource' => $this->authSource,
+                'connection' => $connection
+            );
+            $testData = new TestData($input);
             $bindTest = new TestCase\AuthSource\Ldap\Bind(
                 $this,
-                array(
-                    'authsource_data' => $this->authsourceData,
-                    'connection' => $connection
-                )
+                $testData
             );
             $this->addTest($bindTest);
             $state = $bindTest->getState();
@@ -68,12 +93,15 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
                 $this->addMessages($bindTest->getMessages());
 
                 // Test search
+                $input = array(
+                    'authSource' => $this->authSource,
+                    'connection' => $connection
+                );
+                $testData = new TestData($input);
+
                 $searchTest = new TestCase\AuthSource\Ldap\Search(
                     $this,
-                    array(
-                        'authsource_data' => $this->authsourceData,
-                        'connection' => $connection
-                    )
+                    $testData
                 );
                 $this->addTest($searchTest);
                 $state = $searchTest->getState();

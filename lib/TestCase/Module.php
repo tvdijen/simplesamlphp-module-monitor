@@ -3,32 +3,39 @@
 namespace SimpleSAML\Module\monitor\TestCase;
 
 use \SimpleSAML\Module\monitor\State as State;
+use \SimpleSAML\Module\monitor\TestData as TestData;
 
 class Module extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
-    private $available = null;
-    private $module = null;
+    /**
+     * @var array
+     */
+    private $parsed = array();
 
-    /*
+    /**
+     * @var TestData $testData
+     *
      * @return void
      */
-    protected function initialize()
+    protected function initialize($testData = null)
     {
-        $this->setModule($this->getInput('module'));
+        $module = $this->getModule();
+        $this->parsed = explode('|', $module);
+
+        parent::initialize($testData);
     }
 
-    /*
+    /**
      * @return void
      */
     protected function invokeTest()
     {
         $loaded = State::ERROR;
         $available = $this->getAvailable();
-        $module = $this->getModule();
-        foreach (explode('|', $module) as $mod) {
-            if (in_array($mod, $available)) {
+
+        foreach ($this->parsed as $module) {
+            if (in_array($module, $available)) {
                 $loaded = State::OK;
-                $this->setModule($mod);
                 break 1;
             }
         }
@@ -36,39 +43,37 @@ class Module extends \SimpleSAML\Module\monitor\TestCaseFactory
         $this->setState($loaded);
     }
 
-    /*
-     * @return void
-     */
-    protected function setAvailable($available)
-    {
-        assert(is_array($available));
-        $this->available = $available;
-    }
-
-    /*
+    /**
      * @return array|null
      */
-    protected function getAvailable()
+    private function getAvailable()
     {
-        assert(is_array($this->available));
-        return $this->available;
+        $testData = $this->getTestData();
+        return $testData->getInput('available');
     }
 
-    /*
-     * @return void
-     */
-    protected function setModule($module)
-    {
-        assert(is_string($module));
-        $this->module = $module;
-    }
-
-    /*
+    /**
      * @return string
      */
-    public function getModule()
+    private function getModule()
     {
-        assert(is_string($this->module));
-        return $this->module;
+        $testData = $this->getTestData();
+        return $testData->getInput('module');
+    }
+
+    /**
+     * @return string
+     */
+    public function getModuleName()
+    {
+        $available = $this->getAvailable();
+
+        foreach ($this->parsed as $module) {
+            if (in_array($module, $available)) {
+                return $module;
+            }
+        }
+
+        return $this->getModule();
     }
 }

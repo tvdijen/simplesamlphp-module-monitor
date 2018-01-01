@@ -10,9 +10,9 @@ Add ?xml to the url to get an XML-representation of the monitoring-page, for use
 3rd party monitoring system like SCOM / Nagios, or even load balancers that determine a node's health.
 
 The XML-page will also set a HTTP reponse-code corresponding to the 'overall status':
-200 - Everything is OK
-417 - There is at least one warning
-500 - There is at least one error
+- 200 - Everything is OK
+- 417 - There is at least one warning
+- 500 - There is at least one error
 
 # Installation
 - Run `composer.phar require tvdijen/simplesamlphp-module-monitor:dev-master`

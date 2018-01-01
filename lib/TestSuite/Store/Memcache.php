@@ -2,35 +2,51 @@
 
 namespace SimpleSAML\Module\monitor\TestSuite\Store;
 
+use \SimpleSAML\Module\monitor\TestConfiguration as TestConfiguration;
 use \SimpleSAML\Module\monitor\TestCase as TestCase;
+use \SimpleSAML\Module\monitor\TestData as TestData;
 
 final class Memcache extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
-    /*
-     * @return void
+    /**
+     * var string|null
      */
-    protected function initialize() {}
+    private $class = null;
 
-    /*
+    /**
+     * var string
+     */
+    private $serverGroupName = '** Unknown **';
+
+    /**
+     * @param TestConfiguration $configuration
+     */
+    public function __construct($configuration)
+    {
+        $class = class_exists('Memcache') ? 'Memcache' : (class_exists('Memcached') ? 'Memcached' : null);
+        if ($class === null) {
+            $globalConfig = $configuration->getGlobalConfig();
+            $serverGroups = $globalConfig->getValue('memcache_store.servers', array());
+            $serverGroupName = array_map(function($i) {
+                $group = array_keys($i);
+                return 'Server Group #' . ++$group[0];
+            }, $serverGroups);
+            $this->serverGroupName = implode(PHP_EOL, $serverGroupName);
+        }
+        $this->class = $class;
+
+        parent::__construct($configuration);
+    }
+
+    /**
      * @return void
      */
     protected function invokeTestSuite()
     {
-        $configuration = $this->getConfiguration();
-        $globalConfig = $configuration->getGlobalConfig();
-
         // Check Memcache-servers
-        $class = class_exists('Memcache') ? 'Memcache' : (class_exists('Memcached') ? 'Memcached' : false);
-        if ($class === false) {
-            $serverGroups = $globalConfig->getValue('memcache_store.servers');
-            $serverGroupName = array_map(function($i) {
-                $tmp = array_keys($i);
-                return 'Server Group #' . ++$tmp[0];
-            }, $serverGroups);
-
+        if ($this->class === null) {
             $this->setState(State::FATAL);
-            $this->addMessage(State::FATAL, 'Memcache health', implode(PHP_EOL, $serverGroupName), 'Missing PHP module');
-            
+            $this->addMessage(State::FATAL, 'Memcache health', $this->serverGroupName, 'Missing PHP module');
         } else {
             $stats = \SimpleSAML_Memcache::getRawStats();
 
@@ -39,10 +55,20 @@ final class Memcache extends \SimpleSAML\Module\monitor\TestSuiteFactory
                 $groupTests = array();
 
                 foreach ($serverGroup as $host => $serverStats) {
-                    $groupTests[] = new TestCase\Store\Memcache\Server($this, array('server_stats' => $serverStats, 'host' => $host));
+                    $input = array(
+                        'serverStats' => $serverStats,
+                        'host' => $host
+                    );
+                    $testData = new TestData($input);
+                    $groupTests[] = new TestCase\Store\Memcache\Server($this, $testData);
                 }
 
-                $test = new TestCase\Store\Memcache\ServerGroup($this, array('tests' => $groupTests, 'group' => $groupName));
+                $input = array(
+                    'tests' => $groupTests,
+                    'group' => $groupName
+                );
+                $testData = new TestData($input);
+                $test = new TestCase\Store\Memcache\ServerGroup($this, $testData);
                 $this->addTest($test);
             }
 

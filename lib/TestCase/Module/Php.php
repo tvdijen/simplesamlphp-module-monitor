@@ -2,16 +2,18 @@
 
 namespace SimpleSAML\Module\monitor\TestCase\Module;
 
+use \SimpleSAML\Module\monitor\TestData as TestData;
+
 final class Php extends \SimpleSAML\Module\monitor\TestCase\Module
 {
-    /*
+    /**
+     * @param TestData|null $testData
+     *
      * @return void
      */
-    protected function initialize()
+    protected function initialize($testData = null)
     {
-        $testsuite = $this->getTestSuite();
-        $this->setAvailable($testsuite->getAvailablePhpModules());
         $this->setCategory('Php');
-        parent::initialize();
+        parent::initialize($testData);
     }
 }
