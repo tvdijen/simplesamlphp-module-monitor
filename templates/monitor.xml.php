@@ -9,8 +9,7 @@ $state = $this->data['overall'];
 $authsources = $this->data['authsources'];
 $metadata = $this->data['metadata'];
 $healthInfo = $this->data['healthInfo'];
-
-$protocol = (isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.0');
+$protocol = $this->data['protocol'];
 
 list($healthState, $healthColor) = $healthInfo[$state];
 $overall = $healthState;

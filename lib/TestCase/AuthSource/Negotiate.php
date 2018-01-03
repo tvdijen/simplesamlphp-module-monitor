@@ -31,12 +31,12 @@ final class Negotiate extends \SimpleSAML\Module\monitor\TestCaseFactory
     protected function initialize($testData)
     {
         $this->keytab = $testData->getInput('keytab');
-        
-        $query = \SimpleSAML\Utils\HTTP::getSelfURL();
-        parse_str($query, $query);
 
-        $this->xml = isSet($query['xml']) && ((bool)$query['xml'] === true);
-        $this->authorization = (isSet($_SERVER['HTTP_AUTHORIZATION']) && !empty($_SERVER['HTTP_AUTHORIZATION'])) ? $_SERVER['HTTP_AUTHORIZATION'] : null;
+        $xml = $testData->getInput('xml');
+        $this->xml = !is_null($xml) && ((bool)$xml === true);
+
+        $authorization = $testData->getInput('authorization');
+        $this->authorization = (is_null($authorization) || empty($authorization)) ? null : $authorization;
 
         parent::initialize($testData);
     }

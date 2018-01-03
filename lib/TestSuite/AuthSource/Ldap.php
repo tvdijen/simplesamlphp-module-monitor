@@ -20,16 +20,16 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
     private $hosts = array();
 
     /**
-     * @param TestConfiguration|null $configuration
+     * @param TestConfiguration $configuration
      * @param TestData $testData
      */
-    public function __construct($configuration = null, $testData)
+    public function __construct($configuration, $testData)
     {
         $authSource = $testData->getInput('authSource');
         assert(is_array($authSource));
 
-        $this->hosts = explode(' ', $authSource['hostname']);
         $this->authSource = $authSource;
+        $this->hosts = explode(' ', $authSource['hostname']);
 
         parent::__construct($configuration);
     }

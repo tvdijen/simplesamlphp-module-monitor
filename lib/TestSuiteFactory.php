@@ -16,6 +16,7 @@ abstract class TestSuiteFactory extends TestFactory
     public function __construct($configuration = null, $testData = null)
     {
         assert($configuration instanceof TestConfiguration || is_null($configuration));
+        assert($testData instanceof TestData || is_null($testData));
 
         $this->setConfiguration($configuration);
         $this->initialize($testData);

@@ -14,12 +14,24 @@ final class Negotiate extends \SimpleSAML\Module\monitor\TestSuiteFactory
     private $authSource = array();
 
     /**
-     * @param TestConfiguration|null $configuration
+     * @var array
+     */
+    private $serverVars = array();
+
+    /**
+     * @var array
+     */
+    private $requestVars = array();
+
+    /**
+     * @param TestConfiguration $configuration
      * @param TestData $testData
      */
-    public function __construct($configuration = null, $testData)
+    public function __construct($configuration, $testData)
     {
         $authSource = $testData->getInput('authSource');
+        $this->serverVars = $configuration->getServerVars();
+        $this->requestVars = $configuration->getRequestVars();
 
         assert(is_array($authSource));
         $this->authSource = $authSource;
@@ -33,7 +45,9 @@ final class Negotiate extends \SimpleSAML\Module\monitor\TestSuiteFactory
     protected function invokeTestSuite()
     {
         $input = array(
-            'keytab' => $this->authSource['keytab']
+            'keytab' => $this->authSource['keytab'],
+            'xml' => in_array('xml', get_object_vars($this->requestVars)) ? $this->requestVars->xml : null,
+            'authorization' => in_array('HTTP_AUTHORIZATION', get_object_vars($this->serverVars)) ? $this->serverVars->HTTP_AUTHORIZATION : null
         );
         $testData = new TestData($input);
 

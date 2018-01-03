@@ -30,6 +30,7 @@ final class Configuration extends \SimpleSAML\Module\monitor\TestSuiteFactory
     public function __construct($configuration)
     {
         $globalConfig = $configuration->getGlobalConfig();
+
         $this->metadataCert = $globalConfig->getString('metadata.sign.certificate', null);
         $this->serverName = Utils\HTTP::getSelfHost();
         $this->serverPort = Utils\HTTP::getServerPort();

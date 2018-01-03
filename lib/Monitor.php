@@ -2,6 +2,8 @@
 
 namespace SimpleSAML\Module\monitor;
 
+use \SimpleSAML\Module\monitor\DependencyInjection as DependencyInjection;
+
 class Monitor
 {
     /**
@@ -19,9 +21,13 @@ class Monitor
      */
     private $state = array();
 
-    public function __construct()
+    /**
+     * @param DependencyInjection\Server $serverVars
+     * @param DependencyInjection\Request $requestVars
+     */
+    public function __construct($serverVars, $requestVars)
     {
-        $this->configuration = new TestConfiguration();
+        $this->configuration = new TestConfiguration($serverVars, $requestVars);
     }
 
     /**

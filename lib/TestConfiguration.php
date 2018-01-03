@@ -2,6 +2,7 @@
 
 namespace SimpleSAML\Module\monitor;
 
+use \SimpleSAML\Module\monitor\DependencyInjection as DependencyInjection;
 use \SimpleSAML_Configuration as ApplicationConfiguration;
 use \SimpleSAML_Metadata_MetaDataStorageSource as MetaDataStorageSource;
 
@@ -37,8 +38,25 @@ final class TestConfiguration
      */
     private $availablePhpModules = array();
 
-    public function __construct()
+    /**
+     * @var array
+     */
+    private $serverVars = array();
+
+    /**
+     * @var array
+     */
+    private $requestVars = array();
+
+    /**
+     * @param DependencyInjection\Server $serverVars
+     * @param DependencyInjection\Request $requestVars
+     */
+    public function __construct($serverVars, $requestVars)
     {
+        $this->serverVars = $serverVars;
+        $this->requestVars = $requestVars;
+
         $this->setAuthsourceConfig();
         $this->setModuleConfig();
         $this->setGlobalConfig();
