@@ -22,8 +22,8 @@ class Monitor
     private $state = array();
 
     /**
-     * @param DependencyInjection\Server $serverVars
-     * @param DependencyInjection\Request $requestVars
+     * @param DependencyInjection $serverVars
+     * @param DependencyInjection $requestVars
      */
     public function __construct($serverVars, $requestVars)
     {

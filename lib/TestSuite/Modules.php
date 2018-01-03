@@ -61,15 +61,7 @@ final class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
     );
 
     /**
-     * @param TestConfiguration|null $configuration
-     */
-    public function __construct($configuration = null)
-    {
-        parent::__construct($configuration);
-    }
-
-    /**
-     * @param TestData $testData
+     * @param TestData|null $testData
      *
      * @return void
      */
@@ -219,10 +211,10 @@ final class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
                 $required = array_key_exists($category, $requiredModules) ? $requiredModules[$category] : array();
                 $available = array_key_exists($category, $availableModules) ? $availableModules[$category] : array();
 
-                foreach ($required as $require) {
+                foreach ($required as $req) {
                     $testData = new TestData(
                         array(
-                            'require' => $require,
+                            'required' => $req,
                             'available' => $available
                         )
                     );
@@ -231,7 +223,9 @@ final class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
             }
         }
 
-        $this->calculateState($output);
+        $this->processTestResults($output);
+
+        $this->calculateState();
     }
 
     /**
@@ -239,7 +233,7 @@ final class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
      *
      * @return void
      */
-    protected function calculateState($output)
+    protected function processTestResults($output)
     {
         $availableModules = $this->getAvailableModules();
         $tests = $this->getTests();
@@ -257,8 +251,6 @@ final class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
             }
             $this->addMessages($output[$category], $category);
         }
-
-        parent::calculateState();
     }
 
     /**
@@ -271,7 +263,7 @@ final class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
      */
     private function testRequirement($testData, $category, $dependencies, &$output)
     {
-        $require = $testData->getInput('require');
+        $required = $testData->getInput('required');
         $class = '\\SimpleSAML\\Module\\monitor\\TestCase\\Module\\' . $category;
 
         $test = new $class($this, $testData);
@@ -280,18 +272,17 @@ final class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
         $state = $test->getState();
         if ($state !== State::OK) {
             $missing = array();
-            while ($dependency = array_search($require, $dependencies)) {
+            while ($dependency = array_search($required, $dependencies)) {
                 if (\SimpleSAML\Module::isModuleEnabled($dependency)) {
                     $missing[] = $dependency;
                 }
                 unset($dependencies[$dependency]);
             }
-        }
-
-        if (!empty($missing)) {
-            $output[$category][] = array($state, $category, $test->getModuleName(), 'Module not loaded; dependency for ' . implode(', ', $missing));
-        } else {
-            $output[$category][] = array($state, $category, $test->getModuleName(), 'Module not loaded');
+            if (empty($missing)) {
+                $output[$category][] = array($state, $category, $test->getModuleName(), 'Module not loaded');
+            } else {
+                $output[$category][] = array($state, $category, $test->getModuleName(), 'Module not loaded; dependency for ' . implode(', ', $missing));
+            }
         }
     }
 }

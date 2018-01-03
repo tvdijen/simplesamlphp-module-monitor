@@ -1,4 +1,5 @@
 <?php
+
 use \SimpleSAML\Module\monitor\DependencyInjection as DependencyInjection;
 use \SimpleSAML\Module\monitor\State as State;
 use \SimpleSAML\Module\monitor\Monitor as Monitor;
@@ -6,8 +7,8 @@ use \SimpleSAML\Module\monitor\Monitor as Monitor;
 //assert_options(ASSERT_ACTIVE, 1);
 //assert_options(ASSERT_WARNING, 1);
 
-$serverVars = DependencyInjection\Server($_SERVER);
-$requestVars = DependencyInjection\Request($_REQUEST);
+$serverVars = new DependencyInjection($_SERVER);
+$requestVars = new DependencyInjection($_REQUEST);
 
 $monitor = new Monitor($serverVars, $requestVars);
 
@@ -28,9 +29,12 @@ $healthInfo = array(
     State::OK      => array('OK',      'green' )
 );
 
-if (isSet($requestVars->xml)) {
+// TODO: make this more specific: ?output=xml
+$xml = $requestVars->get('xml');
+if (!is_null($xml)) {
     $t = new SimpleSAML_XHTML_Template($globalConfig, 'monitor:monitor.xml.php');
-    $t->data['protocol'] = in_array('HTTP_PROTOCOL', $serverVars) ? $serverVars->HTTP_PROTOCOL : 'HTTP/1.0';
+    $protocol = $serverVars->get('HTTP_PROTOCOL');
+    $t->data['protocol'] = is_null($protocol) ? 'HTTP/1.0' : $protocol;
 } else {
     $t = new SimpleSAML_XHTML_Template($globalConfig, 'monitor:monitor.php');
 }

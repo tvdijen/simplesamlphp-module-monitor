@@ -12,6 +12,7 @@ $healthInfo = $this->data['healthInfo'];
 $protocol = $this->data['protocol'];
 
 list($healthState, $healthColor) = $healthInfo[$state];
+
 $overall = $healthState;
 
 if ($state === State::OK) {

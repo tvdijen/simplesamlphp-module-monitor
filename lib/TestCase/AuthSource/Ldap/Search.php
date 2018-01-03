@@ -40,16 +40,16 @@ final class Search extends \SimpleSAML\Module\monitor\TestCaseFactory
      */
     protected function initialize($testData)
     {
-        $authsource = $testData->getInput('authSource');
+        $authSourceData = $testData->getInput('authSourceData');
 
-        $base = $authsource['search.base'];
+        $base = $authSourceData['search.base'];
         $base = is_array($base) ? $base[0] : $base;
         if (($i = stripos($base, 'DC=')) > 0) {
             $base = substr($base, $i);
         }
         $this->base = $base;
 
-        $username = $authsource['search.username'];
+        $username = $authSourceData['search.username'];
         $this->setSubject($username);
         if (strpos($username, 'DC=') > 0) {
             // We have been given a DN
@@ -61,7 +61,8 @@ final class Search extends \SimpleSAML\Module\monitor\TestCaseFactory
             $this->username = $username;
             $this->attributes = array('sAMAccountName');
         }
-        $this->password = $authsource['search.password'];
+        $this->password = $authSourceData['search.password'];
+        $this->connection = $testData->getInput('connection');
 
         parent::initialize($testData);
     }

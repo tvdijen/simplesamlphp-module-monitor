@@ -53,21 +53,21 @@ final class Connect extends \SimpleSAML\Module\monitor\TestCaseFactory
     {
         $this->hostname = $testData->getInput('hostname');
 
-        $authsource = $testData->getInput('authsource');
-        if (isSet($authsource['port'])) {
-            $this->port = $authsource['port'];
+        $authSourceData = $testData->getInput('authSourceData');
+        if (isSet($authSourceData['port'])) {
+            $this->port = $authSourceData['port'];
         }
-        if (isSet($authsource['enable_tls'])) {
-            $this->enableTls = $authsource['enable_tls'];
+        if (isSet($authSourceData['enable_tls'])) {
+            $this->enableTls = $authSourceData['enable_tls'];
         }
-        if (isSet($authsource['timeout'])) {
-            $this->timeout = $authsource['timeout'];
+        if (isSet($authSourceData['timeout'])) {
+            $this->timeout = $authSourceData['timeout'];
         }
-        if (isSet($authsource['referrals'])) {
-            $this->referrals = $authsource['referrals'];
+        if (isSet($authSourceData['referrals'])) {
+            $this->referrals = $authSourceData['referrals'];
         }
-        if (isSet($authsource['debug'])) {
-            $this->debug = $authsource['debug'];
+        if (isSet($authSourceData['debug'])) {
+            $this->debug = $authSourceData['debug'];
         }
         parent::initialize($testData);
     }

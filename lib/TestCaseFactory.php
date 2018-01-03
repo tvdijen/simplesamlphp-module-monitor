@@ -21,12 +21,12 @@ abstract class TestCaseFactory extends TestFactory
 
     /**
      * @param TestSuiteFactory|null $testSuite
-     * @param TestData|null $testData
+     * @param TestData $testData
      */
-    public function __construct($testSuite = null, $testData = null)
+    public function __construct($testSuite = null, $testData)
     {
         assert($testSuite instanceof TestSuiteFactory);
-        assert($testData instanceof TestData || is_null($testData));
+        assert($testData instanceof TestData);
 
         $this->setTestSuite($testSuite);
         $this->initialize($testData);
@@ -34,11 +34,11 @@ abstract class TestCaseFactory extends TestFactory
     }
 
     /**
-     * @param Testdata|null $testData
+     * @param Testdata $testData
      *
      * @return void
      */
-    protected function initialize($testData = null)
+    protected function initialize($testData)
     {
         $this->setTestData($testData);
     }

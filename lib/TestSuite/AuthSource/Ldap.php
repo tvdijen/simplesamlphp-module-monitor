@@ -12,7 +12,7 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
     /**
      * @var array
      */
-    private $authSource = array();
+    private $authSourceData = array();
 
     /**
      * @var array
@@ -25,11 +25,11 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
      */
     public function __construct($configuration, $testData)
     {
-        $authSource = $testData->getInput('authSource');
-        assert(is_array($authSource));
+        $authSourceData = $testData->getInput('authSourceData');
+        assert(is_array($authSourceData));
 
-        $this->authSource = $authSource;
-        $this->hosts = explode(' ', $authSource['hostname']);
+        $this->authSourceData = $authSourceData;
+        $this->hosts = explode(' ', $authSourceData['hostname']);
 
         parent::__construct($configuration);
     }
@@ -44,7 +44,7 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
         // Test connection
         foreach ($hosts as $host) {
             $input = array(
-                'authSource' => $this->authSource,
+                'authSourceData' => $this->authSourceData,
                 'hostname' => $host
             );
             $testData = new TestData($input);
@@ -79,7 +79,7 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
             // Test bind
             $connection = $connTest->getOutput('connection');
             $input = array(
-                'authSource' => $this->authSource,
+                'authSourceData' => $this->authSourceData,
                 'connection' => $connection
             );
             $testData = new TestData($input);
@@ -94,7 +94,7 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
 
                 // Test search
                 $input = array(
-                    'authSource' => $this->authSource,
+                    'authSourceData' => $this->authSourceData,
                     'connection' => $connection
                 );
                 $testData = new TestData($input);

@@ -33,7 +33,7 @@ final class Negotiate extends \SimpleSAML\Module\monitor\TestCaseFactory
         $this->keytab = $testData->getInput('keytab');
 
         $xml = $testData->getInput('xml');
-        $this->xml = !is_null($xml) && ((bool)$xml === true);
+        $this->xml = !is_null($xml);
 
         $authorization = $testData->getInput('authorization');
         $this->authorization = (is_null($authorization) || empty($authorization)) ? null : $authorization;

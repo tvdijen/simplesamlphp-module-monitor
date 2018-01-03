@@ -21,7 +21,7 @@ final class Server extends \SimpleSAML\Module\monitor\TestCaseFactory
      *
      * @return void
      */
-    protected function initialize($testData = null)
+    protected function initialize($testData)
     {
         $this->serverStats = $testData->getInput('serverStats');
         $this->host = $testData->getInput('host');

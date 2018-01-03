@@ -32,10 +32,10 @@ final class Bind extends \SimpleSAML\Module\monitor\TestCaseFactory
     protected function initialize($testData)
     {
         $this->connection = $testData->getInput('connection');
-        $authSource = $testData->getInput('authSource');
+        $authSourceData = $testData->getInput('authSourceData');
 
-        $this->username = $authSource['search.username'];
-        $this->password = $authSource['search.password'];
+        $this->username = $authSourceData['search.username'];
+        $this->password = $authSourceData['search.password'];
 
         $this->setSubject($this->username);
 

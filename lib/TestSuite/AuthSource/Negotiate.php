@@ -11,17 +11,17 @@ final class Negotiate extends \SimpleSAML\Module\monitor\TestSuiteFactory
     /**
      * @var array
      */
-    private $authSource = array();
+    private $authSourceData = array();
 
     /**
-     * @var array
+     * @var bool|null
      */
-    private $serverVars = array();
+    private $xml = null;
 
     /**
-     * @var array
+     * @var string|null
      */
-    private $requestVars = array();
+    private $authorization = null;
 
     /**
      * @param TestConfiguration $configuration
@@ -29,12 +29,15 @@ final class Negotiate extends \SimpleSAML\Module\monitor\TestSuiteFactory
      */
     public function __construct($configuration, $testData)
     {
-        $authSource = $testData->getInput('authSource');
-        $this->serverVars = $configuration->getServerVars();
-        $this->requestVars = $configuration->getRequestVars();
+        $authSourceData = $testData->getInput('authSourceData');
+        $serverVars = $configuration->getServerVars();
+        $requestVars = $configuration->getRequestVars();
 
-        assert(is_array($authSource));
-        $this->authSource = $authSource;
+        assert(is_array($authSourceData));
+
+        $this->authSourceData = $authSourceData;
+        $this->authorization = $serverVars->get('HTTP_AUTHORIZATION');
+        $this->xml = $requestVars->get('xml');
 
         parent::__construct($configuration);
     }
@@ -45,9 +48,9 @@ final class Negotiate extends \SimpleSAML\Module\monitor\TestSuiteFactory
     protected function invokeTestSuite()
     {
         $input = array(
-            'keytab' => $this->authSource['keytab'],
-            'xml' => in_array('xml', get_object_vars($this->requestVars)) ? $this->requestVars->xml : null,
-            'authorization' => in_array('HTTP_AUTHORIZATION', get_object_vars($this->serverVars)) ? $this->serverVars->HTTP_AUTHORIZATION : null
+            'keytab' => $this->authSourceData['keytab'],
+            'xml' => $this->xml,
+            'authorization' => $this->authorization
         );
         $testData = new TestData($input);
 

@@ -20,9 +20,9 @@ final class Remote extends \SimpleSAML\Module\monitor\TestCaseFactory
     private $context = null;
 
     /*
-     * @param TestData|null $testData
+     * @param TestData $testData
      */
-    protected function initialize($testData = null)
+    protected function initialize($testData)
     {
         $hostname = $testData->getInput('hostname');
         $port = $testData->getInput('port');

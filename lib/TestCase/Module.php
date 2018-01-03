@@ -13,14 +13,19 @@ class Module extends \SimpleSAML\Module\monitor\TestCaseFactory
     private $parsed = array();
 
     /**
+     * @var string
+     */
+    private $module;
+
+    /**
      * @var TestData $testData
      *
      * @return void
      */
     protected function initialize($testData = null)
     {
-        $module = $this->getModule();
-        $this->parsed = explode('|', $module);
+        $this->module = $testData->getInput('required');
+        $this->parsed = explode('|', $this->module);
 
         parent::initialize($testData);
     }
@@ -57,8 +62,7 @@ class Module extends \SimpleSAML\Module\monitor\TestCaseFactory
      */
     private function getModule()
     {
-        $testData = $this->getTestData();
-        return $testData->getInput('module');
+        return $this->module;
     }
 
     /**

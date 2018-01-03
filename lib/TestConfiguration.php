@@ -39,18 +39,18 @@ final class TestConfiguration
     private $availablePhpModules = array();
 
     /**
-     * @var array
+     * @var DependencyInjection
      */
-    private $serverVars = null;
+    private $serverVars;
 
     /**
-     * @var array
+     * @var DependencyInjection
      */
-    private $requestVars = null;
+    private $requestVars;
 
     /**
-     * @param DependencyInjection\Server $serverVars
-     * @param DependencyInjection\Request $requestVars
+     * @param DependencyInjection $serverVars
+     * @param DependencyInjection $requestVars
      */
     public function __construct($serverVars, $requestVars)
     {
@@ -202,15 +202,7 @@ final class TestConfiguration
     }
 
     /**
-     * @return ApplicationConfiguration|null
-     */
-    public function getModuleConfig()
-    {
-        return $this->moduleConfig;
-    }
-
-    /**
-     * @return DependencyInjection\Server
+     * @return DependencyInjection
      */
     public function getServerVars()
     {
@@ -218,11 +210,27 @@ final class TestConfiguration
     }
 
     /**
-     * @return DependencyInjection\Request
+     * @return DependencyInjection
      */
     public function getRequestVars()
     {
         return $this->requestVars;
+    }
+
+    /**
+     * @return ApplicationConfiguration|null
+     */
+    public function getGlobalConfig()
+    {
+        return $this->globalConfig;
+    }
+
+    /**
+     * @return ApplicationConfiguration|null
+     */
+    public function getModuleConfig()
+    {
+        return $this->moduleConfig;
     }
 
     /**

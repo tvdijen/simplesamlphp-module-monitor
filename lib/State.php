@@ -7,7 +7,7 @@ class State
     const OK = 2;
     const WARNING = 1;
     const NOSTATE = 0;
-    const ERROR = -1;
-    const FATAL = -2;
-    const SKIPPED = -999;
+    const ERROR = -2;
+    const FATAL = -3;
+    const SKIPPED = -1;
 }

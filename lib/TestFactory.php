@@ -17,11 +17,6 @@ abstract class TestFactory
     /**
      * @var array|null
      */
-    private $input = array('category' => 'Unknown category');
-    
-    /**
-     * @var array|null
-     */
     private $output = array();
 
     /**
@@ -98,18 +93,6 @@ abstract class TestFactory
      *
      * @return mixed
      */
-    protected function getInput($item = null)
-    {
-        assert(is_string($item) || is_null($item));
-        return is_null($item) ? $this->input : (isSet($this->input[$item]) ? $this->input[$item] : null);
-    }
-
-
-    /**
-     * @param string|null $item
-     *
-     * @return mixed
-     */
     public function getOutput($item = null)
     {
         assert(is_string($item) || is_null($item));
@@ -167,18 +150,6 @@ abstract class TestFactory
     {
         assert(($state instanceof State) && is_string($category) && is_string($subject) && is_string($message));
         $this->messages[] = array($state, $category, $subject, $message);
-    }
-
-
-    /**
-     * @param array|null $input
-     *
-     * @return void
-     */
-    protected function setInput($input = null)
-    {
-        assert(is_array($input) || is_null($input));
-        $this->input = $input;
     }
 
 
