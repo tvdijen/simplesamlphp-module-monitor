@@ -210,11 +210,19 @@ final class TestConfiguration
     }
 
     /**
-     * @return ApplicationConfiguration|null
+     * @return DependencyInjection\Server
      */
-    public function getGlobalConfig()
+    public function getServerVars()
     {
-        return $this->globalConfig;
+        return $this->serverVars;
+    }
+
+    /**
+     * @return DependencyInjection\Request
+     */
+    public function getRequestVars()
+    {
+        return $this->requestVars;
     }
 
     /**
