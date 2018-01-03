@@ -41,12 +41,12 @@ final class TestConfiguration
     /**
      * @var array
      */
-    private $serverVars = array();
+    private $serverVars = null;
 
     /**
      * @var array
      */
-    private $requestVars = array();
+    private $requestVars = null;
 
     /**
      * @param DependencyInjection\Server $serverVars

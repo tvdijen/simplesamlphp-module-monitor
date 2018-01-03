@@ -231,7 +231,19 @@ final class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
             }
         }
 
+        $this->calculateState($output);
+    }
+
+    /**
+     * @param array $output
+     *
+     * @return void
+     */
+    protected function calculateState($output)
+    {
+        $availableModules = $this->getAvailableModules();
         $tests = $this->getTests();
+
         foreach ($availableModules as $category => $available) {
             $categories = array_fill(0, count($tests), $category);
             if (!isSet($output[$category])) {
@@ -246,7 +258,7 @@ final class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
             $this->addMessages($output[$category], $category);
         }
 
-        $this->calculateState();
+        parent::calculateState();
     }
 
     /**
