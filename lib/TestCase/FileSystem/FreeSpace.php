@@ -4,6 +4,7 @@ namespace SimpleSAML\Module\monitor\TestCase\FileSystem;
 
 use \SimpleSAML\Module\monitor\State as State;
 use \SimpleSAML\Module\monitor\TestData as TestData;
+use \SimpleSAML\Module\monitor\TestResult as TestResult;
 
 final class FreeSpace extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
@@ -20,6 +21,7 @@ final class FreeSpace extends \SimpleSAML\Module\monitor\TestCaseFactory
     protected function initialize($testData)
     {
         $this->setPath($testData->getInput('path'));
+        $this->setCategory($testData->getInput('category'));
         parent::initialize($testData);
     }
 
@@ -44,24 +46,27 @@ final class FreeSpace extends \SimpleSAML\Module\monitor\TestCaseFactory
     /**
      * @return void
      */
-    protected function invokeTest()
+    public function invokeTest()
     {
         $path = $this->getPath();
+        $testResult = new TestResult($this->getCategory(), $path);
 
         $size = disk_total_space($path);
         $used = $size - disk_free_space($path);
         $free = round(100 - (($used / $size) * 100));
-        $this->addOutput($free, 'free_percentage');
 
         if ($free >= 15) {
-            $this->addMessage(State::OK, 'Session storage', $path, $free . '% free space');
-            $this->setState(State::OK);
+            $testResult->setMessage($free . '% free space');
+            $testResult->setState(State::OK);
         } else if ($free < 5) {
-            $this->addMessage(State::ERROR, 'Session storage', $path, 'Critical: ' . $free . '% free space');
-            $this->setState(State::ERROR);
+            $testResult->setMessage('Critical: ' . $free . '% free space');
+            $testResult->setState(State::ERROR);
         } else {
-            $this->addMessage(State::WARNING, 'Session storage', $path, $free . '% free space');
-            $this->setState(State::WARNING);
+            $testResult->setMessage($free . '% free space');
+            $testResult->setState(State::WARNING);
         }
+
+        $testResult->addOutput($free, 'free_percentage');
+        $this->setTestResult($testResult);
     }
 }

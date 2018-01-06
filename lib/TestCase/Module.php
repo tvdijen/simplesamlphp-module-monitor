@@ -4,27 +4,34 @@ namespace SimpleSAML\Module\monitor\TestCase;
 
 use \SimpleSAML\Module\monitor\State as State;
 use \SimpleSAML\Module\monitor\TestData as TestData;
+use \SimpleSAML\Module\monitor\TestResult as TestResult;
 
 class Module extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     /**
      * @var array
      */
-    private $parsed = array();
+    private $parsed;
 
     /**
-     * @var string
+     * @var array|null
+     */
+    private $available;
+
+    /**
+     * @var string|null
      */
     private $module;
 
     /**
-     * @var TestData $testData
+     * @param TestData $testData
      *
      * @return void
      */
-    protected function initialize($testData = null)
+    protected function initialize($testData)
     {
         $this->module = $testData->getInput('required');
+        $this->available = $testData->getInput('available');
         $this->parsed = explode('|', $this->module);
 
         parent::initialize($testData);
@@ -33,19 +40,28 @@ class Module extends \SimpleSAML\Module\monitor\TestCaseFactory
     /**
      * @return void
      */
-    protected function invokeTest()
+    public function invokeTest()
     {
-        $loaded = State::ERROR;
+        $testResult = new TestResult($this->getCategory(), $this->getModuleName());
+
+        $state = State::ERROR;
         $available = $this->getAvailable();
 
         foreach ($this->parsed as $module) {
             if (in_array($module, $available)) {
-                $loaded = State::OK;
+                $state = State::OK;
                 break 1;
             }
         }
 
-        $this->setState($loaded);
+        if ($state == State::OK) {
+            $testResult->setMessage('Module loaded');
+        } else {
+            $testResult->setMessage('Module not loaded');
+        }
+
+        $testResult->setState($state);
+        $this->setTestResult($testResult);
     }
 
     /**
@@ -53,8 +69,8 @@ class Module extends \SimpleSAML\Module\monitor\TestCaseFactory
      */
     private function getAvailable()
     {
-        $testData = $this->getTestData();
-        return $testData->getInput('available');
+        assert(is_array($this->available));
+        return $this->available;
     }
 
     /**
@@ -62,6 +78,7 @@ class Module extends \SimpleSAML\Module\monitor\TestCaseFactory
      */
     private function getModule()
     {
+        assert(is_string($this->module));
         return $this->module;
     }
 
@@ -70,7 +87,7 @@ class Module extends \SimpleSAML\Module\monitor\TestCaseFactory
      */
     public function getModuleName()
     {
-        $available = $this->getAvailable();
+        $available = $this->available;
 
         foreach ($this->parsed as $module) {
             if (in_array($module, $available)) {

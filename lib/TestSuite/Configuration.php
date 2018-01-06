@@ -5,6 +5,8 @@ namespace SimpleSAML\Module\monitor\TestSuite;
 use \SimpleSAML\Module\monitor\TestConfiguration as TestConfiguration;
 use \SimpleSAML\Module\monitor\TestCase as TestCase;
 use \SimpleSAML\Module\monitor\TestData as TestData;
+use \SimpleSAML\Module\monitor\TestResult as TestResult;
+use \SimpleSAML\Module\monitor\State as State;
 use \SimpleSAML\Utils as Utils;
 
 final class Configuration extends \SimpleSAML\Module\monitor\TestSuiteFactory
@@ -35,6 +37,7 @@ final class Configuration extends \SimpleSAML\Module\monitor\TestSuiteFactory
         $this->metadataCert = $globalConfig->getString('metadata.sign.certificate', null);
         $this->serverName = $serverVars->get('SERVER_NAME');
         $this->serverPort = $serverVars->get('SERVER_PORT');
+        $this->setCategory('Configuration');
 
         parent::__construct($configuration);
     }
@@ -42,19 +45,39 @@ final class Configuration extends \SimpleSAML\Module\monitor\TestSuiteFactory
     /**
      * @return void
      */
-    protected function invokeTestSuite()
+    public function invokeTest()
     {
-        // Check Service Communications Certificate
-        if (Utils\HTTP::isHTTPS()) {
-            $input = array(
-                'category' => 'Service Communications Certificate',
-                'hostname' => $this->serverName,
-                'port' => $this->serverPort
-            );
-            $testData = new TestData($input);
+        // Check network connection to full public URL
+        $input = [
+            'connectString' => 'ssl://'.$this->serverName.':'.$this->serverPort,
+            'context' => stream_context_create([
+                "ssl" => [
+                    "capture_peer_cert" => true,
+                    "verify_peer" => false,
+                    "verify_peer_name" => false
+                ]
+            ]),
+        ];
 
-            $test = new TestCase\Cert\Remote($this, $testData);
-            $this->addTest($test);
+        $connTest = new TestCase\Network\ConnectUri($this, new TestData($input));
+        $connTestResult = $connTest->getTestResult();
+
+        $this->addTestResult($connTest->getTestResult());
+
+        if ($connTestResult->getState() === State::OK) {
+            // We were able to connect
+            if (Utils\HTTP::isHTTPS()) {
+                // Check Service Communications Certificate
+                $certData = $connTestResult->getOutput('certData');
+
+                $input = [
+                    'category' => 'Service Communications Certificate',
+                    'certData' => $certData,
+                ];
+
+                $certTest = new TestCase\Cert\Data($this, new TestData($input));
+                $this->addTestResult($certTest->getTestResult());
+            }
         }
 
         // Check metadata signing certificate when available
@@ -66,15 +89,11 @@ final class Configuration extends \SimpleSAML\Module\monitor\TestSuiteFactory
             $testData = new TestData($input);
 
             $test = new TestCase\Cert\File($this, $testData);
-            $this->addTest($test);
+            $this->addTestResult($test->getTestResult());
         }
 
-        $tests = $this->getTests();
-        foreach ($tests as $test)
-        {
-            $this->addMessages($test->getMessages());
-        }
-
-        $this->calculateState();
+        $testResult = new TestResult('Configuration', '');
+        $testResult->setState($this->calculateState());
+        $this->setTestResult($testResult);
     }
 }

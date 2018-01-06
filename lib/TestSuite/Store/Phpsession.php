@@ -9,19 +9,29 @@ use \SimpleSAML\Module\monitor\TestData as TestData;
 final class Phpsession extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
     /**
+     * @param TestConfiguration $configuration
+     */
+    public function __construct($configuration)
+    {
+        $this->setCategory('PHP sessions');
+        parent::__construct($configuration);
+    }
+
+    /**
      * @return void
      */
-    protected function invokeTestSuite()
+    public function invokeTest()
     {
-        $input = array(
-            'path' => session_save_path()
-        );
+        $input = [
+            'path' => session_save_path(),
+            'category' => 'Session storage'
+        ];
         $testData = new TestData($input);
 
         $test = new TestCase\FileSystem\FreeSpace($this, $testData);
-        $this->addTest($test);
+        $testResult = $test->getTestResult();
+        $this->addTestResult($testResult);
 
-        $this->setMessages($test->getMessages());
-        $this->calculateState();
+        $this->setTestResult($testResult);
     }
 }

@@ -4,7 +4,7 @@ namespace SimpleSAML\Module\monitor\TestCase\AuthSource\Ldap;
 
 use \SimpleSAML\Module\monitor\State as State;
 use \SimpleSAML\Module\monitor\TestData as TestData;
-use \SimpleSAML\Module\monitor\TestSuite as TestSuite;
+use \SimpleSAML\Module\monitor\TestResult as TestResult;
 
 final class Bind extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
@@ -24,6 +24,7 @@ final class Bind extends \SimpleSAML\Module\monitor\TestCaseFactory
 
     private $password = null;
 
+
     /*
      * @param TestData $testData
      *
@@ -37,29 +38,34 @@ final class Bind extends \SimpleSAML\Module\monitor\TestCaseFactory
         $this->username = $authSourceData['search.username'];
         $this->password = $authSourceData['search.password'];
 
-        $this->setSubject($this->username);
-
         parent::initialize($testData);
     }
 
+   
     /*
      * @return void
      */
-    protected function invokeTest()
+    public function invokeTest()
     {
-        $connection = $this->connection;
-        $subject = $this->getSubject();
-
         try {
-            $connection->bind($this->username, $this->password);
-        } catch (\Exception $e) {
-            $msg = str_replace('Library - LDAP bind(): ', '', $e->getMessage());
-            $this->setState(State::ERROR);
-            $this->addMessage(State::ERROR, 'LDAP Bind', $subject, $msg);
-            return;
+            $bind = $this->connection->bind($this->username, $this->password);
+        } catch (\Exception $error) {
+            // Fallthru
         }
 
-        $this->setState(State::OK);
-        $this->addMessage(State::OK, 'LDAP Bind', $subject, 'Bind succesful');
+        $testResult = new TestResult('LDAP Bind', $this->username);
+        if (isSet($error)) {
+            $msg = str_replace('Library - LDAP bind(): ', '', $error->getMessage());
+            $testResult->setState(State::FATAL);
+        } elseif ($bind === true) {
+            $msg = 'Bind succesful';
+            $testResult->setState(State::OK);
+        } else {
+            $msg = ldap_error($this->connection).' ('.ldap_errno($this->connection).')';
+            $testResult->setState(State::ERROR);
+        }
+
+        $testResult->setMessage($msg);
+        $this->setTestResult($testResult);
     }
 }

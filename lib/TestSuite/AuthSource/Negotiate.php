@@ -38,6 +38,7 @@ final class Negotiate extends \SimpleSAML\Module\monitor\TestSuiteFactory
         $this->authSourceData = $authSourceData;
         $this->authorization = $serverVars->get('HTTP_AUTHORIZATION');
         $this->xml = $requestVars->get('xml');
+        $this->setCategory('SPNEGO authentication source');
 
         parent::__construct($configuration);
     }
@@ -45,7 +46,7 @@ final class Negotiate extends \SimpleSAML\Module\monitor\TestSuiteFactory
     /**
      * @return void
      */
-    protected function invokeTestSuite()
+    public function invokeTest()
     {
         $input = array(
             'keytab' => $this->authSourceData['keytab'],
@@ -55,9 +56,7 @@ final class Negotiate extends \SimpleSAML\Module\monitor\TestSuiteFactory
         $testData = new TestData($input);
 
         $test = new TestCase\AuthSource\Negotiate($this, $testData);
-        $this->addTest($test);
-
-        $this->addMessages($test->getMessages());
-        $this->calculateState();
+        $this->addTestResult($test->getTestResult());
+        $this->setTestResult($test->getTestResult());
     }
 }

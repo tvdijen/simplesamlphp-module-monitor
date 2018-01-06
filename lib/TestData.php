@@ -7,7 +7,7 @@ final class TestData
     /**
      * @var array
      */
-    protected $testData = array();
+    private $testData = array();
 
     /**
      * @param array $input

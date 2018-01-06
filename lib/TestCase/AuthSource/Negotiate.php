@@ -4,7 +4,7 @@ namespace SimpleSAML\Module\monitor\TestCase\AuthSource;
 
 use \SimpleSAML\Module\monitor\State as State;
 use \SimpleSAML\Module\monitor\TestData as TestData;
-use \SimpleSAML\Module\monitor\TestSuite as TestSuite;
+use \SimpleSAML\Module\monitor\TestResult as TestResult;
 
 final class Negotiate extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
@@ -22,6 +22,7 @@ final class Negotiate extends \SimpleSAML\Module\monitor\TestCaseFactory
      * @var string|null
      */
     private $authorization = null;
+
 
     /*
      * @param TestData $testData
@@ -44,32 +45,35 @@ final class Negotiate extends \SimpleSAML\Module\monitor\TestCaseFactory
     /*
      * @return void
      */
-    protected function invokeTest()
+    public function invokeTest()
     {
-        if ($this->xml === false) {
+        $testResult = new TestResult('Authentication', 'Kerberos token validation');
+
+        if (is_null($this->authorization)) {
+            // Either misconfiguration of the browser, or user not authenticated at a KDC
+            $testResult->setState(State::SKIPPED);
+            $testResult->setMessage('Unable to authenticate; no token provided');
+        } else {
             $auth = new \KRB5NegotiateAuth($this->keytab);
+
             try {
                 $reply = @$auth->doAuthentication();
-            } catch (\Exception $e) {
+            } catch (\Exception $error) {
                 // Fallthru
-                $this->setState(State::WARNING);
-                $this->addMessage(State::WARNING, 'Authentication', 'Kerberos token validation', $e->getMessage());
-                return;
             }
 
-            if (is_null($this->authorization)) {
-                $this->setState(State::SKIPPED);
-                $this->addMessage(State::SKIPPED, 'Authentication', 'Kerberos token validation', 'Unable to authenticate; no token provided');
-            } else if ($reply) {
-                $this->setState(State::OK);
-                $this->addMessage(State::OK, 'Authentication', 'Kerberos token validation', 'Succesfully authenticated as ' . $auth->getAuthenticatedUser());
-            } else {
-                $this->setState(State::WARNING);
-                $this->addMessage(State::WARNING, 'Authentication', 'Kerberos token validation', "Something went wrong");
+            if (isSet($error)) {
+                $testResult->setState(State::WARNING);
+                $testResult->setMessage($error->getMessage());
+            } else if ($reply === true) {
+                $testResult->setState(State::OK);
+                $testResult->setMessage('Succesfully authenticated as '.$auth->getAuthenticatedUser());
+            } else { // $reply === false
+                $testResult->setState(State::WARNING);
+                $testResult->setMessage("Something went wrong and we couldn't tell why");
             }
-        } else {
-            $this->setState(State::SKIPPED);
-            $this->addMessage(State::SKIPPED, 'Authentication', 'Kerberos token validation', 'Unable to authenticate');
         }
+
+        $this->setTestResult($testResult);
     }
 }

@@ -73,8 +73,8 @@ class Monitor
     private function invokeModuleCheck()
     {
         $testsuite = new TestSuite\Modules($this->configuration);
-        $this->results['modules'] = $testsuite->getMessages();
-        $this->state[] = $testsuite->getState();
+        $this->results['modules'] = $testsuite->getTestResults();
+        $this->state[] = $testsuite->calculateState();
     }
 
     /**
@@ -83,8 +83,8 @@ class Monitor
     private function invokeConfigurationCheck()
     {
         $testsuite = new TestSuite\Configuration($this->configuration);
-        $this->results['configuration'] = $testsuite->getMessages();
-        $this->state[] = $testsuite->getState();
+        $this->results['configuration'] = $testsuite->getTestResults();
+        $this->state[] = $testsuite->calculateState();
     }
 
     /**
@@ -93,8 +93,8 @@ class Monitor
     private function invokeStoreCheck()
     {
         $testsuite = new TestSuite\Store($this->configuration);
-        $this->results['store'] = $testsuite->getMessages();
-        $this->state[] = $testsuite->getState();
+        $this->results['store'] = $testsuite->getTestResults();
+        $this->state[] = $testsuite->calculateState();
     }
 
     /**
@@ -103,8 +103,8 @@ class Monitor
     private function invokeAuthSourceCheck()
     {
         $testsuite = new TestSuite\AuthSources($this->configuration);
-        $this->results['authsources'] = $testsuite->getMessages();
-        $this->state[] = $testsuite->getState();
+        $this->results['authsources'] = $testsuite->getTestResults();
+        $this->state[] = $testsuite->calculateState();
     }
 
     /**
@@ -113,7 +113,7 @@ class Monitor
     private function invokeMetadataCheck()
     {
         $testsuite = new TestSuite\Metadata($this->configuration);
-        $this->results['metadata'] = $testsuite->getMessages();
-        $this->state[] = $testsuite->getState();
+        $this->results['metadata'] = $testsuite->getTestResults();
+        $this->state[] = $testsuite->calculateState();
     }
 }

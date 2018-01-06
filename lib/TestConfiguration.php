@@ -9,34 +9,34 @@ use \SimpleSAML_Metadata_MetaDataStorageSource as MetaDataStorageSource;
 final class TestConfiguration
 {
     /**
-     * @var ApplicationConfiguration|null
+     * @var ApplicationConfiguration
      */
-    private $globalConfig = null;
+    private $globalConfig;
 
     /**
-     * @var ApplicationConfiguration|null
+     * @var ApplicationConfiguration
      */
-    private $moduleConfig = null;
+    private $moduleConfig;
 
     /**
-     * @var ApplicationConfiguration|null
+     * @var ApplicationConfiguration
      */
-    private $authsourceConfig = null;
-
-    /**
-     * @var array
-     */
-    private $metadataConfig = array();
+    private $authsourceConfig;
 
     /**
      * @var array
      */
-    private $availableApacheModules = array();
+    private $metadataConfig;
 
     /**
      * @var array
      */
-    private $availablePhpModules = array();
+    private $availableApacheModules;
+
+    /**
+     * @var array
+     */
+    private $availablePhpModules;
 
     /**
      * @var DependencyInjection

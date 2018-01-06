@@ -4,6 +4,7 @@ namespace SimpleSAML\Module\monitor\TestCase\Metadata;
 
 use \SimpleSAML\Module\monitor\State as State;
 use \SimpleSAML\Module\monitor\TestData as TestData;
+use \SimpleSAML\Module\monitor\TestResult as TestResult;
 
 final class Expiration extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
@@ -33,21 +34,25 @@ final class Expiration extends \SimpleSAML\Module\monitor\TestCaseFactory
     /**
      * @return void
      */
-    protected function invokeTest()
+    public function invokeTest()
     {
+        $testResult = new TestResult('Metadata expiration', $this->entityId);
+
         if (array_key_exists('expire', $this->metadata)) {
             $expiration = $this->metadata['expire'];
             if ($expiration <= time()) {
-                $this->setState(State::ERROR);
-                $this->addMessage(State::ERROR, 'Metadata expiration', $this->entityId, 'Metadata has expired');
+                $testResult->setState(State::ERROR);
+                $testResult->setMessage('Metadata has expired');
             } else {
-                $this->setState(State::OK);
-                $this->addMessage(State::OK, 'Metadata expiration', $this->entityId, 'Metadata will expire on ' . strftime('%c', $expiration));
+                $testResult->setState(State::OK);
+                $testResult->setMessage('Metadata will expire on ' . strftime('%c', $expiration));
             }
         } else {
-            $this->setState(State::OK);
-            $this->addMessage(State::OK, 'Metadata expiration', $this->entityId, 'Metadata never expires');
+            $testResult->setState(State::OK);
+            $testResult->setMessage('Metadata never expires');
         }
+
+        $this->setTestResult($testResult);
     }
 }
 

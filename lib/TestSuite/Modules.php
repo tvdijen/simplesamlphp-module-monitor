@@ -4,9 +4,11 @@ namespace SimpleSAML\Module\monitor\TestSuite;
 
 use \SimpleSAML\Module\monitor\TestConfiguration as TestConfiguration;
 use \SimpleSAML\Module\monitor\State as State;
+use \SimpleSAML\Module\monitor\TestCase as TestCase;
 use \SimpleSAML\Module\monitor\TestData as TestData;
+use \SimpleSAML\Module\monitor\TestResult as TestResult;
 
-final class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
+class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
     /**
      * @var array
@@ -16,13 +18,20 @@ final class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
     /**
      * @var array
      */
-    private $requiredPhpModules = array();
+    // Important!!  Modules-names are handled case-sensitive!!
+    private $storeApacheDependencies = array();
 
     /**
      * @var array
      */
-    // Important!!  Modules-names are handled case-sensitive!!
-    private $storeApacheDependencies = array();
+    private $moduleApacheDependencies = array(
+        'negotiateext' => 'mod_auth_kerb|mod_auth_gssapi'
+    );
+
+    /**
+     * @var array
+     */
+    private $requiredPhpModules = array();
 
     /**
      * @var array
@@ -34,13 +43,6 @@ final class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
         'redissentinel' => 'redis',
         'riak:Store' => 'riak',
         'sql' => 'PDO'
-    );
-
-    /**
-     * @var array
-     */
-    private $moduleApacheDependencies = array(
-        'negotiateext' => 'mod_auth_kerb|mod_auth_gssapi'
     );
 
     /**
@@ -70,7 +72,9 @@ final class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
         $this->setRequiredApacheModules();
         $this->setRequiredPhpModules();
         $this->setRequiredSspModules();
+        $this->setCategory('Modules');
     }
+
 
     /**
      * @return void
@@ -82,15 +86,6 @@ final class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
         }
     }
 
-    /**
-     * @return void
-     */
-    private function addRequiredPhpModule($module)
-    {
-        if (!in_array($module, $this->requiredPhpModules)) {
-            $this->requiredPhpModules[] = $module;
-        }
-    }
 
     /**
      * @return void
@@ -98,11 +93,9 @@ final class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
     private function setRequiredApacheModules()
     {
         // Apache Modules
+        $this->addRequiredApacheModule('mod_php|mod_php5');
         if (\SimpleSAML\Utils\HTTP::isHTTPS()) {
             $this->addRequiredApacheModule('mod_ssl');
-        }
-        if (function_exists('apache_get_modules')) {
-            $this->addRequiredApacheModule('mod_php|mod_php5');
         }
 
         // Determine extra required modules
@@ -114,12 +107,24 @@ final class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
         }
     }
 
+
+    /**
+     * @return void
+     */
+    private function addRequiredPhpModule($module)
+    {
+        if (!in_array($module, $this->requiredPhpModules)) {
+            $this->requiredPhpModules[] = $module;
+        }
+    }
+
+
     /**
      * @return void
      */
     private function setRequiredPhpModules()
     {
-        // PHP modules
+        // PHP modules required
         $composerFile = \SimpleSAML\Utils\System::resolvePath('composer.json');
         $composerData = file_get_contents($composerFile);
         $composer = json_decode($composerData, true);
@@ -165,124 +170,76 @@ final class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
     }
 
     /**
-     * @return array<string,array>
+     * @return array
      */
-    public function getAvailableModules()
+    public function getAvailableApacheModules()
     {
         $configuration = $this->getConfiguration();
-        return array(
-            'Apache' => $configuration->getAvailableApacheModules(),
-            'Php' => $configuration->getAvailablePhpModules()
-        );
+        return $configuration->getAvailableApacheModules();
     }
 
     /**
-     * @return array<string,array>
+     * @return array
      */
-    private function getRequiredModules()
+    public function getAvailablePhpModules()
     {
-        return array('Apache' => $this->requiredApacheModules, 'Php' => $this->requiredPhpModules);
+        $configuration = $this->getConfiguration();
+        return $configuration->getAvailablePhpModules();
     }
 
     /**
-     * @return array<string,array>
+     * @return array
      */
-    private function getModuleDependencies()
+    private function getRequiredApacheModules()
     {
-        return array('Apache' => $this->moduleApacheDependencies, 'Php' => $this->modulePhpDependencies);
+        return $this->requiredApacheModules;
     }
+
+
+    /**
+     * @return array
+     */
+    private function getRequiredPhpModules()
+    {
+        return $this->requiredPhpModules;
+    }
+
 
     /**
      * @return void
      */
-    protected function invokeTestSuite()
+    public function invokeTest()
     {
-        $availableModules = $this->getAvailableModules();
-        $requiredModules = $this->getRequiredModules();
-        $moduleDependencies = $this->getModuleDependencies();
-        $output = array();
+        $configuration = $this->getConfiguration();
 
-        // Test for the availability of required modules
-        foreach ($availableModules as $category => $available) {
-            if (is_null($available)) {
-                $output[$category][] = array(State::SKIPPED, $category, implode(', ', $requiredModules[$category]), 'Unable to verify installed modules');
-            } else {
-                $dependencies = array_key_exists($category, $moduleDependencies) ? $moduleDependencies[$category] : array();
-                $required = array_key_exists($category, $requiredModules) ? $requiredModules[$category] : array();
-                $available = array_key_exists($category, $availableModules) ? $availableModules[$category] : array();
+        // Test Apache modules
+        $testData = new TestData([
+            'available' => $configuration->getAvailableApacheModules(),
+            'required' => $this->getRequiredApacheModules(),
+            'dependencies' => $this->moduleApacheDependencies,
+            'type' => 'Apache',
+            'testClass' => '\SimpleSAML\Module\monitor\TestCase\Module\Apache',
+        ]);
+        $apacheTest = new Modules\ModuleSet($configuration, $testData);
+        $apacheTestResult = $apacheTest->getTestResult();
+        
+         // Test Php modules
+        $testData = new TestData([
+            'available' => $configuration->getAvailablePhpModules(),
+            'required' => $this->getRequiredPhpModules(),
+            'dependencies' => $this->modulePhpDependencies,
+            'type' => 'Php',
+            'testClass' => '\SimpleSAML\Module\monitor\TestCase\Module\Php',
+        ]);
+        $phpTest = new Modules\ModuleSet($configuration, $testData);
+        $phpTestResult = $phpTest->getTestResult();
 
-                foreach ($required as $req) {
-                    $testData = new TestData(
-                        array(
-                            'required' => $req,
-                            'available' => $available
-                        )
-                    );
-                    $this->testRequirement($testData, $category, $dependencies, $output);
-                }
-            }
-        }
+        $this->addTestResult($apacheTestResult);
+        $this->addTestResult($phpTestResult);
 
-        $this->processTestResults($output);
-
-        $this->calculateState();
-    }
-
-    /**
-     * @param array $output
-     *
-     * @return void
-     */
-    protected function processTestResults($output)
-    {
-        $availableModules = $this->getAvailableModules();
-        $tests = $this->getTests();
-
-        foreach ($availableModules as $category => $available) {
-            $categories = array_fill(0, count($tests), $category);
-            if (!isSet($output[$category])) {
-                $modules = array_map(
-                  function($test, $category) {
-                    return ($test->getCategory() === $category) ? $test->getModuleName() : false;
-                  }, $tests, $categories
-                );
-                $modules = array_diff($modules, array(false));
-                $output[$category][] = array(State::OK, $category, implode(', ', $modules), "All required modules are loaded");
-            }
-            $this->addMessages($output[$category], $category);
-        }
-    }
-
-    /**
-     * @param TestData $testData
-     * @param string $category
-     * @param array $dependencies
-     * @param array $output
-     *
-     * @return void
-     */
-    private function testRequirement($testData, $category, $dependencies, &$output)
-    {
-        $required = $testData->getInput('required');
-        $class = '\\SimpleSAML\\Module\\monitor\\TestCase\\Module\\' . $category;
-
-        $test = new $class($this, $testData);
-        $this->addTest($test);
-
-        $state = $test->getState();
-        if ($state !== State::OK) {
-            $missing = array();
-            while ($dependency = array_search($required, $dependencies)) {
-                if (\SimpleSAML\Module::isModuleEnabled($dependency)) {
-                    $missing[] = $dependency;
-                }
-                unset($dependencies[$dependency]);
-            }
-            if (empty($missing)) {
-                $output[$category][] = array($state, $category, $test->getModuleName(), 'Module not loaded');
-            } else {
-                $output[$category][] = array($state, $category, $test->getModuleName(), 'Module not loaded; dependency for ' . implode(', ', $missing));
-            }
-        }
+        $testResult = new TestResult('Modules', '');
+        $testResult->setState($this->calculateState());
+        
+        $this->setTestResult($testResult);
     }
 }

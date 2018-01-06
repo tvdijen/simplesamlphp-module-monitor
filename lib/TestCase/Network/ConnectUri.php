@@ -4,14 +4,10 @@ namespace SimpleSAML\Module\monitor\TestCase\Network;
 
 use \SimpleSAML\Module\monitor\State as State;
 use \SimpleSAML\Module\monitor\TestData as TestData;
+use \SimpleSAML\Module\monitor\TestResult as TestResult;
 
 final class ConnectUri extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
-    /**
-     * @param resource|null
-     */
-    private $connection = null;
-
     /**
      * @param integer|null
      */
@@ -87,24 +83,27 @@ final class ConnectUri extends \SimpleSAML\Module\monitor\TestCaseFactory
     /*
      * @return void
      */
-    protected function invokeTest()
+    public function invokeTest()
     {
         $connection = @stream_socket_client($this->uri, $errno, $errstr, $this->timeout, STREAM_CLIENT_CONNECT, $this->context);
-        if ($connection !== false) {
-            $this->connection = $connection;
 
-            $this->setState(State::OK);
-            $this->addOutput($connection, 'connection');
-        } else {
-            $this->setState(State::ERROR);
-            $this->addMessage(State::ERROR, 'Network connection', $this->uri, $errstr . ' (' . $errno . ')');
-        }
-    }
+        $testResult = new TestResult('Network connection', $this->uri);
 
-    public function __destruct()
-    {
-        if ($this->connection) {
+        if (is_resource($connection)) {
+            $params = stream_context_get_params($connection);
+
+            $testResult->addOutput($connection, 'connection');
+            if (isSet($params['options']['ssl']['peer_certificate'])) {
+                $certData = openssl_x509_parse($params['options']['ssl']['peer_certificate']);
+                $testResult->addOutput($certData, 'certData');
+            }
+            $testResult->setState(State::OK);
             fclose($this->connection);
+        } else {
+            $testResult->setState(State::ERROR);
+            $testResult->setMessage($errstr.' ('.$errno.')');
         }
+
+        $this->setTestResult($testResult);
     }
 }

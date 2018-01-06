@@ -5,6 +5,8 @@ namespace SimpleSAML\Module\monitor\TestSuite\Store;
 use \SimpleSAML\Module\monitor\TestConfiguration as TestConfiguration;
 use \SimpleSAML\Module\monitor\TestCase as TestCase;
 use \SimpleSAML\Module\monitor\TestData as TestData;
+use \SimpleSAML\Module\monitor\TestResult as TestResult;
+use \SimpleSAML\Module\monitor\State as State;
 
 final class Memcache extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
@@ -34,6 +36,7 @@ final class Memcache extends \SimpleSAML\Module\monitor\TestSuiteFactory
             $this->serverGroupName = implode(PHP_EOL, $serverGroupName);
         }
         $this->class = $class;
+        $this->setCategory('Memcache sessions');
 
         parent::__construct($configuration);
     }
@@ -41,43 +44,38 @@ final class Memcache extends \SimpleSAML\Module\monitor\TestSuiteFactory
     /**
      * @return void
      */
-    protected function invokeTestSuite()
+    public function invokeTest()
     {
+        $testResult = new TestResult('Memcache health', $this->serverGroupName);
+
         // Check Memcache-servers
         if ($this->class === null) {
-            $this->setState(State::FATAL);
-            $this->addMessage(State::FATAL, 'Memcache health', $this->serverGroupName, 'Missing PHP module');
+            $testResult->setState(State::FATAL);
+            $testResult->setMessage('Missing PHP module');
         } else {
             $stats = \SimpleSAML_Memcache::getRawStats();
-
             foreach ($stats as $key => $serverGroup) {
-                $groupName = is_numeric($key) ? '#' . ++$key : "`$key'";
-                $groupTests = array();
-
                 foreach ($serverGroup as $host => $serverStats) {
                     $input = array(
                         'serverStats' => $serverStats,
                         'host' => $host
                     );
                     $testData = new TestData($input);
-                    $groupTests[] = new TestCase\Store\Memcache\Server($this, $testData);
+                    $groupTest = new TestCase\Store\Memcache\Server($this, $testData);
+                    $this->addTestResult($groupTest->getTestResult());
                 }
 
-                $input = array(
-                    'tests' => $groupTests,
-                    'group' => $groupName
-                );
-                $testData = new TestData($input);
-                $test = new TestCase\Store\Memcache\ServerGroup($this, $testData);
-                $this->addTest($test);
-            }
-
-            $tests = $this->getTests();
-            foreach ($tests as $serverGroup) {
-                $this->addMessages($serverGroup->getMessages());
+                $state = $this->calculateState();
+                $testResult->setState($state);
+                if ($state === State::OK) {
+                    $testResult->setMessage('Group is healthy');
+                } elseif ($state === State::WARNING) {
+                    $testResult->setMessage('Group is crippled');
+                } else {
+                    $testResult->setMessage('Group is down');
+                }
             }
         }
-
-        $this->calculateState();
+        $this->setTestResult($testResult);
     }
 }

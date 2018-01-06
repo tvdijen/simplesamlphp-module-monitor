@@ -20,6 +20,7 @@ final class Store extends \SimpleSAML\Module\monitor\TestSuiteFactory
     {
         $globalConfig = $configuration->getGlobalConfig();
         $this->store = $globalConfig->getString('store.type', 'phpsession');
+        $this->setCategory('Session store');
 
         parent::__construct($configuration);
     }
@@ -27,7 +28,7 @@ final class Store extends \SimpleSAML\Module\monitor\TestSuiteFactory
     /**
      * @return void
      */
-    protected function invokeTestSuite()
+    public function invokeTest()
     {
         $configuration = $this->getConfiguration();
 
@@ -48,13 +49,10 @@ final class Store extends \SimpleSAML\Module\monitor\TestSuiteFactory
 //                break;
             default:
                 SimpleSAML_Logger::warning("Not implemented;  $this->store - Skipping Store TestSuite.");
-                $this->setState(State::SKIPPED);
                 return;
         }
 
-        $this->addTest($test);
-        $this->setMessages($test->getMessages());
-
-        $this->calculateState();
+        $this->addTestResult($test->getTestResult());
+        $this->setTestResult($test->getTestResult());
     }
 }

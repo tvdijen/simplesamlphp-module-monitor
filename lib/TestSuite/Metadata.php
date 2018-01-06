@@ -39,6 +39,7 @@ final class Metadata extends \SimpleSAML\Module\monitor\TestSuiteFactory
 
         $this->fixEntityIds($metadata);
         $this->metadata = $metadata;
+        $this->setCategory('Metadata');
 
         parent::__construct($configuration);
     }
@@ -46,7 +47,7 @@ final class Metadata extends \SimpleSAML\Module\monitor\TestSuiteFactory
     /**
      * @return void
      */
-    protected function invokeTestSuite()
+    public function invokeTest()
     {
         foreach ($this->metadata as $set => $metadataSet) {
             foreach ($metadataSet as $entityId => $entityMetadata) {
@@ -56,22 +57,24 @@ final class Metadata extends \SimpleSAML\Module\monitor\TestSuiteFactory
                 );
                 $testData = new TestData($input);
 
-                $expirationTest = new TestCase\Metadata\Expiration($this, $testData);
-                $this->addTest($expirationTest);
-                $this->addMessages($expirationTest->getMessages(), $entityId);
+                $expTest = new TestCase\Metadata\Expiration($this, $testData);
+                $expTestResult = $expTest->getTestResult();
+                $expTestResult->setSubject($entityId);
+                $this->addTestResult($expTestResult);
 
                 if (array_key_exists('keys', $entityMetadata)) {
                     $keys = $entityMetadata['keys'];
                     foreach ($keys as $key) {
                         $input = array(
-                            'category' => $this->getCategory($key),
+                            'category' => $this->getType($key),
                             'certData' => "-----BEGIN CERTIFICATE-----\n" . $key['X509Certificate'] . "\n-----END CERTIFICATE-----"
                         );
                         $testData = new TestData($input);
 
-                        $certificateTest = new TestCase\Cert\Data($this, $testData);
-                        $this->addTest($certificateTest);
-                        $this->addMessages($certificateTest->getMessages(), $entityId);
+                        $certTest = new TestCase\Cert\Data($this, $testData);
+                        $certTestResult = $certTest->getTestResult();
+                        $certTestResult->setSubject($entityId);
+                        $this->addTestResult($certTestResult);
                     }
                 }
             }
@@ -86,7 +89,7 @@ final class Metadata extends \SimpleSAML\Module\monitor\TestSuiteFactory
      *
      * @return string
      */
-    private function getCategory($key)
+    public function getType($key)
     {
         if ($key['encryption'] === true && $key['signing'] === false) {
             $category = 'Encryption certificate';

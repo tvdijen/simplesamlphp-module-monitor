@@ -3,6 +3,7 @@
 namespace SimpleSAML\Module\monitor\TestCase\Store\Memcache;
 
 use \SimpleSAML\Module\monitor\State as State;
+use \SimpleSAML\Module\monitor\TestResult as TestResult;
 
 final class Server extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
@@ -15,6 +16,7 @@ final class Server extends \SimpleSAML\Module\monitor\TestCaseFactory
      * @var string|null
      */
     private $host;
+
 
     /**
      * @param TestData $testData
@@ -29,22 +31,27 @@ final class Server extends \SimpleSAML\Module\monitor\TestCaseFactory
         parent::initialize($testData);
     }
 
+
     /**
      * @return void
      */
-    protected function invokeTest()
+    public function invokeTest()
     {
+        $testResult = new TestResult('Memcache Server Health', $this->host);
+
         if ($this->serverStats === false) {
-            $this->setState(State::ERROR);
-            $this->addMessage(State::ERROR, 'Memcache Server Health', $this->host, 'Host is down');
+            $testResult->setState(State::ERROR);
+            $testResult->setMessage('Host is down');
         } else {
             $bytesUsed = $this->serverStats['bytes'];
             $bytesLimit = $this->serverStats['limit_maxbytes'];
             $free = round(100.0 - (($bytesUsed / $bytesLimit) * 100));
-            $this->addOutput($free, 'freePercentage');
+            $testResult->addOutput($free, 'freePercentage');
 
-            $this->setState(State::OK);
-            $this->addMessage(State::OK, 'Memcache Server Health', $this->host, $free . '% free space');
+            $testResult->setState(State::OK);
+            $testResult->setMessage($free . '% free space');
         }
+
+        $this->setTestResult($testResult);
     }
 }

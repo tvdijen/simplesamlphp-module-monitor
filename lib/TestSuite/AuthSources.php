@@ -27,6 +27,7 @@ final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
 
         $this->authSourceConfig = $configuration->getAuthSourceConfig();
         $this->checkAuthSources = $moduleConfig->getValue('checkAuthSources', true);
+        $this->setCategory('Authentication sources');
 
         parent::__construct($configuration);
     }
@@ -34,7 +35,7 @@ final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
     /**
      * @return void
      */
-    protected function invokeTestSuite()
+    public function invokeTest()
     {
         if ($this->checkAuthSources === true) {
             $authSources = $this->authSourceConfig->getOptions();
@@ -55,23 +56,19 @@ final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
 
             switch ($authSourceData[0]) {
                 case 'ldap:LDAP':
-                    $test = new AuthSource\Ldap($configuration, $testData);
-                    $this->addTest($test);
-                    $this->addMessages($test->getMessages(), $authSourceId);
+                    $ldapTest = new AuthSource\Ldap($configuration, $testData);
+                    $this->addTestResult($ldapTest->getTestResult());
                     break;
                 case 'negotiate:Negotiate':
-                    $test = new AuthSource\Negotiate($configuration, $testData);
-                    $this->addTest($test);
-                    $this->addMessages($test->getMessages(), $authSourceId);
+                    $negoTest = new AuthSource\Negotiate($configuration, $testData);
+                    $this->addTestResult($negoTest->getTestResult());
 
                     // We need to do some convertions from Negotiate > LDAP
                     $this->convertAuthSourceData($authSourceData);
                     $testData->setInput($authSourceData, 'authSourceData');
 
                     $ldapTest = new AuthSource\Ldap($configuration, $testData);
-                    $this->addTest($ldapTest);
-                    $this->addMessages($ldapTest->getMessages(), $authSourceId);
-
+                    $this->addTestResult($ldapTest->getTestResult());
                     break;
                 case 'multiauth:MultiAuth':
                     // Relies on other authSources

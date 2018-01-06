@@ -4,6 +4,7 @@ namespace SimpleSAML\Module\monitor\TestCase;
 
 use \SimpleSAML\Module\monitor\State as State;
 use \SimpleSAML\Module\monitor\TestData as TestData;
+use \SimpleSAML\Module\monitor\TestResult as TestResult;
 
 class Cert extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
@@ -92,7 +93,7 @@ class Cert extends \SimpleSAML\Module\monitor\TestCaseFactory
     /**
      * @return void
      */
-    protected function invokeTest()
+    public function invokeTest()
     {
         $this->calculateExpiration();
 
@@ -101,23 +102,25 @@ class Cert extends \SimpleSAML\Module\monitor\TestCaseFactory
         $moduleConfig = $configuration->getModuleConfig();
 
         $expiration = $this->getExpiration();
-        $subject = $this->getSubject();
 
         $days = abs($expiration);
         $daysStr = $days . ' ' . (($days === 1) ? 'day' : 'days');
 
+        $testResult = new TestResult($this->getCategory(), $this->getSubject());
         $threshold = $moduleConfig->getValue('certExpirationWarning', 28);
+
         if ($expiration < 0) {
-            $this->setState(State::ERROR);
-            $this->addMessage(State::ERROR, $this->getCategory(), $subject, 'Certificate has expired ' . $daysStr . ' ago');
+            $testResult->setState(State::ERROR);
+            $testResult->setMessage('Certificate has expired ' . $daysStr . ' ago');
         } else if ($expiration <= $threshold) {
-            $this->setState(State::WARNING);
-            $this->addMessage(State::WARNING, $this->getCategory(), $subject, 'Certificate will expire in ' . $daysStr);
+            $testResult->setState(State::WARNING);
+            $testResult->setMessage('Certificate will expire in ' . $daysStr);
         } else {
-            $this->setState(State::OK);
-            $this->addMessage(State::OK, $this->getCategory(), $subject, 'Certificate valid for another ' . $daysStr);
+            $testResult->setState(State::OK);
+            $testResult->setMessage('Certificate valid for another ' . $daysStr);
         }
 
-        $this->addOutput($expiration, 'expiration');
+        $testResult->addOutput($expiration, 'expiration');
+        $this->setTestResult($testResult);
     }
 }

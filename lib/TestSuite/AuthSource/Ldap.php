@@ -30,6 +30,7 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
 
         $this->authSourceData = $authSourceData;
         $this->hosts = explode(' ', $authSourceData['hostname']);
+        $this->setCategory('LDAP authentication source');
 
         parent::__construct($configuration);
     }
@@ -37,85 +38,94 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
     /**
      * @return void
      */
-    protected function invokeTestSuite()
+    public function invokeTest()
     {
-        $hosts = $this->hosts;
+        // Test LDAP configuration
+        $confTest = new TestCase\AuthSource\Ldap\Configuration(
+            $this,
+            new TestData(['authSourceData' => $this->authSourceData])
+        );
+        $confTestResult = $confTest->getTestResult();
+        $this->addTestResult($confTestResult);
 
-        // Test connection
-        foreach ($hosts as $host) {
-            $input = array(
-                'authSourceData' => $this->authSourceData,
-                'hostname' => $host
-            );
-            $testData = new TestData($input);
+        if ($confTestResult->getState() === State::OK) {
+            $connection = $confTestResult->getOutput('connection');
 
-            $connTest = new TestCase\AuthSource\Ldap\Connect(
-                $this,
-                $testData
-            );
-            $this->addTest($connTest);
-            $state = $connTest->getState();
-            if ($state !== State::OK) {
-                $this->addMessages($connTest->getMessages());
-                continue;
-            } else {
-                $this->addMessages($connTest->getMessages());
+            // Test connection for each configured LDAP-server
+            foreach ($this->hosts as $hostname) {
+                $preparedTestData = $this->prepareConnection($hostname, $this->authSourceData);
+                $connTest = new TestCase\Network\ConnectUri(
+                    $this,
+                    new TestData($preparedTestData)
+                );
+                $connTestResult = $connTest->getTestResult();
+                $this->addTestResult($connTestResult);
 
-                // Test certificate when available
-                $certData = $connTest->getOutput('certData');
-                if ($certData !== null) {
-                    $input = array(
-                        'certData' => $certData,
-                        'category' => 'LDAP Server Certificate'
-                    );
-                    $testData = new TestData($input);
+                if ($connTestResult->getState() === State::OK) {
+                    $certData = $connTestResult->getOutput('certData');
 
-                    $certTest = new TestCase\Cert($this, $testData);
-                    $this->addTest($certTest);
-                    $this->addMessages($certTest->getMessages());
+                    // Test certificate when available
+                    if ($certData !== null) {
+                        $certTest = new TestCase\Cert(
+                            $this,
+                            new TestData(['certData' => $certData, 'category' => 'LDAP Server Certificate'])
+                        );
+                        $certTestResult = $certTest->getTestResult();
+                        $this->addTestResult($certTestResult);
+                    }
                 }
             }
 
             // Test bind
-            $connection = $connTest->getOutput('connection');
-            $input = array(
+            $testData = new TestData([
                 'authSourceData' => $this->authSourceData,
                 'connection' => $connection
-            );
-            $testData = new TestData($input);
+            ]);
             $bindTest = new TestCase\AuthSource\Ldap\Bind(
                 $this,
                 $testData
             );
-            $this->addTest($bindTest);
-            $state = $bindTest->getState();
-            if ($state === State::OK) {
-                $this->addMessages($bindTest->getMessages());
+            $bindTestResult = $bindTest->getTestResult();
+            $this->addTestResult($bindTestResult);
 
+            if ($bindTestResult->getState() === State::OK) {
                 // Test search
-                $input = array(
+                $testData = new TestData([
                     'authSourceData' => $this->authSourceData,
                     'connection' => $connection
-                );
-                $testData = new TestData($input);
+                ]);
 
                 $searchTest = new TestCase\AuthSource\Ldap\Search(
                     $this,
                     $testData
                 );
-                $this->addTest($searchTest);
-                $state = $searchTest->getState();
-
-                if ($state === State::OK) {
-                    $this->addMessages($searchTest->getMessages());
-                } else {
-                    $this->addMessages($searchTest->getMessages());
-                }
-            } else {
-                $this->addMessages($bindTest->getMessages());
+                $searchTestResult = $searchTest->getTestResult();
+                $this->addTestResult($searchTestResult);
             }
         }
+    }
 
-        $this->calculateState();
+    /**
+     * @param string $connectString
+     * @param array $authSourceData
+     *
+     * @return array
+     */
+    private function prepareConnection($connectString, $authSourceData)
+    {
+        $hostname = parse_url($connectString, PHP_URL_HOST);
+
+        if (preg_match('/^(ldaps:\/\/(.*))$/', $connectString, $matches)) {
+            $port = parse_url($connectString, PHP_URL_PORT);
+            $uri = 'ssl://' .  $hostname . ($port === null) ? '' : (':' . $port);
+            $context = stream_context_create(array("ssl" => array("capture_peer_cert" => true, "verify_peer" => true)));
+        } else {
+            $port = $authSourceData['port'];
+            $uri = 'tcp://' . $hostname . ':' . $port;
+            $context = stream_context_create();
+        }
+
+        $timeout = isSet($authSourceData['timeout']) ? $authSourceData['timeout'] : null;
+        return ['uri' => $uri, 'context' => $context, 'timeout' => $timeout];
     }
 }

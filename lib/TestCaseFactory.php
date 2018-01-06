@@ -2,28 +2,45 @@
 
 namespace SimpleSAML\Module\monitor;
 
-abstract class TestCaseFactory extends TestFactory
+abstract class TestCaseFactory implements TestInterface
 {
     /**
-     * @var TestSuiteFactory|null
+     * @var string
      */
-    private $testSuite = null;
+    private $category;
 
     /**
-     * @var string|null
+     * @var string
      */
-    private $category = null;
+    private $subject;
 
     /**
-     * @var string|null
+     * @var TestData
      */
-    private $subject = null;
+    private $testData;
 
     /**
-     * @param TestSuiteFactory|null $testSuite
+     * @var TestConfiguration
+     * @deprecated
+     */
+    private $configuration;
+
+    /**
+     * @var TestResult
+     */
+    private $testResult;
+
+    /**
+     * @var TestSuiteFactory
+     * @deprecated
+     */
+    private $testSuite;
+
+    /**
+     * @param TestSuiteFactory $testSuite
      * @param TestData $testData
      */
-    public function __construct($testSuite = null, $testData)
+    public function __construct($testSuite, $testData)
     {
         assert($testSuite instanceof TestSuiteFactory);
         assert($testData instanceof TestData);
@@ -54,38 +71,14 @@ abstract class TestCaseFactory extends TestFactory
         $this->testSuite = $testSuite;
     }
 
-
     /**
      * @return TestSuiteFactory
      */
-    public function getTestSuite()
+    protected function getTestSuite()
     {
         assert($this->testSuite instanceof TestSuiteFactory);
         return $this->testSuite;
     }
-
-
-    /**
-     * @param string $subject
-     *
-     * @return void
-     */
-    protected function setSubject($subject)
-    {
-        assert(is_string($subject));
-        $this->subject = $subject;
-    }
-
-
-    /**
-     * @return string
-     */
-    public function getSubject()
-    {
-        assert(is_string($this->subject));
-        return $this->subject;
-    }
-
 
     /**
      * @param string $category
@@ -98,7 +91,6 @@ abstract class TestCaseFactory extends TestFactory
         $this->category = $category;
     }
 
-
     /**
      * @return string
      */
@@ -108,9 +100,89 @@ abstract class TestCaseFactory extends TestFactory
         return $this->category;
     }
 
-    
     /**
+     * @param TestConfiguration|null $configuration
+     *
      * @return void
      */
-    abstract protected function invokeTest();
+    protected function setConfiguration($configuration = null)
+    {
+        assert($configuration instanceof TestConfiguration);
+        if (!is_null($configuration)) {
+            $this->configuration = $configuration;
+        }
+    }
+
+    /**
+     * @return TestConfiguration
+     */
+    public function getConfiguration()
+    {
+        assert($this->configuration instanceof TestConfiguration);
+        return $this->configuration;
+    }
+
+    /**
+     * @return TestData|null
+     */
+    public function getTestData()
+    {
+        assert($this->testData instanceof TestData || is_null($this->testData));
+        return $this->testData;
+    }
+
+    /**
+     * @param TestData|null $testData
+     *
+     * @return void
+     */
+    protected function setTestData($testData = null)
+    {
+        assert($testData instanceof TestData || is_null($testData));
+        if (!is_null($testData)) {
+            $this->testData = $testData;
+        }
+    }
+
+    /**
+     * @param TestResult $testResult
+     *
+     * @return void
+     */
+    protected function setTestResult($testResult)
+    {
+        assert($testResult instanceof TestResult);
+        $this->testResult = $testResult;
+    }
+
+    /**
+     * @return TestResult
+     */
+    public function getTestResult()
+    {
+        assert($this->testResult instanceof TestResult);
+        return $this->testResult;
+    }
+
+    /**
+     * @param string $subject
+     *
+     * @return void
+     */
+    protected function setSubject($subject)
+    {
+        assert(is_string($subject));
+        $this->subject = $subject;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSubject()
+    {
+        assert(is_string($this->subject));
+        return $this->subject;
+    }
+
+    abstract public function invokeTest();
 }

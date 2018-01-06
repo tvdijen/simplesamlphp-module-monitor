@@ -2,12 +2,12 @@
 
 namespace SimpleSAML\Module\monitor;
 
-abstract class TestSuiteFactory extends TestFactory
+abstract class TestSuiteFactory extends TestCaseFactory
 {
     /**
-     * @var array|null
+     * @var array   An associative array of name => TestResult pairs
      */
-    private $tests = null;
+    private $testResults = [];
 
     /**
      * @param TestConfiguration|null $configuration
@@ -23,55 +23,62 @@ abstract class TestSuiteFactory extends TestFactory
         $this->invokeTestSuite();
     }
 
-
     /**
-     * @param TestData|null $testData
+     * @param TestData $testData
      *
      * @return void
      */
-    protected function initialize($testData = null)
+    protected function initialize($testData)
     {
         $this->setTestData($testData);
     }
 
     /**
-     * @param TestFactory $test
+     * @param TestResult $testResult
      *
      * @return void
      */
-    protected function addTest($test)
+    protected function addTestResult($testResult)
     {
-        assert($test instanceof TestFactory);
-        $this->tests[] = $test;
+        assert($testResult instanceof TestResult);
+        $this->testResults[] = $testResult;
     }
 
     /**
      * @return array
      */
-    public function getTests()
+    public function getTestResults()
     {
-        assert(is_array($this->tests));
-        return $this->tests;
+        assert(is_array($this->testResults));
+        return $this->testResults;
     }
 
     /**
-     * @return void
+     * @return int
      */
-    protected function calculateState()
+    public function calculateState()
     {
-        $tests = $this->getTests();
+        $testResults = $this->getTestResults();
 
-        if (!empty($tests)) {
-            $overall = array();
-            foreach ($tests as $test) {
-                $overall[] = $test->getState();
+        if (!empty($testResults)) {
+            $state = State::OK;
+            foreach ($testResults as $testResult) {
+                $testState = $testResult->getState();
+                if ($testState < $state) {
+                    $state = $testState;
+                }
             }
-            $this->setState(min($overall));
+        } else {
+            $state = State::NOSTATE;
         }
+        return $state;
     }
 
     /**
      * @return void
      */
-    abstract protected function invokeTestSuite();
+    public function invokeTestSuite()
+    {
+        $this->invokeTest();
+    }
 }

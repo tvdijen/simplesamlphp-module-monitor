@@ -4,13 +4,14 @@ namespace SimpleSAML\Module\monitor\TestCase\Store\Memcache;
 
 use \SimpleSAML\Module\monitor\State as State;
 use \SimpleSAML\Module\monitor\TestData as TestData;
+use \SimpleSAML\Module\monitor\TestResult as TestResult;
 
 final class ServerGroup extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     /**
      * @var array
      */
-    private $tests = array();
+    private $results = array();
 
     /**
      * @var string|null
@@ -24,8 +25,8 @@ final class ServerGroup extends \SimpleSAML\Module\monitor\TestCaseFactory
      */
     protected function initialize($testData)
     {
-        $tests = $testData->getInput('tests');
-        $this->tests = \SimpleSAML\Utils\Arrays::Arrayize($tests);
+        $results = $testData->getInput('results');
+        $this->$results = \SimpleSAML\Utils\Arrays::Arrayize($results);
         $this->group = $testData->getInput('group');
 
         parent::initialize($testData);
@@ -34,26 +35,26 @@ final class ServerGroup extends \SimpleSAML\Module\monitor\TestCaseFactory
     /**
      * @return void
      */
-    protected function invokeTest()
+    public function invokeTest()
     {
+        $testResult = new TestResult('Memcache Server Group Health', 'Group ' . $this->group);
+
         $states = array();
-        foreach ($this->tests as $server) {
-            $states[] = $server->getState();
+        foreach ($this->results as $result) {
+            $states[] = $result->getState();
         }
         $state = min($states);
-        $this->setState($state);
+
+        $testResult->setState($state);
 
         if ($state === State::OK) {
-            $this->addMessage(State::OK, 'Memcache Server Group Health', 'Group ' . $this->group, 'Group is healthy');
+            $testResult->setMessage('Group is healthy');
         } elseif ($state === State::WARNING) {
-            $this->addMessage(State::WARNING, 'Memcache Server Group Health', 'Group ' . $this->group, 'Group is crippled');
+            $testResult->setMessage('Group is crippled');
         } else {
-            $this->addMessage(State::ERROR, 'Memcache Server Group Health', 'Group ' . $this->group, 'Group is down');
+            $testResult->setMessage('Group is down');
         }
 
-        foreach ($this->tests as $server) {
-            $this->addOutput($server->getOutput());
-            $this->setMessages(array_merge($this->getMessages(), $server->getMessages()));
-        }
+        $this->setTestResult($testResult);
     }
 }

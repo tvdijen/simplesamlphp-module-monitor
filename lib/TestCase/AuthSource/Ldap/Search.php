@@ -4,7 +4,7 @@ namespace SimpleSAML\Module\monitor\TestCase\AuthSource\Ldap;
 
 use \SimpleSAML\Module\monitor\State as State;
 use \SimpleSAML\Module\monitor\TestData as TestData;
-use \SimpleSAML\Module\monitor\TestSuite as TestSuite;
+use \SimpleSAML\Module\monitor\TestResult as TestResult;
 
 final class Search extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
@@ -42,6 +42,7 @@ final class Search extends \SimpleSAML\Module\monitor\TestCaseFactory
     {
         $authSourceData = $testData->getInput('authSourceData');
 
+        // Just to be on the safe side, strip off any OU's and search to whole directory
         $base = $authSourceData['search.base'];
         $base = is_array($base) ? $base[0] : $base;
         if (($i = stripos($base, 'DC=')) > 0) {
@@ -70,26 +71,25 @@ final class Search extends \SimpleSAML\Module\monitor\TestCaseFactory
     /*
      * @return void
      */
-    protected function invokeTest()
+    public function invokeTest()
     {
-        $connection = $this->connection;
-        $subject = $this->getSubject();
-
         try {
-            $distinguishedName = $connection->searchfordn($this->base, $this->attributes, $this->username);
-        } catch (\Exception $e) {
-            $msg = str_replace('Library - LDAP searchfordn(): ', '', $e->getMessage());
-            $this->setState(State::ERROR);
-            $this->addMessage(State::ERROR, 'LDAP Search', $subject, $msg);
-            return;
+            $this->connection->searchfordn($this->base, $this->attributes, $this->username);
+        } catch (\SimpleSAML_Error_Error $error) {
+            // Fallthru
         }
-        if ($distinguishedName !== null) {
-            $this->setState(State::OK);
-            $this->addMessage(State::OK, 'LDAP Search', $subject, 'Search succesful');
+
+        $testResult = new TestResult('LDAP Search', $this->getSubject());
+
+        if (isSet($error)) {
+            $msg = str_replace('Library - LDAP searchfordn(): ', '', $error->getMessage());
+            $testResult->setState(State::ERROR);
+            $testResult->setMessage($msg);
         } else {
-            // Search for configured search.username returned no results; Shouldn't happen!!
-            $this->setState(State::WARNING);
-            $this->addMessage(State::WARNING, 'LDAP Search', $subject, 'Invalid search result');
+            $testResult->setState(State::OK);
+            $testResult->setMessage('Search succesful');
         }
+
+        $this->setTestResult($testResult);
     }
 }
