@@ -9,24 +9,24 @@ use \SimpleSAML\Module\monitor\TestResult as TestResult;
 final class Search extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     /*
-     * @var \SimpleSAML_Auth_LDAP|null
+     * @var \SimpleSAML_Auth_LDAP
      */
-    private $connection = null;
+    private $connection;
 
     /*
-     * @var string|null
+     * @var string
      */
-    private $base = null;
+    private $base;
 
     /*
-     * @var string|null
+     * @var string
      */
-    private $username = null;
+    private $username;
 
     /*
-     * @var string|null
+     * @var string
      */
-    private $password = null;
+    private $password;
 
     /*
      * @var array
@@ -40,7 +40,7 @@ final class Search extends \SimpleSAML\Module\monitor\TestCaseFactory
      */
     protected function initialize($testData)
     {
-        $authSourceData = $testData->getInput('authSourceData');
+        $authSourceData = $testData->getInputItem('authSourceData');
 
         // Just to be on the safe side, strip off any OU's and search to whole directory
         $base = $authSourceData['search.base'];
@@ -63,7 +63,7 @@ final class Search extends \SimpleSAML\Module\monitor\TestCaseFactory
             $this->attributes = array('sAMAccountName');
         }
         $this->password = $authSourceData['search.password'];
-        $this->connection = $testData->getInput('connection');
+        $this->connection = $testData->getInputItem('connection');
 
         parent::initialize($testData);
     }

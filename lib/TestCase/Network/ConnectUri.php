@@ -9,19 +9,19 @@ use \SimpleSAML\Module\monitor\TestResult as TestResult;
 final class ConnectUri extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     /**
-     * @param integer|null
+     * @param integer
      */
-    private $timeout = null;
+    private $timeout;
 
     /**
-     * @param resource|null
+     * @param resource
      */
-    private $context = null;
+    private $context;
 
     /**
-     * @param string|null
+     * @param string
      */
-    private $uri = null;
+    private $uri;
 
     /**
      * @var TestData $testData
@@ -30,15 +30,19 @@ final class ConnectUri extends \SimpleSAML\Module\monitor\TestCaseFactory
      */
     protected function initialize($testData)
     {
-        $uri = $testData->getInput('uri');
-        $context = $testData->getInput('context');
+        $uri = $testData->getInputItem('uri');
+        $context = $testData->getInputItem('context');
 
         if (is_null($context)) {
             $context = stream_context_create();
         }
 
-        $timeout = $testData->getInput('timeout');
+        $timeout = $testData->getInputItem('timeout');
         $timeout = is_null($timeout) ? (int)ini_get("default_socket_timeout") : $timeout;
+
+        assert(is_string($uri));
+        assert(is_resource($context));
+        assert(is_int($timeout));
 
         $this->setUri($uri);
         $this->setContext($context);
@@ -98,7 +102,6 @@ final class ConnectUri extends \SimpleSAML\Module\monitor\TestCaseFactory
                 $testResult->addOutput($certData, 'certData');
             }
             $testResult->setState(State::OK);
-            fclose($this->connection);
         } else {
             $testResult->setState(State::ERROR);
             $testResult->setMessage($errstr.' ('.$errno.')');

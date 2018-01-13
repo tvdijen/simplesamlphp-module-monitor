@@ -41,11 +41,11 @@ final class ModuleSet extends \SimpleSAML\Module\monitor\TestSuiteFactory
      */
     protected function initialize($testData)
     {
-        $this->setRequired($testData->getInput('required'));
-        $this->setAvailable($testData->getInput('available'));
-        $this->setDependencies($testData->getInput('dependencies'));
-        $this->setType($testData->getInput('type'));
-        $this->setTestCase($testData->getInput('testClass'));
+        $this->setRequired($testData->getInputItem('required'));
+        $this->setAvailable($testData->getInputItem('available'));
+        $this->setDependencies($testData->getInputItem('dependencies'));
+        $this->setType($testData->getInputItem('type'));
+        $this->setTestCase($testData->getInputItem('testClass'));
         $this->setCategory($this->type.' modules');
     }
 
@@ -116,14 +116,7 @@ final class ModuleSet extends \SimpleSAML\Module\monitor\TestSuiteFactory
                 $moduleTest = new $this->testCase($this, $testData);
                 $moduleTestResult = $moduleTest->getTestResult();
                 if ($moduleTestResult->getState() !== State::OK) {
-                    $missing = array();
-                    $dependencies = $this->dependencies;
-                    while ($dependency = array_search($this->required, $dependencies)) {
-                        if (\SimpleSAML\Module::isModuleEnabled($dependency)) {
-                            $missing[] = $dependency;
-                        }
-                        unset($dependencies[$dependency]);
-                    }
+                    $missing = $this->findMissingDependencies($module);
                     if (!empty($missing)) {
                         $moduleTestResult->setSubject($moduleTest->getModuleName());
                         $moduleTestResult->setMessage('Module not loaded; dependency for ' . implode(', ', $missing));
@@ -131,7 +124,7 @@ final class ModuleSet extends \SimpleSAML\Module\monitor\TestSuiteFactory
                     $this->addTestResult($moduleTestResult);
                 }
             }
-             $state = $this->calculateState();
+            $state = $this->calculateState();
         }
 
         $testResult = new TestResult($this->type, implode(', ', $this->required));       
@@ -143,5 +136,22 @@ final class ModuleSet extends \SimpleSAML\Module\monitor\TestSuiteFactory
             $testResult->setMessage('Not all required modules are loaded');
         }
         $this->setTestResult($testResult);
+    }
+
+    /**
+     * @param string $module
+     * @return array
+     */
+    private function findMissingDependencies($module)
+    {
+        $dependencies = $this->dependencies;
+        $missing = array();
+        while ($dependency = array_search($module, $dependencies)) {
+            if (\SimpleSAML\Module::isModuleEnabled($dependency)) {
+                $missing[] = $dependency;
+            }
+            unset($dependencies[$dependency]);
+        }
+        return $missing;
     }
 }

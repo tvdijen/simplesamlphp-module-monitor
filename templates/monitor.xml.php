@@ -1,6 +1,6 @@
 <?php
 
-use sspmod_monitor_State as State;
+use \SimpleSAML\Module\monitor\State as State;
 
 $modules = $this->data['modules'];
 $configuration = $this->data['configuration'];

@@ -9,14 +9,14 @@ use \SimpleSAML\Module\monitor\TestResult as TestResult;
 final class Expiration extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     /**
-     * @var string|null
+     * @var string
      */
-    private $entityId = null;
+    private $entityId;
 
     /**
-     * @var array|null
+     * @var array
      */
-    private $metadata = null;
+    private $metadata;
 
     /**
      * @param TestData $testData
@@ -25,8 +25,8 @@ final class Expiration extends \SimpleSAML\Module\monitor\TestCaseFactory
      */
     protected function initialize($testData)
     {
-        $this->entityId = $testData->getInput('entityId');
-        $this->metadata = $testData->getInput('metadata');
+        $this->entityId = $testData->getInputItem('entityId');
+        $this->metadata = $testData->getInputItem('metadata');
 
         parent::initialize($testData);
     }

@@ -13,7 +13,7 @@ final class File extends Data
      */
     public function __construct($testSuite, $testData)
     {
-        $certFile = $testData->getInput('certFile');
+        $certFile = $testData->getInputItem('certFile');
         $certData = file_get_contents($certFile);
         $testData->setInput($certData, 'certData');
 

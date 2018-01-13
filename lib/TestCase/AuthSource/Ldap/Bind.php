@@ -9,20 +9,20 @@ use \SimpleSAML\Module\monitor\TestResult as TestResult;
 final class Bind extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     /*
-     * @var \SimpleSAML_Auth_LDAP|null
+     * @var \SimpleSAML_Auth_LDAP
      */
-    private $connection = null;
+    private $connection;
 
     /*
-     * @var string|null
+     * @var string
      */
-    private $username = null;
+    private $username;
 
     /*
-     * @var string|null
+     * @var string
      */
 
-    private $password = null;
+    private $password;
 
 
     /*
@@ -32,8 +32,8 @@ final class Bind extends \SimpleSAML\Module\monitor\TestCaseFactory
      */
     protected function initialize($testData)
     {
-        $this->connection = $testData->getInput('connection');
-        $authSourceData = $testData->getInput('authSourceData');
+        $this->connection = $testData->getInputItem('connection');
+        $authSourceData = $testData->getInputItem('authSourceData');
 
         $this->username = $authSourceData['search.username'];
         $this->password = $authSourceData['search.password'];
@@ -61,7 +61,7 @@ final class Bind extends \SimpleSAML\Module\monitor\TestCaseFactory
             $msg = 'Bind succesful';
             $testResult->setState(State::OK);
         } else {
-            $msg = ldap_error($this->connection).' ('.ldap_errno($this->connection).')';
+            $msg = 'Authentication failed';
             $testResult->setState(State::ERROR);
         }
 

@@ -25,8 +25,8 @@ class Cert extends \SimpleSAML\Module\monitor\TestCaseFactory
      */
     protected function initialize($testData)
     {
-        $this->setCertInfo($testData->getInput('certData'));
-        $this->setCategory($testData->getInput('category'));
+        $this->setCertInfo($testData->getInputItem('certData'));
+        $this->setCategory($testData->getInputItem('category'));
 
         parent::initialize($testData);
     }

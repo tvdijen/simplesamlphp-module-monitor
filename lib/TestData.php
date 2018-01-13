@@ -57,13 +57,20 @@ final class TestData
     }
 
     /**
-     * @param string|null $item
-     *
-     * @return mixed
+     * @return array
      */
-    public function getInput($item = null)
+    public function getInput()
     {
-        assert(is_string($item) || is_null($item));
-        return is_null($item) ? $this->testData : (isSet($this->testData[$item]) ? $this->testData[$item] : null);
+        return $this->testData;
+    }
+
+    /**
+     * @param string $item
+     *
+     * @return mixed|null
+     */
+    public function getInputItem($item) {
+        assert(is_string($item));
+        return array_key_exists($item, $this->testData) ? $this->testData[$item] : null;
     }
 }

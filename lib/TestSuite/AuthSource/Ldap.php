@@ -12,12 +12,12 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
     /**
      * @var array
      */
-    private $authSourceData = array();
+    private $authSourceData;
 
     /**
-     * @var array
+     * @var string[]
      */
-    private $hosts = array();
+    private $hosts;
 
     /**
      * @param TestConfiguration $configuration
@@ -25,7 +25,7 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
      */
     public function __construct($configuration, $testData)
     {
-        $authSourceData = $testData->getInput('authSourceData');
+        $authSourceData = $testData->getInputItem('authSourceData');
         assert(is_array($authSourceData));
 
         $this->authSourceData = $authSourceData;

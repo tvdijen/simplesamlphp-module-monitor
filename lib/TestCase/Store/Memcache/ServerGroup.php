@@ -25,9 +25,9 @@ final class ServerGroup extends \SimpleSAML\Module\monitor\TestCaseFactory
      */
     protected function initialize($testData)
     {
-        $results = $testData->getInput('results');
+        $results = $testData->getInputITem('results');
         $this->$results = \SimpleSAML\Utils\Arrays::Arrayize($results);
-        $this->group = $testData->getInput('group');
+        $this->group = $testData->getInputItem('group');
 
         parent::initialize($testData);
     }

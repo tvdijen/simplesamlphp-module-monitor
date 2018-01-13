@@ -13,7 +13,7 @@ class Data extends \SimpleSAML\Module\monitor\TestCase\Cert
      */
     public function __construct($testSuite, $testData)
     {
-        $certData = $testData->getInput('certData');
+        $certData = $testData->getInputItem('certData');
         $certData = openssl_x509_parse($certData);
         $testData->setInput($certData, 'certData');
 

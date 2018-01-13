@@ -20,8 +20,8 @@ final class FreeSpace extends \SimpleSAML\Module\monitor\TestCaseFactory
      */
     protected function initialize($testData)
     {
-        $this->setPath($testData->getInput('path'));
-        $this->setCategory($testData->getInput('category'));
+        $this->setPath($testData->getInputItem('path'));
+        $this->setCategory($testData->getInputItem('category'));
         parent::initialize($testData);
     }
 

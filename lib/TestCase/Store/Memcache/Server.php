@@ -3,6 +3,7 @@
 namespace SimpleSAML\Module\monitor\TestCase\Store\Memcache;
 
 use \SimpleSAML\Module\monitor\State as State;
+use \SimpleSAML\Module\monitor\TestData as TestData;
 use \SimpleSAML\Module\monitor\TestResult as TestResult;
 
 final class Server extends \SimpleSAML\Module\monitor\TestCaseFactory
@@ -25,8 +26,8 @@ final class Server extends \SimpleSAML\Module\monitor\TestCaseFactory
      */
     protected function initialize($testData)
     {
-        $this->serverStats = $testData->getInput('serverStats');
-        $this->host = $testData->getInput('host');
+        $this->serverStats = $testData->getInputItem('serverStats');
+        $this->host = $testData->getInputItem('host');
 
         parent::initialize($testData);
     }

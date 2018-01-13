@@ -14,12 +14,12 @@ class Module extends \SimpleSAML\Module\monitor\TestCaseFactory
     private $parsed;
 
     /**
-     * @var array|null
+     * @var array
      */
     private $available;
 
     /**
-     * @var string|null
+     * @var string
      */
     private $module;
 
@@ -30,8 +30,8 @@ class Module extends \SimpleSAML\Module\monitor\TestCaseFactory
      */
     protected function initialize($testData)
     {
-        $this->module = $testData->getInput('required');
-        $this->available = $testData->getInput('available');
+        $this->module = $testData->getInputItem('required');
+        $this->available = $testData->getInputItem('available');
         $this->parsed = explode('|', $this->module);
 
         parent::initialize($testData);

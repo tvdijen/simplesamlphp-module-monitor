@@ -5,6 +5,7 @@ namespace SimpleSAML\Module\monitor\TestSuite;
 use \SimpleSAML\Module\monitor\TestConfiguration as TestConfiguration;
 use \SimpleSAML\Module\monitor\State as State;
 use \SimpleSAML\Module\monitor\TestData as TestData;
+use \SimpleSAML\Logger as Logger;
 
 final class Store extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
@@ -48,7 +49,7 @@ final class Store extends \SimpleSAML\Module\monitor\TestSuiteFactory
 //                $test = new Store\Sql($configuration);
 //                break;
             default:
-                SimpleSAML_Logger::warning("Not implemented;  $this->store - Skipping Store TestSuite.");
+                Logger::warning("Not implemented;  $this->store - Skipping Store TestSuite.");
                 return;
         }
 

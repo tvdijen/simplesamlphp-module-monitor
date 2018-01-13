@@ -29,7 +29,7 @@ final class Negotiate extends \SimpleSAML\Module\monitor\TestSuiteFactory
      */
     public function __construct($configuration, $testData)
     {
-        $authSourceData = $testData->getInput('authSourceData');
+        $authSourceData = $testData->getInputItem('authSourceData');
         $serverVars = $configuration->getServerVars();
         $requestVars = $configuration->getRequestVars();
 

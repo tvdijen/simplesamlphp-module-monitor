@@ -51,7 +51,7 @@ final class Configuration extends \SimpleSAML\Module\monitor\TestCaseFactory
      */
     protected function initialize($testData)
     {
-        $authSourceData = $testData->getInput('authSourceData');
+        $authSourceData = $testData->getInputItem('authSourceData');
         if (isSet($authSourceData['hostname'])) {
             $this->hostname = $authSourceData['hostname'];
         }
