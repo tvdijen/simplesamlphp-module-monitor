@@ -6,6 +6,7 @@ use \SimpleSAML\Module\monitor\State as State;
 use \SimpleSAML\Module\monitor\TestConfiguration as TestConfiguration;
 use \SimpleSAML\Module\monitor\TestCase as TestCase;
 use \SimpleSAML\Module\monitor\TestData as TestData;
+use \SimpleSAML\Module\monitor\TestResult as TestResult;
 
 final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
@@ -103,6 +104,12 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
                 $this->addTestResult($searchTestResult);
             }
         }
+
+        $state = $this->calculateState();
+
+        $testResult = new TestResult('LDAP Authentication');
+        $testResult->setState($state);
+        $this->setTestResult($testResult);
     }
 
     /**
