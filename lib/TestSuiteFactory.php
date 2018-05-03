@@ -54,6 +54,19 @@ abstract class TestSuiteFactory extends TestCaseFactory
     }
 
     /**
+     * @return array
+     */
+    public function getArrayizeTestResults()
+    {
+        assert(is_array($this->testResults));
+        $result = array();
+        foreach ($this->testResults as $testResult) {
+            $result[] = $testResult->arrayizeTestResult();
+        }
+        return $result;
+    }
+
+    /**
      * @return int
      */
     public function calculateState()
