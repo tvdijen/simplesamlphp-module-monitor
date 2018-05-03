@@ -66,7 +66,7 @@ final class Configuration extends \SimpleSAML\Module\monitor\TestSuiteFactory
             ]),
         ];
 
-        $connTest = new TestCase\Network\ConnectUri($this, new TestData($input));
+        $connTest = new TestCase\Network\ConnectUri(new TestData($input));
         $connTestResult = $connTest->getTestResult();
 
         $this->addTestResult($connTest->getTestResult());
@@ -83,7 +83,7 @@ final class Configuration extends \SimpleSAML\Module\monitor\TestSuiteFactory
                     'certExpirationWarning' => $this->certExpirationWarning,
                 ];
 
-                $certTest = new TestCase\Cert\Data($this, new TestData($input));
+                $certTest = new TestCase\Cert\Data(new TestData($input));
                 $this->addTestResult($certTest->getTestResult());
             }
         }
@@ -97,7 +97,7 @@ final class Configuration extends \SimpleSAML\Module\monitor\TestSuiteFactory
             );
             $testData = new TestData($input);
 
-            $test = new TestCase\Cert\File($this, $testData);
+            $test = new TestCase\Cert\File($testData);
             $this->addTestResult($test->getTestResult());
         }
 

@@ -64,7 +64,7 @@ final class Metadata extends \SimpleSAML\Module\monitor\TestSuiteFactory
                 );
                 $testData = new TestData($input);
 
-                $expTest = new TestCase\Metadata\Expiration($this, $testData);
+                $expTest = new TestCase\Metadata\Expiration($testData);
                 $expTestResult = $expTest->getTestResult();
                 $expTestResult->setSubject($entityId);
                 $this->addTestResult($expTestResult);
@@ -79,7 +79,7 @@ final class Metadata extends \SimpleSAML\Module\monitor\TestSuiteFactory
                         );
                         $testData = new TestData($input);
 
-                        $certTest = new TestCase\Cert\Data($this, $testData);
+                        $certTest = new TestCase\Cert\Data($testData);
                         $certTestResult = $certTest->getTestResult();
                         $certTestResult->setSubject($entityId);
                         $this->addTestResult($certTestResult);

@@ -31,6 +31,7 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
      */
     public function __construct($configuration, $testData)
     {
+        $moduleConfig = $configuration->getModuleConfig();
         $authSourceData = $testData->getInputItem('authSourceData');
         assert(is_array($authSourceData));
 
@@ -49,7 +50,6 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
     {
         // Test LDAP configuration
         $confTest = new TestCase\AuthSource\Ldap\Configuration(
-            $this,
             new TestData(['authSourceData' => $this->authSourceData])
         );
         $confTestResult = $confTest->getTestResult();
@@ -62,7 +62,6 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
             foreach ($this->hosts as $hostname) {
                 $preparedTestData = $this->prepareConnection($hostname, $this->authSourceData);
                 $connTest = new TestCase\Network\ConnectUri(
-                    $this,
                     new TestData($preparedTestData)
                 );
                 $connTestResult = $connTest->getTestResult();
@@ -74,7 +73,6 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
                     // Test certificate when available
                     if ($certData !== null) {
                         $certTest = new TestCase\Cert(
-                            $this,
                             new TestData([
                                 'certData' => $certData,
                                 'category' => 'LDAP Server Certificate',
@@ -93,7 +91,6 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
                 'connection' => $connection
             ]);
             $bindTest = new TestCase\AuthSource\Ldap\Bind(
-                $this,
                 $testData
             );
             $bindTestResult = $bindTest->getTestResult();
@@ -107,7 +104,6 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
                 ]);
 
                 $searchTest = new TestCase\AuthSource\Ldap\Search(
-                    $this,
                     $testData
                 );
                 $searchTestResult = $searchTest->getTestResult();

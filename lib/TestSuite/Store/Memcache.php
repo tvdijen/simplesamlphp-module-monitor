@@ -61,7 +61,7 @@ final class Memcache extends \SimpleSAML\Module\monitor\TestSuiteFactory
                         'host' => $host
                     );
                     $testData = new TestData($input);
-                    $groupTest = new TestCase\Store\Memcache\Server($this, $testData);
+                    $groupTest = new TestCase\Store\Memcache\Server($testData);
                     $this->addTestResult($groupTest->getTestResult());
                 }
 

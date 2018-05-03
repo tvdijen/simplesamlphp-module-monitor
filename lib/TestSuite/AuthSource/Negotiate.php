@@ -55,7 +55,7 @@ final class Negotiate extends \SimpleSAML\Module\monitor\TestSuiteFactory
         );
         $testData = new TestData($input);
 
-        $test = new TestCase\AuthSource\Negotiate($this, $testData);
+        $test = new TestCase\AuthSource\Negotiate($testData);
         $this->addTestResult($test->getTestResult());
         $this->setTestResult($test->getTestResult());
     }

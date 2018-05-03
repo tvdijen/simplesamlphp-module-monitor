@@ -28,7 +28,7 @@ final class Phpsession extends \SimpleSAML\Module\monitor\TestSuiteFactory
         ];
         $testData = new TestData($input);
 
-        $test = new TestCase\FileSystem\FreeSpace($this, $testData);
+        $test = new TestCase\FileSystem\FreeSpace($testData);
         $testResult = $test->getTestResult();
         $this->addTestResult($testResult);
 

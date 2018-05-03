@@ -113,7 +113,7 @@ final class ModuleSet extends \SimpleSAML\Module\monitor\TestSuiteFactory
                     'available' => $this->available
                 ]);
 
-                $moduleTest = new $this->testCase($this, $testData);
+                $moduleTest = new $this->testCase($testData);
                 $moduleTestResult = $moduleTest->getTestResult();
                 if ($moduleTestResult->getState() !== State::OK) {
                     $missing = $this->findMissingDependencies($module);

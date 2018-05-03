@@ -31,21 +31,12 @@ abstract class TestCaseFactory implements TestInterface
     private $testResult;
 
     /**
-     * @var TestSuiteFactory
-     * @deprecated
-     */
-    private $testSuite;
-
-    /**
-     * @param TestSuiteFactory $testSuite
      * @param TestData $testData
      */
-    public function __construct($testSuite, $testData)
+    public function __construct($testData)
     {
-        assert($testSuite instanceof TestSuiteFactory);
         assert($testData instanceof TestData);
 
-        $this->setTestSuite($testSuite);
         $this->initialize($testData);
         $this->invokeTest();
     }
@@ -58,26 +49,6 @@ abstract class TestCaseFactory implements TestInterface
     protected function initialize($testData)
     {
         $this->setTestData($testData);
-    }
-
-    /**
-     * @param TestSuiteFactory $testSuite
-     *
-     * @return void
-     */
-    private function setTestSuite($testSuite)
-    {
-        assert($testSuite instanceof TestSuiteFactory);
-        $this->testSuite = $testSuite;
-    }
-
-    /**
-     * @return TestSuiteFactory
-     */
-    protected function getTestSuite()
-    {
-        assert($this->testSuite instanceof TestSuiteFactory);
-        return $this->testSuite;
     }
 
     /**
