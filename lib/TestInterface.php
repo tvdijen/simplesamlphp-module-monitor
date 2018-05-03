@@ -15,11 +15,6 @@ interface TestInterface
     public function getConfiguration();
 
     /**
-     * @return TestData
-     */
-    //public function getTestData();
-
-    /**
      * @return TestResult
      */
     public function getTestResult();
