@@ -5,6 +5,11 @@ namespace SimpleSAML\Module\monitor;
 final class TestResult
 {
     /**
+     * @var int     The state reflecting the result
+     */
+    private $state;
+
+    /**
      * @var string  Test category this test belongs to
      */
     private $category;
@@ -25,11 +30,6 @@ final class TestResult
     private $output;
 
     /**
-     * @var int     The state reflecting the result
-     */
-    private $state;
-
-    /**
      * @param string $category
      * @param string $subject
      */
@@ -39,6 +39,20 @@ final class TestResult
         $this->setSubject($subject);
         $this->setOutput(array());
         $this->setState(State::NOSTATE);
+    }
+
+    /**
+     * @return array
+     */
+    public function arrayizeTestResult()
+    {
+        return array(
+            $this->getState(),
+            $this->getCategory(),
+            $this->getSubject(),
+            $this->getMessage(),
+            $this->getOutput()
+        );
     }
 
     /**
