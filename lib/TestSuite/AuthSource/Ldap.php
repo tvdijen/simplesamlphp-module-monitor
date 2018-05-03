@@ -21,6 +21,11 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
     private $hosts;
 
     /**
+     * @param integer|null;
+     */
+    private $certExpirationWarning = null;
+
+    /**
      * @param TestConfiguration $configuration
      * @param TestData $testData
      */
@@ -31,6 +36,7 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
 
         $this->authSourceData = $authSourceData;
         $this->hosts = explode(' ', $authSourceData['hostname']);
+        $this->certExpirationWarning = $moduleConfig->getValue('certExpirationWarning', 28);
         $this->setCategory('LDAP authentication source');
 
         parent::__construct($configuration);
@@ -69,7 +75,11 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
                     if ($certData !== null) {
                         $certTest = new TestCase\Cert(
                             $this,
-                            new TestData(['certData' => $certData, 'category' => 'LDAP Server Certificate'])
+                            new TestData([
+                                'certData' => $certData,
+                                'category' => 'LDAP Server Certificate',
+                                'certExpirationWarning' => $this->certExpirationWarning,
+                            ])
                         );
                         $certTestResult = $certTest->getTestResult();
                         $this->addTestResult($certTestResult);

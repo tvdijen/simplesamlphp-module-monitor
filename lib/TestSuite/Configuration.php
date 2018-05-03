@@ -27,14 +27,21 @@ final class Configuration extends \SimpleSAML\Module\monitor\TestSuiteFactory
     private $serverPort = null;
 
     /**
+     * @param integer|null;
+     */
+    private $certExpirationWarning = null;
+
+    /**
      * @param TestConfiguration $configuration
      */
     public function __construct($configuration)
     {
         $globalConfig = $configuration->getGlobalConfig();
+        $moduleConfig = $configuration->getModuleConfig();
         $serverVars = $configuration->getServerVars();
 
         $this->metadataCert = $globalConfig->getString('metadata.sign.certificate', null);
+        $this->certExpirationWarning = $moduleConfig->getValue('certExpirationWarning', 28);
         $this->serverName = $serverVars->get('SERVER_NAME');
         $this->serverPort = $serverVars->get('SERVER_PORT');
         $this->setCategory('Configuration');
@@ -73,6 +80,7 @@ final class Configuration extends \SimpleSAML\Module\monitor\TestSuiteFactory
                 $input = [
                     'category' => 'Service Communications Certificate',
                     'certData' => $certData,
+                    'certExpirationWarning' => $this->certExpirationWarning,
                 ];
 
                 $certTest = new TestCase\Cert\Data($this, new TestData($input));
@@ -84,7 +92,8 @@ final class Configuration extends \SimpleSAML\Module\monitor\TestSuiteFactory
         if (is_string($this->metadataCert)) {
             $input = array(
                 'certFile' => Utils\Config::getCertPath($this->metadataCert),
-                'category' => 'Metadata Signing Certificate'
+                'category' => 'Metadata Signing Certificate',
+                'certExpirationWarning' => $this->certExpirationWarning,
             );
             $testData = new TestData($input);
 

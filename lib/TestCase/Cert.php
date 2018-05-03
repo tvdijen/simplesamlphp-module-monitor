@@ -19,14 +19,20 @@ class Cert extends \SimpleSAML\Module\monitor\TestCaseFactory
     private $expiration = null;
 
     /**
+     * @param integer|null;
+     */
+    private $certExpirationWarning = null;
+
+    /**
      * @var TestData $testData
      *
      * @return void
      */
     protected function initialize($testData)
     {
-        $this->setCertInfo($testData->getInputItem('certData'));
         $this->setCategory($testData->getInputItem('category'));
+        $this->setCertInfo($testData->getInputItem('certData'));
+        $this->setCertExpirationWarning($testData->getInputItem('certExpirationWarning'));
 
         parent::initialize($testData);
     }
@@ -58,6 +64,26 @@ class Cert extends \SimpleSAML\Module\monitor\TestCaseFactory
     {
         assert(is_array($this->certInfo));
         return $this->certInfo;
+    }
+
+    /**
+     * @param integer $certExpirationWarning
+     *
+     * @return void
+     */
+    protected function setCertExpirationWarning($certExpirationWarning)
+    {
+        assert(is_int($certExpirationWarning));
+        $this->certExpirationWarning = $certExpirationWarning;
+    }
+
+    /**
+     * @return integer|null
+     */
+    protected function getCertExpirationWarning()
+    {
+        assert(is_array($this->certExpirationWarning));
+        return $this->certExpirationWarning;
     }
 
     /**
@@ -97,17 +123,13 @@ class Cert extends \SimpleSAML\Module\monitor\TestCaseFactory
     {
         $this->calculateExpiration();
 
-        $testsuite = $this->getTestSuite();
-        $configuration = $testsuite->getConfiguration();
-        $moduleConfig = $configuration->getModuleConfig();
-
+        $threshold = $this->getCertExpirationWarning();
         $expiration = $this->getExpiration();
 
         $days = abs($expiration);
         $daysStr = $days . ' ' . (($days === 1) ? 'day' : 'days');
 
         $testResult = new TestResult($this->getCategory(), $this->getSubject());
-        $threshold = $moduleConfig->getValue('certExpirationWarning', 28);
 
         if ($expiration < 0) {
             $testResult->setState(State::ERROR);

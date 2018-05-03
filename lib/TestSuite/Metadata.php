@@ -14,6 +14,11 @@ final class Metadata extends \SimpleSAML\Module\monitor\TestSuiteFactory
     private $metadata = array();
 
     /**
+     * @param integer|null;
+     */
+    private $certExpirationWarning = null;
+
+    /**
      * @param TestConfiguration $configuration
      */
     public function __construct($configuration)
@@ -36,6 +41,8 @@ final class Metadata extends \SimpleSAML\Module\monitor\TestSuiteFactory
                 }
             }
         } 
+
+        $this->certExpirationWarning = $moduleConfig->getValue('certExpirationWarning', 28);
 
         $this->fixEntityIds($metadata);
         $this->metadata = $metadata;
@@ -67,7 +74,8 @@ final class Metadata extends \SimpleSAML\Module\monitor\TestSuiteFactory
                     foreach ($keys as $key) {
                         $input = array(
                             'category' => $this->getType($key),
-                            'certData' => "-----BEGIN CERTIFICATE-----\n" . $key['X509Certificate'] . "\n-----END CERTIFICATE-----"
+                            'certData' => "-----BEGIN CERTIFICATE-----\n" . $key['X509Certificate'] . "\n-----END CERTIFICATE-----",
+                            'certExpirationWarning' => $this->certExpirationWarning,
                         );
                         $testData = new TestData($input);
 
