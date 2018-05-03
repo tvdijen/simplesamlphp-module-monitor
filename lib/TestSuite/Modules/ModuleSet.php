@@ -121,8 +121,8 @@ final class ModuleSet extends \SimpleSAML\Module\monitor\TestSuiteFactory
                         $moduleTestResult->setSubject($moduleTest->getModuleName());
                         $moduleTestResult->setMessage('Module not loaded; dependency for ' . implode(', ', $missing));
                     }
-                    $this->addTestResult($moduleTestResult);
                 }
+                $this->addTestResult($moduleTestResult);
             }
             $state = $this->calculateState();
         }
@@ -135,6 +135,7 @@ final class ModuleSet extends \SimpleSAML\Module\monitor\TestSuiteFactory
         } else {
             $testResult->setMessage('Not all required modules are loaded');
         }
+        $testResult->setState($state);
         $this->setTestResult($testResult);
     }
 
