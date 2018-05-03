@@ -73,7 +73,7 @@ class Monitor
     private function invokeModuleCheck()
     {
         $testsuite = new TestSuite\Modules($this->configuration);
-        $this->results['modules'] = $testsuite->getTestResults();
+        $this->results['modules'] = $testsuite->getArrayizeTestResults();
         $this->state[] = $testsuite->calculateState();
     }
 
@@ -83,7 +83,7 @@ class Monitor
     private function invokeConfigurationCheck()
     {
         $testsuite = new TestSuite\Configuration($this->configuration);
-        $this->results['configuration'] = $testsuite->getTestResults();
+        $this->results['configuration'] = $testsuite->getArrayizeTestResults();
         $this->state[] = $testsuite->calculateState();
     }
 
@@ -93,7 +93,7 @@ class Monitor
     private function invokeStoreCheck()
     {
         $testsuite = new TestSuite\Store($this->configuration);
-        $this->results['store'] = $testsuite->getTestResults();
+        $this->results['store'] = $testsuite->getArrayizeTestResults();
         $this->state[] = $testsuite->calculateState();
     }
 
@@ -103,7 +103,7 @@ class Monitor
     private function invokeAuthSourceCheck()
     {
         $testsuite = new TestSuite\AuthSources($this->configuration);
-        $this->results['authsources'] = $testsuite->getTestResults();
+        $this->results['authsources'] = $testsuite->getArrayizeTestResults();
         $this->state[] = $testsuite->calculateState();
     }
 
@@ -113,7 +113,7 @@ class Monitor
     private function invokeMetadataCheck()
     {
         $testsuite = new TestSuite\Metadata($this->configuration);
-        $this->results['metadata'] = $testsuite->getTestResults();
+        $this->results['metadata'] = $testsuite->getArrayizeTestResults();
         $this->state[] = $testsuite->calculateState();
     }
 }
