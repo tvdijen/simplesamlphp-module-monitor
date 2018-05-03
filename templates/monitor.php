@@ -71,14 +71,13 @@ foreach ($authsources as $name => $authsource) {
   <br />
 <?php
 }
-
 foreach ($metadata as $entityId => $entity) {
 ?>
   <table style='width: 98%;'>
     <tr><th colspan='4'>Metadata Endpoint - <?php echo $entityId; ?></th></tr>
     <tr><th>State</th><th style="width:20%;">Category</th><th style="width:40%;">Subject</th><th>Summary</th></tr>
 <?php
-    foreach ($entity as $entityId => $check) {
+    foreach ($entity as $check) {
         list($health, $type, $item, $summary) = $check;
         list($healthState, $healthColor) = $healthInfo[$health];
         echo "    <tr><td style='color:$healthColor;'>$healthState</td><td>$type</td><td>$item</td><td>$summary</td></tr>\n";
