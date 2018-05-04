@@ -74,7 +74,7 @@ final class Entity extends \SimpleSAML\Module\monitor\TestSuiteFactory
 
                 $certTest = new TestCase\Cert\Data($testData);
                 $certTestResult = $certTest->getTestResult();
-                $certTestResult->setSubject($this->entityId);
+
                 $this->addTestResult($certTestResult);
             }
         }
