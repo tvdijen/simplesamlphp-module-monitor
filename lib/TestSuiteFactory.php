@@ -45,6 +45,17 @@ abstract class TestSuiteFactory extends TestCaseFactory
     }
 
     /**
+     * @param array $testResults
+     *
+     * @return void
+     */
+    protected function addTestResults($testResults)
+    {
+        assert(is_array($testResults));
+        $this->testResults = array_merge($this->testResults, $testResults);
+    }
+
+    /**
      * @return array
      */
     public function getTestResults()
@@ -59,7 +70,7 @@ abstract class TestSuiteFactory extends TestCaseFactory
     public function getArrayizeTestResults()
     {
         assert(is_array($this->testResults));
-        $result = array();
+        $result = [];
         foreach ($this->testResults as $testResult) {
             $result[] = $testResult->arrayizeTestResult();
         }
