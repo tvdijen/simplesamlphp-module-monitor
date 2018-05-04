@@ -114,7 +114,8 @@ class Monitor
     private function invokeMetadataCheck()
     {
         $testsuite = new TestSuite\Metadata($this->configuration);
-        $this->results['metadata'] = $testsuite->getArrayizeTestResults();
+        $testResult = $testsuite->getTestResult();
         $this->state[] = $testsuite->calculateState();
+        $this->results['metadata'] = $testResult->getOutput();
     }
 }
