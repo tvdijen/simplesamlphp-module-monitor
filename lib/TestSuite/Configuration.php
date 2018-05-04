@@ -83,7 +83,7 @@ final class Configuration extends \SimpleSAML\Module\monitor\TestSuiteFactory
                     'certExpirationWarning' => $this->certExpirationWarning,
                 ];
 
-                $certTest = new TestCase\Cert\Data(new TestData($input));
+                $certTest = new TestCase\Cert(new TestData($input));
                 $this->addTestResult($certTest->getTestResult());
             }
         }
