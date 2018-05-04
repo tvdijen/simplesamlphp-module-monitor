@@ -130,7 +130,8 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
 
         if (preg_match('/^(ldaps:\/\/(.*))$/', $connectString, $matches)) {
             $port = parse_url($connectString, PHP_URL_PORT);
-            $uri = 'ssl://' .  $hostname . ($port === null) ? '' : (':' . $port);
+            $port = $port ?: $authSourceData['port'];
+            $uri = 'ssl://' .  $hostname . ':' . $port;
             $context = stream_context_create(array("ssl" => array("capture_peer_cert" => true, "verify_peer" => true)));
         } else {
             $port = $authSourceData['port'];
