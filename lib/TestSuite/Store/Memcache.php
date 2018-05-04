@@ -16,27 +16,15 @@ final class Memcache extends \SimpleSAML\Module\monitor\TestSuiteFactory
     private $class = null;
 
     /**
-     * var string
-     */
-    private $serverGroupName = '** Unknown **';
-
-    /**
      * @param TestConfiguration $configuration
      */
     public function __construct($configuration)
     {
         $class = class_exists('Memcache') ? 'Memcache' : (class_exists('Memcached') ? 'Memcached' : null);
-        if ($class === null) {
-            $globalConfig = $configuration->getGlobalConfig();
-            $serverGroups = $globalConfig->getValue('memcache_store.servers', array());
-            $serverGroupName = array_map(function($i) {
-                $group = array_keys($i);
-                return 'Server Group #' . ++$group[0];
-            }, $serverGroups);
-            $this->serverGroupName = implode(PHP_EOL, $serverGroupName);
+        if ($class !== null) {
+            $this->class = $class;
+            $this->setCategory('Memcache sessions');
         }
-        $this->class = $class;
-        $this->setCategory('Memcache sessions');
 
         parent::__construct($configuration);
     }
@@ -46,35 +34,50 @@ final class Memcache extends \SimpleSAML\Module\monitor\TestSuiteFactory
      */
     public function invokeTest()
     {
-        $testResult = new TestResult('Memcache health', $this->serverGroupName);
+                $testResult = new TestResult('Memcache', 'Overall health');
 
-        // Check Memcache-servers
         if ($this->class === null) {
             $testResult->setState(State::FATAL);
             $testResult->setMessage('Missing PHP module');
+            $this->addTestResult($testResult);
         } else {
+            // Check Memcache-servers
+
             $stats = \SimpleSAML_Memcache::getRawStats();
+            $i = 1;
             foreach ($stats as $key => $serverGroup) {
+                $results = array();
                 foreach ($serverGroup as $host => $serverStats) {
                     $input = array(
                         'serverStats' => $serverStats,
                         'host' => $host
                     );
                     $testData = new TestData($input);
-                    $groupTest = new TestCase\Store\Memcache\Server($testData);
-                    $this->addTestResult($groupTest->getTestResult());
+                    $serverTest = new TestCase\Store\Memcache\Server($testData);
+                    $results[] = $serverTest->getTestResult();
                 }
 
-                $state = $this->calculateState();
-                $testResult->setState($state);
-                if ($state === State::OK) {
-                    $testResult->setMessage('Group is healthy');
-                } elseif ($state === State::WARNING) {
-                    $testResult->setMessage('Group is crippled');
-                } else {
-                    $testResult->setMessage('Group is down');
+
+                $input = array(
+                    'results' => $results,
+                    'group' => $i
+                );
+                $testData = new TestData($input);
+                $groupTest = new TestCase\Store\Memcache\ServerGroup($testData);
+                $groupTestResult = $groupTest->getTestResult();
+                $this->addTestResult($groupTestResult);
+
+                // Add individual server results
+                foreach ($results as $result) {
+                    $this->addTestResult($result);
                 }
+
+                $i++;
             }
+
+            $state = $this->calculateState();
+
+            $testResult->setState($state);
         }
         $this->setTestResult($testResult);
     }
