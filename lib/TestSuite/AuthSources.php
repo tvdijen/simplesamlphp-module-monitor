@@ -79,6 +79,10 @@ final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
             }
         }
 
+        $results = $test->getTestResults();
+        foreach ($results as $result) {
+            $this->addTestResult($result);
+        }
         $this->calculateState();
     }
 

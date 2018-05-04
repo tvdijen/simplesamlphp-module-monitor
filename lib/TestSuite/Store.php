@@ -53,7 +53,11 @@ final class Store extends \SimpleSAML\Module\monitor\TestSuiteFactory
                 return;
         }
 
-        $this->addTestResult($test->getTestResult());
+        $results = $test->getTestResults();
+        foreach ($results as $result) {
+            $this->addTestResult($result);
+        }
+
         $this->calculateState();
     }
 }
