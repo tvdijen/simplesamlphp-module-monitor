@@ -42,9 +42,7 @@ if (!is_null($xml)) {
 $t->data['header'] = 'Monitor';
 $t->data['authsources'] = $results['authsources'];
 $t->data['configuration'] = $results['configuration'];
-$t->data['modules'] = array_map(function($i) {
-    return $i[0];
-}, array_merge($results['modules']));
+$t->data['modules'] = $results['modules'];
 $t->data['store'] = $results['store'];
 $t->data['metadata'] = $results['metadata'];
 $t->data['overall'] = $monitor->getState();
