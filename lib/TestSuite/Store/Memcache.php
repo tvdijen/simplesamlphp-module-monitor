@@ -68,9 +68,7 @@ final class Memcache extends \SimpleSAML\Module\monitor\TestSuiteFactory
                 $this->addTestResult($groupTestResult);
 
                 // Add individual server results
-                foreach ($results as $result) {
-                    $this->addTestResult($result);
-                }
+                $this->addTestResults($results);
 
                 $i++;
             }
