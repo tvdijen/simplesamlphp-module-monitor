@@ -19,14 +19,18 @@ final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
     private $authSourceConfig;
 
     /**
+     * @var string
+     */
+    private $authSourceId = '';
+
+    /**
      * @param TestConfiguration $configuration
      */
-    public function __construct($configuration)
+    public function __construct($configuration, $authSourceId)
     {
-        $moduleConfig = $configuration->getModuleConfig();
+        $this->authSourceId = $authSourceId;
 
         $this->authSourceConfig = $configuration->getAuthSourceConfig();
-        $this->checkAuthSources = $moduleConfig->getValue('checkAuthSources', true);
         $this->setCategory('Authentication sources');
 
         parent::__construct($configuration);
@@ -44,8 +48,8 @@ final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
         } else { // false or invalid value
             return;
         }
-
         $configuration = $this->getConfiguration();
+        $output = [];
         foreach ($authSources as $authSourceId) {
             $authSourceData = $this->authSourceConfig->getValue($authSourceId);
             $input = array(
@@ -53,22 +57,22 @@ final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
                 'authSourceData' => $authSourceData
             );
             $testData = new TestData($input);
-
             switch ($authSourceData[0]) {
                 case 'ldap:LDAP':
                     $ldapTest = new AuthSource\Ldap($configuration, $testData);
-                    $this->addTestResult($ldapTest->getTestResult());
+                    $this->addTestResults($ldapTest->getTestResults());
+                    $output[$authSourceId] = $ldapTest->getArrayizeTestResults();
                     break;
                 case 'negotiate:Negotiate':
                     $negoTest = new AuthSource\Negotiate($configuration, $testData);
-                    $this->addTestResult($negoTest->getTestResult());
+                    $this->addTestResults($negoTest->getTestResults());
 
                     // We need to do some convertions from Negotiate > LDAP
                     $this->convertAuthSourceData($authSourceData);
                     $testData->setInput($authSourceData, 'authSourceData');
-
                     $ldapTest = new AuthSource\Ldap($configuration, $testData);
-                    $this->addTestResult($ldapTest->getTestResult());
+                    $this->addTestResults($ldapTest->getTestResults());
+                    $output[$authSourceId] = array_merge($negoTest->getArrayizeTestResults() ,$ldapTest->getArrayizeTestResults());
                     break;
                 case 'multiauth:MultiAuth':
                     // Relies on other authSources
@@ -79,11 +83,11 @@ final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
             }
         }
 
-        $results = $test->getTestResults();
-        foreach ($results as $result) {
-            $this->addTestResult($result);
-        }
-        $this->calculateState();
+        $state = $this->calculateState();
+        $testResult = new TestResult('Authentication sources');
+        $testResult->setState($state);
+        $testResult->setOutput($output);
+        $this->setTestResult($testResult);
     }
 
     /**
