@@ -56,7 +56,7 @@ final class Configuration extends \SimpleSAML\Module\monitor\TestSuiteFactory
     {
         // Check network connection to full public URL
         $input = [
-            'connectString' => 'ssl://'.$this->serverName.':'.$this->serverPort,
+            'uri' => 'ssl://'.$this->serverName.':'.$this->serverPort,
             'context' => stream_context_create([
                 "ssl" => [
                     "capture_peer_cert" => true,
