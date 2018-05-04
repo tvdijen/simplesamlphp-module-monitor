@@ -9,11 +9,6 @@ use \SimpleSAML\Module\monitor\TestData as TestData;
 final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
     /**
-     * @var array|bool
-     */
-    private $checkAuthSources = true;
-
-    /**
      * @var ApplicationConfiguration
      */
     private $authSourceConfig;
@@ -48,8 +43,10 @@ final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
         } else { // false or invalid value
             return;
         }
+
         $configuration = $this->getConfiguration();
         $output = [];
+
         foreach ($authSources as $authSourceId) {
             $authSourceData = $this->authSourceConfig->getValue($authSourceId);
             $input = array(
