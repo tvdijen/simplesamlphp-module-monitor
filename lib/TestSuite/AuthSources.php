@@ -4,6 +4,7 @@ namespace SimpleSAML\Module\monitor\TestSuite;
 
 use \SimpleSAML_Configuration as ApplicationConfiguration;
 use \SimpleSAML\Module\monitor\TestConfiguration as TestConfiguration;
+use \SimpleSAML\Module\monitor\TestResult as TestResult;
 use \SimpleSAML\Module\monitor\TestData as TestData;
 
 final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
@@ -14,18 +15,18 @@ final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
     private $authSourceConfig;
 
     /**
-     * @var string
+     * @var array|bool
      */
-    private $authSourceId = '';
+    private $checkAuthSources = true;
 
     /**
      * @param TestConfiguration $configuration
      */
-    public function __construct($configuration, $authSourceId)
+    public function __construct($configuration)
     {
-        $this->authSourceId = $authSourceId;
-
+        $moduleConfig = $configuration->getModuleConfig();
         $this->authSourceConfig = $configuration->getAuthSourceConfig();
+        $this->checkAuthSources = $moduleConfig->getValue('checkAuthSources', true);
         $this->setCategory('Authentication sources');
 
         parent::__construct($configuration);
@@ -54,6 +55,7 @@ final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
                 'authSourceData' => $authSourceData
             );
             $testData = new TestData($input);
+
             switch ($authSourceData[0]) {
                 case 'ldap:LDAP':
                     $ldapTest = new AuthSource\Ldap($configuration, $testData);
@@ -67,8 +69,10 @@ final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
                     // We need to do some convertions from Negotiate > LDAP
                     $this->convertAuthSourceData($authSourceData);
                     $testData->setInput($authSourceData, 'authSourceData');
+
                     $ldapTest = new AuthSource\Ldap($configuration, $testData);
                     $this->addTestResults($ldapTest->getTestResults());
+
                     $output[$authSourceId] = array_merge($negoTest->getArrayizeTestResults() ,$ldapTest->getArrayizeTestResults());
                     break;
                 case 'multiauth:MultiAuth':

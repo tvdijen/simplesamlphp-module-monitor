@@ -102,24 +102,10 @@ class Monitor
      */
     private function invokeAuthSourceCheck()
     {
-        $configuration = $this->configuration;
-        $authSourceConfig = $configuration->getAuthSourceConfig();
-        $moduleConfig = $configuration->getModuleConfig();
-        $checkAuthSources = $moduleConfig->getValue('checkAuthSources', true);
-
-        if ($checkAuthSources === true) {
-            $authSources = $authSourceConfig->getOptions();
-        } else if (is_array($checkAuthSources)) {
-            $authSources = array_intersect($authSourceConfig->getOptions(), $checkAuthSources);
-        } else { // false or invalid value
-            return;
-        }
-
-        foreach ($authSources as $authSourceId) {
-            $testsuite = new TestSuite\AuthSources($this->configuration, $authSourceId);
-            $this->state[] = $testsuite->calculateState();
-            $this->results['authsources'][$authSourceId] = $testsuite->getArrayizeTestResults();
-        }
+        $testsuite = new TestSuite\AuthSources($this->configuration);
+        $testResult = $testsuite->getTestResult();
+        $this->state[] = $testsuite->calculateState();
+        $this->results['authsources'] = $testResult->getOutput();
     }
 
     /**
