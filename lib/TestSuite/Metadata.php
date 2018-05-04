@@ -5,6 +5,7 @@ namespace SimpleSAML\Module\monitor\TestSuite;
 use \SimpleSAML\Module\monitor\TestConfiguration as TestConfiguration;
 use \SimpleSAML\Module\monitor\TestCase as TestCase;
 use \SimpleSAML\Module\monitor\TestData as TestData;
+use \SimpleSAML\Module\monitor\TestResult as TestResult;
 
 final class Metadata extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
@@ -56,57 +57,30 @@ final class Metadata extends \SimpleSAML\Module\monitor\TestSuiteFactory
      */
     public function invokeTest()
     {
+        $configuration = $this->getConfiguration();
+        $output = [];
+
         foreach ($this->metadata as $set => $metadataSet) {
             foreach ($metadataSet as $entityId => $entityMetadata) {
                 $input = array(
                     'entityId' => $entityId,
-                    'metadata' => $entityMetadata
+                    'entityMetadata' => $entityMetadata
                 );
                 $testData = new TestData($input);
 
-                $expTest = new TestCase\Metadata\Expiration($testData);
-                $expTestResult = $expTest->getTestResult();
-                $expTestResult->setSubject($entityId);
-                $this->addTestResult($expTestResult);
+                $metadataTest = new Metadata\Entity($configuration, $testData);
+                $output[$entityId] = $metadataTest->getArrayizeTestResults();
 
-                if (array_key_exists('keys', $entityMetadata)) {
-                    $keys = $entityMetadata['keys'];
-                    foreach ($keys as $key) {
-                        $input = array(
-                            'category' => $this->getType($key),
-                            'certData' => "-----BEGIN CERTIFICATE-----\n" . $key['X509Certificate'] . "\n-----END CERTIFICATE-----",
-                            'certExpirationWarning' => $this->certExpirationWarning,
-                        );
-                        $testData = new TestData($input);
+                $this->addTestResults($metadataTest->getTestResults());
 
-                        $certTest = new TestCase\Cert\Data($testData);
-                        $certTestResult = $certTest->getTestResult();
-                        $certTestResult->setSubject($entityId);
-                        $this->addTestResult($certTestResult);
-                    }
-                }
             }
         }
 
-        $this->calculateState();
-    }
-
-
-    /**
-     * @param array $key
-     *
-     * @return string
-     */
-    public function getType($key)
-    {
-        if ($key['encryption'] === true && $key['signing'] === false) {
-            $category = 'Encryption certificate';
-        } elseif ($key['encryption'] === false && $key['signing'] === true) {
-            $category = 'Signing certificate';
-        } else {
-            $category = 'Unknown type';
-        }
-        return $category;
+        $state = $this->calculateState();
+        $testResult = new TestResult('Metadata entities');
+        $testResult->setState($state);
+        $testResult->setOutput($output);
+        $this->setTestResult($testResult);
     }
 
     /**
