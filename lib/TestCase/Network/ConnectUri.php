@@ -102,6 +102,7 @@ final class ConnectUri extends \SimpleSAML\Module\monitor\TestCaseFactory
                 $testResult->addOutput($certData, 'certData');
             }
             $testResult->setState(State::OK);
+            $testResult->setMessage('Connection established');
         } else {
             $testResult->setState(State::ERROR);
             $testResult->setMessage($errstr.' ('.$errno.')');
