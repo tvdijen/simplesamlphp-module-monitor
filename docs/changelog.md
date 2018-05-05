@@ -20,7 +20,7 @@ Released TBD
   
 ## Version 2.0.1
 
-Released 5-5-2018
+Released 6-5-2018
 
 ### Changes
   * Fixed a bug where required/available modules were calculated incorrectly on CGI installs

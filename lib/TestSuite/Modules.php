@@ -93,7 +93,9 @@ class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
     private function setRequiredApacheModules()
     {
         // Apache Modules
-        $this->addRequiredApacheModule('mod_php|mod_php5|mod_php7');
+        if (function_exists('apache_get_modules')) {
+            $this->addRequiredApacheModule('mod_php|mod_php5|mod_php7');
+        }
         if (\SimpleSAML\Utils\HTTP::isHTTPS()) {
             $this->addRequiredApacheModule('mod_ssl');
         }
