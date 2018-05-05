@@ -26,7 +26,7 @@ final class Expiration extends \SimpleSAML\Module\monitor\TestCaseFactory
     protected function initialize($testData)
     {
         $this->entityId = $testData->getInputItem('entityId');
-        $this->metadata = $testData->getInputItem('metadata');
+        $this->metadata = $testData->getInputItem('entityMetadata');
 
         parent::initialize($testData);
     }
