@@ -36,8 +36,9 @@ switch ($outputFormat) {
         $protocol = $serverVars->get('HTTP_PROTOCOL');
         $t->data['protocol'] = is_null($protocol) ? 'HTTP/1.0' : $protocol;
         break;
-    // TODO: JSON
-    //case 'json':
+    case 'json':
+        echo json_encode(['overall' => $monitor->getState(), 'results' => $results], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
+        return;
     default:
         $t = new SimpleSAML_XHTML_Template($globalConfig, 'monitor:monitor.php');
         break;
