@@ -65,14 +65,16 @@ abstract class TestSuiteFactory extends TestCaseFactory
     }
 
     /**
+     * param bool $includeOutput
+     *
      * @return array
      */
-    public function getArrayizeTestResults()
+    public function getArrayizeTestResults($includeOutput = false)
     {
         assert(is_array($this->testResults));
         $result = [];
         foreach ($this->testResults as $testResult) {
-            $result[] = $testResult->arrayizeTestResult();
+            $result[] = $testResult->arrayizeTestResult($includeOutput);
         }
         return $result;
     }

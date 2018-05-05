@@ -42,17 +42,22 @@ final class TestResult
     }
 
     /**
+     * param bool $includeOutput
+     *
      * @return array
      */
-    public function arrayizeTestResult()
+    public function arrayizeTestResult($includeOutput = false)
     {
-        return array(
+        $output = [
             $this->getState(),
             $this->getCategory(),
             $this->getSubject(),
-            $this->getMessage(),
-            $this->getOutput()
-        );
+            $this->getMessage()
+        ];
+        if ($includeOutput === true) {
+           $output[] =  $this->getOutput();
+        }
+        return $output;
     }
 
     /**
