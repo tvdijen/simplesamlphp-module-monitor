@@ -84,9 +84,9 @@ final class sspmod_monitor_TestSuite_Modules extends sspmod_monitor_TestSuite
             $this->addRequiredPhpModule($this->store_php_dependencies[$store]);
         }
 
-        $modules = \SimpleSAML\Module::getModules();
+        $modules = \SimpleSAML_Module::getModules();
         foreach ($modules as $module) {
-            if (\SimpleSAML\Module::isModuleEnabled($module)) {
+            if (\SimpleSAML_Module::isModuleEnabled($module)) {
                 if (array_key_exists($module, $this->module_apache_dependencies)) {
                     $dependencies = \SimpleSAML\Utils\Arrays::Arrayize($this->module_apache_dependencies[$module]);
                     foreach ($dependencies as $dependency) {
