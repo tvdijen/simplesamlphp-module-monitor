@@ -29,14 +29,18 @@ $healthInfo = array(
     State::OK      => array('OK',      'green' )
 );
 
-// TODO: make this more specific: ?output=xml
-$xml = $requestVars->get('xml');
-if (!is_null($xml)) {
-    $t = new SimpleSAML_XHTML_Template($globalConfig, 'monitor:monitor.xml.php');
-    $protocol = $serverVars->get('HTTP_PROTOCOL');
-    $t->data['protocol'] = is_null($protocol) ? 'HTTP/1.0' : $protocol;
-} else {
-    $t = new SimpleSAML_XHTML_Template($globalConfig, 'monitor:monitor.php');
+$outputFormat = $requestVars->get('output');
+switch ($outputFormat) {
+    case 'xml':
+        $t = new SimpleSAML_XHTML_Template($globalConfig, 'monitor:monitor.xml.php');
+        $protocol = $serverVars->get('HTTP_PROTOCOL');
+        $t->data['protocol'] = is_null($protocol) ? 'HTTP/1.0' : $protocol;
+        break;
+    // TODO: JSON
+    //case 'json':
+    default:
+        $t = new SimpleSAML_XHTML_Template($globalConfig, 'monitor:monitor.php');
+        break;
 }
 
 $t->data['header'] = 'Monitor';
