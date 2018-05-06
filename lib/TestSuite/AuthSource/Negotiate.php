@@ -14,11 +14,6 @@ final class Negotiate extends \SimpleSAML\Module\monitor\TestSuiteFactory
     private $authSourceData = array();
 
     /**
-     * @var bool|null
-     */
-    private $xml = null;
-
-    /**
      * @var string|null
      */
     private $authorization = null;
@@ -31,13 +26,11 @@ final class Negotiate extends \SimpleSAML\Module\monitor\TestSuiteFactory
     {
         $authSourceData = $testData->getInputItem('authSourceData');
         $serverVars = $configuration->getServerVars();
-        $requestVars = $configuration->getRequestVars();
 
         assert(is_array($authSourceData));
 
         $this->authSourceData = $authSourceData;
         $this->authorization = $serverVars->get('HTTP_AUTHORIZATION');
-        $this->xml = $requestVars->get('xml');
         $this->setCategory('SPNEGO authentication source');
 
         parent::__construct($configuration);
@@ -50,7 +43,6 @@ final class Negotiate extends \SimpleSAML\Module\monitor\TestSuiteFactory
     {
         $input = array(
             'keytab' => $this->authSourceData['keytab'],
-            'xml' => $this->xml,
             'authorization' => $this->authorization
         );
         $testData = new TestData($input);
