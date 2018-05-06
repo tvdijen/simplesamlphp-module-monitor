@@ -14,6 +14,7 @@ Released 6-5-2018
   * Fixed a bug where required/available modules were calculated incorrectly on CGI installs
   * Fixed a bug that caused metadata not the be checked at all
   * Fixed a bug where entityId would be shown as the subject for a metadata certificate
+  * Fixed Negotiate TestCase as it never worked
   * Added this changelog
 
 ## Version 2.0.0
