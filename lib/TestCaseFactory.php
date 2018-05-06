@@ -20,12 +20,6 @@ abstract class TestCaseFactory implements TestInterface
     private $testData;
 
     /**
-     * @var TestConfiguration
-     * @deprecated
-     */
-    private $configuration;
-
-    /**
      * @var TestResult
      */
     private $testResult;
@@ -69,28 +63,6 @@ abstract class TestCaseFactory implements TestInterface
     {
         assert(is_string($this->category));
         return $this->category;
-    }
-
-    /**
-     * @param TestConfiguration|null $configuration
-     *
-     * @return void
-     */
-    protected function setConfiguration($configuration = null)
-    {
-        assert($configuration instanceof TestConfiguration);
-        if (!is_null($configuration)) {
-            $this->configuration = $configuration;
-        }
-    }
-
-    /**
-     * @return TestConfiguration
-     */
-    public function getConfiguration()
-    {
-        assert($this->configuration instanceof TestConfiguration);
-        return $this->configuration;
     }
 
     /**

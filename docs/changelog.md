@@ -14,6 +14,7 @@ Released TBD
   * Changed the way `TestResult::arrayizeTestResult()` and `TestFactory::getArrayizeTestResults()` return results.
     It no longer includes the test's output by default.
   * Changed the way you can get formatted output from `?xml` to `?output=xml`.
+  * Moved TestConfiguration to TestSuite. It cannot be used directly from within TestCases
 
 ### New features
   * Added support for JSON-formatted output.

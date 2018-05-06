@@ -5,6 +5,11 @@ namespace SimpleSAML\Module\monitor;
 abstract class TestSuiteFactory extends TestCaseFactory
 {
     /**
+     * @var TestConfiguration
+     */
+    private $configuration;
+
+    /**
      * @var array   An associative array of name => TestResult pairs
      */
     private $testResults = [];
@@ -31,6 +36,28 @@ abstract class TestSuiteFactory extends TestCaseFactory
     protected function initialize($testData)
     {
         $this->setTestData($testData);
+    }
+
+    /**
+     * @param TestConfiguration|null $configuration
+     *
+     * @return void
+     */
+    protected function setConfiguration($configuration = null)
+    {
+        assert($configuration instanceof TestConfiguration);
+        if (!is_null($configuration)) {
+            $this->configuration = $configuration;
+        }
+    }
+
+    /**
+     * @return TestConfiguration
+     */
+    public function getConfiguration()
+    {
+        assert($this->configuration instanceof TestConfiguration);
+        return $this->configuration;
     }
 
     /**

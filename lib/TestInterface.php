@@ -10,11 +10,6 @@ interface TestInterface
     public function getCategory();
 
     /**
-     * @return TestConfiguration
-     */
-    public function getConfiguration();
-
-    /**
      * @return TestResult
      */
     public function getTestResult();
