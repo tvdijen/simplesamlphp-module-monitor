@@ -18,7 +18,7 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
     /**
      * @var array|null
      */
-    private $authSourceSpecifcs;
+    private $authSourceSpecifics;
 
     /**
      * @var string[]
