@@ -6,7 +6,12 @@ Monitoring module changelog
 This document lists the changes between versions of this donitoring module.
 See the upgrade notes for specific information about upgrading.
 
-## Version 2.1.1
+## Version 2.2.0
+
+Released TBD
+
+### Features
+  * More control over SSL connections on a per AuthSource-basis through the module configuration-file.
 
 Released 7-5-2018
 
