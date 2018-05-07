@@ -28,6 +28,7 @@ $healthInfo = array(
     State::WARNING => array('WARNING', 'orange'),
     State::OK      => array('OK',      'green' )
 );
+$state = $monitor->getState();
 
 $outputFormat = $requestVars->get('output');
 switch ($outputFormat) {
@@ -37,7 +38,7 @@ switch ($outputFormat) {
         $t->data['protocol'] = is_null($protocol) ? 'HTTP/1.0' : $protocol;
         break;
     case 'json':
-        echo json_encode(['overall' => $monitor->getState(), 'results' => $results], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
+        echo json_encode(['overall' => $healthInfo[$state], 'results' => $results], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
         return;
     default:
         $t = new SimpleSAML_XHTML_Template($globalConfig, 'monitor:monitor.php');
@@ -50,7 +51,7 @@ $t->data['configuration'] = $results['configuration'];
 $t->data['modules'] = $results['modules'];
 $t->data['store'] = $results['store'];
 $t->data['metadata'] = $results['metadata'];
-$t->data['overall'] = $monitor->getState();
+$t->data['overall'] = $state;
 $t->data['healthInfo'] = $healthInfo;
 
 unset($monitor, $results, $globalConfig, $healthInfo);
