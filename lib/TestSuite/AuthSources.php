@@ -17,7 +17,12 @@ final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
     /**
      * @var array|bool
      */
-    private $checkAuthSources = true;
+    private $checkAuthSources;
+
+    /**
+     * @var array|null
+     */
+    private $authSourceSpecifics;
 
     /**
      * @param TestConfiguration $configuration
@@ -27,6 +32,7 @@ final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
         $moduleConfig = $configuration->getModuleConfig();
         $this->authSourceConfig = $configuration->getAuthSourceConfig();
         $this->checkAuthSources = $moduleConfig->getValue('checkAuthSources', true);
+        $this->authSourceSpecifics = $moduleConfig->getValue('authSourceSpecifics', null);
         $this->setCategory('Authentication sources');
 
         parent::__construct($configuration);
@@ -49,11 +55,13 @@ final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
         $output = [];
 
         foreach ($authSources as $authSourceId) {
+            $authSourceSpecifics = $this->getAuthSourceSpecifics($authSourceId);
             $authSourceData = $this->authSourceConfig->getValue($authSourceId);
-            $input = array(
+            $input = [
                 'authSourceId' => $authSourceId,
-                'authSourceData' => $authSourceData
-            );
+                'authSourceData' => $authSourceData,
+                'authSourceSpecifics' => $authSourceSpecifics,
+            ];
             $testData = new TestData($input);
 
             switch ($authSourceData[0]) {
@@ -89,6 +97,21 @@ final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
         $testResult->setState($state);
         $testResult->setOutput($output);
         $this->setTestResult($testResult);
+    }
+
+    /**
+     * @param string $authSourceId
+     *
+     * @return array|null
+     */
+    private function getAuthSourceSpecifics($authSourceId)
+    {
+        if (is_array($this->authSourceSpecifics)) {
+            if (array_key_exists($authSourceId, $this->authSourceSpecifics)) {
+                return $this->authSourceSpecifics[$authSourceId];
+            }
+        }
+        return null;
     }
 
     /**
