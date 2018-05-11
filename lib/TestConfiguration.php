@@ -5,6 +5,7 @@ namespace SimpleSAML\Module\monitor;
 use \SimpleSAML\Module\monitor\DependencyInjection as DependencyInjection;
 use \SimpleSAML_Configuration as ApplicationConfiguration;
 use \SimpleSAML_Metadata_MetaDataStorageSource as MetaDataStorageSource;
+	
 
 final class TestConfiguration
 {
@@ -21,7 +22,7 @@ final class TestConfiguration
     /**
      * @var ApplicationConfiguration
      */
-    private $authsourceConfig;
+    private $authSourceConfig;
 
     /**
      * @var array
@@ -52,41 +53,50 @@ final class TestConfiguration
      * @param DependencyInjection $serverVars
      * @param DependencyInjection $requestVars
      */
-    public function __construct($serverVars, $requestVars)
+    public function __construct($serverVars, $requestVars, $globalConfig, $authSourceConfig, $moduleConfig)
     {
         $this->serverVars = $serverVars;
         $this->requestVars = $requestVars;
 
-        $this->setAuthsourceConfig();
-        $this->setModuleConfig();
-        $this->setGlobalConfig();
+        $this->setAuthsourceConfig($authSourceConfig);
+        $this->setModuleConfig($moduleConfig);
+        $this->setGlobalConfig($globalConfig);
         $this->setMetadataConfig();
         $this->setAvailableApacheModules();
         $this->setAvailablePhpModules();
     }
 
     /**
+     * @param ApplicationConfiguration $authSourceConfig
+     *
      * @return void
      */
-    private function setAuthsourceConfig()
+    private function setAuthsourceConfig($authSourceConfig)
     {
-        $this->authsourceConfig = ApplicationConfiguration::getOptionalConfig('authsources.php');
+        assert($authSourceConfig instanceof ApplicationConfiguration);
+        $this->authSourceConfig = $authSourceConfig;
     }
 
     /**
+     * @param ApplicationConfiguration $moduleConfig
+     *
      * @return void
      */
-    private function setModuleConfig()
+    private function setModuleConfig($moduleConfig)
     {
-        $this->moduleConfig = ApplicationConfiguration::getOptionalConfig('module_monitor.php');
+        assert($moduleConfig instanceof ApplicationConfiguration);
+        $this->moduleConfig = $moduleConfig;
     }
 
     /**
+     * #param ApplicationConfiguration $globalConfig
+     *
      * @return void
      */
-    private function setGlobalConfig()
+    private function setGlobalConfig($globalConfig)
     {
-        $this->globalConfig = ApplicationConfiguration::getInstance();
+        assert($globalConfig instanceof ApplicationConfiguration);
+        $this->globalConfig = $globalConfig;
     }
 
     /**
@@ -97,7 +107,7 @@ final class TestConfiguration
         $sets = $this->getAvailableMetadataSets();
         $sources = $this->globalConfig->getValue('metadata.sources');
         $handlers = MetaDataStorageSource::parseSources($sources);
-        $metadata = array();
+        $metadata = [];
         if (!empty($sets)) {
             foreach ($handlers as $handler) {
                 foreach ($sets as $set) {
@@ -105,6 +115,7 @@ final class TestConfiguration
                 }
             }
         }
+        assert(is_array($metadata));
         $this->metadataConfig = $metadata;
     }
 
@@ -218,7 +229,7 @@ final class TestConfiguration
     }
 
     /**
-     * @return ApplicationConfiguration|null
+     * @return ApplicationConfiguration
      */
     public function getGlobalConfig()
     {
@@ -226,19 +237,21 @@ final class TestConfiguration
     }
 
     /**
-     * @return ApplicationConfiguration|null
+     * @return ApplicationConfiguration
      */
     public function getModuleConfig()
     {
+        assert($this->moduleConfig instanceof ApplicationConfiguration);
         return $this->moduleConfig;
     }
 
     /**
-     * @return ApplicationConfiguration|null
+     * @return ApplicationConfiguration
      */
     public function getAuthSourceConfig()
     {
-        return $this->authsourceConfig;
+        assert($this->authSourceConfig instanceof ApplicationConfiguration);
+        return $this->authSourceConfig;
     }
 
     /**
@@ -246,6 +259,7 @@ final class TestConfiguration
      */
     public function getMetadataConfig()
     {
+        assert(is_array($this->metadataConfig));
         return $this->metadataConfig;
     }
 }

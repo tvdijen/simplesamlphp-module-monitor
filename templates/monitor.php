@@ -17,7 +17,10 @@ $this->includeAtTemplateBase('includes/header.php');
 <?php
 
 foreach ($modules as $check) {
-    list($health, $type, $item, $summary) = $check;
+    $health = $check['state'];
+    $type = $check['category'];
+    $item = $check['subject'];
+    $summary = $check['message'];
     list($healthState, $healthColor) = $healthInfo[$health];
     echo " <tr><td style='color:$healthColor;'>$healthState</td><td>$type</td><td>$item</td><td>$summary</td></tr>\n";
 }
@@ -31,7 +34,10 @@ foreach ($modules as $check) {
 <?php
 
 foreach ($configuration as $check) {
-    list($health, $type, $item, $summary) = $check;
+    $health = $check['state'];
+    $type = $check['category'];
+    $item = $check['subject'];
+    $summary = $check['message'];
     list($healthState, $healthColor) = $healthInfo[$health];
     echo " <tr><td style='color:$healthColor;'>$healthState</td><td>$type</td><td>$item</td><td>$summary</td></tr>\n";
 }
@@ -45,7 +51,11 @@ foreach ($configuration as $check) {
 <?php
 
 foreach ($store as $check) {
-    list($health, $type, $item, $summary) = $check;
+    $health = $check['state'];
+    $type = $check['category'];
+    $item = $check['subject'];
+    $summary = $check['message'];
+
     list($healthState, $healthColor) = $healthInfo[$health];
     echo " <tr><td style='color:$healthColor;'>$healthState</td><td>$type</td><td>$item</td><td>$summary</td></tr>\n";
 }
@@ -62,7 +72,10 @@ foreach ($authsources as $name => $authsource) {
     <tr><th>State</th><th style="width:20%;">Category</th><th style="width:40%;">Subject</th><th>Summary</th></tr>
 <?php
     foreach ($authsource as $check) {
-        list($health, $type, $item, $summary) = $check;
+        $health = $check['state'];
+        $type = $check['category'];
+        $item = $check['subject'];
+        $summary = $check['message'];
         list($healthState, $healthColor) = $healthInfo[$health];
         echo "    <tr><td style='color:$healthColor;'>$healthState</td><td>$type</td><td>$item</td><td>$summary</td></tr>\n";
     }
@@ -78,7 +91,10 @@ foreach ($metadata as $entityId => $entity) {
     <tr><th>State</th><th style="width:20%;">Category</th><th style="width:40%;">Subject</th><th>Summary</th></tr>
 <?php
     foreach ($entity as $check) {
-        list($health, $type, $item, $summary) = $check;
+        $health = $check['state'];
+        $type = $check['category'];
+        $item = $check['subject'];
+        $summary = $check['message'];
         list($healthState, $healthColor) = $healthInfo[$health];
         echo "    <tr><td style='color:$healthColor;'>$healthState</td><td>$type</td><td>$item</td><td>$summary</td></tr>\n";
     }

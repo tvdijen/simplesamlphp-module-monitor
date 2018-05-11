@@ -23,3 +23,4 @@ The XML-page will also set a HTTP reponse-code corresponding to the 'overall sta
 # 
 [![Build Status](https://scrutinizer-ci.com/g/tvdijen/simplesamlphp-module-monitor/badges/build.png?b=master)](https://scrutinizer-ci.com/g/tvdijen/simplesamlphp-module-monitor/build-status/master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/tvdijen/simplesamlphp-module-monitor/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/tvdijen/simplesamlphp-module-monitor/?branch=master)
+[![Coverage Status](https://codecov.io/gh/tvdijen/simplesamlphp-module-monitor/branch/master/graph/badge.svg)](https://codecov.io/gh/tvdijen/simplesamlphp-module-monitor)
