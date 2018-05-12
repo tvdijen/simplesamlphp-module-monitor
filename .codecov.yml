@@ -1,3 +1,7 @@
+coverage:
+  status:
+    project: yes
+
 comment:
   layout: "diff"
   behavior: once
