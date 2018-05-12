@@ -10,7 +10,7 @@ use \SimpleSAML\Module\monitor\TestData as TestData;
  */
 class TestLdapConfigurationTest extends \PHPUnit_Framework_TestCase
 {
-    public function testCertData()
+    public function testLdapConfiguration()
     {
         $authSourceData = [
             'hostname' => 'ldaps://ldap.example.com:636',
