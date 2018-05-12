@@ -7,7 +7,7 @@ final class TestResult
     /**
      * @var int     The state reflecting the result
      */
-    private $state;
+    private $state = State::NOSTATE;
 
     /**
      * @var string  Test category this test belongs to
@@ -22,12 +22,12 @@ final class TestResult
     /**
      * @var string  Message describing the result
      */
-    private $message;
+    private $message = '';
 
     /**
      * @var array   Data to be used by TestSuite or other TestCases
      */
-    private $output;
+    private $output = [];
 
     /**
      * @param string $category
@@ -37,8 +37,6 @@ final class TestResult
     {
         $this->setCategory($category);
         $this->setSubject($subject);
-        $this->setOutput(array());
-        $this->setState(State::NOSTATE);
     }
 
     /**
@@ -49,13 +47,13 @@ final class TestResult
     public function arrayizeTestResult($includeOutput = false)
     {
         $output = [
-            $this->getState(),
-            $this->getCategory(),
-            $this->getSubject(),
-            $this->getMessage()
+            'state' => $this->getState(),
+            'category' => $this->getCategory(),
+            'subject' => $this->getSubject(),
+            'message' => $this->getMessage()
         ];
         if ($includeOutput === true) {
-           $output[] =  $this->getOutput();
+           $output['output'] =  $this->getOutput();
         }
         return $output;
     }

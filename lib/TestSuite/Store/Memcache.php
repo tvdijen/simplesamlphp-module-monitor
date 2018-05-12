@@ -34,7 +34,7 @@ final class Memcache extends \SimpleSAML\Module\monitor\TestSuiteFactory
      */
     public function invokeTest()
     {
-                $testResult = new TestResult('Memcache', 'Overall health');
+        $testResult = new TestResult('Memcache', 'Overall health');
 
         if ($this->class === null) {
             $testResult->setState(State::FATAL);

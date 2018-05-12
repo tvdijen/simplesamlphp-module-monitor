@@ -2,6 +2,8 @@
 
 use \SimpleSAML\Module\monitor\DependencyInjection as DependencyInjection;
 use \SimpleSAML\Module\monitor\State as State;
+use \SimpleSAML_Configuration as ApplicationConfiguration;
+use \SimpleSAML\Module\monitor\TestConfiguration as TestConfiguration;
 use \SimpleSAML\Module\monitor\Monitor as Monitor;
 
 //assert_options(ASSERT_ACTIVE, 1);
@@ -9,13 +11,15 @@ use \SimpleSAML\Module\monitor\Monitor as Monitor;
 
 $serverVars = new DependencyInjection($_SERVER);
 $requestVars = new DependencyInjection($_REQUEST);
-
-$monitor = new Monitor($serverVars, $requestVars);
-
-$configuration = $monitor->getConfiguration();
-$globalConfig = $configuration->getGlobalConfig();
+$globalConfig = ApplicationConfiguration::getInstance();
 
 assert(!is_null($globalConfig));
+
+$authSourceConfig = ApplicationConfiguration::getOptionalConfig('authsources.php');
+$moduleConfig = ApplicationConfiguration::getOptionalConfig('module_monitor.php');
+
+$testConfiguration = new TestConfiguration($serverVars, $requestVars, $globalConfig, $authSourceConfig, $moduleConfig);
+$monitor = new Monitor($testConfiguration);
 
 $monitor->invokeTestSuites();
 $results = $monitor->getResults();

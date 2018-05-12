@@ -82,7 +82,7 @@ class Cert extends \SimpleSAML\Module\monitor\TestCaseFactory
      */
     protected function getCertExpirationWarning()
     {
-        assert(is_array($this->certExpirationWarning));
+        assert(is_int($this->certExpirationWarning));
         return $this->certExpirationWarning;
     }
 

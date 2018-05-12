@@ -10,12 +10,18 @@
             "email": "tvdijen@gmail.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "SimpleSAML\\Module\\monitor\\": "lib"
+        }
+    },
     "require": {
         "php": ">=5.4",
         "simplesamlphp/composer-module-installer": "~1.0"
     },
     "require-dev": {
-        "simplesamlphp/simplesamlphp": "1.15"
+        "simplesamlphp/simplesamlphp": "^1.15",
+        "phpunit/phpunit": "~4.8.35"
     },
     "support": {
         "issues": "https://github.com/tvdijen/simplesamlphp-module-monitor/issues",
