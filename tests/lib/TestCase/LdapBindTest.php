@@ -7,7 +7,7 @@ use \SimpleSAML\Module\monitor\TestData as TestData;
 use \SimpleSAML\Module\monitor\State as State;
 
 /**
- * Tests for TestCase\Ldap\Configuration
+ * Tests for TestCase\Ldap\Bind
  */
 class TestLdapBindTest extends \PHPUnit_Framework_TestCase
 {
