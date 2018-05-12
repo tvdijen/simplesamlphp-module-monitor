@@ -6,7 +6,7 @@ use \SimpleSAML\Module\monitor\TestCase as TestCase;
 use \SimpleSAML\Module\monitor\TestData as TestData;
 
 /**
- * Tests for DependencyInjection
+ * Tests for TestCase\Cert\Data and TestCase\Cert\File
  */
 class TestCertificatesTest extends \PHPUnit_Framework_TestCase
 {

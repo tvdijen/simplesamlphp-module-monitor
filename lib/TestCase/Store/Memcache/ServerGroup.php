@@ -43,7 +43,9 @@ final class ServerGroup extends \SimpleSAML\Module\monitor\TestCaseFactory
             $states[] = $result->getState();
         }
         $state = min($states);
-
+        if ($state !== max($states)) {
+            $state = State::WARNING;
+        }
         $testResult->setState($state);
 
         if ($state === State::OK) {
