@@ -20,12 +20,12 @@
         </thead>
         <tbody>
 {% for key, check in modules %}
-{% set health = check[state] %}
+{% set health = check.state %}
             <tr>
                 <td style="color:{{ healthInfo[health][1] }};">{{ healthInfo[health][0] }}</td>
-                <td>{{ check[category] }}</td>
-                <td>{{ check[subject] }}</td>
-                <td>{{ check[message] }}</td>
+                <td>{{ check.category }}</td>
+                <td>{{ check.subject }}</td>
+                <td>{{ check.message }}</td>
             </tr>
 {% endfor %}
         </tbody>
@@ -47,12 +47,12 @@
         </thead>
         <tbody>
 {% for key, check in configuration %}
-{% set health = check[state] %}
+{% set health = check.state %}
             <tr>
                 <td style="color:{{ healthInfo[health][1] }};">{{ healthInfo[health][0] }}</td>
-                <td>{{ check[category] }}</td>
-                <td>{{ check[subject] }}</td>
-                <td>{{ check[message] }}</td>
+                <td>{{ check.category }}</td>
+                <td>{{ check.subject }}</td>
+                <td>{{ check.message }}</td>
             </tr>
 {% endfor %}
         </tbody>
@@ -74,12 +74,12 @@
         </thead>
         <tbody>
 {% for key, check in store %}
-{% set health = check[state] %}
+{% set health = check.state %}
             <tr>
                 <td style="color:{{ healthInfo[health][1] }};">{{ healthInfo[health][0] }}</td>
-                <td>{{ check[category] }}</td>
-                <td>{{ check[subject] }}</td>
-                <td>{{ check[message] }}</td>
+                <td>{{ check.category }}</td>
+                <td>{{ check.subject }}</td>
+                <td>{{ check.message }}</td>
             </tr>
 {% endfor %}
         </tbody>
@@ -104,12 +104,12 @@
         </thead>
         <tbody>
 {% for key, check in authsource %}
-{% set health = check[state] %}
+{% set health = check.state %}
             <tr>
                 <td style="width:10%; color:{{ healthInfo[health][1] }};">{{ healthInfo[health][0] }}</td>
-                <td style="width:20%;">{{ check[category] }}</td>
-                <td style="width:40%;">{{ check[subject] }}</td>
-                <td>{{ check[message] }}</td>
+                <td style="width:20%;">{{ check.category }}</td>
+                <td style="width:40%;">{{ check.subject }}</td>
+                <td>{{ check.message }}</td>
             </tr>
 {% endfor %}
         </tbody>
@@ -135,12 +135,12 @@
         </thead>
         <tbody>
 {% for entityid, check in entity %}
-{% set health = check[state] %}
+{% set health = check.state %}
             <tr>
                 <td style="width:10%; color:{{ healthInfo[health][1] }}">{{ healthInfo[health][0] }}</td>
-                <td style="width:20%;">{{ check[category] }}</td>
-                <td style="width:40%;">{{ check[subject] }}</td>
-                <td>{{ check[message] }}</td>
+                <td style="width:20%;">{{ check.category }}</td>
+                <td style="width:40%;">{{ check.subject }}</td>
+                <td>{{ check.message }}</td>
             </tr>
 {% endfor %}
         </tbody>

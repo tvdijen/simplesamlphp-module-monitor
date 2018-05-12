@@ -5,15 +5,15 @@ $store = $this->data['store'];
 $state = $this->data['overall'];
 $authsources = $this->data['authsources'];
 $metadata = $this->data['metadata'];
-$healthInfo = $this->data['health_info'];
+$healthInfo = $this->data['healthInfo'];
 
 $this->includeAtTemplateBase('includes/header.php');
 
 ?>
 <div class="enablebox">
-  <table style='width: 98%;'>
+  <table style='width: 100%;'>
     <tr><th colspan='4'>Required modules</th></tr>
-    <tr><th>State</th><th>Category</th><th style="width:35%;">Subject</th><th>Summary</th></tr>
+    <tr><th style="width:10%;">State</th><th style="width:20%;">Category</th><th style="width:40%;">Subject</th><th>Summary</th></tr>
 <?php
 
 foreach ($modules as $check) {
@@ -28,9 +28,9 @@ foreach ($modules as $check) {
 ?>
   </table>
   <br />
-  <table style='width: 98%;'>
+  <table style='width: 100%;'>
     <tr><th colspan='4'>Global configuration</th></tr>
-    <tr><th>State</th><th>Category</th><th style="width:35%;">Subject</th><th>Summary</th></tr>
+    <tr><th style="width:10%;">State</th><th style="width:20%;">Category</th><th style="width:40%;">Subject</th><th>Summary</th></tr>
 <?php
 
 foreach ($configuration as $check) {
@@ -45,9 +45,9 @@ foreach ($configuration as $check) {
 ?>
   </table>
   <br />
-  <table style='width: 98%;'>
+  <table style='width: 100%;'>
     <tr><th colspan='4'>Session store</th></tr>
-    <tr><th>State</th><th style="width:35%;">Category</th><th style="width:40%;">Subject</th><th>Summary</th></tr>
+    <tr><th style="width:10%;">State</th><th style="width:20%;">Category</th><th style="width:40%;">Subject</th><th>Summary</th></tr>
 <?php
 
 foreach ($store as $check) {
@@ -67,9 +67,9 @@ foreach ($store as $check) {
 
 foreach ($authsources as $name => $authsource) {
 ?>
-  <table style='width: 98%;'>
+  <table style='width: 100%;'>
     <tr><th colspan='4'>Authsource '<?php echo $name;?>'</th></tr>
-    <tr><th>State</th><th style="width:20%;">Category</th><th style="width:40%;">Subject</th><th>Summary</th></tr>
+    <tr><th style="width:10%;">State</th><th style="width:20%;">Category</th><th style="width:40%;">Subject</th><th>Summary</th></tr>
 <?php
     foreach ($authsource as $check) {
         $health = $check['state'];
@@ -86,9 +86,9 @@ foreach ($authsources as $name => $authsource) {
 }
 foreach ($metadata as $entityId => $entity) {
 ?>
-  <table style='width: 98%;'>
+  <table style='width: 100%;'>
     <tr><th colspan='4'>Metadata Endpoint - <?php echo $entityId; ?></th></tr>
-    <tr><th>State</th><th style="width:20%;">Category</th><th style="width:40%;">Subject</th><th>Summary</th></tr>
+    <tr><th style="width:10%;">State</th><th style="width:20%;">Category</th><th style="width:40%;">Subject</th><th>Summary</th></tr>
 <?php
     foreach ($entity as $check) {
         $health = $check['state'];
