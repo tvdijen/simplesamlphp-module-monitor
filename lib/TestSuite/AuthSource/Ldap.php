@@ -16,6 +16,11 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
     private $authSourceData;
 
     /**
+     * @var array|null
+     */
+    private $authSourceSpecifics;
+
+    /**
      * @var string[]
      */
     private $hosts;
@@ -33,10 +38,14 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
     {
         $moduleConfig = $configuration->getModuleConfig();
         $authSourceData = $testData->getInputItem('authSourceData');
-        assert(is_array($authSourceData));
+        $authSourceSpecifics = $testData->getInputItem('authSourceSpecifics');
 
-        $this->authSourceData = $authSourceData;
+        assert(is_array($authSourceData));
+        assert(is_array($authSourceSpecifics) || is_null($authSourceSpecifics));
+
         $this->hosts = explode(' ', $authSourceData['hostname']);
+        $this->authSourceData = $authSourceData;
+        $this->authSourceSpecifics = $authSourceSpecifics;
         $this->certExpirationWarning = $moduleConfig->getValue('certExpirationWarning', 28);
         $this->setCategory('LDAP authentication source');
 
@@ -60,7 +69,7 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
 
             // Test connection for each configured LDAP-server
             foreach ($this->hosts as $hostname) {
-                $preparedTestData = $this->prepareConnection($hostname, $this->authSourceData);
+                $preparedTestData = $this->prepareConnection($hostname, $this->authSourceData, $this->authSourceSpecifics);
                 $connTest = new TestCase\Network\ConnectUri(
                     new TestData($preparedTestData)
                 );
@@ -121,18 +130,28 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
     /**
      * @param string $connectString
      * @param array $authSourceData
+     * @param array|null $authSourceSpecifics
      *
      * @return array
      */
-    private function prepareConnection($connectString, $authSourceData)
+    private function prepareConnection($connectString, $authSourceData, $authSourceSpecifics)
     {
         $hostname = parse_url($connectString, PHP_URL_HOST);
 
         if (preg_match('/^(ldaps:\/\/(.*))$/', $connectString, $matches)) {
+            // The default context
+            $sslContext = ['capture_peer_cert' => true, 'verify_peer' => true];
+
+            // The non-default context, if configured ...
+            if (!is_null($authSourceSpecifics) && array_key_exists('ssl', $authSourceSpecifics)) {
+                $sslContext = array_replace($sslContext, $authSourceSpecifics['ssl']);
+            }
+
             $port = parse_url($connectString, PHP_URL_PORT);
             $port = $port ?: $authSourceData['port'];
+
             $uri = 'ssl://' .  $hostname . ':' . $port;
-            $context = stream_context_create(array("ssl" => array("capture_peer_cert" => true, "verify_peer" => true)));
+            $context = stream_context_create(['ssl' => $sslContext]);
         } else {
             $port = $authSourceData['port'];
             $uri = 'tcp://' . $hostname . ':' . $port;

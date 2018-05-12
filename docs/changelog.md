@@ -6,9 +6,24 @@ Monitoring module changelog
 This document lists the changes between versions of this donitoring module.
 See the upgrade notes for specific information about upgrading.
 
-## Version 2.1.0
+## Version 2.2.0
 
 Released TBD
+
+### Features
+  * More control over SSL connections on a per AuthSource-basis through the module configuration-file.
+
+Released 7-5-2018
+
+### Changes
+  * Fix JSON-formatted output; it didn't properly output the overall state
+
+### New features
+  * It's hardly a feature, but rudimentary PHP-syntax checking was added for unit testing purposes
+
+## Version 2.1.0
+
+Released 6-5-2018
 
 ### Changes
   * Changed the way `TestResult::arrayizeTestResult()` and `TestFactory::getArrayizeTestResults()` return results.

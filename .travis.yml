@@ -28,3 +28,8 @@ after_success:
 
 notifications:
   webhooks: https://coveralls.io/webhook?repo_token=COVERALLS_REPO_TOKEN
+=======
+   - php: hhvm
+
+script:
+  - bin/check-syntax.sh
