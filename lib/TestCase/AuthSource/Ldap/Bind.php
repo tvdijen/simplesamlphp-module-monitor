@@ -24,7 +24,6 @@ final class Bind extends \SimpleSAML\Module\monitor\TestCaseFactory
 
     private $password;
 
-
     /*
      * @param TestData $testData
      *
@@ -35,12 +34,11 @@ final class Bind extends \SimpleSAML\Module\monitor\TestCaseFactory
         $this->connection = $testData->getInputItem('connection');
         $authSourceData = $testData->getInputItem('authSourceData');
 
-        $this->username = $authSourceData['search.username'];
-        $this->password = $authSourceData['search.password'];
+        $this->username = $authSourceData->getString('search.username', '<< unset >>');
+        $this->password = $authSourceData->getString('search.password', '<< unset >>');
 
         parent::initialize($testData);
     }
-
    
     /*
      * @return void

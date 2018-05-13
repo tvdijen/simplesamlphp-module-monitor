@@ -43,14 +43,14 @@ final class Search extends \SimpleSAML\Module\monitor\TestCaseFactory
         $authSourceData = $testData->getInputItem('authSourceData');
 
         // Just to be on the safe side, strip off any OU's and search to whole directory
-        $base = $authSourceData['search.base'];
+        $base = $authSourceData->getString('search.base', '<< unset >>');
         $base = is_array($base) ? $base[0] : $base;
         if (($i = stripos($base, 'DC=')) > 0) {
             $base = substr($base, $i);
         }
         $this->base = $base;
 
-        $username = $authSourceData['search.username'];
+        $username = $authSourceData->getString('search.username', '<< unset >>');
         $this->setSubject($username);
         if (strpos($username, 'DC=') > 0) {
             // We have been given a DN
@@ -62,7 +62,7 @@ final class Search extends \SimpleSAML\Module\monitor\TestCaseFactory
             $this->username = $username;
             $this->attributes = array('sAMAccountName');
         }
-        $this->password = $authSourceData['search.password'];
+        $this->password = $authSourceData->getString('search.password', '<< unset >>');
         $this->connection = $testData->getInputItem('connection');
 
         parent::initialize($testData);

@@ -9,39 +9,39 @@ use \SimpleSAML\Module\monitor\TestResult as TestResult;
 final class Configuration extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     /*
-     * @var \SimpleSAML_Auth_LDAP|null
+     * @var \SimpleSAML_Auth_LDAP
      */
-    private $connection = null;
+    private $connection;
 
     /*
-     * @var string|null
+     * @var string
      */
-    private $hostname = null;
-
-    /*
-     * @var integer
-     */
-    private $port = 636;
-
-    /*
-     * @var bool
-     */
-    private $enableTls = true;
+    private $hostname;
 
     /*
      * @var integer
      */
-    private $timeout = 3;
+    private $port;
 
     /*
      * @var bool
      */
-    private $referrals = false;
+    private $enableTls;
+
+    /*
+     * @var integer
+     */
+    private $timeout;
 
     /*
      * @var bool
      */
-    private $debug = false;
+    private $referrals;
+
+    /*
+     * @var bool
+     */
+    private $debug;
 
 
     /*
@@ -52,24 +52,12 @@ final class Configuration extends \SimpleSAML\Module\monitor\TestCaseFactory
     protected function initialize($testData)
     {
         $authSourceData = $testData->getInputItem('authSourceData');
-        if (isSet($authSourceData['hostname'])) {
-            $this->hostname = $authSourceData['hostname'];
-        }
-        if (isSet($authSourceData['port'])) {
-            $this->port = $authSourceData['port'];
-        }
-        if (isSet($authSourceData['enable_tls'])) {
-            $this->enableTls = $authSourceData['enable_tls'];
-        }
-        if (isSet($authSourceData['timeout'])) {
-            $this->timeout = $authSourceData['timeout'];
-        }
-        if (isSet($authSourceData['referrals'])) {
-            $this->referrals = $authSourceData['referrals'];
-        }
-        if (isSet($authSourceData['debug'])) {
-            $this->debug = $authSourceData['debug'];
-        }
+        $this->hostname = $authSourceData->getString('hostname', '<< unset >>');
+        $this->port = $authSourceData->getInteger('port', 636);
+        $this->enableTls = $authSourceData->getBoolean('enable_tls', false);
+        $this->timeout = $authSourceData->getInteger('timeout', 3);
+        $this->referrals = $authSourceData->getBoolean('referrals', false);
+        $this->debug = $authSourceData->getBoolean('debug', false);
 
         $this->setSubject($this->hostname);
 

@@ -9,14 +9,14 @@ use \SimpleSAML\Module\monitor\TestData as TestData;
 final class Negotiate extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
     /**
-     * @var array
+     * @var string|null
      */
-    private $authSourceData = array();
+    private $authorization;
 
     /**
      * @var string|null
      */
-    private $authorization = null;
+    private $keytab;
 
     /**
      * @param TestConfiguration $configuration
@@ -29,7 +29,7 @@ final class Negotiate extends \SimpleSAML\Module\monitor\TestSuiteFactory
 
         assert(is_array($authSourceData));
 
-        $this->authSourceData = $authSourceData;
+        $this->keytab = $authSourceData->getString('keytab', null);
         $this->authorization = $serverVars->get('HTTP_AUTHORIZATION');
         $this->setCategory('SPNEGO authentication source');
 
@@ -42,7 +42,7 @@ final class Negotiate extends \SimpleSAML\Module\monitor\TestSuiteFactory
     public function invokeTest()
     {
         $input = array(
-            'keytab' => $this->authSourceData['keytab'],
+            'keytab' => $this->keytab,
             'authorization' => $this->authorization
         );
         $testData = new TestData($input);

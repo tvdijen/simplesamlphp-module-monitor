@@ -2,6 +2,7 @@
 
 namespace SimpleSAML\Module\monitor\Test;
 
+use \SimpleSAML_Configuration as ApplicationConfiguration;
 use \SimpleSAML\Module\monitor\TestCase as TestCase;
 use \SimpleSAML\Module\monitor\TestData as TestData;
 use \SimpleSAML\Module\monitor\State as State;
@@ -22,7 +23,7 @@ class TestLdapSearchTest extends \PHPUnit_Framework_TestCase
         $connectionMock->expects($this->once())->method('searchfordn')->will($this->returnValue(true));
         $confTest = new TestCase\AuthSource\Ldap\Search(
             new TestData([
-                'authSourceData' => $authSourceData,
+                'authSourceData' => ApplicationConfiguration::loadFromArray($authSourceData),
                 'connection' => $connectionMock,
             ])
         );
@@ -42,7 +43,7 @@ class TestLdapSearchTest extends \PHPUnit_Framework_TestCase
         $connectionMock->expects($this->once())->method('searchfordn')->will($this->throwException(new \SimpleSAML_Error_Error('UNHANDLEDEXCEPTION')));
         $confTest = new TestCase\AuthSource\Ldap\Search(
             new TestData([
-                'authSourceData' => $authSourceData,
+                'authSourceData' => ApplicationConfiguration::loadFromArray($authSourceData),
                 'connection' => $connectionMock,
             ])
         );

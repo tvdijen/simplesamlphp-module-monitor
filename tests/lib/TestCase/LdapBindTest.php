@@ -2,6 +2,7 @@
 
 namespace SimpleSAML\Module\monitor\Test;
 
+use \SimpleSAML_Configuration as ApplicationConfiguration;
 use \SimpleSAML\Module\monitor\TestCase as TestCase;
 use \SimpleSAML\Module\monitor\TestData as TestData;
 use \SimpleSAML\Module\monitor\State as State;
@@ -21,7 +22,7 @@ class TestLdapBindTest extends \PHPUnit_Framework_TestCase
         $connectionMock->expects($this->once())->method('bind')->will($this->returnValue(true));
         $confTest = new TestCase\AuthSource\Ldap\Bind(
             new TestData([
-                'authSourceData' => $authSourceData,
+                'authSourceData' => ApplicationConfiguration::loadFromArray($authSourceData),
                 'connection' => $connectionMock,
             ])
         );
@@ -40,7 +41,7 @@ class TestLdapBindTest extends \PHPUnit_Framework_TestCase
         $connectionMock->expects($this->once())->method('bind')->will($this->throwException(new \Exception()));
         $confTest = new TestCase\AuthSource\Ldap\Bind(
             new TestData([
-                'authSourceData' => $authSourceData,
+                'authSourceData' => ApplicationConfiguration::loadFromArray($authSourceData),
                 'connection' => $connectionMock,
             ])
         );
@@ -59,7 +60,7 @@ class TestLdapBindTest extends \PHPUnit_Framework_TestCase
         $connectionMock->expects($this->once())->method('bind')->will($this->returnValue(false));
         $confTest = new TestCase\AuthSource\Ldap\Bind(
             new TestData([
-                'authSourceData' => $authSourceData,
+                'authSourceData' => ApplicationConfiguration::loadFromArray($authSourceData),
                 'connection' => $connectionMock,
             ])
         );

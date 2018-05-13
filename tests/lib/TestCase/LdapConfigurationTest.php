@@ -2,6 +2,7 @@
 
 namespace SimpleSAML\Module\monitor\Test;
 
+use \SimpleSAML_Configuration as ApplicationConfiguration;
 use \SimpleSAML\Module\monitor\TestCase as TestCase;
 use \SimpleSAML\Module\monitor\TestData as TestData;
 
@@ -17,7 +18,9 @@ class TestLdapConfigurationTest extends \PHPUnit_Framework_TestCase
         ];
 
         $confTest = new TestCase\AuthSource\Ldap\Configuration(
-            new TestData(['authSourceData' => $authSourceData])
+            new TestData([
+                'authSourceData' => ApplicationConfiguration::loadFromArray($authSourceData),
+            ])
         );
         $testResult = $confTest->getTestResult();
         $this->assertEquals('ldaps://ldap.example.com:636', $testResult->getSubject());
@@ -32,7 +35,7 @@ class TestLdapConfigurationTest extends \PHPUnit_Framework_TestCase
         ];
 
         $confTest = new TestCase\AuthSource\Ldap\Configuration(
-            new TestData(['authSourceData' => $authSourceData])
+            new TestData(['authSourceData' => ApplicationConfiguration::loadFromArray($authSourceData)])
         );
         $this->assertEquals('ldaps://ldap.example.com:636', $testResult->getSubject());
     }

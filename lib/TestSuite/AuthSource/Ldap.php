@@ -2,6 +2,7 @@
 
 namespace SimpleSAML\Module\monitor\TestSuite\AuthSource;
 
+use \SimpleSAML_Configuration as ApplicationConfiguration;
 use \SimpleSAML\Module\monitor\State as State;
 use \SimpleSAML\Module\monitor\TestConfiguration as TestConfiguration;
 use \SimpleSAML\Module\monitor\TestCase as TestCase;
@@ -11,7 +12,7 @@ use \SimpleSAML\Module\monitor\TestResult as TestResult;
 final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
     /**
-     * @var array
+     * @var ApplicationConfiguration
      */
     private $authSourceData;
 
@@ -40,10 +41,10 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
         $authSourceData = $testData->getInputItem('authSourceData');
         $authSourceSpecifics = $testData->getInputItem('authSourceSpecifics');
 
-        assert(is_array($authSourceData));
+        assert($authSourceData instanceof ApplicationConfiguration);
         assert(is_array($authSourceSpecifics) || is_null($authSourceSpecifics));
 
-        $this->hosts = explode(' ', $authSourceData['hostname']);
+        $this->hosts = explode(' ', $authSourceData->getString('hostname'));
         $this->authSourceData = $authSourceData;
         $this->authSourceSpecifics = $authSourceSpecifics;
         $this->certExpirationWarning = $moduleConfig->getValue('certExpirationWarning', 28);
@@ -148,17 +149,17 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
             }
 
             $port = parse_url($connectString, PHP_URL_PORT);
-            $port = $port ?: $authSourceData['port'];
+            $port = $port ?: $authSourceData->getInteger('port');
 
             $uri = 'ssl://' .  $hostname . ':' . $port;
             $context = stream_context_create(['ssl' => $sslContext]);
         } else {
-            $port = $authSourceData['port'];
+            $port = $authSourceData->getInteger('port');
             $uri = 'tcp://' . $hostname . ':' . $port;
             $context = stream_context_create();
         }
 
-        $timeout = isSet($authSourceData['timeout']) ? $authSourceData['timeout'] : null;
+        $timeout = $authSourceData->getInteger('timeout', null);
         return ['uri' => $uri, 'context' => $context, 'timeout' => $timeout];
     }
 }
