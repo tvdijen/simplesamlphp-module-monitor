@@ -14,9 +14,9 @@ final class Negotiate extends \SimpleSAML\Module\monitor\TestSuiteFactory
     private $authorization;
 
     /**
-     * @var string|null
+     * @var resource|null
      */
-    private $keytab;
+    private $handle;
 
     /**
      * @param TestConfiguration $configuration
@@ -29,7 +29,8 @@ final class Negotiate extends \SimpleSAML\Module\monitor\TestSuiteFactory
 
         assert(is_array($authSourceData));
 
-        $this->keytab = $authSourceData->getString('keytab', null);
+        $keytab = $authSourceData->getString('keytab', null);
+        $this->handle = new \KRB5NegotiateAuth($keytab);
         $this->authorization = $serverVars->get('HTTP_AUTHORIZATION');
         $this->setCategory('SPNEGO authentication source');
 
@@ -42,7 +43,7 @@ final class Negotiate extends \SimpleSAML\Module\monitor\TestSuiteFactory
     public function invokeTest()
     {
         $input = array(
-            'keytab' => $this->keytab,
+            'handle' => $this->handle,
             'authorization' => $this->authorization
         );
         $testData = new TestData($input);

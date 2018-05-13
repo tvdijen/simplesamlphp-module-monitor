@@ -9,14 +9,14 @@ use \SimpleSAML\Module\monitor\TestResult as TestResult;
 final class Negotiate extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     /**
-     * @var string|null
+     * @var KRB5NegotiateAuth
      */
-    private $keytab = null;
+    private $handle;
 
     /**
      * @var string|null
      */
-    private $authorization = null;
+    private $authorization;
 
     /*
      * @param TestData $testData
@@ -25,7 +25,7 @@ final class Negotiate extends \SimpleSAML\Module\monitor\TestCaseFactory
      */
     protected function initialize($testData)
     {
-        $this->keytab = $testData->getInputItem('keytab');
+        $this->handle = $testData->getInputItem('handle');
 
         $authorization = $testData->getInputItem('authorization');
         $this->authorization = (is_null($authorization) || empty($authorization)) ? null : $authorization;
@@ -40,10 +40,8 @@ final class Negotiate extends \SimpleSAML\Module\monitor\TestCaseFactory
     {
         $testResult = new TestResult('Authentication', 'Kerberos token validation');
 
-        $auth = new \KRB5NegotiateAuth($this->keytab);
-
         try {
-            $reply = @$auth->doAuthentication();
+            $reply = @$this->handle->doAuthentication();
         } catch (\Exception $error) {
             // Fallthru
         }
@@ -53,7 +51,7 @@ final class Negotiate extends \SimpleSAML\Module\monitor\TestCaseFactory
             $testResult->setMessage($error->getMessage());
         } else if ($reply === true) {
             $testResult->setState(State::OK);
-            $testResult->setMessage('Succesfully authenticated as '.$auth->getAuthenticatedUser());
+            $testResult->setMessage('Succesfully authenticated as '.$this->handle->getAuthenticatedUser());
         } else if (is_null($this->authorization)) {
             // Either misconfiguration of the browser, or user not authenticated at a KDC
             $testResult->setState(State::SKIPPED);
