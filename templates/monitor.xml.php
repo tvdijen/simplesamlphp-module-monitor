@@ -32,7 +32,10 @@ $output .= '<health>' . $overall . '</health>';
 $output .= '<checks>';
 
 foreach ($modules as $check) {
-    list($health, $category, $subject, $summary) = $check;
+    $health = $check['state'];
+    $category = $check['category'];
+    $subject = $check['subject'];
+    $summary = $check['message'];
     list($healthState, $healthColor) = $healthInfo[$health];
 
     $output .= '<check category="' . $category . '">';
@@ -43,7 +46,10 @@ foreach ($modules as $check) {
 }
 
 foreach ($configuration as $check) {
-    list($health, $category, $subject, $summary) = $check;
+    $health = $check['state'];
+    $category = $check['category'];
+    $subject = $check['subject'];
+    $summary = $check['message'];
     list($healthState, $healthColor) = $healthInfo[$health];
 
     $output .= '<check category="' . $category . '">';
@@ -54,7 +60,10 @@ foreach ($configuration as $check) {
 }
 
 foreach ($store as $check) {
-    list($health, $category, $subject, $summary) = $check;
+    $health = $check['state'];
+    $category = $check['category'];
+    $subject = $check['subject'];
+    $summary = $check['message'];
     list($healthState, $healthColor) = $healthInfo[$health];
 
     $output .= '<check category="' . $category . '">';
@@ -66,7 +75,10 @@ foreach ($store as $check) {
 
 foreach ($authsources as $name => $authsource) {
     foreach ($authsource as $check) {
-        list($health, $category, $subject, $summary) = $check;
+        $health = $check['state'];
+        $category = $check['category'];
+        $subject = $check['subject'];
+        $summary = $check['message'];
         list($healthState, $healthColor) = $healthInfo[$health];
 
         $output .= '<check category="' . $category . '">';
@@ -79,7 +91,10 @@ foreach ($authsources as $name => $authsource) {
 
 foreach ($metadata as $entityId => $entityMetadata) {
     foreach ($entityMetadata as $check) {
-        list($health, $category, $subject, $summary) = $check;
+        $health = $check['state'];
+        $category = $check['category'];
+        $subject = $check['subject'];
+        $summary = $check['message'];
         list($healthState, $healthColor) = $healthInfo[$health];
 
         $output .= '<check category="' . $category . '">';
