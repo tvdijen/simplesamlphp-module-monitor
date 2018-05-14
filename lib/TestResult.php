@@ -156,7 +156,7 @@ final class TestResult
     }
     
     /**
-     * @param int $state
+     * @param integer $state
      *
      * @return void
      */
