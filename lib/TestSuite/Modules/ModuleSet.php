@@ -3,7 +3,7 @@
 namespace SimpleSAML\Module\monitor\TestSuite\Modules;
 
 use \SimpleSAML\Module\monitor\State as State;
-use \SimpleSAML\Module\monitor\TestCaseFactory as TestCaseFactory;
+use \SimpleSAML\Module\monitor\TestCase as TestCase;
 use \SimpleSAML\Module\monitor\TestData as TestData;
 use \SimpleSAML\Module\monitor\TestResult as TestResult;
 
@@ -30,11 +30,6 @@ final class ModuleSet extends \SimpleSAML\Module\monitor\TestSuiteFactory
     private $type;
 
     /**
-     * @var TestCaseFactory
-     */
-    private $testCase;
-
-    /**
      * @param TestData $testData
      *
      * @return void
@@ -45,7 +40,6 @@ final class ModuleSet extends \SimpleSAML\Module\monitor\TestSuiteFactory
         $this->setAvailable($testData->getInputItem('available'));
         $this->setDependencies($testData->getInputItem('dependencies'));
         $this->setType($testData->getInputItem('type'));
-        $this->setTestCase($testData->getInputItem('testClass'));
         $this->setCategory($this->type.' modules');
     }
 
@@ -90,16 +84,6 @@ final class ModuleSet extends \SimpleSAML\Module\monitor\TestSuiteFactory
 
 
     /**
-     * @param TestCase
-     */
-    private function setTestCase($testCase)
-    {
-        assert($testCase instanceof TestCaseFactory);
-        $this->testCase = $testCase;
-    }
-
-    
-    /**
      * @return void
      */
     public function invokeTest()
@@ -110,10 +94,11 @@ final class ModuleSet extends \SimpleSAML\Module\monitor\TestSuiteFactory
             foreach ($this->required as $module) {
                 $testData = new TestData([
                     'required' => $module,
-                    'available' => $this->available
+                    'available' => $this->available,
+                    'type' => $this->type,
                 ]);
 
-                $moduleTest = new $this->testCase($testData);
+                $moduleTest = new TestCase\Module($testData);
                 $moduleTestResult = $moduleTest->getTestResult();
                 if ($moduleTestResult->getState() !== State::OK) {
                     $missing = $this->findMissingDependencies($module);

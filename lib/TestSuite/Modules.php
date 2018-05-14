@@ -220,7 +220,6 @@ class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
             'required' => $this->getRequiredApacheModules(),
             'dependencies' => $this->moduleApacheDependencies,
             'type' => 'Apache',
-            'testClass' => '\SimpleSAML\Module\monitor\TestCase\Module\Apache',
         ]);
         $apacheTest = new Modules\ModuleSet($configuration, $testData);
         $apacheTestResult = $apacheTest->getTestResult();
@@ -231,7 +230,6 @@ class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
             'required' => $this->getRequiredPhpModules(),
             'dependencies' => $this->modulePhpDependencies,
             'type' => 'Php',
-            'testClass' => '\SimpleSAML\Module\monitor\TestCase\Module\Php',
         ]);
         $phpTest = new Modules\ModuleSet($configuration, $testData);
         $phpTestResult = $phpTest->getTestResult();

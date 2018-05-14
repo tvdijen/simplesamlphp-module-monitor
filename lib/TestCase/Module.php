@@ -34,6 +34,7 @@ class Module extends \SimpleSAML\Module\monitor\TestCaseFactory
         $this->available = $testData->getInputItem('available');
         $this->parsed = explode('|', $this->module);
 
+        $this->setCategory($testData->getInputItem('type'));
         parent::initialize($testData);
     }
 
