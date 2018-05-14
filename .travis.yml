@@ -17,6 +17,8 @@ matrix:
     - php: hhvm
 
 before_script:
+  - dd if=/dev/zero of=/tmp/disk-image count=2048; /sbin/mkfs -t ext2 -q /tmp/disk-image -F
+  - mkdir /tmp/testdisk; sudo mount -o loop=/dev/loop0 /tmp/disk-image /tmp/testdisk; sudo chmod -R 777 /tmp/testdisk
   - if [[ "$TRAVIS_PHP_VERSION" != "hhvm" ]]; then pecl install krb5; fi
   - composer update
   - if [[ "$TRAVIS_PHP_VERSION" == "5.6" ]]; then composer require --dev php-coveralls/php-coveralls; fi
@@ -26,4 +28,5 @@ script:
   - if [[ "$TRAVIS_PHP_VERSION" == "5.6" ]]; then php vendor/phpunit/phpunit/phpunit --configuration tools/phpunit; else php vendor/phpunit/phpunit/phpunit --configuration tools/phpunit --no-coverage; fi
 
 after_success:
+  - sudo umount /tmp/testdisk; rm -rf /tmp/testdisk; rm -f /tmp/disk-image
   - if [[ $EXECUTE_COVERAGE == 'true' ]]; then bash <(curl -s https://codecov.io/bash) -s tools/phpunit; fi
