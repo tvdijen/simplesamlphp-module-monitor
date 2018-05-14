@@ -54,7 +54,7 @@ class TestCertificatesTest extends \PHPUnit_Framework_TestCase
         $certTest = new TestCase\Cert\Data($testData);
         $testResult = $certTest->getTestResult();
         $expiration = $testResult->getOutput('expiration');
-        $this->assertEquals(-10, $expiration);
+        $this->assertLessThanOrEqual(-10, $expiration);
         $this->assertEquals(State::ERROR, $testResult->getState());
     }
 
@@ -75,7 +75,7 @@ class TestCertificatesTest extends \PHPUnit_Framework_TestCase
         $certTest = new TestCase\Cert\Data($testData);
         $testResult = $certTest->getTestResult();
         $expiration = $testResult->getOutput('expiration');
-        $this->assertEquals(5, $expiration);
+        $this->assertGreaterThanOrEqual(4, $expiration);
         $this->assertEquals(State::WARNING, $testResult->getState());
     }
 
@@ -99,7 +99,7 @@ class TestCertificatesTest extends \PHPUnit_Framework_TestCase
         $certTest = new TestCase\Cert\File($testData);
         $testResult = $certTest->getTestResult();
         $expiration = $testResult->getOutput('expiration');
-        $this->assertEquals(100, $expiration);
+        $this->assertGreaterThanOrEqual(99, $expiration);
         $this->assertEquals(State::OK, $testResult->getState());
     }
 }
