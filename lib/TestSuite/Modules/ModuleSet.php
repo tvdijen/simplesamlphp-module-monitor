@@ -113,16 +113,17 @@ final class ModuleSet extends \SimpleSAML\Module\monitor\TestSuiteFactory
         }
 
         $testResult = new TestResult($this->type, implode(', ', $this->required));
-        $this->setTestResult($testResult, $state);
+        $testResult->setState($state);
+        $this->setTestResult($testResult);
     }
 
     /**
      * @param TestResult $testResult
-     * @param int $state
      * return void
      */
-    protected function setTestResult($testResult, $state)
+    protected function setTestResult($testResult)
     {
+        $state = $testResult->getState();
         if ($state === State::OK) {
             $testResult->setMessage('All required modules are loaded');
         } elseif ($state === State::SKIPPED) {
@@ -130,7 +131,6 @@ final class ModuleSet extends \SimpleSAML\Module\monitor\TestSuiteFactory
         } else {
             $testResult->setMessage('Not all required modules are loaded');
         }
-        $testResult->setState($state);
         parent::setTestResult($testResult);
     }
 
