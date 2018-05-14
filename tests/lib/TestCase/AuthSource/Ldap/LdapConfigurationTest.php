@@ -37,6 +37,7 @@ class TestLdapConfigurationTest extends \PHPUnit_Framework_TestCase
         $confTest = new TestCase\AuthSource\Ldap\Configuration(
             new TestData(['authSourceData' => ApplicationConfiguration::loadFromArray($authSourceData)])
         );
-        $this->assertEquals('ldaps://ldap.example.com:636', $testResult->getSubject());
+        $testResult = $confTest->getTestResult();
+        $this->assertEquals('ldap.example.com:636', $testResult->getSubject());
     }
 }

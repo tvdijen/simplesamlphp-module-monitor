@@ -130,7 +130,7 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
 
     /**
      * @param string $connectString
-     * @param array $authSourceData
+     * @param ApplicationConfiguration $authSourceData
      * @param array|null $authSourceSpecifics
      *
      * @return array

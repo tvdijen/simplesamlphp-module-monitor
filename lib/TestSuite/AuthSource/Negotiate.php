@@ -14,7 +14,7 @@ final class Negotiate extends \SimpleSAML\Module\monitor\TestSuiteFactory
     private $authorization;
 
     /**
-     * @var resource|null
+     * @var KRB5NegotiateAuth
      */
     private $handle;
 

@@ -6,8 +6,8 @@ use \SimpleSAML_Configuration as ApplicationConfiguration;
 use \SimpleSAML\Module\monitor\TestConfiguration as TestConfiguration;
 use \SimpleSAML\Module\monitor\Monitor as Monitor;
 
-//assert_options(ASSERT_ACTIVE, 1);
-//assert_options(ASSERT_WARNING, 1);
+assert_options(ASSERT_ACTIVE, 1);
+assert_options(ASSERT_WARNING, 1);
 
 $serverVars = new DependencyInjection($_SERVER);
 $requestVars = new DependencyInjection($_REQUEST);
