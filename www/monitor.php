@@ -42,7 +42,7 @@ switch ($outputFormat) {
         $t->data['protocol'] = is_null($protocol) ? 'HTTP/1.0' : $protocol;
         break;
     case 'json':
-        echo json_encode(['overall' => $healthInfo[$state], 'results' => $results], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
+        echo json_encode(['overall' => $healthInfo[$state][0], 'results' => $results], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
         return;
     default:
         $t = new SimpleSAML_XHTML_Template($globalConfig, 'monitor:monitor.php');
