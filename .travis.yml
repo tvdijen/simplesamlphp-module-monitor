@@ -21,7 +21,6 @@ before_script:
   - openssl req -x509 -newkey rsa:4096 -nodes -keyout /tmp/webserver.key -out /tmp/webserver.crt -days 365 -subj '/CN=localhost'
   - php -S localhost:8080 &
   - export WEBPID=$!
-  - stunnel --help
   - if [[ "$TRAVIS_PHP_VERSION" < "5.6" ]]; then sudo stunnel3 -p /tmp/webserver.pem -d 443 -r 8080; else sudo stunnel4 client=yes key= /tmp/webserver.key cert=/tmp/webserver.crt connect=127.0.0.1:443 accept=127.0.0.1:8080; fi
   - mkdir /tmp/testdisk; sudo mount -t tmpfs -o size=100k tmpfs /tmp/testdisk; sudo chmod -R 777 /tmp/testdisk
   - composer update
