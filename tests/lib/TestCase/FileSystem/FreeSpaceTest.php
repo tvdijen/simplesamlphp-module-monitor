@@ -30,7 +30,7 @@ class TestFreeSpaceTest extends \PHPUnit_Framework_TestCase
     {
         // Fill /tmp/testdisk for 90%
         $free = (disk_free_space('/tmp/testdisk') / 100) * 90;
-        file_put_contents('/tmp/testdisk/90filler.txt', str_repeat('a', (int)$free));
+        file_put_contents('/tmp/testdisk/90percent.txt', str_repeat('a', (int)$free));
 
         $testData = new TestData([
             'path' => '/tmp/testdisk',
@@ -44,14 +44,14 @@ class TestFreeSpaceTest extends \PHPUnit_Framework_TestCase
         $this->assertLessThan(15.0, $freePercentage);
         $this->assertEquals(State::WARNING, $testResult->getState());
 
-        unlink('/tmp/testdisk/90filler.txt');
+        unlink('/tmp/testdisk/90percent.txt');
     }
 
     public function testFreeSpaceOut()
     {
-        // Fill /tmp/testdisk for 96%
+        // Fill /tmp/testdisk for 99%
         $free = (disk_free_space('/tmp/testdisk') / 100) * 99;
-        file_put_contents('/tmp/testdisk/95filler.txt', str_repeat('b', (int)$free));
+        file_put_contents('/tmp/testdisk/99percent.txt', str_repeat('b', (int)$free));
 
         $testData = new TestData([
             'path' => '/tmp/testdisk',
@@ -63,5 +63,7 @@ class TestFreeSpaceTest extends \PHPUnit_Framework_TestCase
 
         $this->assertLessThan(5.0, $freePercentage);
         $this->assertEquals(State::ERROR, $testResult->getState());
+
+        unlink('/tmp/testdisk/99percent.txt');
     }
 }
