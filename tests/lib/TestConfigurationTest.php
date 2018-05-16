@@ -14,9 +14,24 @@ class TestConfigurationTest extends \PHPUnit_Framework_TestCase
         $serverVars = ['SERVER_NAME' => 'localhost'];
         $requestVars = ['output' => 'travis'];
 
-        $globalConfig_input = ['enable.saml20-idp' => true, 'metadata.sources' => [['type' => 'xml', 'file' => 'modules/monitor/tests/files/metadata.xml']]];
-        $authSourceConfig_input = ['test' => 'travis'];
-        $moduleConfig_input = ['test' => 'travis'];
+        $globalConfig_input = [
+            'enable.saml20-idp' => true,
+            'enable.shib13-idp' => true,
+            'enable.adfs-idp' => true,
+            'enable.wsfed-sp' => true,
+            'metadata.sources' => [
+                [
+                    'type' => 'xml',
+                    'file' => 'modules/monitor/tests/files/metadata.xml',
+                ],
+            ],
+        ];
+        $authSourceConfig_input = [
+            'test' => 'travis'
+        ];
+        $moduleConfig_input = [
+            'test' => 'travis'
+        ];
 
         $globalConfig = \SimpleSAML_Configuration::loadFromArray($globalConfig_input);
         $authSourceConfig = \SimpleSAML_Configuration::loadFromArray($authSourceConfig_input);
@@ -34,6 +49,6 @@ class TestConfigurationTest extends \PHPUnit_Framework_TestCase
         $metadataConfig = $testConf->getMetadataConfig();
         $this->assertArrayHasKey('https://engine.surfconext.nl/authentication/idp/metadata', $metadataConfig['saml20-idp-remote']);
 
-        $this->assertContains('Core', $testConf->getAvailablePhpModules(), '', true);
+        $this->assertNotEmpty($testConf->getAvailablePhpModules());
     }
 }
