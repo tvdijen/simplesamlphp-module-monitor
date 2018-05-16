@@ -15,6 +15,13 @@ class TestConnectUriTest extends \PHPUnit_Framework_TestCase
     {
         $testData = new TestData([
             'uri' => 'ssl://127.0.0.1:443',
+            'context' => stream_context_create([
+                "ssl" => [
+                    "capture_peer_cert" => true,
+                    "verify_peer" => false,
+                    "verify_peer_name" => false
+                ]
+            ]),
         ]);
         $connectionTest = new TestCase\Network\ConnectUri($testData);
         $testResult = $connectionTest->getTestResult();
