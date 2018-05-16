@@ -233,6 +233,7 @@ final class TestConfiguration
      */
     public function getGlobalConfig()
     {
+        assert($this->moduleConfig instanceof ApplicationConfiguration);
         return $this->globalConfig;
     }
 

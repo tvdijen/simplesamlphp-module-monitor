@@ -5,7 +5,7 @@ namespace SimpleSAML\Module\monitor\Test;
 use \SimpleSAML\Module\monitor\TestData as TestData;
 
 /**
- * Tests for DependencyInjection
+ * Tests for TestData
  */
 class TestDataTest extends \PHPUnit_Framework_TestCase
 {
