@@ -2,6 +2,7 @@
 
 namespace SimpleSAML\Module\monitor\Test;
 
+use \SimpleSAML\Module\monitor\DependencyInjection as DependencyInjection;
 use \SimpleSAML\Module\monitor\TestConfiguration as TestConfiguration;
 
 /**
@@ -11,8 +12,8 @@ class TestConfigurationTest extends \PHPUnit_Framework_TestCase
 {
     public function testTestConfiguration()
     {
-        $serverVars = ['SERVER_NAME' => 'localhost'];
-        $requestVars = ['output' => 'travis'];
+        $serverVars = new DependencyInjection(['SERVER_NAME' => 'localhost']);
+        $requestVars = new DependencyInjection(['output' => 'travis']);
 
         $globalConfig_input = [
             'enable.saml20-idp' => true,
