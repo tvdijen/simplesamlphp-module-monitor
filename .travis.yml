@@ -18,10 +18,10 @@ matrix:
 
 before_script:
   - sudo apt-get install stunnel4
-  - openssl req -x509 -newkey rsa:4096 -nodes -keyout /tmp/webserver.key -out /tmp/webserver.crt -days 365 -subj '/CN=localhost'
+  - openssl req -x509 -newkey rsa:4096 -nodes -keyout tests/files/webserver.key -out tests/files/webserver.crt -days 365 -subj '/CN=localhost'; cat tests/files/webserver.key tests/files/webserver.crt > tests/files/webserver.pem
   - php -S localhost:8080 &
   - export WEBPID=$!
-  - if [[ "$TRAVIS_PHP_VERSION" < "5.6" ]]; then sudo stunnel3 -p /tmp/webserver.pem -d 443 -r 8080; else sudo stunnel4 tests/files/stunnel.conf; fi
+  - if [[ "$TRAVIS_PHP_VERSION" < "5.6" ]]; then sudo stunnel3 -p /tests/files/webserver.pem -d 443 -r 8080; else sudo stunnel4 tests/files/stunnel.conf; fi
   - mkdir /tmp/testdisk; sudo mount -t tmpfs -o size=100k tmpfs /tmp/testdisk; sudo chmod -R 777 /tmp/testdisk
   - composer update
   - if [[ "$TRAVIS_PHP_VERSION" == "5.6" ]]; then composer require --dev php-coveralls/php-coveralls; fi
