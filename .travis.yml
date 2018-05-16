@@ -17,7 +17,7 @@ matrix:
     - php: hhvm
 
 before_script:
-  - sudo apt-get install stunnel4
+  - sudo apt-get install stunnel4 apache2
   - openssl req -x509 -newkey rsa:4096 -nodes -keyout tests/files/webserver.key -out tests/files/webserver.crt -days 365 -subj '/CN=localhost'; cat tests/files/webserver.key tests/files/webserver.crt > tests/files/webserver.pem
   - php -S localhost:8080 &
   - export WEBPID=$!
