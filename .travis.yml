@@ -17,8 +17,12 @@ matrix:
     - php: hhvm
 
 before_script:
+  - sudo apt-get install stunnel4
+  - openssl req -x509 -newkey rsa:4096 -nodes -keyout tests/files/webserver.key -out tests/files/webserver.crt -days 365 -subj '/CN=localhost'; cat tests/files/webserver.key tests/files/webserver.crt > tests/files/webserver.pem
+  - php -S localhost:8080 &
+  - export WEBPID=$!
+  - if [[ "$TRAVIS_PHP_VERSION" < "5.6" ]]; then sudo stunnel3 -p tests/files/webserver.pem -d 443 -r 8080; else sudo stunnel4 tests/files/stunnel.conf; fi
   - mkdir /tmp/testdisk; sudo mount -t tmpfs -o size=100k tmpfs /tmp/testdisk; sudo chmod -R 777 /tmp/testdisk
-  - if [[ "$TRAVIS_PHP_VERSION" != "hhvm" ]]; then pecl install krb5; fi
   - composer update
   - if [[ "$TRAVIS_PHP_VERSION" == "5.6" ]]; then composer require --dev php-coveralls/php-coveralls; fi
 
@@ -28,4 +32,5 @@ script:
 
 after_success:
   - sudo umount /tmp/testdisk; rm -rf /tmp/testdisk; rm -f /tmp/disk-image
+  - kill -kill $WEBPID
   - if [[ $EXECUTE_COVERAGE == 'true' ]]; then bash <(curl -s https://codecov.io/bash) -s tools/phpunit; fi
