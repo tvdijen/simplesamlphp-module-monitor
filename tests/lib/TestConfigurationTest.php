@@ -49,6 +49,7 @@ class TestConfigurationTest extends \PHPUnit_Framework_TestCase
         $metadataConfig = $testConf->getMetadataConfig();
         $this->assertArrayHasKey('https://engine.surfconext.nl/authentication/idp/metadata', $metadataConfig['saml20-idp-remote']);
 
-        $this->assertContains('Core', $testConf->getAvailablePhpModules(), '', true);
+//        $this->assertContains('Core', $testConf->getAvailablePhpModules(), '', true);
+print_r($testConf->getAvailablePhpModules());
     }
 }
