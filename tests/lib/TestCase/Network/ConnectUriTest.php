@@ -25,8 +25,6 @@ class TestConnectUriTest extends \PHPUnit_Framework_TestCase
         ]);
         $connectionTest = new TestCase\Network\ConnectUri($testData);
         $testResult = $connectionTest->getTestResult();
-
-print_r($testResult);
         $this->assertEquals(State::OK, $testResult->getState());
     }
 
