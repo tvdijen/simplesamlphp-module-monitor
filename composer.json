@@ -10,22 +10,24 @@
             "email": "tvdijen@gmail.com"
         }
     ],
-    "autoload-dev": {
-        "psr-4": {
-            "SimpleSAML\\Module\\monitor\\TestFiles\\": "tests/files"
-        }
-    },
     "autoload": {
         "psr-4": {
             "SimpleSAML\\Module\\monitor\\": "lib"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SimpleSAML\\Module\\monitor\\TestFiles\\": "tests/files",
+            "SimpleSAML\\Test\\": "vendor/simplesamlphp/simplesamlphp/tests"
+        },
+        "files": ["vendor/simplesamlphp/simplesamlphp/tests/Utils/ClearStateTestCase.php"]
     },
     "require": {
         "php": ">=5.4",
         "simplesamlphp/composer-module-installer": "~1.0"
     },
     "require-dev": {
-        "simplesamlphp/simplesamlphp": "dev-unit-test",
+        "simplesamlphp/simplesamlphp": "^1.15",
         "phpunit/phpunit": "~4.8.35"
     },
     "support": {
