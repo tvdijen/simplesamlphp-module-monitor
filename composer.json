@@ -10,20 +10,14 @@
             "email": "tvdijen@gmail.com"
         }
     ],
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/tvdijen/simplesamlphp"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "SimpleSAML\\Module\\monitor\\": "lib"
-        }
-    },
     "autoload-dev": {
         "psr-4": {
             "SimpleSAML\\Module\\monitor\\TestFiles\\": "tests/files"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "SimpleSAML\\Module\\monitor\\": "lib"
         }
     },
     "require": {

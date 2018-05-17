@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c84bb36d690b9a6fd9d6518daea17478",
+    "content-hash": "8824930dd36ec26ad3bcedeb090dc34b",
     "packages": [
         {
             "name": "gettext/gettext",
@@ -352,12 +352,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/tvdijen/simplesamlphp.git",
-                "reference": "88fdf44111d3ba36a190294eeb47c7fe6dfd1a0c"
+                "reference": "9b3800eb8cfd955f0ab28db11ef9fe19caaac97f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tvdijen/simplesamlphp/zipball/88fdf44111d3ba36a190294eeb47c7fe6dfd1a0c",
-                "reference": "88fdf44111d3ba36a190294eeb47c7fe6dfd1a0c",
+                "url": "https://api.github.com/repos/tvdijen/simplesamlphp/zipball/9b3800eb8cfd955f0ab28db11ef9fe19caaac97f",
+                "reference": "9b3800eb8cfd955f0ab28db11ef9fe19caaac97f",
                 "shasum": ""
             },
             "require": {
@@ -398,7 +398,7 @@
                     "SimpleSAML\\Test\\": "lib/tests"
                 },
                 "files": [
-                    "tests/bootstrap.php"
+                    "tests/Utils/ClearStateTestCase.php"
                 ]
             },
             "license": [
@@ -432,7 +432,7 @@
                 "issues": "https://github.com/simplesamlphp/simplesamlphp/issues",
                 "source": "https://github.com/simplesamlphp/simplesamlphp"
             },
-            "time": "2018-05-17T15:54:00+00:00"
+            "time": "2018-05-17T16:01:55+00:00"
         },
         {
             "name": "twig/extensions",
