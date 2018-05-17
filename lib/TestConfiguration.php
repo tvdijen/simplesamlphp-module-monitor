@@ -172,7 +172,7 @@ final class TestConfiguration
                 break;
             }
         }
-print_r($output);
+
         if ($output === null) {
             return array(); // Cannot determine available modules
         }
