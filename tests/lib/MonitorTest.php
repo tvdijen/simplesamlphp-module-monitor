@@ -8,7 +8,7 @@ use \SimpleSAML\Module\monitor\Monitor as Monitor;
 /**
  * Tests for Monitor
  */
-class MonitorTest extends \PHPUnit_Framework_TestCase
+class MonitorTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
 {
     public function testMonitor()
     {
