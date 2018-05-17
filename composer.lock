@@ -352,12 +352,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/tvdijen/simplesamlphp.git",
-                "reference": "ac99638ff6b7c8e81c739991a1fcfdab07896915"
+                "reference": "bd56519d98397006c81f0d651b6341ccdd7f1c0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tvdijen/simplesamlphp/zipball/ac99638ff6b7c8e81c739991a1fcfdab07896915",
-                "reference": "ac99638ff6b7c8e81c739991a1fcfdab07896915",
+                "url": "https://api.github.com/repos/tvdijen/simplesamlphp/zipball/bd56519d98397006c81f0d651b6341ccdd7f1c0c",
+                "reference": "bd56519d98397006c81f0d651b6341ccdd7f1c0c",
                 "shasum": ""
             },
             "require": {
@@ -396,7 +396,10 @@
             "autoload-dev": {
                 "psr-4": {
                     "SimpleSAML\\Test\\": "lib/tests"
-                }
+                },
+                "files": [
+                    "tests/Utils/ClearStateTestCase.php"
+                ]
             },
             "license": [
                 "LGPL-2.1-or-later"
@@ -429,7 +432,7 @@
                 "issues": "https://github.com/simplesamlphp/simplesamlphp/issues",
                 "source": "https://github.com/simplesamlphp/simplesamlphp"
             },
-            "time": "2018-05-17T15:31:26+00:00"
+            "time": "2018-05-17T15:48:28+00:00"
         },
         {
             "name": "twig/extensions",
