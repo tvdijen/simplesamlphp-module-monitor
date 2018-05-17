@@ -18,7 +18,7 @@
     "autoload-dev": {
         "psr-4": {
             "SimpleSAML\\Module\\monitor\\TestFiles\\": "tests/files",
-            "SimpleSAML\\Test": "vendor/simplesamlphp/simplesamlphp/tests"
+            "SimpleSAML\\Test\\": "vendor/simplesamlphp/simplesamlphp/tests"
         },
         "files": ["vendor/simplesamlphp/simplesamlphp/tests/bootstrap.php"]
     },
