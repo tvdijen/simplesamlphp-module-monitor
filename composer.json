@@ -15,18 +15,23 @@
             "SimpleSAML\\Module\\monitor\\": "lib"
         }
     },
-
     "autoload-dev": {
         "psr-4": {
             "SimpleSAML\\Module\\monitor\\TestFiles\\": "tests/files"
         }
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/tvdijen/simplesamlphp"
+        }
+    ],
     "require": {
         "php": ">=5.4",
         "simplesamlphp/composer-module-installer": "~1.0"
     },
     "require-dev": {
-        "simplesamlphp/simplesamlphp": "^1.15",
+        "simplesamlphp/simplesamlphp": "dev-unit-test",
         "phpunit/phpunit": "~4.8.35"
     },
     "support": {
