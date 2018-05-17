@@ -10,6 +10,12 @@
             "email": "tvdijen@gmail.com"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/tvdijen/simplesamlphp"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "SimpleSAML\\Module\\monitor\\": "lib"
@@ -27,7 +33,7 @@
         "simplesamlphp/composer-module-installer": "~1.0"
     },
     "require-dev": {
-        "simplesamlphp/simplesamlphp": "^1.15",
+        "simplesamlphp/simplesamlphp": "dev-unit-test",
         "phpunit/phpunit": "~4.8.35"
     },
     "support": {
