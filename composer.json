@@ -10,6 +10,12 @@
             "email": "tvdijen@gmail.com"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/tvdijen/simplesamlphp"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "SimpleSAML\\Module\\monitor\\": "lib"
@@ -17,17 +23,9 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "SimpleSAML\\Module\\monitor\\TestFiles\\": "tests/files",
-            "SimpleSAML\\Test\\": "vendor/simplesamlphp/simplesamlphp/tests"
+            "SimpleSAML\\Module\\monitor\\TestFiles\\": "tests/files"
         },
-        "files": ["vendor/simplesamlphp/simplesamlphp/tests/bootstrap.php"]
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/tvdijen/simplesamlphp"
-        }
-    ],
     "require": {
         "php": ">=5.4",
         "simplesamlphp/composer-module-installer": "~1.0"
