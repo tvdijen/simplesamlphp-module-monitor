@@ -32,9 +32,9 @@ class MonitorTest extends \PHPUnit_Framework_TestCase
         $moduleConfig_input = [
             'test' => 'travis'
         ];
-        $globalConfig = \SimpleSAML_Configuration::loadFromArray($globalConfig_input);
-        $authSourceConfig = \SimpleSAML_Configuration::loadFromArray($authSourceConfig_input);
-        $moduleConfig = \SimpleSAML_Configuration::loadFromArray($moduleConfig_input);
+        $globalConfig = \SimpleSAML_Configuration::loadFromArray($globalConfig_input, 'monitor_glob');
+        $authSourceConfig = \SimpleSAML_Configuration::loadFromArray($authSourceConfig_input, 'monitor_auth');
+        $moduleConfig = \SimpleSAML_Configuration::loadFromArray($moduleConfig_input, 'monitor_mod');
         $testConf = new TestConfiguration($serverVars, $requestVars, $globalConfig, $authSourceConfig, $moduleConfig);
 
         $monitor = new Monitor($testConf);
