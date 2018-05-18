@@ -8,7 +8,7 @@ use \SimpleSAML\Module\monitor\TestConfiguration as TestConfiguration;
 /**
  * Tests for TestConfiguration
  */
-class TestConfigurationTest extends \PHPUnit_Framework_TestCase
+class TestConfigurationTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
 {
     public function testTestConfiguration()
     {
@@ -36,7 +36,11 @@ class TestConfigurationTest extends \PHPUnit_Framework_TestCase
 
         $globalConfig = \SimpleSAML_Configuration::loadFromArray($globalConfig_input);
         $authSourceConfig = \SimpleSAML_Configuration::loadFromArray($authSourceConfig_input);
-        $moduleConfig = \SimpleSAML_Configuration::loadFromArray($moduleConfig_input, 'test', 'blub');
+        $moduleConfig = \SimpleSAML_Configuration::loadFromArray($moduleConfig_input);
+
+        \SimpleSAML_Configuration::setPreLoadedConfig($globalConfig, 'config.php');
+        \SimpleSAML_Configuration::setPreLoadedConfig($moduleConfig, 'module_monitor.php');
+        \SimpleSAML_Configuration::setPreLoadedConfig($authSourceConfig, 'authsources.php');
 
         $testConf = new TestConfiguration($serverVars, $requestVars, $globalConfig, $authSourceConfig, $moduleConfig);
 

@@ -8,7 +8,8 @@ use \SimpleSAML\Module\monitor\Monitor as Monitor;
 /**
  * Tests for Monitor
  */
-class MonitorTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
+//class MonitorTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
+class MonitorTest extends \PHPUnit_Framework_TestCase
 {
     public function testMonitor()
     {
@@ -21,8 +22,8 @@ class MonitorTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
             'enable.wsfed-sp' => true,
             'metadata.sources' => [
                 [
-                    'type' => 'xml',
-                    'file' => 'modules/monitor/tests/files/metadata.xml',
+//                    'type' => 'xml',
+//                    'file' => 'modules/monitor/tests/files/metadata.xml',
                 ],
             ],
         ];
@@ -36,8 +37,12 @@ class MonitorTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
         $authSourceConfig = \SimpleSAML_Configuration::loadFromArray($authSourceConfig_input);
         $moduleConfig = \SimpleSAML_Configuration::loadFromArray($moduleConfig_input);
 
-/*        $testConf = new TestConfiguration($serverVars, $requestVars, $globalConfig, $authSourceConfig, $moduleConfig);
+        \SimpleSAML_Configuration::setPreLoadedConfig($globalConfig, 'config.php');
+        \SimpleSAML_Configuration::setPreLoadedConfig($moduleConfig, 'module_monitor.php');
+        \SimpleSAML_Configuration::setPreLoadedConfig($authSourceConfig, 'authsources.php');
 
+        $testConf = new TestConfiguration($serverVars, $requestVars, $globalConfig, $authSourceConfig, $moduleConfig);
+/*
         $monitor = new Monitor($testConf);
         $this->assertEquals($testConf, $monitor->getTestConfiguration());
 
