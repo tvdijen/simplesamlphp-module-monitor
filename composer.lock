@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "17ac242361e14cb09b6c18393778879e",
+    "content-hash": "7c45b4bb4ed37dedeb19f914e54965ca",
     "packages": [
         {
             "name": "gettext/gettext",
@@ -348,16 +348,16 @@
         },
         {
             "name": "simplesamlphp/simplesamlphp",
-            "version": "dev-master",
+            "version": "v1.15.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/simplesamlphp/simplesamlphp.git",
-                "reference": "cea12b94dfb603fd7ab515093414e970ba33e381"
+                "reference": "c770d0cd392ba8d8b12ac6214dcabd818d7cca32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simplesamlphp/simplesamlphp/zipball/cea12b94dfb603fd7ab515093414e970ba33e381",
-                "reference": "cea12b94dfb603fd7ab515093414e970ba33e381",
+                "url": "https://api.github.com/repos/simplesamlphp/simplesamlphp/zipball/c770d0cd392ba8d8b12ac6214dcabd818d7cca32",
+                "reference": "c770d0cd392ba8d8b12ac6214dcabd818d7cca32",
                 "shasum": ""
             },
             "require": {
@@ -380,9 +380,8 @@
             },
             "require-dev": {
                 "ext-pdo_sqlite": "*",
-                "friendsofphp/php-cs-fixer": "^2.2",
                 "mikey179/vfsstream": "~1.6",
-                "phpunit/phpunit": "~4.8.35"
+                "phpunit/phpunit": "~4.8"
             },
             "type": "project",
             "autoload": {
@@ -421,7 +420,7 @@
                 "sp",
                 "ws-federation"
             ],
-            "time": "2018-05-17T19:50:26+00:00"
+            "time": "2018-03-02T15:02:24+00:00"
         },
         {
             "name": "twig/extensions",
@@ -1718,9 +1717,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "simplesamlphp/simplesamlphp": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
