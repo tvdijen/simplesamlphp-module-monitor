@@ -69,6 +69,7 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
             $connection = $confTestResult->getOutput('connection');
 
             // Test connection for each configured LDAP-server
+            $failure = count($this->hosts);
             foreach ($this->hosts as $hostname) {
                 $preparedTestData = $this->prepareConnection($hostname, $this->authSourceData, $this->authSourceSpecifics);
                 $connTest = new TestCase\Network\ConnectUri(
@@ -92,33 +93,37 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
                         $certTestResult = $certTest->getTestResult();
                         $this->addTestResult($certTestResult);
                     }
+                    $failure--;
                 }
             }
 
-            // Test bind
-            $testData = new TestData([
-                'authSourceData' => $this->authSourceData,
-                'connection' => $connection
-            ]);
-            $bindTest = new TestCase\AuthSource\Ldap\Bind(
-                $testData
-            );
-            $bindTestResult = $bindTest->getTestResult();
-            $this->addTestResult($bindTestResult);
-
-            if ($bindTestResult->getState() === State::OK) {
-                // Test search
+            if ($failure !== 0) {
+                // Test bind
                 $testData = new TestData([
                     'authSourceData' => $this->authSourceData,
                     'connection' => $connection
                 ]);
-
-                $searchTest = new TestCase\AuthSource\Ldap\Search(
+                $bindTest = new TestCase\AuthSource\Ldap\Bind(
                     $testData
                 );
-                $searchTestResult = $searchTest->getTestResult();
-                $this->addTestResult($searchTestResult);
+                $bindTestResult = $bindTest->getTestResult();
+                $this->addTestResult($bindTestResult);
+
+                if ($bindTestResult->getState() === State::OK) {
+                    // Test search
+                    $testData = new TestData([
+                        'authSourceData' => $this->authSourceData,
+                        'connection' => $connection
+                    ]);
+
+                    $searchTest = new TestCase\AuthSource\Ldap\Search(
+                        $testData
+                    );
+                    $searchTestResult = $searchTest->getTestResult();
+                    $this->addTestResult($searchTestResult);
+                }
             }
+            unset($connection);
         }
 
         $state = $this->calculateState();
