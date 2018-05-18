@@ -10,6 +10,12 @@
             "email": "tvdijen@gmail.com"
         }
     ],
+    "config": {
+        "preferred-install": {
+            "simplesamlphp/simplesamlphp": "source",
+            "*": "dist"
+        }
+    },
     "autoload": {
         "psr-4": {
             "SimpleSAML\\Module\\monitor\\": "lib"
