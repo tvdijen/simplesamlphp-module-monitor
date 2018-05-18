@@ -25,8 +25,7 @@
         "psr-4": {
             "SimpleSAML\\Module\\monitor\\TestFiles\\": "tests/files",
             "SimpleSAML\\Test\\Utils\\": "vendor/simplesamlphp/simplesamlphp/tests/Utils"
-        },
-        "files": ["vendor/simplesamlphp/simplesamlphp/tests/Utils/ClearStateTestCase.php"]
+        }
     },
     "require": {
         "php": ">=5.4",

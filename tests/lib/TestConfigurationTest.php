@@ -5,6 +5,9 @@ namespace SimpleSAML\Module\monitor\Test;
 use \SimpleSAML\Module\monitor\DependencyInjection as DependencyInjection;
 use \SimpleSAML\Module\monitor\TestConfiguration as TestConfiguration;
 
+// This test relies on \SimpleSAML_Configuration::setPreLoadedConfig(), which is not available until after 1.15.4
+if (\SimpleSAML_Configuration::getVersion() === "master" || version_compare(\SimpleSAML_Configuration::getVersion(), '1.15.4', '>')) {
+
 /**
  * Tests for TestConfiguration
  */
@@ -57,4 +60,6 @@ class TestConfigurationTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
         $this->assertNotEmpty($testConf->getAvailableApacheModules());
         $this->assertNotEmpty($testConf->getAvailablePhpModules());
     }
+}
+
 }

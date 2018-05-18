@@ -5,11 +5,14 @@ namespace SimpleSAML\Module\monitor\Test;
 use \SimpleSAML\Module\monitor\DependencyInjection as DependencyInjection;
 use \SimpleSAML\Module\monitor\TestConfiguration as TestConfiguration;
 use \SimpleSAML\Module\monitor\Monitor as Monitor;
+
+// This test relies on \SimpleSAML_Configuration::setPreLoadedConfig(), which is not available until after 1.15.4
+if (\SimpleSAML_Configuration::getVersion() === "master" || version_compare(\SimpleSAML_Configuration::getVersion(), '1.15.4', '>')) {
+
 /**
  * Tests for Monitor
  */
-//class MonitorTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
-class MonitorTest extends \PHPUnit_Framework_TestCase
+class MonitorTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
 {
     public function testMonitor()
     {
@@ -22,8 +25,8 @@ class MonitorTest extends \PHPUnit_Framework_TestCase
             'enable.wsfed-sp' => true,
             'metadata.sources' => [
                 [
-//                    'type' => 'xml',
-//                    'file' => 'modules/monitor/tests/files/metadata.xml',
+                    'type' => 'xml',
+                    'file' => 'modules/monitor/tests/files/metadata.xml',
                 ],
             ],
         ];
@@ -42,10 +45,11 @@ class MonitorTest extends \PHPUnit_Framework_TestCase
         \SimpleSAML_Configuration::setPreLoadedConfig($authSourceConfig, 'authsources.php');
 
         $testConf = new TestConfiguration($serverVars, $requestVars, $globalConfig, $authSourceConfig, $moduleConfig);
-/*
         $monitor = new Monitor($testConf);
         $this->assertEquals($testConf, $monitor->getTestConfiguration());
 
-        $monitor->invokeTestSuites();*/
+        $monitor->invokeTestSuites();
     }
+}
+
 }
