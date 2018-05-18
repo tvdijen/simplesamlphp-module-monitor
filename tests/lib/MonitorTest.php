@@ -4,20 +4,20 @@ namespace SimpleSAML\Module\monitor\Test;
 
 use \SimpleSAML\Module\monitor\DependencyInjection as DependencyInjection;
 use \SimpleSAML\Module\monitor\TestConfiguration as TestConfiguration;
+use \SimpleSAML\Module\monitor\Monitor as Monitor;
 
 // This test relies on \SimpleSAML_Configuration::setPreLoadedConfig(), which is not available until after 1.15.4
 if (method_exists('SimpleSAML_Configuration', 'setPreLoadedConfig')) {
 
 /**
- * Tests for TestConfiguration
+ * Tests for Monitor
  */
-class TestConfigurationTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
+class MonitorTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
 {
-    public function testTestConfiguration()
+    public function testMonitor()
     {
         $serverVars = new DependencyInjection(['SERVER_NAME' => 'localhost']);
         $requestVars = new DependencyInjection(['output' => 'travis']);
-
         $globalConfig_input = [
             'enable.saml20-idp' => true,
             'enable.shib13-idp' => true,
@@ -36,7 +36,6 @@ class TestConfigurationTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
         $moduleConfig_input = [
             'test' => 'travis'
         ];
-
         $globalConfig = \SimpleSAML_Configuration::loadFromArray($globalConfig_input);
         $authSourceConfig = \SimpleSAML_Configuration::loadFromArray($authSourceConfig_input);
         $moduleConfig = \SimpleSAML_Configuration::loadFromArray($moduleConfig_input);
@@ -46,19 +45,10 @@ class TestConfigurationTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
         \SimpleSAML_Configuration::setPreLoadedConfig($authSourceConfig, 'authsources.php');
 
         $testConf = new TestConfiguration($serverVars, $requestVars, $globalConfig, $authSourceConfig, $moduleConfig);
+        $monitor = new Monitor($testConf);
+        $this->assertEquals($testConf, $monitor->getTestConfiguration());
 
-        $this->assertEquals($serverVars, $testConf->getServerVars());
-        $this->assertEquals($requestVars, $testConf->getRequestVars());
-
-        $this->assertEquals($globalConfig, $testConf->getGlobalConfig());
-        $this->assertEquals($authSourceConfig, $testConf->getAuthSourceConfig());
-        $this->assertEquals($moduleConfig, $testConf->getModuleConfig());
-
-        $metadataConfig = $testConf->getMetadataConfig();
-        $this->assertArrayHasKey('https://engine.surfconext.nl/authentication/idp/metadata', $metadataConfig['saml20-idp-remote']);
-
-        $this->assertNotEmpty($testConf->getAvailableApacheModules());
-        $this->assertNotEmpty($testConf->getAvailablePhpModules());
+        $monitor->invokeTestSuites();
     }
 }
 
