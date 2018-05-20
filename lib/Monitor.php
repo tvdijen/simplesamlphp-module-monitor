@@ -70,7 +70,7 @@ class Monitor
      */
     public function getState()
     {
-        $filtered = array_diff($this->state, array(State::SKIPPED));
+        $filtered = array_diff($this->state, array(State::SKIPPED, State::NOSTATE));
         return empty($filtered) ? State::NOSTATE : min($filtered);
     }
 
