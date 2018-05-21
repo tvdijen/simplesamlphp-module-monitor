@@ -6,9 +6,16 @@ Monitoring module changelog
 This document lists the changes between versions of this donitoring module.
 See the upgrade notes for specific information about upgrading.
 
-## Version 2.3.0
+## Version 2.4.0
 
 Released TBD
+
+## Version 2.3.0
+
+Released 22-5.2018
+
+### Changes
+  * Lots of unit testing;  no functional changes.
 
 ## Version 2.2.0
 
