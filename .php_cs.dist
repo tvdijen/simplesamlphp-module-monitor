@@ -7,7 +7,7 @@ $finder = PhpCsFixer\Finder::create()
         __DIR__ . '/hooks',
         __DIR__ . '/tests',
         __DIR__ . '/config-templates',
-        __DIR__ . '/www/monitor.php',
+        __DIR__ . '/www/index.php',
     ])
 ;
 return PhpCsFixer\Config::create()
