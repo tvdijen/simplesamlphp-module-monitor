@@ -1,6 +1,7 @@
 .pure-table {
     font-size: 8pt;
     width: 100%;
+    text-indent: 6px;
 }
 
 .pure-table thead {
@@ -13,8 +14,10 @@
 }
 
 .pure-table thead tr:first-child {
+    height: 25px;
+    vertical-align: middle;
     background-color: darkred;
     background: linear-gradient(141deg, #b8002c 0%, #db0100 51%, #e8410c 75%) !important;
-    font-size: 9pt;
     font-weight: bold;
+    color: rgb(248, 248, 248);
 }

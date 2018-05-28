@@ -44,7 +44,6 @@ if ($state === State::OK) {
 } else {
     $responseCode = 500;
 }
-$GLOBALS['http_response_code'] = $responseCode;
 
 $outputFormat = $requestVars->get('output');
 switch ($outputFormat) {

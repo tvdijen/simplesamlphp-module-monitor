@@ -16,6 +16,7 @@ list($healthState, $healthColor) = $healthInfo[$state];
 
 $overall = $healthState;
 
+$GLOBALS['http_response_code'] = $responseCode;
 if ($responseCode === 200) {
   header($protocol . ' 200 OK');
 } else if ($responseCode === 417) {
