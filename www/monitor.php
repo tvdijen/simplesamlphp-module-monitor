@@ -1,10 +1,13 @@
 <?php
 
+require_once(dirname(dirname(__FILE__)).'/lib/_autoload.php');
+
 use \SimpleSAML\Module\monitor\DependencyInjection as DependencyInjection;
 use \SimpleSAML\Module\monitor\State as State;
 use \SimpleSAML_Configuration as ApplicationConfiguration;
 use \SimpleSAML\Module\monitor\TestConfiguration as TestConfiguration;
 use \SimpleSAML\Module\monitor\Monitor as Monitor;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 assert_options(ASSERT_ACTIVE, 1);
 assert_options(ASSERT_WARNING, 1);
@@ -32,7 +35,16 @@ $healthInfo = array(
     State::WARNING => array('WARNING', 'orange'),
     State::OK      => array('OK',      'green' )
 );
+
 $state = $monitor->getState();
+if ($state === State::OK) {
+    $responseCode = 200;
+} else if ($state === State::WARNING) {
+    $responseCode = 417;
+} else {
+    $responseCode = 500;
+}
+$GLOBALS['http_response_code'] = $responseCode;
 
 $outputFormat = $requestVars->get('output');
 switch ($outputFormat) {
@@ -42,7 +54,7 @@ switch ($outputFormat) {
         $t->data['protocol'] = is_null($protocol) ? 'HTTP/1.0' : $protocol;
         break;
     case 'json':
-        echo json_encode(['overall' => $healthInfo[$state][0], 'results' => $results], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
+        JsonResponse::create(['overall' => $healthInfo[$state][0], 'results' => $results], $responseCode)->send();
         return;
     default:
         $t = new SimpleSAML_XHTML_Template($globalConfig, 'monitor:monitor.php');
@@ -57,6 +69,7 @@ $t->data['store'] = $results['store'];
 $t->data['metadata'] = $results['metadata'];
 $t->data['overall'] = $state;
 $t->data['healthInfo'] = $healthInfo;
+$t->data['responseCode'] = $responseCode;
 
 unset($monitor, $results, $globalConfig, $healthInfo);
 $t->show();

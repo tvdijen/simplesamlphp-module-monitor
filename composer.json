@@ -18,7 +18,7 @@
     },
     "autoload": {
         "psr-4": {
-            "SimpleSAML\\Module\\monitor\\": "lib"
+            "SimpleSAML\\Module\\monitor\\": "lib/Monitor"
         }
     },
     "autoload-dev": {
@@ -29,7 +29,8 @@
     },
     "require": {
         "php": ">=5.4",
-        "simplesamlphp/composer-module-installer": "~1.0"
+        "simplesamlphp/composer-module-installer": "~1.0",
+        "symfony/http-foundation": "^3.4"
     },
     "require-dev": {
         "simplesamlphp/simplesamlphp": "^1.15",

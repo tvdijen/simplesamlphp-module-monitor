@@ -10,20 +10,18 @@ $authsources = $this->data['authsources'];
 $metadata = $this->data['metadata'];
 $healthInfo = $this->data['healthInfo'];
 $protocol = $this->data['protocol'];
+$responseCode = $this->data['responseCode'];
 
 list($healthState, $healthColor) = $healthInfo[$state];
 
 $overall = $healthState;
 
-if ($state === State::OK) {
+if ($responseCode === 200) {
   header($protocol . ' 200 OK');
-  $GLOBALS['http_response_code'] = 200;
-} else if ($state === State::WARNING) {
+} else if ($responseCode === 417) {
   header($protocol . ' 417 Expectation failed');
-  $GLOBALS['http_response_code'] = 417;
 } else {
   header($protocol . ' 500 Internal Server Error');
-  $GLOBALS['http_response_code'] = 500;
 }
 
 $output = '<?xml version="1.0" encoding="UTF-8"?>';
