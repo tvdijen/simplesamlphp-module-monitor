@@ -45,9 +45,9 @@ final class Store extends \SimpleSAML\Module\monitor\TestSuiteFactory
 //            case 'redissentinel':
 //                $test = new Store\Redis($configuration);
 //                break;
-//            case 'sql':
-//                $test = new Store\Sql($configuration);
-//                break;
+            case 'sql':
+                $test = new Store\Sql($configuration);
+                break;
             default:
                 Logger::warning("Not implemented;  $this->store - Skipping Store TestSuite.");
                 return;

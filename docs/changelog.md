@@ -10,6 +10,14 @@ See the upgrade notes for specific information about upgrading.
 
 Released TBD
 
+### Features
+  * Support for testing SQL session stores
+
+### Changes
+  * Leave JSON-formatted output to Symfony
+  * Improve HTML-output readability
+  * Renamed main script-file from monitor.php to index.php
+
 ## Version 2.3.0
 
 Released 22-5.2018
