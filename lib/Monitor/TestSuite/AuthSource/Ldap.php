@@ -2,7 +2,7 @@
 
 namespace SimpleSAML\Module\monitor\TestSuite\AuthSource;
 
-use \SimpleSAML_Configuration as ApplicationConfiguration;
+use \SimpleSAML\Configuration as ApplicationConfiguration;
 use \SimpleSAML\Module\monitor\State as State;
 use \SimpleSAML\Module\monitor\TestConfiguration as TestConfiguration;
 use \SimpleSAML\Module\monitor\TestCase as TestCase;

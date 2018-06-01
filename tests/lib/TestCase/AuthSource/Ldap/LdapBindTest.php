@@ -2,7 +2,7 @@
 
 namespace SimpleSAML\Module\monitor\Test;
 
-use \SimpleSAML_Configuration as ApplicationConfiguration;
+use \SimpleSAML\Configuration as ApplicationConfiguration;
 use \SimpleSAML\Module\monitor\TestCase as TestCase;
 use \SimpleSAML\Module\monitor\TestData as TestData;
 use \SimpleSAML\Module\monitor\State as State;

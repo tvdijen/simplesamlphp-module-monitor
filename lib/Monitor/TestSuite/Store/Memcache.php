@@ -43,7 +43,7 @@ final class Memcache extends \SimpleSAML\Module\monitor\TestSuiteFactory
         } else {
             // Check Memcache-servers
 
-            $stats = \SimpleSAML_Memcache::getRawStats();
+            $stats = \SimpleSAML\Memcache::getRawStats();
             $i = 1;
             foreach ($stats as $key => $serverGroup) {
                 $results = array();

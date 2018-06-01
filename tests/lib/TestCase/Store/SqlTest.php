@@ -6,7 +6,8 @@ use \SimpleSAML\Module\monitor\TestCase\Store\Sql as Sql;
 use \SimpleSAML\Module\monitor\TestData as TestData;
 use \SimpleSAML\Module\monitor\State as State;
 
-if (method_exists('\SimpleSAML_Configuration', 'setPreLoadedConfig')) {
+// This test relies on \SimpleSAML\Configuration::setPreLoadedConfig(), which is not available until after 1.15.4
+if (method_exists('\SimpleSAML\Configuration', 'setPreLoadedConfig')) {
 
 /**
  * Tests for Sql
@@ -20,8 +21,8 @@ class TestSqlTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
             'store.sql.dsn' => 'sqlite:/tmp/test.sqlite',
         ];
 
-        $globalConfig = \SimpleSAML_Configuration::loadFromArray($globalConfig_input);
-        \SimpleSAML_Configuration::setPreLoadedConfig($globalConfig, 'config.php');
+        $globalConfig = \SimpleSAML\Configuration::loadFromArray($globalConfig_input);
+        \SimpleSAML\Configuration::setPreLoadedConfig($globalConfig, 'config.php');
         $testData = new TestData(['host' => 'test.localhost']);
 
         $test = new Sql($testData);
@@ -37,8 +38,8 @@ class TestSqlTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
             'store.sql.dsn' => 'somenonexistingfile',
         ];
 
-        $globalConfig = \SimpleSAML_Configuration::loadFromArray($globalConfig_input);
-        \SimpleSAML_Configuration::setPreLoadedConfig($globalConfig, 'config.php');
+        $globalConfig = \SimpleSAML\Configuration::loadFromArray($globalConfig_input);
+        \SimpleSAML\Configuration::setPreLoadedConfig($globalConfig, 'config.php');
         $testData = new TestData(['host' => 'test.localhost']);
 
         $test = new Sql($testData);

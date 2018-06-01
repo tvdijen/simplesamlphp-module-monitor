@@ -9,7 +9,7 @@ use \SimpleSAML\Module\monitor\TestResult as TestResult;
 final class Configuration extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     /*
-     * @var \SimpleSAML_Auth_LDAP
+     * @var \SimpleSAML\Auth\LDAP
      */
     private $connection;
 
@@ -79,7 +79,7 @@ final class Configuration extends \SimpleSAML\Module\monitor\TestCaseFactory
         $testResult = new TestResult('LDAP configuration', $connectString);
 
         try {
-            $this->connection = new \SimpleSAML_Auth_LDAP(
+            $this->connection = new \SimpleSAML\Auth\LDAP(
                 $this->hostname,
                 $this->enableTls,
                 $this->debug,
