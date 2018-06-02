@@ -41,7 +41,7 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
         $authSourceData = $testData->getInputItem('authSourceData');
         $authSourceSpecifics = $testData->getInputItem('authSourceSpecifics');
 
-        assert($authSourceData instanceof ApplicationConfiguration);
+        assert(is_array($authSourceData));
         assert(is_array($authSourceSpecifics) || is_null($authSourceSpecifics));
 
         $this->hosts = explode(' ', $authSourceData->getString('hostname'));
@@ -154,17 +154,17 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
             }
 
             $port = parse_url($connectString, PHP_URL_PORT);
-            $port = $port ?: $authSourceData->getInteger('port');
+            $port = $port ?: $authSourceData['port'];
 
             $uri = 'ssl://' .  $hostname . ':' . $port;
             $context = stream_context_create(['ssl' => $sslContext]);
         } else {
-            $port = $authSourceData->getInteger('port');
+            $port = $authSourceData['port'];
             $uri = 'tcp://' . $hostname . ':' . $port;
             $context = stream_context_create();
         }
 
-        $timeout = $authSourceData->getInteger('timeout', null);
+        $timeout = isSet($authSourceData['timeout']) ? $authSourceData['timeout'] : null;
         return ['uri' => $uri, 'context' => $context, 'timeout' => $timeout];
     }
 }

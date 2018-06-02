@@ -16,6 +16,7 @@ class MonitorTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
 {
     public function testMonitor()
     {
+        $_SERVER['REQUEST_URI'] = '/';
         $serverVars = new DependencyInjection(['SERVER_NAME' => 'localhost']);
         $requestVars = new DependencyInjection(['output' => 'travis']);
         $globalConfig_input = [

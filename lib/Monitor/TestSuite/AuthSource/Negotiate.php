@@ -29,7 +29,7 @@ final class Negotiate extends \SimpleSAML\Module\monitor\TestSuiteFactory
 
         assert(is_array($authSourceData));
 
-        $keytab = $authSourceData->getString('keytab', null);
+        $keytab = isSet($authSourceData['keytab']) ? $authSourceData['keytab'] : null;
         $this->handle = new \KRB5NegotiateAuth($keytab);
         $this->authorization = $serverVars->get('HTTP_AUTHORIZATION');
         $this->setCategory('SPNEGO authentication source');

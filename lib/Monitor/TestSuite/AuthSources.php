@@ -59,7 +59,7 @@ final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
             $authSourceData = $this->authSourceConfig->getValue($authSourceId);
             $input = [
                 'authSourceId' => $authSourceId,
-                'authSourceData' => ApplicationConfiguration::loadFromArray($this->authSourceConfig->getValue($authSourceId)),
+                'authSourceData' => $this->authSourceConfig->getValue($authSourceId),
                 'authSourceSpecifics' => $authSourceSpecifics,
             ];
             $testData = new TestData($input);
