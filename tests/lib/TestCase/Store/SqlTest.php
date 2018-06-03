@@ -17,11 +17,7 @@ class TestSqlTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
     {
         $globalConfig_input = [
             'store.type' => 'sql',
-            'store.sql.dsn' => 'sqlite:/modules/monitor/tests/files/test.sqlite',
-            'store.sql.username' => 'test',
-            'store.sql.password' => 'test',
-            'store.sql.options' => null,
-            'store.sql.prefix' => 'test'
+            'store.sql.dsn' => 'sqlite:/tmp/test.sqlite',
         ];
 
         $globalConfig = \SimpleSAML_Configuration::loadFromArray($globalConfig_input);
@@ -31,17 +27,14 @@ class TestSqlTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
         $test = new Sql($testData);
         $testResult = $test->getTestResult();
         $this->assertEquals(State::OK, $testResult->getState());
+        unlink('/tmp/test.sqlite');
     }
 
     public function testSqlFailure()
     {
         $globalConfig_input = [
             'store.type' => 'sql',
-            'store.sql.dsn' => '',
-            'store.sql.username' => '',
-            'store.sql.password' => '',
-            'store.sql.options' => null,
-            'store.sql.prefix' => 'test'
+            'store.sql.dsn' => 'somenonexistingfile',
         ];
 
         $globalConfig = \SimpleSAML_Configuration::loadFromArray($globalConfig_input);
