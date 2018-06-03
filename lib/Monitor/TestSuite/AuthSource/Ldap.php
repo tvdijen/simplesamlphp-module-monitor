@@ -12,7 +12,7 @@ use \SimpleSAML\Module\monitor\TestResult as TestResult;
 final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
     /**
-     * @var ApplicationConfiguration
+     * @var array
      */
     private $authSourceData;
 
