@@ -26,8 +26,8 @@ class MonitorTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
             'enable.wsfed-sp' => true,
             'metadata.sources' => [
                 [
-                    'type' => 'xml',
-                    'file' => 'modules/monitor/tests/files/metadata.xml',
+                    'type' => 'flatfile',
+                    'file' => 'modules/monitor/tests/files/saml20-idp-remote.php',
                 ],
             ],
         ];
