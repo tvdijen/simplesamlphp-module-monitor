@@ -67,7 +67,7 @@ final class Entity extends \SimpleSAML\Module\monitor\TestSuiteFactory
             foreach ($keys as $key) {
                 $input = array(
                     'category' => $this->getType($key),
-                    'certData' => "-----BEGIN CERTIFICATE-----\n" . $key['X509Certificate'] . "\n-----END CERTIFICATE-----",
+                    'certData' => "-----BEGIN CERTIFICATE-----\n" .chunk_split($key['X509Certificate'], 64)."-----END CERTIFICATE-----\n",
                     'certExpirationWarning' => $this->certExpirationWarning,
                 );
                 $testData = new TestData($input);
