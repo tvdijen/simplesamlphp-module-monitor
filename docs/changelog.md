@@ -8,7 +8,7 @@ See the upgrade notes for specific information about upgrading.
 
 ## Version 2.4.0
 
-Released TBD
+Released 8-8-2018
 
 ### Features
   * Support for testing SQL session stores
@@ -21,6 +21,7 @@ Released TBD
 ### Bugfixes
   * Fixed a bug in calculating testsuite state, leading to incorrect overall state
   * Fixed Travis by explicitly requiring sudo
+  * Fixed a bug that caused some certificates not to get parsed
 
 ## Version 2.3.0
 
