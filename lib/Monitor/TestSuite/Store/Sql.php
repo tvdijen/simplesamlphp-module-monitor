@@ -22,6 +22,8 @@ final class Sql extends \SimpleSAML\Module\monitor\TestSuiteFactory
     {
         $globalConfig = $configuration->getGlobalConfig();
         $this->host = $globalConfig->getString('store.sql.dsn');
+
+        parent::__construct($configuration);
     }
 
     /**
