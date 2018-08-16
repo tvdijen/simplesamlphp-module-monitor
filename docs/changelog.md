@@ -6,6 +6,18 @@ Monitoring module changelog
 This document lists the changes between versions of this donitoring module.
 See the upgrade notes for specific information about upgrading.
 
+## Version 2.4.1
+
+Released 17-8-2018
+
+### Bugfixes
+  * Fixed a bug that caused negotiate-authsources to fail
+  * Fixed the SQL storage testsuite
+
+### Changes
+  * Update composer.lock to address CVE-2018-14773
+  * Added tests to syntax-check Twig-templates
+
 ## Version 2.4.0
 
 Released 8-8-2018
