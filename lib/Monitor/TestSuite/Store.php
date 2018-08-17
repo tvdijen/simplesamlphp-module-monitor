@@ -34,61 +34,81 @@ final class Store extends \SimpleSAML\Module\monitor\TestSuiteFactory
     {
         $configuration = $this->getConfiguration();
 
-        switch ($this->store) {
-            case 'phpsession':
-                switch (ini_get('session.save_handler')) {
-                    case 'files':
-                        $input = [
-                            'path' => session_save_path(),
-                            'category' => 'Session storage'
-                        ];
-                        $testData = new TestData($input);
-                        $test = new TestCase\FileSystem\FreeSpace($testData);
-                        $results = array($test->getTestResult());
-                        break;
-                    case 'memcache':
-                    case 'memcached':
-                        $configuration = \SimpleSAML_Configuration::setPreLoadedConfig(
-                            \SimpleSAML_Configuration::loadFromArray(
-                                array(
-                                    'memcache_store.servers' => $this->parsePhpMemcachedConfiguration(session_save_path())
-                                )
-                            )
-                        );
+        if ($this->store === 'phpsession') {
+            $results = $this->testPhpSession();
+        } else {
+            $results = $this->testSspSession($configuration);
+        }
 
-                        $test = new Store\Memcache($configuration);
-                        $results = $test->getTestResults();
-                        break;
-// TODO:
-//                    case 'sqlite':
-//                    case 'mm':
-                    default:
-                        Logger::warning("Not implemented;  $this->store - Skipping Store TestSuite.");
-                        return;
-                }
-                break;
+        foreach ($results as $result) {
+            $this->addTestResult($result);
+        }
+        $this->calculateState();
+    }
+
+    /**
+     * @return array
+     */
+    private function testSspSession($configuration)
+    {
+        $results = array();
+
+        switch ($this->store) {
             case 'memcache':
                 $test = new Store\Memcache($configuration);
                 $results = $test->getTestResults();
                 break;
-// TODO:
-//            case 'redis':
-//            case 'redissentinel':
-//                $test = new Store\Redis($configuration);
-//                break;
+//          case 'redis':
+//          case 'redissentinel':
+//              $test = new Store\Redis($configuration);
+//              break;
             case 'sql':
                 $test = new Store\Sql($configuration);
                 $results = $test->getTestResults();
                 break;
             default:
                 Logger::warning("Not implemented;  $this->store - Skipping Store TestSuite.");
-                return;
+                break;
+        }
+        return $results;
+    }
 
+    /**
+     * @return array
+     */
+    private function testPhpSession()
+    {
+        $results = array();
+        switch (ini_get('session.save_handler')) {
+            case 'files':
+                $input = [
+                    'path' => session_save_path(),
+                    'category' => 'Session storage'
+                ];
+                $testData = new TestData($input);
+                $test = new TestCase\FileSystem\FreeSpace($testData);
+                $results[] = $test->getTestResult();
+                break;
+            case 'memcache':
+            case 'memcached':
+                $configuration = \SimpleSAML_Configuration::setPreLoadedConfig(
+                    \SimpleSAML_Configuration::loadFromArray(
+                        array(
+                            'memcache_store.servers' => $this->parsePhpMemcachedConfiguration(session_save_path())
+                        )
+                    )
+                );
+
+                $test = new Store\Memcache($configuration);
+                $results = $test->getTestResults();
+                break;
+//          case 'sqlite':
+//          case 'mm':
+            default:
+                Logger::warning("Not implemented;  $this->store - Skipping Store TestSuite.");
+                break;
         }
-        foreach ($results as $result) {
-            $this->addTestResult($result);
-        }
-        $this->calculateState();
+        return $results;
     }
 
     /**
