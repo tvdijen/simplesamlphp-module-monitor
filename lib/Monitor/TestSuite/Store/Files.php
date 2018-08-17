@@ -2,11 +2,14 @@
 
 namespace SimpleSAML\Module\monitor\TestSuite\Store;
 
+use \SimpleSAML\Module\monitor\State as State;
 use \SimpleSAML\Module\monitor\TestConfiguration as TestConfiguration;
 use \SimpleSAML\Module\monitor\TestCase as TestCase;
 use \SimpleSAML\Module\monitor\TestData as TestData;
+use \SimpleSAML\Module\monitor\TestResult as TestResult;
+use \SimpleSAML\Module\monitor\TestSuite\Store as Store;
 
-final class Phpsession extends \SimpleSAML\Module\monitor\TestSuiteFactory
+final class Files extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
     /**
      * @param TestConfiguration $configuration
@@ -30,8 +33,8 @@ final class Phpsession extends \SimpleSAML\Module\monitor\TestSuiteFactory
 
         $test = new TestCase\FileSystem\FreeSpace($testData);
         $testResult = $test->getTestResult();
-        $this->addTestResult($testResult);
 
+        $this->addTestResult($testResult);
         $this->setTestResult($testResult);
     }
 }
