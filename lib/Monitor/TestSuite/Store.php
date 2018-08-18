@@ -91,16 +91,20 @@ final class Store extends \SimpleSAML\Module\monitor\TestSuiteFactory
                 break;
             case 'memcache':
             case 'memcached':
-                $configuration = \SimpleSAML_Configuration::setPreLoadedConfig(
-                    \SimpleSAML_Configuration::loadFromArray(
-                        array(
-                            'memcache_store.servers' => $this->parsePhpMemcachedConfiguration(session_save_path())
+                if (method_exists(\SimpleSAML_Configuration, 'setPreLoadedConfig')) {
+                    $configuration = \SimpleSAML_Configuration::setPreLoadedConfig(
+                        \SimpleSAML_Configuration::loadFromArray(
+                            array(
+                                'memcache_store.servers' => $this->parsePhpMemcachedConfiguration(session_save_path())
+                            )
                         )
-                    )
-                );
+                    );
 
-                $test = new Store\Memcache($configuration);
-                $results = $test->getTestResults();
+                    $test = new Store\Memcache($configuration);
+                    $results = $test->getTestResults();
+                } else {
+                    Logger::warning("Not implemented;  $this->store - Skipping Store TestSuite.");
+                }
                 break;
 //          case 'sqlite':
 //          case 'mm':
