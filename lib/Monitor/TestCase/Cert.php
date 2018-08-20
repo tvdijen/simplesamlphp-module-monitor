@@ -43,7 +43,11 @@ class Cert extends \SimpleSAML\Module\monitor\TestCaseFactory
     public function getSubject()
     {
         $certInfo = $this->getCertInfo();
-        return $certInfo['subject']['CN'];
+        if (array_key_exists('CN', $certInfo['subject']) && !empty($certInfo['subject'])) {
+            return 'CN='.$certInfo['subject']['CN'];
+        } else {
+            return 'SN='.$certInfo['serialNumber'];
+        }
     }
 
     /**
