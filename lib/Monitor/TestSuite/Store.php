@@ -91,7 +91,7 @@ final class Store extends \SimpleSAML\Module\monitor\TestSuiteFactory
                 break;
             case 'memcache':
             case 'memcached':
-                if (method_exists(\SimpleSAML_Configuration, 'setPreLoadedConfig')) {
+                if (method_exists('\SimpleSAML_Configuration', 'setPreLoadedConfig')) {
                     $configuration = \SimpleSAML_Configuration::setPreLoadedConfig(
                         \SimpleSAML_Configuration::loadFromArray(
                             array(
