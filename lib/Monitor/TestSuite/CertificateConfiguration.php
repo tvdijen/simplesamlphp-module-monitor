@@ -9,7 +9,7 @@ use \SimpleSAML\Module\monitor\TestResult as TestResult;
 use \SimpleSAML\Module\monitor\State as State;
 use \SimpleSAML\Utils as Utils;
 
-final class Configuration extends \SimpleSAML\Module\monitor\TestSuiteFactory
+final class CertificateConfiguration extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
     /**
      * @param string|null

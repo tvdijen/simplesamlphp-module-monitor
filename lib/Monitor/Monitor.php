@@ -33,7 +33,7 @@ class Monitor
     public function invokeTestSuites()
     {
         $this->invokeModuleCheck();
-        $this->invokeConfigurationCheck();
+        $this->invokeCertificateConfigurationCheck();
         $this->invokeStoreCheck();
         $this->invokeAuthSourceCheck();
         $this->invokeMetadataCheck();
@@ -87,9 +87,9 @@ class Monitor
     /**
      * @return void
      */
-    private function invokeConfigurationCheck()
+    private function invokeCertificateConfigurationCheck()
     {
-        $testsuite = new TestSuite\Configuration($this->configuration);
+        $testsuite = new TestSuite\CertificateConfiguration($this->configuration);
         $this->results['configuration'] = $testsuite->getArrayizeTestResults();
         $this->state[] = $testsuite->calculateState();
     }
