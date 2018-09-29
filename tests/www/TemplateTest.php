@@ -29,10 +29,9 @@ class TemplateTest extends \PHPUnit\Framework\TestCase
 
         // Base templates
         $files = array_diff(scandir($basedir), array('.', '..'));
-
         foreach ($files as $file) {
             if (preg_match('/.twig$/', $file)) {
-                $t = new Template($config, $file);
+                $t = new Template($config, 'monitor:'.basename($file));
                 ob_start();
                 try {
                     $t->show();
