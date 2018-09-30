@@ -30,6 +30,7 @@ class MonitorTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
                     'file' => 'modules/monitor/tests/files/saml20-idp-remote.php',
                 ],
             ],
+            'database.dsn' => 'mysql:host=localhost;dbname=saml',
         ];
         $authSourceConfig_input = [
             'test' => 'travis'

@@ -1,6 +1,6 @@
 <?php
 
-namespace SimpleSAML\Module\monitor\TestSuite;
+namespace SimpleSAML\Module\monitor\TestSuite\Configuration;
 
 use \SimpleSAML\Module\monitor\TestConfiguration as TestConfiguration;
 use \SimpleSAML\Module\monitor\TestCase as TestCase;
@@ -9,7 +9,7 @@ use \SimpleSAML\Module\monitor\TestResult as TestResult;
 use \SimpleSAML\Module\monitor\State as State;
 use \SimpleSAML\Utils as Utils;
 
-final class CertificateConfiguration extends \SimpleSAML\Module\monitor\TestSuiteFactory
+final class Certificates extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
     /**
      * @param string|null
