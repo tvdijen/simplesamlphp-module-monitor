@@ -54,26 +54,26 @@ final class Database extends \SimpleSAML\Module\monitor\TestSuiteFactory
             // We use a database for session-storage
         } else if (in_array(array('type' => 'pdo'), $this->metadataSources, true)) {
             // We use a database for metadata-storage
-        } else if ($this->isDependent() === false) {
-            // We're using consent (TODO: but are we using consent+pdo??)
+        } else if ($this->areModulesDependingOnDatabase() === false) {
             $testResult = new TestResult('Database connection', '-');
             $testResult->setState(State::SKIPPED);
             $testResult->setMessage('Database currently not in use');
             $this->addTestResult($testResult);
             $this->setTestResult($testResult);
             return;
-        }
+        } // We're using consent (TODO: but are we using consent+pdo??)
 
-        // We are using the database-configuration in some way, so start testing it!
         $testData = new TestData(['dsn' => $this->dsn]);
         $connTest = new TestCase\Database\Connection($testData);
         $testResult = $connTest->getTestResult();
         $this->addTestResult($testResult);
-        $testResult->setState(State::OK);
-        $this->setTestResult($testResult);
+        $this->setState($this->calculateState());
     }
 
-    private function isDependent()
+    /**
+     * @return bool
+     */
+    private function areModulesDependingOnDatabase()
     {
         foreach ($this->dependentModules as $module) {
             if (\SimpleSAML\Module::isModuleEnabled($module)) {
