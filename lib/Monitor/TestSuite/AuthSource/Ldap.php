@@ -98,7 +98,7 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
                 }
             }
 
-            if ($failure !== 0) {
+            if ($failure === 0) {
                 // Test bind
                 $testData = new TestData([
                     'authSourceData' => $this->authSourceData,
