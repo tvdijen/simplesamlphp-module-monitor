@@ -67,7 +67,6 @@ final class Database extends \SimpleSAML\Module\monitor\TestSuiteFactory
         $connTest = new TestCase\Database\Connection($testData);
         $testResult = $connTest->getTestResult();
         $this->addTestResult($testResult);
-        $this->setState($this->calculateState());
     }
 
     /**
