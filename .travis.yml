@@ -26,8 +26,12 @@ matrix:
     - php: 7.2
       env: SIMPLESAMLPHP_VERSION=dev-master
   allow_failures:
+    # We can't always keep up with changes in SSP-master
     - env: SIMPLESAMLPHP_VERSION=dev-master
-    - php: 7.2
+    # 1.15 had assert() calls with strings as a parameter and that doesn't play nice with PHP 7.2
+    - env: SIMPLESAMLPHP_VERSION=1.15.*
+      php: 7.2
+    # HHVM is a headache
     - php: hhvm
 
 before_script:
