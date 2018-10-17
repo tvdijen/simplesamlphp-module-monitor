@@ -9,7 +9,7 @@ use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 final class Server extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 {
     /**
-     * @var array|null
+     * @var array|false|null
      */
     private $serverStats;
 
