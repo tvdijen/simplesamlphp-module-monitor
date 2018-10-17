@@ -1,12 +1,12 @@
 <?php
 
-namespace SimpleSAML\Module\monitor\TestCase\AuthSource\Ldap;
+namespace SimpleSAML\Modules\Monitor\TestCase\AuthSource\Ldap;
 
-use \SimpleSAML\Module\monitor\State as State;
-use \SimpleSAML\Module\monitor\TestData as TestData;
-use \SimpleSAML\Module\monitor\TestResult as TestResult;
+use \SimpleSAML\Modules\Monitor\State as State;
+use \SimpleSAML\Modules\Monitor\TestData as TestData;
+use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 
-final class Configuration extends \SimpleSAML\Module\monitor\TestCaseFactory
+final class Configuration extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 {
     /*
      * @var \SimpleSAML_Auth_LDAP

@@ -1,12 +1,12 @@
 <?php
 
-namespace SimpleSAML\Module\monitor\TestCase\Network;
+namespace SimpleSAML\Modules\Monitor\TestCase\Network;
 
-use \SimpleSAML\Module\monitor\State as State;
-use \SimpleSAML\Module\monitor\TestData as TestData;
-use \SimpleSAML\Module\monitor\TestResult as TestResult;
+use \SimpleSAML\Modules\Monitor\State as State;
+use \SimpleSAML\Modules\Monitor\TestData as TestData;
+use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 
-final class ConnectUri extends \SimpleSAML\Module\monitor\TestCaseFactory
+final class ConnectUri extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 {
     /**
      * @param integer

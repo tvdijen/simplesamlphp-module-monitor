@@ -1,13 +1,13 @@
 <?php
 
-namespace SimpleSAML\Module\monitor\TestSuite;
+namespace SimpleSAML\Modules\Monitor\TestSuite;
 
 use \SimpleSAML_Configuration as ApplicationConfiguration;
-use \SimpleSAML\Module\monitor\TestConfiguration as TestConfiguration;
-use \SimpleSAML\Module\monitor\TestResult as TestResult;
-use \SimpleSAML\Module\monitor\TestData as TestData;
+use \SimpleSAML\Modules\Monitor\TestConfiguration as TestConfiguration;
+use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
+use \SimpleSAML\Modules\Monitor\TestData as TestData;
 
-final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
+final class AuthSources extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 {
     /**
      * @var ApplicationConfiguration

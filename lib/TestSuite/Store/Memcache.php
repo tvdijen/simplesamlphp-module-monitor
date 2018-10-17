@@ -1,14 +1,14 @@
 <?php
 
-namespace SimpleSAML\Module\monitor\TestSuite\Store;
+namespace SimpleSAML\Modules\Monitor\TestSuite\Store;
 
-use \SimpleSAML\Module\monitor\TestConfiguration as TestConfiguration;
-use \SimpleSAML\Module\monitor\TestCase as TestCase;
-use \SimpleSAML\Module\monitor\TestData as TestData;
-use \SimpleSAML\Module\monitor\TestResult as TestResult;
-use \SimpleSAML\Module\monitor\State as State;
+use \SimpleSAML\Modules\Monitor\TestConfiguration as TestConfiguration;
+use \SimpleSAML\Modules\Monitor\TestCase as TestCase;
+use \SimpleSAML\Modules\Monitor\TestData as TestData;
+use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
+use \SimpleSAML\Modules\Monitor\State as State;
 
-final class Memcache extends \SimpleSAML\Module\monitor\TestSuiteFactory
+final class Memcache extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 {
     /**
      * var string|null

@@ -1,13 +1,13 @@
 <?php
 
-namespace SimpleSAML\Module\monitor\TestSuite\Modules;
+namespace SimpleSAML\Modules\Monitor\TestSuite\Modules;
 
-use \SimpleSAML\Module\monitor\State as State;
-use \SimpleSAML\Module\monitor\TestCase as TestCase;
-use \SimpleSAML\Module\monitor\TestData as TestData;
-use \SimpleSAML\Module\monitor\TestResult as TestResult;
+use \SimpleSAML\Modules\Monitor\State as State;
+use \SimpleSAML\Modules\Monitor\TestCase as TestCase;
+use \SimpleSAML\Modules\Monitor\TestData as TestData;
+use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 
-final class ModuleSet extends \SimpleSAML\Module\monitor\TestSuiteFactory
+final class ModuleSet extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 {
     /**
      * @var array

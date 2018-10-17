@@ -1,10 +1,10 @@
 <?php
 
-namespace SimpleSAML\Module\monitor\Test;
+namespace SimpleSAML\Modules\Monitor\Test;
 
-use \SimpleSAML\Module\monitor\DependencyInjection as DependencyInjection;
-use \SimpleSAML\Module\monitor\TestConfiguration as TestConfiguration;
-use \SimpleSAML\Module\monitor\Monitor as Monitor;
+use \SimpleSAML\Modules\Monitor\DependencyInjection as DependencyInjection;
+use \SimpleSAML\Modules\Monitor\TestConfiguration as TestConfiguration;
+use \SimpleSAML\Modules\Monitor\Monitor as Monitor;
 
 // This test relies on \SimpleSAML_Configuration::setPreLoadedConfig(), which is not available until after 1.15.4
 if (method_exists('SimpleSAML_Configuration', 'setPreLoadedConfig')) {

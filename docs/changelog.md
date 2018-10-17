@@ -6,6 +6,52 @@ Monitoring module changelog
 This document lists the changes between versions of this donitoring module.
 See the upgrade notes for specific information about upgrading.
 
+## Version 2.5.3
+Released 17-10-2018
+
+Bugfixes:
+- Fix namespaces for non-composer installs
+- File permissions
+
+Features:
+- Added certificate-checks for the IDP's signing-certs
+
+Non-functional:
+- Changed namespace from \SimpleSAML\Module\monitor to \SimpleSAML\Modules\Monitor
+- The 2.5 range will be the last one supporting SSP 1.15+1.16 and will only receive bugfixes.
+   New releases starting from 2.6 will only support the future 1.17+ release
+
+Bugfix: Remove a function-call that breaks the monitor
+
+## Version 2.5.2
+Released 4-10-2018
+
+Bugfix: Remove a function-call that breaks the monitor
+
+## Version 2.5.1
+Released 4-10-2018
+
+Bugfix: Fix erroneous test in LDAP TestSuite that caused bind/search tests to run only when connection failures had occured in an earlier test (instead of the other way around)
+
+## Version 2.5.0
+Released 2-10-2018
+
+Bugfixes
+- Sessions: Properly handle PHP sessions
+- Certificates: Fall back to serialnumber for subject
+- Fix missing quotes in TestSuite/Store.php
+- Prevent tests from being marked as risky
+- Silence LDAP-tests > debug = false
+
+Changes
+- Add testsuite for database-configuration
+- Rename TestSuite\Configuration to TestSuite\CertificateConfiguration
+
+## Version 2.4.2
+Released 2-10-2018
+
+Fix case where search.base is an array
+
 ## Version 2.4.1
 
 Released 17-8-2018

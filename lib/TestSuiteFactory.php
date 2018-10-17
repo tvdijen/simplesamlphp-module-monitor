@@ -1,6 +1,6 @@
 <?php
 
-namespace SimpleSAML\Module\monitor;
+namespace SimpleSAML\Modules\Monitor;
 
 abstract class TestSuiteFactory extends TestCaseFactory
 {

@@ -18,12 +18,16 @@
     },
     "autoload": {
         "psr-4": {
+<<<<<<< HEAD
             "SimpleSAML\\Module\\monitor\\": "lib/"
+=======
+            "SimpleSAML\\Modules\\Monitor\\": "lib/"
+>>>>>>> remotes/origin/monitor-2.5.x
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "SimpleSAML\\Module\\monitor\\TestFiles\\": "tests/files",
+            "Tests\\SimpleSAML\\Modules\\Monitor\\TestFiles\\": "tests/files",
             "SimpleSAML\\Test\\Utils\\": "vendor/simplesamlphp/simplesamlphp/tests/Utils"
         }
     },

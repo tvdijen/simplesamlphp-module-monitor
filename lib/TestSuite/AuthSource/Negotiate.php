@@ -1,12 +1,12 @@
 <?php
 
-namespace SimpleSAML\Module\monitor\TestSuite\AuthSource;
+namespace SimpleSAML\Modules\Monitor\TestSuite\AuthSource;
 
-use \SimpleSAML\Module\monitor\TestConfiguration as TestConfiguration;
-use \SimpleSAML\Module\monitor\TestCase as TestCase;
-use \SimpleSAML\Module\monitor\TestData as TestData;
+use \SimpleSAML\Modules\Monitor\TestConfiguration as TestConfiguration;
+use \SimpleSAML\Modules\Monitor\TestCase as TestCase;
+use \SimpleSAML\Modules\Monitor\TestData as TestData;
 
-final class Negotiate extends \SimpleSAML\Module\monitor\TestSuiteFactory
+final class Negotiate extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 {
     /**
      * @var string|null
@@ -14,7 +14,7 @@ final class Negotiate extends \SimpleSAML\Module\monitor\TestSuiteFactory
     private $authorization;
 
     /**
-     * @var KRB5NegotiateAuth
+     * @var \KRB5NegotiateAuth
      */
     private $handle;
 

@@ -1,15 +1,15 @@
 <?php
 
-namespace SimpleSAML\Module\monitor\TestCase\Store\Memcache;
+namespace SimpleSAML\Modules\Monitor\TestCase\Store\Memcache;
 
-use \SimpleSAML\Module\monitor\State as State;
-use \SimpleSAML\Module\monitor\TestData as TestData;
-use \SimpleSAML\Module\monitor\TestResult as TestResult;
+use \SimpleSAML\Modules\Monitor\State as State;
+use \SimpleSAML\Modules\Monitor\TestData as TestData;
+use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 
-final class Server extends \SimpleSAML\Module\monitor\TestCaseFactory
+final class Server extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 {
     /**
-     * @var array|null
+     * @var array|false|null
      */
     private $serverStats;
 
