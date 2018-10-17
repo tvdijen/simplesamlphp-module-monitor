@@ -18,7 +18,7 @@
     },
     "autoload": {
         "psr-4": {
-            "SimpleSAML\\Module\\monitor\\": "lib/Monitor"
+            "SimpleSAML\\Module\\monitor\\": "lib/"
         }
     },
     "autoload-dev": {
