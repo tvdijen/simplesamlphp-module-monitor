@@ -2,11 +2,11 @@
 
 require_once(dirname(dirname(__FILE__)).'/lib/_autoload.php');
 
-use \SimpleSAML\Module\monitor\DependencyInjection as DependencyInjection;
-use \SimpleSAML\Module\monitor\State as State;
+use \SimpleSAML\Modules\Monitor\DependencyInjection as DependencyInjection;
+use \SimpleSAML\Modules\Monitor\State as State;
+use \SimpleSAML\Modules\Monitor\TestConfiguration as TestConfiguration;
+use \SimpleSAML\Modules\Monitor\Monitor as Monitor;
 use \SimpleSAML_Configuration as ApplicationConfiguration;
-use \SimpleSAML\Module\monitor\TestConfiguration as TestConfiguration;
-use \SimpleSAML\Module\monitor\Monitor as Monitor;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 assert_options(ASSERT_ACTIVE, 1);

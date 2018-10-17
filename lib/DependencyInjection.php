@@ -1,6 +1,6 @@
 <?php
 
-namespace SimpleSAML\Module\monitor;
+namespace SimpleSAML\Modules\Monitor;
 
 final class DependencyInjection
 {

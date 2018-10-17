@@ -1,8 +1,8 @@
 <?php
 
-namespace SimpleSAML\Module\monitor\Test;
+namespace SimpleSAML\Modules\Monitor\Test;
 
-use \SimpleSAML\Module\monitor\DependencyInjection as DependencyInjection;
+use \SimpleSAML\Modules\Monitor\DependencyInjection as DependencyInjection;
 
 /**
  * Tests for DependencyInjection

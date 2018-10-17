@@ -1,8 +1,8 @@
 <?php
 
-namespace SimpleSAML\Module\monitor;
+namespace SimpleSAML\Modules\Monitor;
 
-use \SimpleSAML\Module\monitor\DependencyInjection as DependencyInjection;
+use \SimpleSAML\Modules\Monitor\DependencyInjection as DependencyInjection;
 use \SimpleSAML_Configuration as ApplicationConfiguration;
 use \SimpleSAML_Metadata_MetaDataStorageSource as MetaDataStorageSource;
 	

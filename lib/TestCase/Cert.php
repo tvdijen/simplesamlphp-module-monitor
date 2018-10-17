@@ -1,12 +1,12 @@
 <?php
 
-namespace SimpleSAML\Module\monitor\TestCase;
+namespace SimpleSAML\Modules\Monitor\TestCase;
 
-use \SimpleSAML\Module\monitor\State as State;
-use \SimpleSAML\Module\monitor\TestData as TestData;
-use \SimpleSAML\Module\monitor\TestResult as TestResult;
+use \SimpleSAML\Modules\Monitor\State as State;
+use \SimpleSAML\Modules\Monitor\TestData as TestData;
+use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 
-class Cert extends \SimpleSAML\Module\monitor\TestCaseFactory
+class Cert extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 {
     /**
      * @var array

@@ -1,12 +1,12 @@
 <?php
 
-namespace SimpleSAML\Module\monitor\TestCase\FileSystem;
+namespace SimpleSAML\Modules\Monitor\TestCase\FileSystem;
 
-use \SimpleSAML\Module\monitor\State as State;
-use \SimpleSAML\Module\monitor\TestData as TestData;
-use \SimpleSAML\Module\monitor\TestResult as TestResult;
+use \SimpleSAML\Modules\Monitor\State as State;
+use \SimpleSAML\Modules\Monitor\TestData as TestData;
+use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 
-final class FreeSpace extends \SimpleSAML\Module\monitor\TestCaseFactory
+final class FreeSpace extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 {
     /**
      * @var string|null
