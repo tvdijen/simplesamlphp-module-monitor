@@ -51,10 +51,10 @@ final class Entity extends \SimpleSAML\Module\monitor\TestSuiteFactory
      */
     public function invokeTest()
     {
-        $input = array(
+        $input = [
             'entityId' => $this->entityId,
             'entityMetadata' => $this->entityMetadata,
-        );
+        ];
         $testData = new TestData($input);
 
         $expTest = new TestCase\Metadata\Expiration($testData);
@@ -73,6 +73,30 @@ final class Entity extends \SimpleSAML\Module\monitor\TestSuiteFactory
                 $testData = new TestData($input);
 
                 $certTest = new TestCase\Cert\Data($testData);
+                $certTestResult = $certTest->getTestResult();
+
+                $this->addTestResult($certTestResult);
+            }
+        } else {
+            // saml20-idp-hosted
+            $files = [];
+            if (array_key_exists('certificate', $this->entityMetadata)) {
+                $files[] = $this->entityMetadata['certificate'];
+            }
+            if (array_key_exists('new_certificate', $this->entityMetadata)) {
+                $files[] = $this->entityMetadata['new_certificate'];
+            }
+
+            foreach ($files as $file) {
+                $input = [
+                    'category' => $this->getType(['signing' => true]),
+                    'certFile' => \SimpleSAML\Utils\Config::getCertPath($file),
+                    'certExpirationWarning' => $this->certExpirationWarning,
+                ];
+
+                $testData = new TestData($input);
+
+                $certTest = new TestCase\Cert\File($testData);
                 $certTestResult = $certTest->getTestResult();
 
                 $this->addTestResult($certTestResult);
