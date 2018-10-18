@@ -18,11 +18,7 @@
     },
     "autoload": {
         "psr-4": {
-<<<<<<< HEAD
-            "SimpleSAML\\Module\\monitor\\": "lib/"
-=======
             "SimpleSAML\\Modules\\Monitor\\": "lib/"
->>>>>>> remotes/origin/monitor-2.5.x
         }
     },
     "autoload-dev": {
