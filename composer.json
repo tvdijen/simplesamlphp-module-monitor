@@ -28,12 +28,12 @@
         }
     },
     "require": {
-        "php": ">=5.4",
+        "php": ">=5.5",
         "simplesamlphp/composer-module-installer": "~1.0",
         "symfony/http-foundation": "^3.4"
     },
     "require-dev": {
-        "simplesamlphp/simplesamlphp": "^1.16",
+        "simplesamlphp/simplesamlphp": "^1.17",
         "phpunit/phpunit": "~4.8.35"
     },
     "support": {

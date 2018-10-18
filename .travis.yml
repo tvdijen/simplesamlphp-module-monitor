@@ -3,17 +3,16 @@ sudo: required
 language: php
 
 php:
-  - 5.4
   - 5.5
   - 5.6
   - 7.0
   - 7.1
   - 7.2
+  - 7.3
   - hhvm
 
 env:
-  - SIMPLESAMLPHP_VERSION=1.15.*
-  - SIMPLESAMLPHP_VERSION=1.16.*
+  - SIMPLESAMLPHP_VERSION=1.17.*
   
 matrix:
   include:
@@ -25,12 +24,11 @@ matrix:
       env: SIMPLESAMLPHP_VERSION=dev-master
     - php: 7.2
       env: SIMPLESAMLPHP_VERSION=dev-master
+    - php: 7.3
+      env: SIMPLESAMLPHP_VERSION=dev-master
   allow_failures:
     # We can't always keep up with changes in SSP-master
     - env: SIMPLESAMLPHP_VERSION=dev-master
-    # 1.15 had assert() calls with strings as a parameter and that doesn't play nice with PHP 7.2
-    - env: SIMPLESAMLPHP_VERSION=1.15.*
-      php: 7.2
     # HHVM is a headache
     - php: hhvm
 
