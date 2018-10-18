@@ -10,6 +10,10 @@ See the upgrade notes for specific information about upgrading.
 Released TBD
 - Convert everything to namespaces
 
+## Version 2.5.4
+Released 21-10-2018
+- Fix a bug in the IDP's signing-certs check
+
 ## Version 2.5.3
 Released 17-10-2018
 
