@@ -9,7 +9,7 @@
 namespace SimpleSAML\Test\Web;
 
 use \SimpleSAML\Configuration as Configuration;
-use \SimpleSAML\XHTML_Template as Template;
+use \SimpleSAML\XHTML\Template as Template;
 use \SimpleSAML\Module;
 
 class TemplateTest extends \PHPUnit\Framework\TestCase
