@@ -6,6 +6,10 @@ Monitoring module changelog
 This document lists the changes between versions of this donitoring module.
 See the upgrade notes for specific information about upgrading.
 
+## Version 2.5.4
+Released 21-10-2018
+- Fix a bug in the IDP's signing-certs check
+
 ## Version 2.5.3
 Released 17-10-2018
 
@@ -20,8 +24,6 @@ Non-functional:
 - Changed namespace from \SimpleSAML\Module\monitor to \SimpleSAML\Modules\Monitor
 - The 2.5 range will be the last one supporting SSP 1.15+1.16 and will only receive bugfixes.
    New releases starting from 2.6 will only support the future 1.17+ release
-
-Bugfix: Remove a function-call that breaks the monitor
 
 ## Version 2.5.2
 Released 4-10-2018
