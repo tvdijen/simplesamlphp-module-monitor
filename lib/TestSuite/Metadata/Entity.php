@@ -89,7 +89,7 @@ final class Entity extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
             foreach ($files as $file) {
                 $input = [
-                    'category' => $this->getType(['signing' => true]),
+                    'category' => $this->getType(['signing' => true, 'encryption' => false]),
                     'certFile' => \SimpleSAML\Utils\Config::getCertPath($file),
                     'certExpirationWarning' => $this->certExpirationWarning,
                 ];
