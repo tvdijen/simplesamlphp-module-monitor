@@ -1,8 +1,8 @@
 <?php
 
-namespace SimpleSAML\Module\monitor\Test;
+namespace SimpleSAML\Modules\Monitor\Test;
 
-use \SimpleSAML\Module\monitor\TestData as TestData;
+use \SimpleSAML\Modules\Monitor\TestData as TestData;
 
 /**
  * Tests for TestData

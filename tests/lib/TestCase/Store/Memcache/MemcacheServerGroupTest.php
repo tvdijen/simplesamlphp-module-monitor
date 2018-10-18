@@ -1,11 +1,11 @@
 <?php
 
-namespace SimpleSAML\Module\monitor\Test;
+namespace SimpleSAML\Modules\Monitor\Test;
 
-use \SimpleSAML\Module\monitor\TestCase as TestCase;
-use \SimpleSAML\Module\monitor\TestData as TestData;
-use \SimpleSAML\Module\monitor\TestResult as TestResult;
-use \SimpleSAML\Module\monitor\State as State;
+use \SimpleSAML\Modules\Monitor\TestCase as TestCase;
+use \SimpleSAML\Modules\Monitor\TestData as TestData;
+use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
+use \SimpleSAML\Modules\Monitor\State as State;
 
 /**
  * Tests for MemcacheServerGroup

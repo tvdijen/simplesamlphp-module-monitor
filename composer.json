@@ -18,22 +18,22 @@
     },
     "autoload": {
         "psr-4": {
-            "SimpleSAML\\Module\\monitor\\": "lib/Monitor"
+            "SimpleSAML\\Modules\\Monitor\\": "lib/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "SimpleSAML\\Module\\monitor\\TestFiles\\": "tests/files",
+            "Tests\\SimpleSAML\\Modules\\Monitor\\TestFiles\\": "tests/files",
             "SimpleSAML\\Test\\Utils\\": "vendor/simplesamlphp/simplesamlphp/tests/Utils"
         }
     },
     "require": {
         "php": ">=5.4",
         "simplesamlphp/composer-module-installer": "~1.0",
-        "symfony/http-foundation": "^2.8"
+        "symfony/http-foundation": "^3.4"
     },
     "require-dev": {
-        "simplesamlphp/simplesamlphp": "^1.15",
+        "simplesamlphp/simplesamlphp": "^1.16",
         "phpunit/phpunit": "~4.8.35"
     },
     "support": {

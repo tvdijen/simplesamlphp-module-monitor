@@ -1,6 +1,6 @@
 <?php
 
-use \SimpleSAML\Module\monitor\State as State;
+use \SimpleSAML\Modules\Monitor\State as State;
 
 $modules = $this->data['modules'];
 $configuration = $this->data['configuration'];
