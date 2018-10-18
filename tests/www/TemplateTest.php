@@ -8,12 +8,9 @@
  
 namespace SimpleSAML\Test\Web;
 
-use \SimpleSAML_Configuration as Configuration;
-use \SimpleSAML_XHTML_Template as Template;
+use \SimpleSAML\Configuration as Configuration;
+use \SimpleSAML\XHTML_Template as Template;
 use \SimpleSAML\Module;
-
-// This test relies on \SimpleSAML_Configuration::setPreloadedConfig(), which is not available until after 1.15.4
-if (method_exists('SimpleSAML_Configuration', 'setPreloadedConfig')) {
 
 class TemplateTest extends \PHPUnit\Framework\TestCase
 {
@@ -43,7 +40,4 @@ class TemplateTest extends \PHPUnit\Framework\TestCase
             }
         }
     }
-}
-
-
 }

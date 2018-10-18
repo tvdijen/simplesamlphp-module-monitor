@@ -2,7 +2,7 @@
 
 namespace SimpleSAML\Modules\Monitor\TestSuite;
 
-use \SimpleSAML_Configuration as ApplicationConfiguration;
+use \SimpleSAML\Configuration as ApplicationConfiguration;
 use \SimpleSAML\Modules\Monitor\TestConfiguration as TestConfiguration;
 use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 use \SimpleSAML\Modules\Monitor\TestData as TestData;

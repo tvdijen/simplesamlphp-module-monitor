@@ -20,9 +20,9 @@ class TestSuiteFactoryTest extends \PHPUnit_Framework_TestCase
         $config = new TestConfiguration(
             new DependencyInjection([]),
             new DependencyInjection([]),
-            \SimpleSAML_Configuration::loadFromArray(['metadata.sources' => []]),
-            \SimpleSAML_Configuration::loadFromArray([]),
-            \SimpleSAML_Configuration::loadFromArray([])
+            \SimpleSAML\Configuration::loadFromArray(['metadata.sources' => []]),
+            \SimpleSAML\Configuration::loadFromArray([]),
+            \SimpleSAML\Configuration::loadFromArray([])
         );
         $testData = new TestData(['travis' => 'travis', 'test' => 'travis']);
         $testSuite = new TestSuiteImplementation($config, $testData);

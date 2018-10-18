@@ -6,9 +6,6 @@ use \SimpleSAML\Modules\Monitor\DependencyInjection as DependencyInjection;
 use \SimpleSAML\Modules\Monitor\TestConfiguration as TestConfiguration;
 use \SimpleSAML\Modules\Monitor\Monitor as Monitor;
 
-// This test relies on \SimpleSAML_Configuration::setPreLoadedConfig(), which is not available until after 1.15.4
-if (method_exists('SimpleSAML_Configuration', 'setPreLoadedConfig')) {
-
 /**
  * Tests for Monitor
  */
@@ -38,13 +35,13 @@ class MonitorTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
         $moduleConfig_input = [
             'test' => 'travis'
         ];
-        $globalConfig = \SimpleSAML_Configuration::loadFromArray($globalConfig_input);
-        $authSourceConfig = \SimpleSAML_Configuration::loadFromArray($authSourceConfig_input);
-        $moduleConfig = \SimpleSAML_Configuration::loadFromArray($moduleConfig_input);
+        $globalConfig = \SimpleSAML\Configuration::loadFromArray($globalConfig_input);
+        $authSourceConfig = \SimpleSAML\Configuration::loadFromArray($authSourceConfig_input);
+        $moduleConfig = \SimpleSAML\Configuration::loadFromArray($moduleConfig_input);
 
-        \SimpleSAML_Configuration::setPreLoadedConfig($globalConfig, 'config.php');
-        \SimpleSAML_Configuration::setPreLoadedConfig($moduleConfig, 'module_monitor.php');
-        \SimpleSAML_Configuration::setPreLoadedConfig($authSourceConfig, 'authsources.php');
+        \SimpleSAML\Configuration::setPreLoadedConfig($globalConfig, 'config.php');
+        \SimpleSAML\Configuration::setPreLoadedConfig($moduleConfig, 'module_monitor.php');
+        \SimpleSAML\Configuration::setPreLoadedConfig($authSourceConfig, 'authsources.php');
 
         $testConf = new TestConfiguration($serverVars, $requestVars, $globalConfig, $authSourceConfig, $moduleConfig);
         $monitor = new Monitor($testConf);
@@ -52,6 +49,4 @@ class MonitorTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
 
         $monitor->invokeTestSuites();
     }
-}
-
 }

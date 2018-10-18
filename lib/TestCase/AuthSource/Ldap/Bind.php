@@ -9,7 +9,7 @@ use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 final class Bind extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 {
     /*
-     * @var \SimpleSAML_Auth_LDAP
+     * @var \SimpleSAML\Auth\LDAP
      */
     private $connection;
 

@@ -6,8 +6,8 @@ use \SimpleSAML\Modules\Monitor\DependencyInjection as DependencyInjection;
 use \SimpleSAML\Modules\Monitor\State as State;
 use \SimpleSAML\Modules\Monitor\TestConfiguration as TestConfiguration;
 use \SimpleSAML\Modules\Monitor\Monitor as Monitor;
-use \SimpleSAML_Configuration as ApplicationConfiguration;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use \SimpleSAML\Configuration as ApplicationConfiguration;
+use \Symfony\Component\HttpFoundation\JsonResponse;
 
 assert_options(ASSERT_ACTIVE, 1);
 assert_options(ASSERT_WARNING, 1);
@@ -48,7 +48,7 @@ if ($state === State::OK) {
 $outputFormat = $requestVars->get('output');
 switch ($outputFormat) {
     case 'xml':
-        $t = new SimpleSAML_XHTML_Template($globalConfig, 'monitor:monitor.xml.php');
+        $t = new \SimpleSAML\XHTML\Template($globalConfig, 'monitor:monitor.xml.php');
         $protocol = $serverVars->get('HTTP_PROTOCOL');
         $t->data['protocol'] = is_null($protocol) ? 'HTTP/1.0' : $protocol;
         break;
@@ -56,7 +56,7 @@ switch ($outputFormat) {
         JsonResponse::create(['overall' => $healthInfo[$state][0], 'results' => $results], $responseCode)->send();
         return;
     default:
-        $t = new SimpleSAML_XHTML_Template($globalConfig, 'monitor:monitor.php');
+        $t = new \SimpleSAML\XHTML\Template($globalConfig, 'monitor:monitor.php');
         break;
 }
 

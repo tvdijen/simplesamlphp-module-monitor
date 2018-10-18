@@ -9,7 +9,7 @@ use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 final class Search extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 {
     /*
-     * @var \SimpleSAML_Auth_LDAP
+     * @var \SimpleSAML\Auth\LDAP
      */
     private $connection;
 
@@ -75,7 +75,7 @@ final class Search extends \SimpleSAML\Modules\Monitor\TestCaseFactory
     {
         try {
             $this->connection->searchfordn($this->base, $this->attributes, $this->username);
-        } catch (\SimpleSAML_Error_Error $error) {
+        } catch (\SimpleSAML\Error\Error $error) {
             // Fallthru
         }
 

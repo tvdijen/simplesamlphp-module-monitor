@@ -3,9 +3,8 @@
 namespace SimpleSAML\Modules\Monitor;
 
 use \SimpleSAML\Modules\Monitor\DependencyInjection as DependencyInjection;
-use \SimpleSAML_Configuration as ApplicationConfiguration;
-use \SimpleSAML_Metadata_MetaDataStorageSource as MetaDataStorageSource;
-	
+use \SimpleSAML\Configuration as ApplicationConfiguration;
+use \SimpleSAML\Metadata\MetaDataStorageSource as MetaDataStorageSource;
 
 final class TestConfiguration
 {
