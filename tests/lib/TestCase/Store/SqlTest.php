@@ -6,9 +6,6 @@ use \SimpleSAML\Modules\Monitor\TestCase\Store\Sql as Sql;
 use \SimpleSAML\Modules\Monitor\TestData as TestData;
 use \SimpleSAML\Modules\Monitor\State as State;
 
-// This test relies on \SimpleSAML\Configuration::setPreLoadedConfig(), which is not available until after 1.15.4
-if (method_exists('\SimpleSAML\Configuration', 'setPreLoadedConfig')) {
-
 /**
  * Tests for Sql
  */
@@ -46,6 +43,4 @@ class TestSqlTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
         $testResult = $test->getTestResult();
         $this->assertEquals(State::FATAL, $testResult->getState());
     }
-}
-
 }

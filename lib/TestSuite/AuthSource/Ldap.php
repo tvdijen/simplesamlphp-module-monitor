@@ -44,7 +44,7 @@ final class Ldap extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         assert(is_array($authSourceData));
         assert(is_array($authSourceSpecifics) || is_null($authSourceSpecifics));
 
-        $authSourceData = \SimpleSAML_Configuration::loadFromArray($authSourceData);
+        $authSourceData = \SimpleSAML\Configuration::loadFromArray($authSourceData);
         $this->hosts = explode(' ', $authSourceData->getString('hostname'));
         $this->authSourceData = $authSourceData;
         $this->authSourceSpecifics = $authSourceSpecifics;
