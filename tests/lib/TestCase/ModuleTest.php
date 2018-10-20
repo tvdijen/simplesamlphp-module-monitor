@@ -15,7 +15,7 @@ class TestModuleTest extends \PHPUnit_Framework_TestCase
     {
         $testData = new TestData([
             'required' => 'mod_test',
-            'available' => array('mod_test'),
+            'available' => ['mod_test'],
             'type' => 'testtype',
         ]);
         $moduleTest = new TestCase\Module($testData);
@@ -29,7 +29,7 @@ class TestModuleTest extends \PHPUnit_Framework_TestCase
     {
         $testData = new TestData([
             'required' => 'mod_test|mod_test2',
-            'available' => array('mod_test'),
+            'available' => ['mod_test'],
             'type' => 'testtype',
         ]);
         $moduleTest = new TestCase\Module($testData);
@@ -44,7 +44,7 @@ class TestModuleTest extends \PHPUnit_Framework_TestCase
         $testData = new TestData([
             'required' => 'mod_test|mod_test2',
             'type' => 'testtype',
-            'available' => array('mod_test', 'mod_test2'),
+            'available' => ['mod_test', 'mod_test2'],
         ]);
         $moduleTest = new TestCase\Module($testData);
         $testResult = $moduleTest->getTestResult();
@@ -57,7 +57,7 @@ class TestModuleTest extends \PHPUnit_Framework_TestCase
     {
         $testData = new TestData([
             'required' => 'mod_test',
-            'available' => array(),
+            'available' => [],
             'type' => 'testtype',
         ]);
         $moduleTest = new TestCase\Module($testData);
@@ -71,7 +71,7 @@ class TestModuleTest extends \PHPUnit_Framework_TestCase
     {
         $testData = new TestData([
             'required' => 'mod_test|mod_test2',
-            'available' => array(),
+            'available' => [],
             'type' => 'testtype',
         ]);
         $moduleTest = new TestCase\Module($testData);

@@ -21,21 +21,21 @@ class TestMemcacheServerGroupTest extends \PHPUnit_Framework_TestCase
         $b->setState(State::ERROR);
 
         $testData = new TestData([
-            'results' => array($a, $a),
+            'results' => [$a, $a],
         ]);
         $testCase = new TestCase\Store\Memcache\ServerGroup($testData);
         $testResult = $testCase->getTestResult();
         $this->assertEquals(State::OK, $testResult->getState());
 
         $testData = new TestData([
-            'results' => array($a, $b),
+            'results' => [$a, $b],
         ]);
         $testCase = new TestCase\Store\Memcache\ServerGroup($testData);
         $testResult = $testCase->getTestResult();
         $this->assertEquals(State::WARNING, $testResult->getState());
 
         $testData = new TestData([
-            'results' => array($b, $b),
+            'results' => [$b, $b],
         ]);
         $testCase = new TestCase\Store\Memcache\ServerGroup($testData);
         $testResult = $testCase->getTestResult();

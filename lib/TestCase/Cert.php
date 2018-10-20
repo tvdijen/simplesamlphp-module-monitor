@@ -11,7 +11,7 @@ class Cert extends \SimpleSAML\Modules\Monitor\TestCaseFactory
     /**
      * @var array
      */
-    private $certInfo = array();
+    private $certInfo = [];
 
     /**
      * @return integer|null
@@ -28,7 +28,7 @@ class Cert extends \SimpleSAML\Modules\Monitor\TestCaseFactory
      *
      * @return void
      */
-    protected function initialize($testData)
+    protected function initialize(TestData $testData)
     {
         $this->setCategory($testData->getInputItem('category'));
         $this->setCertInfo($testData->getInputItem('certData'));
@@ -55,9 +55,8 @@ class Cert extends \SimpleSAML\Modules\Monitor\TestCaseFactory
      *
      * @return void
      */
-    protected function setCertInfo($certInfo)
+    protected function setCertInfo(array $certInfo)
     {
-        assert(is_array($certInfo));
         $this->certInfo = $certInfo;
     }
 
@@ -131,19 +130,19 @@ class Cert extends \SimpleSAML\Modules\Monitor\TestCaseFactory
         $expiration = $this->getExpiration();
 
         $days = abs($expiration);
-        $daysStr = $days . ' ' . (($days === 1) ? 'day' : 'days');
+        $daysStr = $days.' '.(($days === 1) ? 'day' : 'days');
 
         $testResult = new TestResult($this->getCategory(), $this->getSubject());
 
         if ($expiration < 0) {
             $testResult->setState(State::ERROR);
-            $testResult->setMessage('Certificate has expired ' . $daysStr . ' ago');
+            $testResult->setMessage('Certificate has expired '.$daysStr.' ago');
         } else if ($expiration <= $threshold) {
             $testResult->setState(State::WARNING);
-            $testResult->setMessage('Certificate will expire in ' . $daysStr);
+            $testResult->setMessage('Certificate will expire in '.$daysStr);
         } else {
             $testResult->setState(State::OK);
-            $testResult->setMessage('Certificate valid for another ' . $daysStr);
+            $testResult->setMessage('Certificate valid for another '.$daysStr);
         }
 
         $testResult->addOutput($expiration, 'expiration');

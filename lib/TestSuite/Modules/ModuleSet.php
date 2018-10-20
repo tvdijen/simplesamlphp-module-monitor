@@ -30,11 +30,11 @@ final class ModuleSet extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     private $type;
 
     /**
-     * @param TestData $testData
+     * @param TestData|null $testData
      *
      * @return void
      */
-    protected function initialize($testData)
+    protected function initialize(TestData $testData = null)
     {
         $this->setRequired($testData->getInputItem('required'));
         $this->setAvailable($testData->getInputItem('available'));
@@ -46,9 +46,8 @@ final class ModuleSet extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /**
      * @param array
      */
-    private function setRequired($required)
+    private function setRequired(array $required)
     {
-        assert(is_array($required));
         $this->required = $required;
     }
 
@@ -56,9 +55,8 @@ final class ModuleSet extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /**
      * @param array
      */
-    private function setAvailable($available)
+    private function setAvailable(array $available)
     {
-        assert(is_array($available));
         $this->available = $available;
     }
 
@@ -66,9 +64,8 @@ final class ModuleSet extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /**
      * @param array
      */
-    private function setDependencies($dependencies)
+    private function setDependencies(array $dependencies)
     {
-        assert(is_array($dependencies));
         $this->dependencies = $dependencies;
     }
 
@@ -119,9 +116,10 @@ final class ModuleSet extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
     /**
      * @param TestResult $testResult
+     *
      * return void
      */
-    protected function setTestResult($testResult)
+    protected function setTestResult(TestResult $testResult)
     {
         $state = $testResult->getState();
         if ($state === State::OK) {
@@ -136,12 +134,13 @@ final class ModuleSet extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
     /**
      * @param string $module
+     *
      * @return array
      */
     private function findMissingDependencies($module)
     {
         $dependencies = $this->dependencies;
-        $missing = array();
+        $missing = [];
         while ($dependency = array_search($module, $dependencies)) {
             if (\SimpleSAML\Module::isModuleEnabled($dependency)) {
                 $missing[] = $dependency;

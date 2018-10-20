@@ -18,7 +18,7 @@ final class FreeSpace extends \SimpleSAML\Modules\Monitor\TestCaseFactory
      *
      * @return void
      */
-    protected function initialize($testData)
+    protected function initialize(TestData $testData)
     {
         $this->setPath($testData->getInputItem('path'));
         $this->setCategory($testData->getInputItem('category'));
@@ -26,6 +26,7 @@ final class FreeSpace extends \SimpleSAML\Modules\Monitor\TestCaseFactory
     }
 
     /**
+     * @param string $path
      * @return void
      */
     private function setPath($path)
@@ -56,13 +57,13 @@ final class FreeSpace extends \SimpleSAML\Modules\Monitor\TestCaseFactory
         $free = round(100 - (($used / $size) * 100));
 
         if ($free >= 15) {
-            $testResult->setMessage($free . '% free space');
+            $testResult->setMessage($free.'% free space');
             $testResult->setState(State::OK);
         } else if ($free < 5) {
-            $testResult->setMessage('Critical: ' . $free . '% free space');
+            $testResult->setMessage('Critical: '.$free.'% free space');
             $testResult->setState(State::ERROR);
         } else {
-            $testResult->setMessage($free . '% free space');
+            $testResult->setMessage($free.'% free space');
             $testResult->setState(State::WARNING);
         }
 

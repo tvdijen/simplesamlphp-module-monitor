@@ -12,7 +12,7 @@ final class DependencyInjection
     /**
      * @param array $vars
      */
-    public function __construct($vars)
+    public function __construct(array $vars)
     {
         $this->vars = $vars;
     }

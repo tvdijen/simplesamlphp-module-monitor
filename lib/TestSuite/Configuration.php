@@ -14,25 +14,27 @@ final class Configuration extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /**
      * @param TestConfiguration $configuration
      */
-    public function __construct($configuration)
+    public function __construct(TestConfiguration $configuration)
     {
         $this->setCategory('Configuration');
         parent::__construct($configuration);
     }
 
     /**
+     * @param TestConfiguration
      * @return array
      */
-    private function testCertificates($configuration)
+    private function testCertificates(TestConfiguration $configuration)
     {
         $test = new Configuration\Certificates($configuration);
         return $test->getTestResults();
     }
 
     /**
+     * @param TestConfiguration
      * @return array
      */
-    private function testDatabase($configuration)
+    private function testDatabase(TestConfiguration $configuration)
     {
         $test = new Configuration\Database($configuration);
         return $test->getTestResults();

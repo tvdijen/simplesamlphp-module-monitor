@@ -16,7 +16,7 @@ class TestResultTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('Unknown category', $testResult->getCategory());
         $this->assertEquals('Unknown subject', $testResult->getSubject());
-        $this->assertEquals(array(), $testResult->getOutput());
+        $this->assertEquals([], $testResult->getOutput());
         $this->assertEquals(State::NOSTATE, $testResult->getState());
         $this->assertEquals('', $testResult->getMessage());
 
@@ -24,34 +24,34 @@ class TestResultTest extends \PHPUnit_Framework_TestCase
         $testResult->setSubject('zzz');
         $testResult->setState(State::OK);
         $testResult->setMessage('test');
-        $testResult->addOutput(array(10));
+        $testResult->addOutput([10]);
 
         $this->assertEquals('aaa', $testResult->getCategory());
         $this->assertEquals('zzz', $testResult->getSubject());
         $this->assertEquals(State::OK, $testResult->getState());
         $this->assertEquals('test', $testResult->getMessage());
-        $this->assertEquals(array(10), $testResult->getOutput());
+        $this->assertEquals([10], $testResult->getOutput());
 
-        $testResult->setOutput(array('test' => array(99)));
-        $this->assertEquals(array('test' => array(99)), $testResult->getOutput());
+        $testResult->setOutput(['test' => [99]]);
+        $this->assertEquals(['test' => [99]], $testResult->getOutput());
 
-        $testResult->addOutput(array(10), 'test');
-        $this->assertEquals(array('test' => array(10)), $testResult->getOutput());
+        $testResult->addOutput([10], 'test');
+        $this->assertEquals(['test' => [10]], $testResult->getOutput());
 
-        $testResult->addOutput(array(99), 'testing');
-        $this->assertEquals(array('test' => array(10), 'testing' => array(99)), $testResult->getOutput());
+        $testResult->addOutput([99], 'testing');
+        $this->assertEquals(['test' => [10], 'testing' => [99]], $testResult->getOutput());
 
         $output = $testResult->arrayizeTestResult();
-        $expected = array(
+        $expected = [
             'category' => 'aaa',
             'subject' => 'zzz',
             'state' => State::OK,
             'message' => 'test',
-        );
+        ];
         $this->assertEquals($expected, $output);
 
         $output = $testResult->arrayizeTestResult(true);
-        $expected['output'] = array('test' => array(10), 'testing' => array(99));
+        $expected['output'] = ['test' => [10], 'testing' => [99]];
         $this->assertEquals($expected, $output);
     }
 }

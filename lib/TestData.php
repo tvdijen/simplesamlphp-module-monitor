@@ -7,14 +7,13 @@ final class TestData
     /**
      * @var array
      */
-    private $testData = array();
+    private $testData = [];
 
     /**
      * @param array $input
      */
-    public function __construct($input = array())
+    public function __construct(array $input = [])
     {
-        assert(is_array($input));
         $this->setInput($input);
     }
 

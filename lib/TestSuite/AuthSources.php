@@ -27,7 +27,7 @@ final class AuthSources extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /**
      * @param TestConfiguration $configuration
      */
-    public function __construct($configuration)
+    public function __construct(TestConfiguration $configuration)
     {
         $moduleConfig = $configuration->getModuleConfig();
         $this->authSourceConfig = $configuration->getAuthSourceConfig();
@@ -119,7 +119,7 @@ final class AuthSources extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
      *
      * @return void
      */
-    private function convertAuthSourceData(&$authSourceData)
+    private function convertAuthSourceData(array &$authSourceData)
     {
         // LDAP and Negotiate authSources use different names for equal properties
         // Hopefully this function can go away in SSP 2.0

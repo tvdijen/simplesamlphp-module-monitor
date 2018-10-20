@@ -10,7 +10,7 @@ abstract class TestSuiteFactory extends TestCaseFactory
     private $configuration;
 
     /**
-     * @var array   An associative array of name => TestResult pairs
+     * @var array An associative array of name => TestResult pairs
      */
     private $testResults = [];
 
@@ -18,34 +18,30 @@ abstract class TestSuiteFactory extends TestCaseFactory
      * @param TestConfiguration|null $configuration
      * @param TestData|null $testData
      */
-    public function __construct($configuration = null, $testData = null)
+    public function __construct(TestConfiguration $configuration = null, TestData $testData = null)
     {
-        assert($configuration instanceof TestConfiguration || is_null($configuration));
-        assert($testData instanceof TestData || is_null($testData));
-
         $this->setConfiguration($configuration);
         $this->initialize($testData);
         $this->invokeTestSuite();
     }
 
     /**
-     * @param TestData $testData
+     * @param TestData|null $testData
      *
      * @return void
      */
-    protected function initialize($testData)
+    protected function initialize(TestData $testData = null)
     {
         $this->setTestData($testData);
     }
 
     /**
-     * @param TestConfiguration|null $configuration
+     * @param TestConfiguration $configuration
      *
      * @return void
      */
-    protected function setConfiguration($configuration = null)
+    protected function setConfiguration(TestConfiguration $configuration = null)
     {
-        assert($configuration instanceof TestConfiguration);
         if (!is_null($configuration)) {
             $this->configuration = $configuration;
         }
@@ -65,9 +61,8 @@ abstract class TestSuiteFactory extends TestCaseFactory
      *
      * @return void
      */
-    protected function addTestResult($testResult)
+    protected function addTestResult(TestResult $testResult)
     {
-        assert($testResult instanceof TestResult);
         $this->testResults[] = $testResult;
     }
 
@@ -76,9 +71,8 @@ abstract class TestSuiteFactory extends TestCaseFactory
      *
      * @return void
      */
-    protected function addTestResults($testResults)
+    protected function addTestResults(array $testResults)
     {
-        assert(is_array($testResults));
         $this->testResults = array_merge($this->testResults, $testResults);
     }
 

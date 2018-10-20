@@ -35,7 +35,7 @@ final class Ldap extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
      * @param TestConfiguration $configuration
      * @param TestData $testData
      */
-    public function __construct($configuration, $testData)
+    public function __construct(TestConfiguration $configuration, TestData $testData)
     {
         $moduleConfig = $configuration->getModuleConfig();
         $authSourceData = $testData->getInputItem('authSourceData');

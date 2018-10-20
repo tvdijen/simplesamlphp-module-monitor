@@ -31,14 +31,14 @@ final class Search extends \SimpleSAML\Modules\Monitor\TestCaseFactory
     /*
      * @var array
      */
-    private $attributes = array();
+    private $attributes = [];
 
     /*
      * @param TestData $testData
      *
      * @return void
      */
-    protected function initialize($testData)
+    protected function initialize(TestData $testData)
     {
         $authSourceData = $testData->getInputItem('authSourceData');
 
@@ -56,11 +56,11 @@ final class Search extends \SimpleSAML\Modules\Monitor\TestCaseFactory
             // We have been given a DN
             $username = ldap_explode_dn($username, 1);
             $this->username = $username[0];
-            $this->attributes = array('cn');
+            $this->attributes = ['cn'];
         } else {
             // We have been given a sAMAccountName
             $this->username = $username;
-            $this->attributes = array('sAMAccountName');
+            $this->attributes = ['sAMAccountName'];
         }
         $this->password = $authSourceData->getString('search.password', '<< unset >>');
         $this->connection = $testData->getInputItem('connection');

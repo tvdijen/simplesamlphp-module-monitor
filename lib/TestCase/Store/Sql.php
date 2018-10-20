@@ -18,7 +18,7 @@ final class Sql extends \SimpleSAML\Modules\Monitor\TestCaseFactory
      *
      * @return void
      */
-    protected function initialize($testData)
+    protected function initialize(TestData $testData)
     {
         $this->host = $testData->getInputItem('host');
         parent::initialize($testData);

@@ -29,7 +29,7 @@ final class Entity extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
      * @param TestConfiguration $configuration
      * @param TestData $testData
      */
-    public function __construct($configuration, $testData)
+    public function __construct(TestConfiguration $configuration, TestData $testData)
     {
         $moduleConfig = $configuration->getModuleConfig();
         $entityMetadata = $testData->getInputItem('entityMetadata');
@@ -65,11 +65,11 @@ final class Entity extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         if (array_key_exists('keys', $this->entityMetadata)) {
             $keys = $this->entityMetadata['keys'];
             foreach ($keys as $key) {
-                $input = array(
+                $input = [
                     'category' => $this->getType($key),
                     'certData' => "-----BEGIN CERTIFICATE-----\n" .chunk_split($key['X509Certificate'], 64)."-----END CERTIFICATE-----\n",
                     'certExpirationWarning' => $this->certExpirationWarning,
-                );
+                ];
                 $testData = new TestData($input);
 
                 $certTest = new TestCase\Cert\Data($testData);
@@ -115,7 +115,7 @@ final class Entity extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
      *
      * @return string
      */
-    public function getType($key)
+    public function getType(array $key)
     {
         if ($key['encryption'] === true && $key['signing'] === false) {
             $category = 'Encryption certificate';

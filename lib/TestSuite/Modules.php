@@ -13,43 +13,43 @@ class Modules extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /**
      * @var array
      */
-    private $requiredApacheModules = array();
+    private $requiredApacheModules = [];
 
     /**
      * @var array
      */
     // Important!!  Modules-names are handled case-sensitive!!
-    private $storeApacheDependencies = array();
+    private $storeApacheDependencies = [];
 
     /**
      * @var array
      */
-    private $moduleApacheDependencies = array(
+    private $moduleApacheDependencies = [
         'negotiateext' => 'mod_auth_kerb|mod_auth_gssapi'
-    );
+    ];
 
     /**
      * @var array
      */
-    private $requiredPhpModules = array();
+    private $requiredPhpModules = [];
 
     /**
      * @var array
      */
-    private $storePhpDependencies = array(
+    private $storePhpDependencies = [
         'memcache' => 'memcached|memcache',
         'phpsession' => 'session',
         'redis' => 'redis',
         'redissentinel' => 'redis',
         'riak:Store' => 'riak',
         'sql' => 'PDO'
-    );
+    ];
 
     /**
      * @var array
      */
-    private $modulePhpDependencies = array(
-        'authfacebook' => array('curl', 'json'),
+    private $modulePhpDependencies = [
+        'authfacebook' => ['curl', 'json'],
         'authYubiKey' => 'curl',
 // TODO: consent only requires pdo when database backend is used.. Should probably add this to required-list when processing metadata
 //        'consent' => 'PDO',
@@ -60,14 +60,14 @@ class Modules extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         'radius' => 'radius',
         'riak' => 'riak',
         'sqlauth' => 'PDO'
-    );
+    ];
 
     /**
      * @param TestData|null $testData
      *
      * @return void
      */
-    protected function initialize($testData = null)
+    protected function initialize(TestData $testData = null)
     {
         $this->setRequiredApacheModules();
         $this->setRequiredPhpModules();
@@ -77,6 +77,8 @@ class Modules extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
 
     /**
+     * @param string $module
+     *
      * @return void
      */
     private function addRequiredApacheModule($module)
@@ -111,6 +113,8 @@ class Modules extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
 
     /**
+     * @param string $module
+     *
      * @return void
      */
     private function addRequiredPhpModule($module)

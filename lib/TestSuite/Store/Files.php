@@ -14,7 +14,7 @@ final class Files extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /**
      * @param TestConfiguration $configuration
      */
-    public function __construct($configuration)
+    public function __construct(TestConfiguration $configuration)
     {
         $this->setCategory('PHP sessions');
         parent::__construct($configuration);

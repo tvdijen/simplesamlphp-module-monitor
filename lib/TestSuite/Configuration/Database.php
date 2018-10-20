@@ -34,12 +34,12 @@ final class Database extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /**
      * @param TestConfiguration $configuration
      */
-    public function __construct($configuration)
+    public function __construct(TestConfiguration $configuration)
     {
         $globalConfig = $configuration->getGlobalConfig();
         $this->store = $globalConfig->getString('store.type', 'phpsession');
         $this->dsn = $globalConfig->getString('database.dsn');
-        $this->metadataSources = $globalConfig->getArray('metadata.sources', array());
+        $this->metadataSources = $globalConfig->getArray('metadata.sources', []);
 
         $this->setCategory('Configuration');
         parent::__construct($configuration);
@@ -52,7 +52,7 @@ final class Database extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     {
         if ($this->store === 'sql') {
             // We use a database for session-storage
-        } else if (in_array(array('type' => 'pdo'), $this->metadataSources, true)) {
+        } else if (in_array(['type' => 'pdo'], $this->metadataSources, true)) {
             // We use a database for metadata-storage
         } else if ($this->areModulesDependingOnDatabase() === false) {
             $testResult = new TestResult('Database connection', '-');

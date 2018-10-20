@@ -18,7 +18,7 @@ final class Sql extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /**
      * @param TestConfiguration $configuration
      */
-    public function __construct($configuration)
+    public function __construct(TestConfiguration $configuration)
     {
         $globalConfig = $configuration->getGlobalConfig();
         $this->host = $globalConfig->getString('store.sql.dsn');
@@ -33,9 +33,9 @@ final class Sql extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     {
         $testResult = new TestResult('SQL', 'Overall health');
 
-        $input = array(
+        $input = [
             'host' => $this->host,
-        );
+        ];
         $testData = new TestData($input);
         $test = new TestCase\Store\Sql($testData);
 

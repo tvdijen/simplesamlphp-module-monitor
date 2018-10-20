@@ -18,7 +18,7 @@ final class Memcache extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /**
      * @param TestConfiguration $configuration
      */
-    public function __construct($configuration)
+    public function __construct(TestConfiguration $configuration)
     {
         $class = class_exists('Memcache') ? 'Memcache' : (class_exists('Memcached') ? 'Memcached' : null);
         if ($class !== null) {
@@ -46,22 +46,22 @@ final class Memcache extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
             $stats = \SimpleSAML\Memcache::getRawStats();
             $i = 1;
             foreach ($stats as $key => $serverGroup) {
-                $results = array();
+                $results = [];
                 foreach ($serverGroup as $host => $serverStats) {
-                    $input = array(
+                    $input = [
                         'serverStats' => $serverStats,
                         'host' => $host
-                    );
+                    ];
                     $testData = new TestData($input);
                     $serverTest = new TestCase\Store\Memcache\Server($testData);
                     $results[] = $serverTest->getTestResult();
                 }
 
 
-                $input = array(
+                $input = [
                     'results' => $results,
                     'group' => $i
-                );
+                ];
                 $testData = new TestData($input);
                 $groupTest = new TestCase\Store\Memcache\ServerGroup($testData);
                 $groupTestResult = $groupTest->getTestResult();

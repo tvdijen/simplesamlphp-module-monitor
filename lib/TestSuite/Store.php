@@ -18,7 +18,7 @@ final class Store extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /**
      * @param TestConfiguration $configuration
      */
-    public function __construct($configuration)
+    public function __construct(TestConfiguration $configuration)
     {
         $globalConfig = $configuration->getGlobalConfig();
         $this->store = $globalConfig->getString('store.type', 'phpsession');
@@ -47,11 +47,13 @@ final class Store extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     }
 
     /**
+     * @param TestConfiguration $configuration
+     *
      * @return array
      */
-    private function testSspSession($configuration)
+    private function testSspSession(TestConfiguration $configuration)
     {
-        $results = array();
+        $results = [];
 
         switch ($this->store) {
             case 'memcache':
@@ -78,7 +80,7 @@ final class Store extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
      */
     private function testPhpSession()
     {
-        $results = array();
+        $results = [];
         switch (ini_get('session.save_handler')) {
             case 'files':
                 $input = [
@@ -93,9 +95,9 @@ final class Store extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
             case 'memcached':
                 $configuration = \SimpleSAML\Configuration::setPreLoadedConfig(
                     \SimpleSAML\Configuration::loadFromArray(
-                        array(
+                        [
                             'memcache_store.servers' => $this->parsePhpMemcachedConfiguration(session_save_path())
-                        )
+                        ]
                     )
                 );
                 $test = new Store\Memcache($configuration);
@@ -119,9 +121,9 @@ final class Store extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     {
         $servers = preg_split('/\s*,\s*/', $spec);
 
-        $results = array();
+        $results = [];
         foreach ($servers as $server) {
-            $result = array();
+            $result = [];
             list($host, $params) = explode('?', $server);
             list($hostname, $port) = explode(':', $host);
 
@@ -139,6 +141,6 @@ final class Store extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
             $results[]  = array_merge($result, $tmp);
         }
 
-        return array($results);
+        return [$results];
     }
 }

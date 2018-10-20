@@ -25,11 +25,13 @@ abstract class TestCaseFactory implements TestInterface
     private $testResult;
 
     /**
-     * @param TestData $testData
+     * @param TestData|null $testData
      */
-    public function __construct($testData)
+    public function __construct(TestData $testData = null)
     {
-        assert($testData instanceof TestData);
+        if (is_null($testData)) {
+            $testData = new TestData([]);
+        }
 
         $this->initialize($testData);
         $this->invokeTest();
@@ -40,7 +42,7 @@ abstract class TestCaseFactory implements TestInterface
      *
      * @return void
      */
-    protected function initialize($testData)
+    protected function initialize(TestData $testData)
     {
         $this->setTestData($testData);
     }
@@ -66,11 +68,11 @@ abstract class TestCaseFactory implements TestInterface
     }
 
     /**
-     * @return TestData|null
+     * @return TestData
      */
     public function getTestData()
     {
-        assert($this->testData instanceof TestData || is_null($this->testData));
+        assert($this->testData instanceof TestData);
         return $this->testData;
     }
 
@@ -79,12 +81,9 @@ abstract class TestCaseFactory implements TestInterface
      *
      * @return void
      */
-    protected function setTestData($testData = null)
+    protected function setTestData(TestData $testData = null)
     {
-        assert($testData instanceof TestData || is_null($testData));
-        if (!is_null($testData)) {
-            $this->testData = $testData;
-        }
+        $this->testData = $testData;
     }
 
     /**
@@ -92,9 +91,8 @@ abstract class TestCaseFactory implements TestInterface
      *
      * @return void
      */
-    protected function setTestResult($testResult)
+    protected function setTestResult(TestResult $testResult)
     {
-        assert($testResult instanceof TestResult);
         $this->testResult = $testResult;
     }
 

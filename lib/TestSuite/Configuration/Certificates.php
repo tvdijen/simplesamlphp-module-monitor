@@ -34,7 +34,7 @@ final class Certificates extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /**
      * @param TestConfiguration $configuration
      */
-    public function __construct($configuration)
+    public function __construct(TestConfiguration $configuration)
     {
         $globalConfig = $configuration->getGlobalConfig();
         $moduleConfig = $configuration->getModuleConfig();
@@ -90,11 +90,11 @@ final class Certificates extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
         // Check metadata signing certificate when available
         if (is_string($this->metadataCert)) {
-            $input = array(
+            $input = [
                 'certFile' => Utils\Config::getCertPath($this->metadataCert),
                 'category' => 'Metadata Signing Certificate',
                 'certExpirationWarning' => $this->certExpirationWarning,
-            );
+            ];
             $testData = new TestData($input);
 
             $test = new TestCase\Cert\File($testData);

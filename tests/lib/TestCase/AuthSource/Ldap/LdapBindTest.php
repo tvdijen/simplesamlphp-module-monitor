@@ -18,7 +18,7 @@ class TestLdapBindTest extends \PHPUnit_Framework_TestCase
             'search.username' => 'testuser',
             'search.password' => 'password',
         ];
-        $connectionMock = $this->getMock('LdapConnection', array('bind'));
+        $connectionMock = $this->getMock('LdapConnection', ['bind']);
         $connectionMock->expects($this->once())->method('bind')->will($this->returnValue(true));
         $confTest = new TestCase\AuthSource\Ldap\Bind(
             new TestData([
@@ -37,7 +37,7 @@ class TestLdapBindTest extends \PHPUnit_Framework_TestCase
             'search.username' => 'testuser',
             'search.password' => 'password',
         ];
-        $connectionMock = $this->getMock('LdapConnection', array('bind'));
+        $connectionMock = $this->getMock('LdapConnection', ['bind']);
         $connectionMock->expects($this->once())->method('bind')->will($this->throwException(new \Exception()));
         $confTest = new TestCase\AuthSource\Ldap\Bind(
             new TestData([
@@ -56,7 +56,7 @@ class TestLdapBindTest extends \PHPUnit_Framework_TestCase
             'search.username' => 'testuser',
             'search.password' => 'password',
         ];
-        $connectionMock = $this->getMock('LdapConnection', array('bind'));
+        $connectionMock = $this->getMock('LdapConnection', ['bind']);
         $connectionMock->expects($this->once())->method('bind')->will($this->returnValue(false));
         $confTest = new TestCase\AuthSource\Ldap\Bind(
             new TestData([

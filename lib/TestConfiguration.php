@@ -51,9 +51,17 @@ final class TestConfiguration
     /**
      * @param DependencyInjection $serverVars
      * @param DependencyInjection $requestVars
+     * @param ApplicationConfiguration $globalConfig
+     * @param ApplicationConfiguration $authSourceConfig
+     * @param ApplicationConfiguration $moduleConfig
      */
-    public function __construct($serverVars, $requestVars, $globalConfig, $authSourceConfig, $moduleConfig)
-    {
+    public function __construct(
+        DependencyInjection $serverVars,
+        DependencyInjection $requestVars,
+        ApplicationConfiguration $globalConfig,
+        ApplicationConfiguration $authSourceConfig,
+        ApplicationConfiguration $moduleConfig
+    ) {
         $this->serverVars = $serverVars;
         $this->requestVars = $requestVars;
 
@@ -70,9 +78,8 @@ final class TestConfiguration
      *
      * @return void
      */
-    private function setAuthsourceConfig($authSourceConfig)
+    private function setAuthsourceConfig(ApplicationConfiguration $authSourceConfig)
     {
-        assert($authSourceConfig instanceof ApplicationConfiguration);
         $this->authSourceConfig = $authSourceConfig;
     }
 
@@ -81,20 +88,18 @@ final class TestConfiguration
      *
      * @return void
      */
-    private function setModuleConfig($moduleConfig)
+    private function setModuleConfig(ApplicationConfiguration $moduleConfig)
     {
-        assert($moduleConfig instanceof ApplicationConfiguration);
         $this->moduleConfig = $moduleConfig;
     }
 
     /**
-     * #param ApplicationConfiguration $globalConfig
+     * @param ApplicationConfiguration $globalConfig
      *
      * @return void
      */
-    private function setGlobalConfig($globalConfig)
+    private function setGlobalConfig(ApplicationConfiguration $globalConfig)
     {
-        assert($globalConfig instanceof ApplicationConfiguration);
         $this->globalConfig = $globalConfig;
     }
 
@@ -124,18 +129,18 @@ final class TestConfiguration
     protected function getAvailableMetadataSets()
     {
         $globalConfig = $this->getGlobalConfig();
-        $sets = array();
+        $sets = [];
         if ($globalConfig->getBoolean('enable.saml20-idp', false)) {
-            $sets = array_merge($sets, array('saml20-idp-hosted', 'saml20-sp-remote', 'saml20-idp-remote'));
+            $sets = array_merge($sets, ['saml20-idp-hosted', 'saml20-sp-remote', 'saml20-idp-remote']);
         }
         if ($globalConfig->getBoolean('enable.shib13-idp', false)) {
-            $sets = array_merge($sets, array('shib13-idp-hosted', 'shib13-sp-hosted', 'shib13-sp-remote', 'shib13-idp-remote'));
+            $sets = array_merge($sets, ['shib13-idp-hosted', 'shib13-sp-hosted', 'shib13-sp-remote', 'shib13-idp-remote']);
         }
         if ($globalConfig->getBoolean('enable.adfs-idp', false)) {
-            $sets = array_merge($sets, array('adfs-idp-hosted', 'adfs-sp-remote'));
+            $sets = array_merge($sets, ['adfs-idp-hosted', 'adfs-sp-remote']);
         }
         if ($globalConfig->getBoolean('enable.wsfed-sp', false)) {
-            $sets = array_merge($sets, array('wsfed-sp-hosted', 'wsfed-idp-remote'));
+            $sets = array_merge($sets, ['wsfed-sp-hosted', 'wsfed-idp-remote']);
         }
         return $sets;
     }
@@ -158,11 +163,11 @@ final class TestConfiguration
      */
     private function getAvailableApacheModulesCgi()
     {
-        $knownLocations = array(
+        $knownLocations = [
             '/usr/sbin/httpd',
             '/usr/sbin/apache2',
             '/opt/rh/httpd24/root/usr/sbin/httpd'
-        );
+        ];
 
         $output = null;
         foreach ($knownLocations as $location) {
@@ -173,15 +178,15 @@ final class TestConfiguration
         }
 
         if ($output === null) {
-            return array(); // Cannot determine available modules
+            return []; // Cannot determine available modules
         }
         array_shift($output);
 
-        $modules = array();
+        $modules = [];
         foreach ($output as $module) {
             $module = ltrim($module);
             if (($res = preg_replace('/(_module \((shared|static)\))/', '', $module)) !== $module) {
-                $modules[] = 'mod_' . $res;
+                $modules[] = 'mod_'.$res;
             } // else skip
         }
         return $modules;

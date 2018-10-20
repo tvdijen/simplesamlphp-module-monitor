@@ -24,7 +24,7 @@ final class Server extends \SimpleSAML\Modules\Monitor\TestCaseFactory
      *
      * @return void
      */
-    protected function initialize($testData)
+    protected function initialize(TestData $testData)
     {
         $this->serverStats = $testData->getInputItem('serverStats');
         $this->host = $testData->getInputItem('host');
@@ -50,7 +50,7 @@ final class Server extends \SimpleSAML\Modules\Monitor\TestCaseFactory
             $testResult->addOutput($free, 'freePercentage');
 
             $testResult->setState(State::OK);
-            $testResult->setMessage($free . '% free space');
+            $testResult->setMessage($free.'% free space');
         }
 
         $this->setTestResult($testResult);

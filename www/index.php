@@ -27,14 +27,14 @@ $monitor = new Monitor($testConfiguration);
 $monitor->invokeTestSuites();
 $results = $monitor->getResults();
 
-$healthInfo = array(
-    State::SKIPPED => array('SKIPPED', 'yellow'),
-    State::FATAL   => array('FATAL',   'purple'),
-    State::ERROR   => array('NOK',     'red'   ),
-    State::NOSTATE => array('NOSTATE', 'cyan'  ),
-    State::WARNING => array('WARNING', 'orange'),
-    State::OK      => array('OK',      'green' )
-);
+$healthInfo = [
+    State::SKIPPED => ['SKIPPED', 'yellow'],
+    State::FATAL   => ['FATAL',   'purple'],
+    State::ERROR   => ['NOK',     'red'   ],
+    State::NOSTATE => ['NOSTATE', 'cyan'  ],
+    State::WARNING => ['WARNING', 'orange'],
+    State::OK      => ['OK',      'green' ]
+];
 
 $state = $monitor->getState();
 if ($state === State::OK) {

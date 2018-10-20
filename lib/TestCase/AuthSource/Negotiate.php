@@ -23,7 +23,7 @@ final class Negotiate extends \SimpleSAML\Modules\Monitor\TestCaseFactory
      *
      * @return void
      */
-    protected function initialize($testData)
+    protected function initialize(TestData $testData)
     {
         $this->handle = $testData->getInputItem('handle');
 

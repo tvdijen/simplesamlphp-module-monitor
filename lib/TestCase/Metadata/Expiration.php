@@ -23,7 +23,7 @@ final class Expiration extends \SimpleSAML\Modules\Monitor\TestCaseFactory
      *
      * @return void
      */
-    protected function initialize($testData)
+    protected function initialize(TestData $testData)
     {
         $this->entityId = $testData->getInputItem('entityId');
         $this->metadata = $testData->getInputItem('entityMetadata');
@@ -45,7 +45,7 @@ final class Expiration extends \SimpleSAML\Modules\Monitor\TestCaseFactory
                 $testResult->setMessage('Metadata has expired');
             } else {
                 $testResult->setState(State::OK);
-                $testResult->setMessage('Metadata will expire on ' . strftime('%c', $expiration));
+                $testResult->setMessage('Metadata will expire on '.strftime('%c', $expiration));
             }
         } else {
             $testResult->setState(State::OK);

@@ -12,17 +12,17 @@ class Monitor
     /**
      * @var array
      */
-    private $results = array();
+    private $results = [];
 
     /**
      * @var array
      */
-    private $state = array();
+    private $state = [];
 
     /**
      * @param TestConfiguration $testConfiguration
      */
-    public function __construct($testConfiguration)
+    public function __construct(TestConfiguration $testConfiguration)
     {
         $this->setTestConfiguration($testConfiguration);
     }
@@ -70,7 +70,7 @@ class Monitor
      */
     public function getState()
     {
-        $filtered = array_diff($this->state, array(State::SKIPPED, State::NOSTATE));
+        $filtered = array_diff($this->state, [State::SKIPPED, State::NOSTATE]);
         return empty($filtered) ? State::NOSTATE : min($filtered);
     }
 

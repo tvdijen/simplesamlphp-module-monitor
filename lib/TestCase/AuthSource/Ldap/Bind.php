@@ -29,7 +29,7 @@ final class Bind extends \SimpleSAML\Modules\Monitor\TestCaseFactory
      *
      * @return void
      */
-    protected function initialize($testData)
+    protected function initialize(TestData $testData)
     {
         $this->connection = $testData->getInputItem('connection');
         $authSourceData = $testData->getInputItem('authSourceData');

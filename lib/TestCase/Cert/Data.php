@@ -9,7 +9,7 @@ class Data extends \SimpleSAML\Modules\Monitor\TestCase\Cert
     /**
      * @param TestData $testData
      */
-    public function __construct($testData)
+    public function __construct(TestData $testData)
     {
         $certData = $testData->getInputItem('certData');
 

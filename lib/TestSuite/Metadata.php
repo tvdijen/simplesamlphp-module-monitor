@@ -12,7 +12,7 @@ final class Metadata extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /**
      * @param array
      */
-    private $metadata = array();
+    private $metadata = [];
 
     /**
      * @param integer|null;
@@ -22,7 +22,7 @@ final class Metadata extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /**
      * @param TestConfiguration $configuration
      */
-    public function __construct($configuration)
+    public function __construct(TestConfiguration $configuration)
     {
         $moduleConfig = $configuration->getModuleConfig();
         $metadataConfig = $configuration->getMetadataConfig();
@@ -31,7 +31,7 @@ final class Metadata extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         if ($checkMetadata === true) {
             $metadata = $metadataConfig;
         } else {
-            $metadata = array();
+            $metadata = [];
             if (is_array($checkMetadata)) {
                 foreach ($checkMetadata as $set => $entityId) {
                     if (array_key_exists($set, $metadataConfig)) {
@@ -62,10 +62,10 @@ final class Metadata extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
         foreach ($this->metadata as $set => $metadataSet) {
             foreach ($metadataSet as $entityId => $entityMetadata) {
-                $input = array(
+                $input = [
                     'entityId' => $entityId,
                     'entityMetadata' => $entityMetadata
-                );
+                ];
                 $testData = new TestData($input);
 
                 $metadataTest = new Metadata\Entity($configuration, $testData);
@@ -88,7 +88,7 @@ final class Metadata extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
      *
      * @return void
      */
-    private function fixEntityIds(&$metadata)
+    private function fixEntityIds(array &$metadata)
     {
         foreach ($metadata as $set => $metadataSet) {
             foreach ($metadataSet as $entityId => $entityMetadata) {
@@ -104,6 +104,7 @@ final class Metadata extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
     // Borrowed this from lib/SimpleSAML/Metadata/MetaDataStorageHandlerFlatFile.php until we take care of different sources properly
     /**
+     * @param string $set
      * @return string
      */
     private function generateDynamicHostedEntityID($set)

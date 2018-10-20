@@ -28,7 +28,7 @@ final class ConnectUri extends \SimpleSAML\Modules\Monitor\TestCaseFactory
      *
      * @return void
      */
-    protected function initialize($testData)
+    protected function initialize(TestData $testData)
     {
         $uri = $testData->getInputItem('uri');
         $context = $testData->getInputItem('context');

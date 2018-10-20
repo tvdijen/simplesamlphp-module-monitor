@@ -11,7 +11,7 @@ final class ServerGroup extends \SimpleSAML\Modules\Monitor\TestCaseFactory
     /**
      * @var array
      */
-    private $results = array();
+    private $results = [];
 
     /**
      * @var string|null
@@ -23,7 +23,7 @@ final class ServerGroup extends \SimpleSAML\Modules\Monitor\TestCaseFactory
      *
      * @return void
      */
-    protected function initialize($testData)
+    protected function initialize(TestData $testData)
     {
         $this->results = $testData->getInputItem('results');
         $this->group = $testData->getInputItem('group');
@@ -36,9 +36,9 @@ final class ServerGroup extends \SimpleSAML\Modules\Monitor\TestCaseFactory
      */
     public function invokeTest()
     {
-        $testResult = new TestResult('Memcache Server Group Health', 'Group ' . $this->group);
+        $testResult = new TestResult('Memcache Server Group Health', 'Group '.$this->group);
 
-        $states = array();
+        $states = [];
         foreach ($this->results as $result) {
             $states[] = $result->getState();
         }

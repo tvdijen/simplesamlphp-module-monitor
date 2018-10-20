@@ -22,7 +22,7 @@ final class Negotiate extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
      * @param TestConfiguration $configuration
      * @param TestData $testData
      */
-    public function __construct($configuration, $testData)
+    public function __construct(TestConfiguration $configuration, TestData $testData)
     {
         $authSourceData = $testData->getInputItem('authSourceData');
         $serverVars = $configuration->getServerVars();
@@ -42,10 +42,10 @@ final class Negotiate extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
      */
     public function invokeTest()
     {
-        $input = array(
+        $input = [
             'handle' => $this->handle,
             'authorization' => $this->authorization
-        );
+        ];
         $testData = new TestData($input);
 
         $test = new TestCase\AuthSource\Negotiate($testData);
