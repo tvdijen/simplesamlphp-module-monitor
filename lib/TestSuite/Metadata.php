@@ -95,34 +95,10 @@ final class Metadata extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
                 if (preg_match('/__DYNAMIC(:[0-9]+)?__/', $entityId)) {
                     // Remove old entry and create a new one based on new entityId
                     unset($metadata[$set][$entityId]);
-                    $newEntityId = $this->generateDynamicHostedEntityID($set);
+                    $newEntityId = \SimpleSAML\Metadata\MetadataStorageHandlerFlatFile->generateDynamicHostedEntityID($set);
                     $metadata[$set][$newEntityId] = $entityMetadata;
                 }
             }
         }
     }
-
-    // Borrowed this from lib/SimpleSAML/Metadata/MetaDataStorageHandlerFlatFile.php until we take care of different sources properly
-    /**
-     * @param string $set
-     * @return string
-     */
-    private function generateDynamicHostedEntityID($set)
-    {
-        // get the configuration
-        $baseurl = \SimpleSAML\Utils\HTTP::getBaseURL();
-
-        if ($set === 'saml20-idp-hosted') {
-            return $baseurl.'saml2/idp/metadata.php';
-        } elseif ($set === 'shib13-idp-hosted') {
-            return $baseurl.'shib13/idp/metadata.php';
-        } elseif ($set === 'wsfed-sp-hosted') {
-            return 'urn:federation:'.\SimpleSAML\Utils\HTTP::getSelfHost();
-        } elseif ($set === 'adfs-idp-hosted') {
-            return 'urn:federation:'.\SimpleSAML\Utils\HTTP::getSelfHost().':idp';
-        } else {
-            throw new \Exception('Can not generate dynamic EntityID for metadata of this type: ['.$set.']');
-        }
-    }
 }
-
