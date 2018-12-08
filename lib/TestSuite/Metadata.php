@@ -90,7 +90,7 @@ final class Metadata extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
      */
     private function fixEntityIds(array &$metadata)
     {
-        $sh = \SimpleSAML\Metadata\MetadataStorageHandlerFlatFile();
+        $sh = new \SimpleSAML\Metadata\MetadataStorageHandlerFlatFile();
         foreach ($metadata as $set => $metadataSet) {
             foreach ($metadataSet as $entityId => $entityMetadata) {
                 if (preg_match('/__DYNAMIC(:[0-9]+)?__/', $entityId)) {
