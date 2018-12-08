@@ -90,12 +90,13 @@ final class Metadata extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
      */
     private function fixEntityIds(array &$metadata)
     {
+        $sh = \SimpleSAML\Metadata\MetadataStorageHandlerFlatFile();
         foreach ($metadata as $set => $metadataSet) {
             foreach ($metadataSet as $entityId => $entityMetadata) {
                 if (preg_match('/__DYNAMIC(:[0-9]+)?__/', $entityId)) {
                     // Remove old entry and create a new one based on new entityId
                     unset($metadata[$set][$entityId]);
-                    $newEntityId = \SimpleSAML\Metadata\MetadataStorageHandlerFlatFile->generateDynamicHostedEntityID($set);
+                    $newEntityId = $sh->generateDynamicHostedEntityID($set);
                     $metadata[$set][$newEntityId] = $entityMetadata;
                 }
             }
