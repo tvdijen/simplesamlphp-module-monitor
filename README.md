@@ -2,7 +2,7 @@
 This module provides a framework for monitoring SimpleSAMLphp.
 
 Using TestSuites and TestCases, virtually anything can be monitored.
-TestSuites and TestSuites for the most common usecases ship with the module,
+TestSuites and TestCases for the most common usecases ship with the module,
 but you can easily add your own!
 
 When you enable this module, a link to the monitoring-page will appear on the admin configuration-tab.
