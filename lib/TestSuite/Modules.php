@@ -29,9 +29,6 @@ class Modules extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     private $storePhpDependencies = [
         'memcache' => 'memcached|memcache',
         'phpsession' => 'session',
-        'redis' => 'redis',
-        'redissentinel' => 'redis',
-        'riak:Store' => 'riak',
         'sql' => 'PDO'
     ];
 
@@ -46,7 +43,6 @@ class Modules extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         'memcacheMonitor' => 'memcached|memcache',
         'negotiate' => 'krb5',
         'radius' => 'radius',
-        'riak' => 'riak',
         'sqlauth' => 'PDO'
     ];
 
