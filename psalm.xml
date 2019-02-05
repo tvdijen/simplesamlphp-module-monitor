@@ -31,6 +31,6 @@
     </issueHandlers>
 
     <stubs>
-        <file name="tests/Utils/Stubs/krb5.php" />
+        <file name="tests/stubs/krb5.php" />
     </stubs>
 </psalm>
