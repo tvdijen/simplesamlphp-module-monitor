@@ -10,10 +10,9 @@ use \SimpleSAML\Modules\Monitor\State as State;
 
 final class Sql extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 {
-    /**
-     * var string
-     */
+    /** var string */
     private $host;
+
 
     /**
      * @param TestConfiguration $configuration
@@ -25,6 +24,7 @@ final class Sql extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
         parent::__construct($configuration);
     }
+
 
     /**
      * @return void

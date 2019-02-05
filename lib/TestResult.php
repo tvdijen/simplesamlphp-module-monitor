@@ -4,30 +4,21 @@ namespace SimpleSAML\Modules\Monitor;
 
 final class TestResult
 {
-    /**
-     * @var int The state reflecting the result
-     */
+    /** @var int The state reflecting the result */
     private $state = State::NOSTATE;
 
-    /**
-     * @var string Test category this test belongs to
-     */
+    /** @var string Test category this test belongs to */
     private $category;
 
-    /**
-     * @var string The subject that was tested
-     */
+    /** @var string The subject that was tested */
     private $subject;
 
-    /**
-     * @var string Message describing the result
-     */
+    /** @var string Message describing the result */
     private $message = '';
 
-    /**
-     * @var array Data to be used by TestSuite or other TestCases
-     */
+    /** @var array Data to be used by TestSuite or other TestCases */
     private $output = [];
+
 
     /**
      * @param string $category
@@ -38,6 +29,7 @@ final class TestResult
         $this->setCategory($category);
         $this->setSubject($subject);
     }
+
 
     /**
      * param bool $includeOutput
@@ -58,6 +50,7 @@ final class TestResult
         return $output;
     }
 
+
     /**
      * @param string $subject
      *
@@ -69,6 +62,7 @@ final class TestResult
         $this->subject = $subject;
     }
 
+
     /**
      * @return string
      */
@@ -77,6 +71,7 @@ final class TestResult
         assert(is_string($this->subject));
         return $this->subject;
     }
+
 
     /**
      * @param string $category
@@ -89,6 +84,7 @@ final class TestResult
         $this->category = $category;
     }
 
+
     /**
      * @return string
      */
@@ -97,6 +93,7 @@ final class TestResult
         assert(is_string($this->category));
         return $this->category;
     }
+
 
     /**
      * @param string $message
@@ -109,6 +106,7 @@ final class TestResult
         $this->message = $message;
     }
 
+
     /**
      * @return string
      */
@@ -117,6 +115,7 @@ final class TestResult
         assert(is_string($this->message));
         return $this->message;
     }
+
 
     /**
      * @param array $value
@@ -127,6 +126,7 @@ final class TestResult
     {
         $this->output = $value;
     }
+
 
     /**
      * @param mixed $value
@@ -143,6 +143,7 @@ final class TestResult
         }
     }
 
+
     /**
      * @param string|null $key
      *
@@ -154,6 +155,7 @@ final class TestResult
         return is_null($key) ? $this->output : (isSet($this->output[$key]) ? $this->output[$key] : null);
     }
     
+
     /**
      * @param integer $state
      *
@@ -164,6 +166,7 @@ final class TestResult
         assert(is_int($state));
         $this->state = $state;
     }
+
 
     /**
      * @return int

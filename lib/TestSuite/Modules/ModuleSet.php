@@ -9,25 +9,18 @@ use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 
 final class ModuleSet extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 {
-    /**
-     * @var array
-     */
+    /** @var array */
     private $required;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private $available;
  
-    /**
-     * @var array
-     */
+    /** @var array */
     private $dependencies;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $type;
+
 
     /**
      * @param TestData|null $testData
@@ -42,6 +35,7 @@ final class ModuleSet extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         $this->setType($testData->getInputItem('type'));
         $this->setCategory($this->type.' modules');
     }
+
 
     /**
      * @param array
@@ -114,6 +108,7 @@ final class ModuleSet extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         $this->setTestResult($testResult);
     }
 
+
     /**
      * @param TestResult $testResult
      *
@@ -131,6 +126,7 @@ final class ModuleSet extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         }
         parent::setTestResult($testResult);
     }
+
 
     /**
      * @param string $module

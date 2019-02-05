@@ -8,15 +8,12 @@ use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 
 final class Expiration extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $entityId;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private $metadata;
+
 
     /**
      * @param TestData $testData
@@ -30,6 +27,7 @@ final class Expiration extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 
         parent::initialize($testData);
     }
+
 
     /**
      * @return void

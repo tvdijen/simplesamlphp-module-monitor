@@ -11,25 +11,18 @@ use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 
 final class Ldap extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 {
-    /**
-     * @var ApplicationConfiguration
-     */
+    /** @var ApplicationConfiguration */
     private $authSourceData;
 
-    /**
-     * @var array|null
-     */
+    /** @var array|null */
     private $authSourceSpecifics;
 
-    /**
-     * @var string[]
-     */
+    /** @var string[] */
     private $hosts;
 
-    /**
-     * @param integer|null;
-     */
+    /** @var integer|null */
     private $certExpirationWarning = null;
+
 
     /**
      * @param TestConfiguration $configuration
@@ -53,6 +46,7 @@ final class Ldap extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
         parent::__construct($configuration);
     }
+
 
     /**
      * @return void
@@ -133,6 +127,7 @@ final class Ldap extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         $testResult->setState($state);
         $this->setTestResult($testResult);
     }
+
 
     /**
      * @param string $connectString

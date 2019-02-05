@@ -8,45 +8,30 @@ use \SimpleSAML\Metadata\MetaDataStorageSource as MetaDataStorageSource;
 
 final class TestConfiguration
 {
-    /**
-     * @var ApplicationConfiguration
-     */
+    /** @var ApplicationConfiguration */
     private $globalConfig;
 
-    /**
-     * @var ApplicationConfiguration
-     */
+    /** @var ApplicationConfiguration */
     private $moduleConfig;
 
-    /**
-     * @var ApplicationConfiguration
-     */
+    /** @var ApplicationConfiguration */
     private $authSourceConfig;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private $metadataConfig;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private $availableApacheModules;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private $availablePhpModules;
 
-    /**
-     * @var DependencyInjection
-     */
+    /** @var DependencyInjection */
     private $serverVars;
 
-    /**
-     * @var DependencyInjection
-     */
+    /** @var DependencyInjection */
     private $requestVars;
+
 
     /**
      * @param DependencyInjection $serverVars
@@ -73,6 +58,7 @@ final class TestConfiguration
         $this->setAvailablePhpModules();
     }
 
+
     /**
      * @param ApplicationConfiguration $authSourceConfig
      *
@@ -82,6 +68,7 @@ final class TestConfiguration
     {
         $this->authSourceConfig = $authSourceConfig;
     }
+
 
     /**
      * @param ApplicationConfiguration $moduleConfig
@@ -93,6 +80,7 @@ final class TestConfiguration
         $this->moduleConfig = $moduleConfig;
     }
 
+
     /**
      * @param ApplicationConfiguration $globalConfig
      *
@@ -102,6 +90,7 @@ final class TestConfiguration
     {
         $this->globalConfig = $globalConfig;
     }
+
 
     /**
      * @return void
@@ -122,6 +111,7 @@ final class TestConfiguration
         assert(is_array($metadata));
         $this->metadataConfig = $metadata;
     }
+
 
     /**
      * @return array
@@ -145,6 +135,7 @@ final class TestConfiguration
         return $sets;
     }
 
+
     /**
      * @return void
      */
@@ -157,6 +148,7 @@ final class TestConfiguration
             $this->availableApacheModules = $this->getAvailableApacheModulesCgi();
         }
     }
+
 
     /**
      * @return array
@@ -192,6 +184,7 @@ final class TestConfiguration
         return $modules;
     }
 
+
     /**
      * @return void
      */
@@ -199,6 +192,7 @@ final class TestConfiguration
     {
         $this->availablePhpModules = array_merge(get_loaded_extensions(), get_loaded_extensions(true));
     }
+
 
     /**
      * @return array
@@ -208,6 +202,7 @@ final class TestConfiguration
         return $this->availableApacheModules;
     }
 
+
     /**
      * @return array
      */
@@ -215,6 +210,7 @@ final class TestConfiguration
     {
         return $this->availablePhpModules;
     }
+
 
     /**
      * @return DependencyInjection
@@ -224,6 +220,7 @@ final class TestConfiguration
         return $this->serverVars;
     }
 
+
     /**
      * @return DependencyInjection
      */
@@ -231,6 +228,7 @@ final class TestConfiguration
     {
         return $this->requestVars;
     }
+
 
     /**
      * @return ApplicationConfiguration
@@ -241,6 +239,7 @@ final class TestConfiguration
         return $this->globalConfig;
     }
 
+
     /**
      * @return ApplicationConfiguration
      */
@@ -250,6 +249,7 @@ final class TestConfiguration
         return $this->moduleConfig;
     }
 
+
     /**
      * @return ApplicationConfiguration
      */
@@ -258,6 +258,7 @@ final class TestConfiguration
         assert($this->authSourceConfig instanceof ApplicationConfiguration);
         return $this->authSourceConfig;
     }
+
 
     /**
      * @return array

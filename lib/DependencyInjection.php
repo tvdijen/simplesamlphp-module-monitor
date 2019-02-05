@@ -4,10 +4,9 @@ namespace SimpleSAML\Modules\Monitor;
 
 final class DependencyInjection
 {
-    /**
-     * @var array
-     */
+    /** @var array */
     private $vars;
+
 
     /**
      * @param array $vars
@@ -16,6 +15,7 @@ final class DependencyInjection
     {
         $this->vars = $vars;
     }
+
 
     /**
      * @param string $key

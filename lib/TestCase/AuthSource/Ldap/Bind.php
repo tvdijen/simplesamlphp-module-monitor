@@ -8,23 +8,17 @@ use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 
 final class Bind extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 {
-    /*
-     * @var \SimpleSAML\Auth\LDAP
-     */
+    /** @var \SimpleSAML\Auth\LDAP */
     private $connection;
 
-    /*
-     * @var string
-     */
+    /** @var string */
     private $username;
 
-    /*
-     * @var string
-     */
-
+    /** @var string */
     private $password;
 
-    /*
+
+    /**
      * @param TestData $testData
      *
      * @return void
@@ -39,8 +33,9 @@ final class Bind extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 
         parent::initialize($testData);
     }
+
    
-    /*
+    /**
      * @return void
      */
     public function invokeTest()
@@ -53,6 +48,9 @@ final class Bind extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 
         $testResult = new TestResult('LDAP Bind', $this->username);
         if (isSet($error)) {
+            // When you feed str_replace a string, outcome will be string too, but Psalm doesn't see it that way
+
+            /** @var string $msg */
             $msg = str_replace('Library - LDAP bind(): ', '', $error->getMessage());
             $testResult->setState(State::FATAL);
         } elseif ($bind === true) {

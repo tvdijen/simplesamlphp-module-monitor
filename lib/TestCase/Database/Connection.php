@@ -8,17 +8,14 @@ use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 
 final class Connection extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 {
-    /**
-     * @var \SimpleSAML\Database
-     */
+    /** @var \SimpleSAML\Database */
     private $db = null;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $dsn;
 
-    /*
+
+    /**
      * @param TestData $testData
      *
      * @return void
@@ -29,7 +26,8 @@ final class Connection extends \SimpleSAML\Modules\Monitor\TestCaseFactory
         parent::initialize($testData);
     }
 
-    /*
+
+    /**
      * @return void
      */
     public function invokeTest()

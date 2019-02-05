@@ -8,15 +8,12 @@ use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 
 final class Negotiate extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 {
-    /**
-     * @var \KRB5NegotiateAuth
-     */
+    /** @var \KRB5NegotiateAuth */
     private $handle;
 
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     private $authorization;
+
 
     /*
      * @param TestData $testData
@@ -32,6 +29,7 @@ final class Negotiate extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 
         parent::initialize($testData);
     }
+
 
     /*
      * @return void

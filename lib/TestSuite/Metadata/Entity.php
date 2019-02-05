@@ -10,20 +10,15 @@ use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 
 final class Entity extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 {
-    /**
-     * @var array
-     */
+    /** @var array */
     private $entityMetadata;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $entityId;
 
-    /**
-     * @param integer|null;
-     */
+    /** @var integer|null */
     private $certExpirationWarning = null;
+
 
     /**
      * @param TestConfiguration $configuration
@@ -45,6 +40,7 @@ final class Entity extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         $this->setCategory('Metadata entity');
         parent::__construct($configuration);
     }
+
 
     /**
      * @return void
@@ -109,6 +105,7 @@ final class Entity extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         $testResult->setState($state);
         $this->setTestResult($testResult);
     }
+
 
     /**
      * @param array $key

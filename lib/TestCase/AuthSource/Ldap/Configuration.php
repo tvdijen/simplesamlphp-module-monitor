@@ -8,43 +8,29 @@ use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 
 final class Configuration extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 {
-    /*
-     * @var \SimpleSAML\Auth\LDAP
-     */
+    /** @var \SimpleSAML\Auth\LDAP */
     private $connection;
 
-    /*
-     * @var string
-     */
+    /** @var string */
     private $hostname;
 
-    /*
-     * @var integer
-     */
+    /** @var integer */
     private $port;
 
-    /*
-     * @var bool
-     */
+    /** @var bool */
     private $enableTls;
 
-    /*
-     * @var integer
-     */
+    /** @var integer */
     private $timeout;
 
-    /*
-     * @var bool
-     */
+    /** @var bool */
     private $referrals;
 
-    /*
-     * @var bool
-     */
+    /** @var bool */
     private $debug;
 
 
-    /*
+    /**
      * @param TestData $testData
      *
      * @return void
@@ -65,7 +51,7 @@ final class Configuration extends \SimpleSAML\Modules\Monitor\TestCaseFactory
     }
 
 
-    /*
+    /**
      * @return void
      */
     public function invokeTest()
@@ -93,6 +79,9 @@ final class Configuration extends \SimpleSAML\Modules\Monitor\TestCaseFactory
         }
 
         if (isSet($error)) {
+            // When you feed str_replace a string, outcome will be string too, but Psalm doesn't see it that way
+
+            /** @var string $msg */
             $msg = str_replace('Library - LDAP __construct(): ', '', $error->getMessage());
         } else {
             $msg = 'Configuration syntax OK';

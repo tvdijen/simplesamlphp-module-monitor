@@ -4,25 +4,18 @@ namespace SimpleSAML\Modules\Monitor;
 
 abstract class TestCaseFactory implements TestInterface
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $category;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $subject;
 
-    /**
-     * @var TestData
-     */
+    /** @var TestData */
     private $testData;
 
-    /**
-     * @var TestResult
-     */
+    /** @var TestResult */
     private $testResult;
+
 
     /**
      * @param TestData|null $testData
@@ -37,6 +30,7 @@ abstract class TestCaseFactory implements TestInterface
         $this->invokeTest();
     }
 
+
     /**
      * @param Testdata $testData
      *
@@ -46,6 +40,7 @@ abstract class TestCaseFactory implements TestInterface
     {
         $this->setTestData($testData);
     }
+
 
     /**
      * @param string $category
@@ -58,6 +53,7 @@ abstract class TestCaseFactory implements TestInterface
         $this->category = $category;
     }
 
+
     /**
      * @return string
      */
@@ -67,6 +63,7 @@ abstract class TestCaseFactory implements TestInterface
         return $this->category;
     }
 
+
     /**
      * @return TestData
      */
@@ -75,6 +72,7 @@ abstract class TestCaseFactory implements TestInterface
         assert($this->testData instanceof TestData);
         return $this->testData;
     }
+
 
     /**
      * @param TestData|null $testData
@@ -86,6 +84,7 @@ abstract class TestCaseFactory implements TestInterface
         $this->testData = $testData;
     }
 
+
     /**
      * @param TestResult $testResult
      *
@@ -96,6 +95,7 @@ abstract class TestCaseFactory implements TestInterface
         $this->testResult = $testResult;
     }
 
+
     /**
      * @return TestResult
      */
@@ -104,6 +104,7 @@ abstract class TestCaseFactory implements TestInterface
         assert($this->testResult instanceof TestResult);
         return $this->testResult;
     }
+
 
     /**
      * @param string $subject
@@ -115,6 +116,7 @@ abstract class TestCaseFactory implements TestInterface
         assert(is_string($subject));
         $this->subject = $subject;
     }
+
 
     /**
      * @return string

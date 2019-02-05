@@ -10,10 +10,9 @@ use \SimpleSAML\Logger as Logger;
 
 final class Store extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 {
-    /**
-     * var string|null
-     */
+    /** var string|null */
     private $store = null;
+
 
     /**
      * @param TestConfiguration $configuration
@@ -26,6 +25,7 @@ final class Store extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
         parent::__construct($configuration);
     }
+
 
     /**
      * @return void
@@ -45,6 +45,7 @@ final class Store extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         }
         $this->calculateState();
     }
+
 
     /**
      * @param TestConfiguration $configuration
@@ -74,6 +75,7 @@ final class Store extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         }
         return $results;
     }
+
 
     /**
      * @return array
@@ -111,6 +113,7 @@ final class Store extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         }
         return $results;
     }
+
 
     /**
      * @param string $spec

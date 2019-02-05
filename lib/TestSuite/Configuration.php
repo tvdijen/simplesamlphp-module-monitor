@@ -20,6 +20,7 @@ final class Configuration extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         parent::__construct($configuration);
     }
 
+
     /**
      * @param TestConfiguration
      * @return array
@@ -30,6 +31,7 @@ final class Configuration extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         return $test->getTestResults();
     }
 
+
     /**
      * @param TestConfiguration
      * @return array
@@ -39,6 +41,7 @@ final class Configuration extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         $test = new Configuration\Database($configuration);
         return $test->getTestResults();
     }
+
 
     /**
      * @return void

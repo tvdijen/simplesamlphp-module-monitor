@@ -8,15 +8,12 @@ use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 
 final class ServerGroup extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 {
-    /**
-     * @var array
-     */
+    /** @var array */
     private $results = [];
 
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     private $group = null;
+
 
     /**
      * @param TestData $testData
@@ -30,6 +27,7 @@ final class ServerGroup extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 
         parent::initialize($testData);
     }
+
 
     /**
      * @return void

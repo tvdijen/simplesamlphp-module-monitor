@@ -20,6 +20,7 @@ final class Files extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         parent::__construct($configuration);
     }
 
+
     /**
      * @return void
      */

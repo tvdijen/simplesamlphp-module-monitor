@@ -8,10 +8,9 @@ use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 
 final class Sql extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 {
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     private $host;
+
 
     /**
      * @param TestData $testData
@@ -23,6 +22,7 @@ final class Sql extends \SimpleSAML\Modules\Monitor\TestCaseFactory
         $this->host = $testData->getInputItem('host');
         parent::initialize($testData);
     }
+
 
     /**
      * @return void

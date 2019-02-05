@@ -4,20 +4,15 @@ namespace SimpleSAML\Modules\Monitor;
 
 class Monitor
 {
-    /**
-     * @var TestConfiguration
-     */
+    /** @var TestConfiguration */
     private $configuration;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private $results = [];
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private $state = [];
+
 
     /**
      * @param TestConfiguration $testConfiguration
@@ -26,6 +21,7 @@ class Monitor
     {
         $this->setTestConfiguration($testConfiguration);
     }
+
 
     /**
      * @return void
@@ -39,6 +35,7 @@ class Monitor
         $this->invokeMetadataCheck();
     }
 
+
     /**
      * @return TestConfiguration
      */
@@ -48,14 +45,17 @@ class Monitor
         return $this->configuration;
     }
 
+
     /**
      * @param TestConfiguration $testConfiguration
+     * @return void
      */
     private function setTestConfiguration($testConfiguration)
     {
         assert($testConfiguration instanceof TestConfiguration);
         $this->configuration = $testConfiguration;
     }
+
 
     /**
      * @return array
@@ -65,6 +65,7 @@ class Monitor
         return $this->results;
     }
 
+
     /**
      * @return integer
      */
@@ -73,6 +74,7 @@ class Monitor
         $filtered = array_diff($this->state, [State::SKIPPED, State::NOSTATE]);
         return empty($filtered) ? State::NOSTATE : min($filtered);
     }
+
 
     /**
      * @return void
@@ -84,6 +86,7 @@ class Monitor
         $this->state[] = $testsuite->calculateState();
     }
 
+
     /**
      * @return void
      */
@@ -93,6 +96,7 @@ class Monitor
         $this->results['configuration'] = $testsuite->getArrayizeTestResults();
         $this->state[] = $testsuite->calculateState();
     }
+
 
     /**
      * @return void
@@ -104,6 +108,7 @@ class Monitor
         $this->state[] = $testsuite->calculateState();
     }
 
+
     /**
      * @return void
      */
@@ -114,6 +119,7 @@ class Monitor
         $this->state[] = $testsuite->calculateState();
         $this->results['authsources'] = $testResult->getOutput();
     }
+
 
     /**
      * @return void

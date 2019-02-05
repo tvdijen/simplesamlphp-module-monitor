@@ -8,10 +8,9 @@ use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 
 final class FreeSpace extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 {
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     private $path = null;
+
 
     /**
      * @var TestData $testData
@@ -25,6 +24,7 @@ final class FreeSpace extends \SimpleSAML\Modules\Monitor\TestCaseFactory
         parent::initialize($testData);
     }
 
+
     /**
      * @param string $path
      * @return void
@@ -35,6 +35,7 @@ final class FreeSpace extends \SimpleSAML\Modules\Monitor\TestCaseFactory
         $this->path = $path;
     }
 
+
     /**
      * @return string
      */
@@ -43,6 +44,7 @@ final class FreeSpace extends \SimpleSAML\Modules\Monitor\TestCaseFactory
         assert(is_string($this->path));
         return $this->path;
     }
+
 
     /**
      * @return void

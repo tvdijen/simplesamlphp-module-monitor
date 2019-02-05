@@ -8,32 +8,23 @@ use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 
 final class Search extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 {
-    /*
-     * @var \SimpleSAML\Auth\LDAP
-     */
+    /** @var \SimpleSAML\Auth\LDAP */
     private $connection;
 
-    /*
-     * @var string
-     */
+    /** @var string */
     private $base;
 
-    /*
-     * @var string
-     */
+    /** @var string */
     private $username;
 
-    /*
-     * @var string
-     */
+    /** @var string */
     private $password;
 
-    /*
-     * @var array
-     */
+    /** @var array */
     private $attributes = [];
 
-    /*
+
+    /**
      * @param TestData $testData
      *
      * @return void
@@ -68,7 +59,8 @@ final class Search extends \SimpleSAML\Modules\Monitor\TestCaseFactory
         parent::initialize($testData);
     }
 
-    /*
+
+    /**
      * @return void
      */
     public function invokeTest()
@@ -82,6 +74,9 @@ final class Search extends \SimpleSAML\Modules\Monitor\TestCaseFactory
         $testResult = new TestResult('LDAP Search', $this->getSubject());
 
         if (isSet($error)) {
+            // When you feed str_replace a string, outcome will be string too, but Psalm doesn't see it that way
+
+            /** @var string $msg */
             $msg = str_replace('Library - LDAP searchfordn(): ', '', $error->getMessage());
             $testResult->setState(State::ERROR);
             $testResult->setMessage($msg);

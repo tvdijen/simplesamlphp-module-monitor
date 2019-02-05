@@ -11,25 +11,18 @@ use \SimpleSAML\Utils as Utils;
 
 final class Database extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 {
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     private $store = null;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private $metadataSources = [];
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private $dependentModules = ['consent'];
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $dsn = 'undefined';
+
 
     /**
      * @param TestConfiguration $configuration
@@ -44,6 +37,7 @@ final class Database extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         $this->setCategory('Configuration');
         parent::__construct($configuration);
     }
+
 
     /**
      * @return void
@@ -68,6 +62,7 @@ final class Database extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         $testResult = $connTest->getTestResult();
         $this->addTestResult($testResult);
     }
+
 
     /**
      * @return bool

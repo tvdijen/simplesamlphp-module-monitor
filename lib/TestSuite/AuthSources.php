@@ -9,20 +9,15 @@ use \SimpleSAML\Modules\Monitor\TestData as TestData;
 
 final class AuthSources extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 {
-    /**
-     * @var ApplicationConfiguration
-     */
+    /** @var ApplicationConfiguration */
     private $authSourceConfig;
 
-    /**
-     * @var array|bool
-     */
+    /** @var array|bool */
     private $checkAuthSources;
 
-    /**
-     * @var array|null
-     */
+    /** @var array|null */
     private $authSourceSpecifics;
+
 
     /**
      * @param TestConfiguration $configuration
@@ -37,6 +32,7 @@ final class AuthSources extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
         parent::__construct($configuration);
     }
+
 
     /**
      * @return void
@@ -99,6 +95,7 @@ final class AuthSources extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         $this->setTestResult($testResult);
     }
 
+
     /**
      * @param string $authSourceId
      *
@@ -113,6 +110,7 @@ final class AuthSources extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         }
         return null;
     }
+
 
     /**
      * @param array $authSourceData

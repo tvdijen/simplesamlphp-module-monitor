@@ -8,20 +8,15 @@ use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 
 class Cert extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 {
-    /**
-     * @var array
-     */
+    /** @var array */
     private $certInfo = [];
 
-    /**
-     * @return integer|null
-     */
+    /** @var integer|null */
     private $expiration = null;
 
-    /**
-     * @param integer|null;
-     */
+    /** @var integer|null */
     private $certExpirationWarning = null;
+
 
     /**
      * @var TestData $testData
@@ -37,6 +32,7 @@ class Cert extends \SimpleSAML\Modules\Monitor\TestCaseFactory
         parent::initialize($testData);
     }
 
+
     /**
      * @return string
      */
@@ -50,6 +46,7 @@ class Cert extends \SimpleSAML\Modules\Monitor\TestCaseFactory
         }
     }
 
+
     /**
      * @param array $certInfo
      *
@@ -60,6 +57,7 @@ class Cert extends \SimpleSAML\Modules\Monitor\TestCaseFactory
         $this->certInfo = $certInfo;
     }
 
+
     /**
      * @return array|null
      */
@@ -68,6 +66,7 @@ class Cert extends \SimpleSAML\Modules\Monitor\TestCaseFactory
         assert(is_array($this->certInfo));
         return $this->certInfo;
     }
+
 
     /**
      * @param integer $certExpirationWarning
@@ -80,6 +79,7 @@ class Cert extends \SimpleSAML\Modules\Monitor\TestCaseFactory
         $this->certExpirationWarning = $certExpirationWarning;
     }
 
+
     /**
      * @return integer|null
      */
@@ -89,6 +89,7 @@ class Cert extends \SimpleSAML\Modules\Monitor\TestCaseFactory
         return $this->certExpirationWarning;
     }
 
+
     /**
      * @return integer
      */
@@ -97,6 +98,7 @@ class Cert extends \SimpleSAML\Modules\Monitor\TestCaseFactory
         assert(is_int($this->expiration));
         return $this->expiration;
     }
+
 
     /**
      * @param integer $expiration
@@ -109,6 +111,7 @@ class Cert extends \SimpleSAML\Modules\Monitor\TestCaseFactory
         $this->expiration = $expiration;
     }
 
+
     /**
      * @return void
      */
@@ -118,6 +121,7 @@ class Cert extends \SimpleSAML\Modules\Monitor\TestCaseFactory
         $expiration = (int)(($certInfo['validTo_time_t'] - time()) / 86400);
         $this->setExpiration($expiration);
     }
+
 
     /**
      * @return void

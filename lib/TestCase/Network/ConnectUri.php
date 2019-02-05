@@ -8,23 +8,18 @@ use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 
 final class ConnectUri extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 {
-    /**
-     * @param integer
-     */
+    /** @var integer */
     private $timeout;
 
-    /**
-     * @param resource
-     */
+    /** @var resource */
     private $context;
 
-    /**
-     * @param string
-     */
+    /** @var string */
     private $uri;
 
+
     /**
-     * @var TestData $testData
+     * @param TestData $testData
      *
      * @return void
      */
@@ -51,7 +46,8 @@ final class ConnectUri extends \SimpleSAML\Modules\Monitor\TestCaseFactory
         parent::initialize($testData);
     }
 
-    /*
+
+    /**
      * @param string $uri
      *
      * @return void
@@ -62,7 +58,8 @@ final class ConnectUri extends \SimpleSAML\Modules\Monitor\TestCaseFactory
         $this->uri = $uri;
     }
 
-    /*
+
+    /**
      * @param resource $context
      *
      * @return void
@@ -73,7 +70,8 @@ final class ConnectUri extends \SimpleSAML\Modules\Monitor\TestCaseFactory
         $this->context = $context;
     }
 
-    /*
+
+    /**
      * @param integer $timeout
      *
      * @return void
@@ -84,7 +82,8 @@ final class ConnectUri extends \SimpleSAML\Modules\Monitor\TestCaseFactory
         $this->timeout = $timeout;
     }
 
-    /*
+
+    /**
      * @return void
      */
     public function invokeTest()

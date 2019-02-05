@@ -9,15 +9,12 @@ use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 
 final class Metadata extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 {
-    /**
-     * @param array
-     */
+    /** @var array */
     private $metadata = [];
 
-    /**
-     * @param integer|null;
-     */
+    /** @var integer|null */
     private $certExpirationWarning = null;
+
 
     /**
      * @param TestConfiguration $configuration
@@ -52,6 +49,7 @@ final class Metadata extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         parent::__construct($configuration);
     }
 
+
     /**
      * @return void
      */
@@ -82,6 +80,7 @@ final class Metadata extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         $testResult->setOutput($output);
         $this->setTestResult($testResult);
     }
+
 
     /**
      * @param array $metadata

@@ -4,15 +4,12 @@ namespace SimpleSAML\Modules\Monitor;
 
 abstract class TestSuiteFactory extends TestCaseFactory
 {
-    /**
-     * @var TestConfiguration
-     */
+    /** @var TestConfiguration */
     private $configuration;
 
-    /**
-     * @var array An associative array of name => TestResult pairs
-     */
+    /** @var array An associative array of name => TestResult pairs */
     private $testResults = [];
+
 
     /**
      * @param TestConfiguration|null $configuration
@@ -25,6 +22,7 @@ abstract class TestSuiteFactory extends TestCaseFactory
         $this->invokeTestSuite();
     }
 
+
     /**
      * @param TestData|null $testData
      *
@@ -34,6 +32,7 @@ abstract class TestSuiteFactory extends TestCaseFactory
     {
         $this->setTestData($testData);
     }
+
 
     /**
      * @param TestConfiguration $configuration
@@ -47,6 +46,7 @@ abstract class TestSuiteFactory extends TestCaseFactory
         }
     }
 
+
     /**
      * @return TestConfiguration
      */
@@ -55,6 +55,7 @@ abstract class TestSuiteFactory extends TestCaseFactory
         assert($this->configuration instanceof TestConfiguration);
         return $this->configuration;
     }
+
 
     /**
      * @param TestResult $testResult
@@ -66,6 +67,7 @@ abstract class TestSuiteFactory extends TestCaseFactory
         $this->testResults[] = $testResult;
     }
 
+
     /**
      * @param array $testResults
      *
@@ -76,6 +78,7 @@ abstract class TestSuiteFactory extends TestCaseFactory
         $this->testResults = array_merge($this->testResults, $testResults);
     }
 
+
     /**
      * @return array
      */
@@ -84,6 +87,7 @@ abstract class TestSuiteFactory extends TestCaseFactory
         assert(is_array($this->testResults));
         return $this->testResults;
     }
+
 
     /**
      * param bool $includeOutput
@@ -99,6 +103,7 @@ abstract class TestSuiteFactory extends TestCaseFactory
         }
         return $result;
     }
+
 
     /**
      * @return int
@@ -122,6 +127,7 @@ abstract class TestSuiteFactory extends TestCaseFactory
         }
         return $state;
     }
+
 
     /**
      * @return void

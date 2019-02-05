@@ -4,10 +4,9 @@ namespace SimpleSAML\Modules\Monitor;
 
 final class TestData
 {
-    /**
-     * @var array
-     */
+    /** @var array */
     private $testData = [];
+
 
     /**
      * @param array $input
@@ -16,6 +15,7 @@ final class TestData
     {
         $this->setInput($input);
     }
+
 
     /**
      * @param mixed|null $input
@@ -38,6 +38,7 @@ final class TestData
         }
     }
 
+
     /**
      * @param string $key
      * @param mixed|null $value
@@ -55,6 +56,7 @@ final class TestData
         }
     }
 
+
     /**
      * @return array
      */
@@ -62,6 +64,7 @@ final class TestData
     {
         return $this->testData;
     }
+
 
     /**
      * @param string $item

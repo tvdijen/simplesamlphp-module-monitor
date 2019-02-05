@@ -10,10 +10,9 @@ use \SimpleSAML\Modules\Monitor\State as State;
 
 final class Memcache extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 {
-    /**
-     * var string|null
-     */
+    /** var string|null */
     private $class = null;
+
 
     /**
      * @param TestConfiguration $configuration
@@ -28,6 +27,7 @@ final class Memcache extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
         parent::__construct($configuration);
     }
+
 
     /**
      * @return void

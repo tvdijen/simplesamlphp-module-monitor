@@ -10,32 +10,22 @@ use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 
 class Modules extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 {
-    /**
-     * @var array
-     */
+    /** @var array */
     private $requiredApacheModules = [];
 
-    /**
-     * @var array
-     */
+    /** @var array */
     // Important!!  Modules-names are handled case-sensitive!!
     private $storeApacheDependencies = [];
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private $moduleApacheDependencies = [
         'negotiateext' => 'mod_auth_kerb|mod_auth_gssapi'
     ];
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private $requiredPhpModules = [];
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private $storePhpDependencies = [
         'memcache' => 'memcached|memcache',
         'phpsession' => 'session',
@@ -45,9 +35,7 @@ class Modules extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         'sql' => 'PDO'
     ];
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private $modulePhpDependencies = [
         'authfacebook' => ['curl', 'json'],
         'authYubiKey' => 'curl',
@@ -61,6 +49,7 @@ class Modules extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         'riak' => 'riak',
         'sqlauth' => 'PDO'
     ];
+
 
     /**
      * @param TestData|null $testData
@@ -151,6 +140,7 @@ class Modules extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         }
     }
 
+
     /**
      * @return void
      */
@@ -175,6 +165,7 @@ class Modules extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         }
     }
 
+
     /**
      * @return array
      */
@@ -184,6 +175,7 @@ class Modules extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         return $configuration->getAvailableApacheModules();
     }
 
+
     /**
      * @return array
      */
@@ -192,6 +184,7 @@ class Modules extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         $configuration = $this->getConfiguration();
         return $configuration->getAvailablePhpModules();
     }
+
 
     /**
      * @return array

@@ -9,10 +9,12 @@ interface TestInterface
      */
     public function getCategory();
 
+
     /**
      * @return TestResult
      */
     public function getTestResult();
+
 
     /**
      * @return void

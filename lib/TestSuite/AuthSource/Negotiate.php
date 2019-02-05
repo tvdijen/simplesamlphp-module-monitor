@@ -8,15 +8,12 @@ use \SimpleSAML\Modules\Monitor\TestData as TestData;
 
 final class Negotiate extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 {
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     private $authorization;
 
-    /**
-     * @var \KRB5NegotiateAuth
-     */
+    /** @var \KRB5NegotiateAuth */
     private $handle;
+
 
     /**
      * @param TestConfiguration $configuration
@@ -36,6 +33,7 @@ final class Negotiate extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
         parent::__construct($configuration);
     }
+
 
     /**
      * @return void

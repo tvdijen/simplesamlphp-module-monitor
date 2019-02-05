@@ -8,20 +8,15 @@ use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 
 class Module extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 {
-    /**
-     * @var array
-     */
+    /** @var array */
     private $parsed;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private $available;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $module;
+
 
     /**
      * @param TestData $testData
@@ -37,6 +32,7 @@ class Module extends \SimpleSAML\Modules\Monitor\TestCaseFactory
         $this->setCategory($testData->getInputItem('type'));
         parent::initialize($testData);
     }
+
 
     /**
      * @return void
@@ -65,6 +61,7 @@ class Module extends \SimpleSAML\Modules\Monitor\TestCaseFactory
         $this->setTestResult($testResult);
     }
 
+
     /**
      * @return array|null
      */
@@ -74,6 +71,7 @@ class Module extends \SimpleSAML\Modules\Monitor\TestCaseFactory
         return $this->available;
     }
 
+
     /**
      * @return string
      */
@@ -82,6 +80,7 @@ class Module extends \SimpleSAML\Modules\Monitor\TestCaseFactory
         assert(is_string($this->module));
         return $this->module;
     }
+
 
     /**
      * @return string

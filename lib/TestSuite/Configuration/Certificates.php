@@ -11,25 +11,18 @@ use \SimpleSAML\Utils as Utils;
 
 final class Certificates extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 {
-    /**
-     * @param string|null
-     */
+    /** @var string|null */
     private $metadataCert = null;
 
-    /**
-     * @param string|null;
-     */
+    /** @var string|null */
     private $serverName = null;
 
-    /**
-     * @param integer|null;
-     */
+    /** @var integer|null */
     private $serverPort = null;
 
-    /**
-     * @param integer|null;
-     */
+    /** @var integer|null */
     private $certExpirationWarning = null;
+
 
     /**
      * @param TestConfiguration $configuration
@@ -48,6 +41,7 @@ final class Certificates extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
         parent::__construct($configuration);
     }
+
 
     /**
      * @return void
