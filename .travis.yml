@@ -42,10 +42,12 @@ before_script:
   - phpenv config-add tests/files/myphp.ini
   - composer require "simplesamlphp/simplesamlphp:${SIMPLESAMLPHP_VERSION}" --no-update
   - composer update --no-interaction
+  - if [[ "$TRAVIS_PHP_VERSION" == "7.3" ]]; then composer require --dev vimeo/psalm:0.3.92; fi
 
 script:
   - bin/check-syntax.sh
   - if [[ "$TRAVIS_PHP_VERSION" == "5.6" ]]; then php vendor/phpunit/phpunit/phpunit --configuration tools/phpunit; else php vendor/phpunit/phpunit/phpunit --configuration tools/phpunit --no-coverage; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == "7.3" ]]; then vendor/bin/psalm; fi
 
 after_success:
   - sudo umount /tmp/testdisk; rm -rf /tmp/testdisk
