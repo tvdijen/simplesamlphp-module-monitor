@@ -44,7 +44,7 @@ class Cert extends \SimpleSAML\Modules\Monitor\TestCaseFactory
             array_key_exists('CN', $certInfo['subject'])
         ) {
             return 'CN='.$certInfo['subject']['CN'];
-        } else if (isset($certInfo['serialNumber']))
+        } else if (isset($certInfo['serialNumber'])) {
             return 'SN='.$certInfo['serialNumber'];
         } else {
             return 'UNKNOWN';
