@@ -13,8 +13,8 @@ class Modules extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /** @var array */
     private $requiredApacheModules = [];
 
-    /** @var array */
     // Important!!  Modules-names are handled case-sensitive!!
+    /** @var array */
     private $storeApacheDependencies = [];
 
     /** @var array */

@@ -22,7 +22,7 @@ final class Configuration extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
 
     /**
-     * @param TestConfiguration
+     * @param TestConfiguration $configuration
      * @return array
      */
     private function testCertificates(TestConfiguration $configuration)
@@ -33,7 +33,7 @@ final class Configuration extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
 
     /**
-     * @param TestConfiguration
+     * @param TestConfiguration $configuration
      * @return array
      */
     private function testDatabase(TestConfiguration $configuration)

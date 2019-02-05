@@ -8,11 +8,11 @@ use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 
 final class Server extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 {
-    /** @var array|false|null */
+    /** @var array|false */
     private $serverStats;
 
 
-    /** @var string|null */
+    /** @var string */
     private $host;
 
 

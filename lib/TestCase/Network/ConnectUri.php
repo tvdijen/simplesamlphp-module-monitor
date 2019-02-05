@@ -88,6 +88,7 @@ final class ConnectUri extends \SimpleSAML\Modules\Monitor\TestCaseFactory
      */
     public function invokeTest()
     {
+        list($errno, $errstr) = [0, ''];
         $connection = @stream_socket_client($this->uri, $errno, $errstr, $this->timeout, STREAM_CLIENT_CONNECT, $this->context);
 
         $testResult = new TestResult('Network connection', $this->uri);

@@ -11,8 +11,8 @@ final class ServerGroup extends \SimpleSAML\Modules\Monitor\TestCaseFactory
     /** @var array */
     private $results = [];
 
-    /** @var string|null */
-    private $group = null;
+    /** @var string */
+    private $group;
 
 
     /**

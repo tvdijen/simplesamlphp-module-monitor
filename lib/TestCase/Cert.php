@@ -11,8 +11,8 @@ class Cert extends \SimpleSAML\Modules\Monitor\TestCaseFactory
     /** @var array */
     private $certInfo = [];
 
-    /** @var integer|null */
-    private $expiration = null;
+    /** @var integer */
+    private $expiration;
 
     /** @var integer|null */
     private $certExpirationWarning = null;
@@ -39,10 +39,15 @@ class Cert extends \SimpleSAML\Modules\Monitor\TestCaseFactory
     public function getSubject()
     {
         $certInfo = $this->getCertInfo();
-        if (array_key_exists('CN', $certInfo['subject']) && !empty($certInfo['subject'])) {
+        if (isset($certInfo['subject']) &&
+            !empty($certInfo['subject']) &&
+            array_key_exists('CN', $certInfo['subject'])
+        ) {
             return 'CN='.$certInfo['subject']['CN'];
-        } else {
+        } else if (isset($certInfo['serialNumber']))
             return 'SN='.$certInfo['serialNumber'];
+        } else {
+            return 'UNKNOWN';
         }
     }
 
@@ -59,7 +64,7 @@ class Cert extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 
 
     /**
-     * @return array|null
+     * @return array
      */
     protected function getCertInfo()
     {
@@ -69,7 +74,7 @@ class Cert extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 
 
     /**
-     * @param integer $certExpirationWarning
+     * @param int $certExpirationWarning
      *
      * @return void
      */
@@ -81,7 +86,7 @@ class Cert extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 
 
     /**
-     * @return integer|null
+     * @return int|null
      */
     protected function getCertExpirationWarning()
     {
@@ -91,7 +96,7 @@ class Cert extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 
 
     /**
-     * @return integer
+     * @return int
      */
     protected function getExpiration()
     {

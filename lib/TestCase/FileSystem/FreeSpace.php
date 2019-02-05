@@ -8,8 +8,8 @@ use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 
 final class FreeSpace extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 {
-    /** @var string|null */
-    private $path = null;
+    /** @var string */
+    private $path = '';
 
 
     /**
@@ -55,21 +55,25 @@ final class FreeSpace extends \SimpleSAML\Modules\Monitor\TestCaseFactory
         $testResult = new TestResult($this->getCategory(), $path);
 
         $size = disk_total_space($path);
-        $used = $size - disk_free_space($path);
-        $free = round(100 - (($used / $size) * 100));
+        $free = disk_free_space($path);
+        if ($size !== false && $free !== false) {
+            $free = round(100 - ((($size - $free) / $size) * 100));
 
-        if ($free >= 15) {
-            $testResult->setMessage($free.'% free space');
-            $testResult->setState(State::OK);
-        } else if ($free < 5) {
-            $testResult->setMessage('Critical: '.$free.'% free space');
-            $testResult->setState(State::ERROR);
+            if ($free >= 15) {
+                $testResult->setMessage($free.'% free space');
+                $testResult->setState(State::OK);
+            } else if ($free < 5) {
+                $testResult->setMessage('Critical: '.$free.'% free space');
+                $testResult->setState(State::ERROR);
+            } else {
+                $testResult->setMessage($free.'% free space');
+                $testResult->setState(State::WARNING);
+            }
+            $testResult->addOutput($free, 'free_percentage');
         } else {
-            $testResult->setMessage($free.'% free space');
-            $testResult->setState(State::WARNING);
+            $testResult->setMessage('Error collecting disk usage');
+            $testResult->setState(State::CRITICAL);
         }
-
-        $testResult->addOutput($free, 'free_percentage');
         $this->setTestResult($testResult);
     }
 }

@@ -29,16 +29,18 @@ final class ModuleSet extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
      */
     protected function initialize(TestData $testData = null)
     {
-        $this->setRequired($testData->getInputItem('required'));
-        $this->setAvailable($testData->getInputItem('available'));
-        $this->setDependencies($testData->getInputItem('dependencies'));
-        $this->setType($testData->getInputItem('type'));
-        $this->setCategory($this->type.' modules');
+        if (!is_null($testData)) {
+            $this->setRequired($testData->getInputItem('required'));
+            $this->setAvailable($testData->getInputItem('available'));
+            $this->setDependencies($testData->getInputItem('dependencies'));
+            $this->setType($testData->getInputItem('type'));
+            $this->setCategory($this->type.' modules');
+        }
     }
 
 
     /**
-     * @param array
+     * @param array $required
      */
     private function setRequired(array $required)
     {
@@ -47,7 +49,7 @@ final class ModuleSet extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
 
     /**
-     * @param array
+     * @param array $available
      */
     private function setAvailable(array $available)
     {
@@ -56,7 +58,7 @@ final class ModuleSet extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
 
     /**
-     * @param array
+     * @param array $dependencies
      */
     private function setDependencies(array $dependencies)
     {
@@ -65,7 +67,7 @@ final class ModuleSet extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
 
     /**
-     * @param string
+     * @param string $type
      */
     private function setType($type)
     {

@@ -90,7 +90,7 @@ abstract class TestSuiteFactory extends TestCaseFactory
 
 
     /**
-     * param bool $includeOutput
+     * @param bool $includeOutput
      *
      * @return array
      */

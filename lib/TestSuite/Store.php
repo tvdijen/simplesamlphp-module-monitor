@@ -127,8 +127,8 @@ final class Store extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         $results = [];
         foreach ($servers as $server) {
             $result = [];
-            list($host, $params) = explode('?', $server);
-            list($hostname, $port) = explode(':', $host);
+            @list($host, $params) = explode('?', $server);
+            @list($hostname, $port) = explode(':', $host);
 
             // Strip protocol when possible (memcache)
             $prefix = 'tcp://';
@@ -137,7 +137,7 @@ final class Store extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
             }
 
             $result['hostname'] = $hostname;
-            if ($port !== null) {
+            if (isset($port)) {
                 $result['port'] = $port;
             }
             parse_str($params, $tmp);

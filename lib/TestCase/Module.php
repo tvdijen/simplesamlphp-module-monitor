@@ -9,10 +9,10 @@ use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 class Module extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 {
     /** @var array */
-    private $parsed;
+    private $parsed = [];
 
     /** @var array */
-    private $available;
+    private $available = [];
 
     /** @var string */
     private $module;

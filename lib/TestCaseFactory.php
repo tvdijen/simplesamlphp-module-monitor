@@ -32,7 +32,7 @@ abstract class TestCaseFactory implements TestInterface
 
 
     /**
-     * @param Testdata $testData
+     * @param TestData $testData
      *
      * @return void
      */

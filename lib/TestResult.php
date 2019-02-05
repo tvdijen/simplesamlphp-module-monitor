@@ -32,7 +32,7 @@ final class TestResult
 
 
     /**
-     * param bool $includeOutput
+     * @param bool $includeOutput
      *
      * @return array
      */

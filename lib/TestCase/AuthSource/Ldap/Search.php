@@ -36,7 +36,7 @@ final class Search extends \SimpleSAML\Modules\Monitor\TestCaseFactory
         // Just to be on the safe side, strip off any OU's and search to whole directory
         $base = $authSourceData->getArrayizeString('search.base', '<< unset >>');
         $base = is_array($base) ? $base[0] : $base;
-        if (($i = stripos($base, 'DC=')) > 0) {
+        if (($i = intval(stripos($base, 'DC='))) > 0) {
             $base = substr($base, $i);
         }
         $this->base = $base;
