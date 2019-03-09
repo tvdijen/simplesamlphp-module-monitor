@@ -8,14 +8,14 @@ use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 
 final class Bind extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 {
-    /** @var \SimpleSAML\Auth\LDAP */
-    private $connection = null;
+    /** @var \SimpleSAML\Auth\LDAP|null */
+    private $connection;
 
     /** @var string */
-    private $username = null;
+    private $username;
 
     /** @var string */
-    private $password = null;
+    private $password;
 
 
     /**

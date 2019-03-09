@@ -72,7 +72,7 @@ final class FreeSpace extends \SimpleSAML\Modules\Monitor\TestCaseFactory
             $testResult->addOutput($free, 'free_percentage');
         } else {
             $testResult->setMessage('Error collecting disk usage');
-            $testResult->setState(State::CRITICAL);
+            $testResult->setState(State::FATAL);
         }
         $this->setTestResult($testResult);
     }

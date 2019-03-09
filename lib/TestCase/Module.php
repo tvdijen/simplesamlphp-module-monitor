@@ -26,7 +26,7 @@ class Module extends \SimpleSAML\Modules\Monitor\TestCaseFactory
     protected function initialize(TestData $testData)
     {
         $this->module = $testData->getInputItem('required');
-        $this->available = $testData->getInputItem('available');
+        $this->available = $testData->getInputItem('available') || [];
         $this->parsed = explode('|', $this->module);
 
         $this->setCategory($testData->getInputItem('type'));

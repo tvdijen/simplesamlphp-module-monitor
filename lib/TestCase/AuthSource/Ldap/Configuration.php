@@ -8,26 +8,26 @@ use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 
 final class Configuration extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 {
-    /** @var \SimpleSAML\Auth\LDAP */
-    private $connection;
+    /** @var \SimpleSAML\Auth\LDAP|null */
+    private $connection = null;
 
     /** @var string */
-    private $hostname;
+    private $hostname = '';
 
     /** @var integer */
-    private $port;
+    private $port = 636;
 
     /** @var bool */
-    private $enableTls;
+    private $enableTls = false;
 
     /** @var integer */
-    private $timeout;
+    private $timeout = 3;
 
     /** @var bool */
-    private $referrals;
+    private $referrals = false;
 
     /** @var bool */
-    private $debug;
+    private $debug = false;
 
 
     /**
