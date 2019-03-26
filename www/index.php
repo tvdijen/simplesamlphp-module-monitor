@@ -55,6 +55,9 @@ switch ($outputFormat) {
     case 'json':
         JsonResponse::create(['overall' => $healthInfo[$state][0], 'results' => $results], $responseCode)->send();
         return;
+    case 'text':
+        $t = new \SimpleSAML\XHTML\Template($globalConfig, 'monitor:monitor.text.php');
+        break;
     default:
         $t = new \SimpleSAML\XHTML\Template($globalConfig, 'monitor:monitor.php');
         break;
