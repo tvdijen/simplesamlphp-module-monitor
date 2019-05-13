@@ -119,12 +119,12 @@ final class TestConfiguration
     protected function getAvailableMetadataSets()
     {
         $globalConfig = $this->getGlobalConfig();
-        $sets = [];
+        $sets = ['shib13-idp-remote', 'saml20-idp-remote'];
         if ($globalConfig->getBoolean('enable.saml20-idp', false)) {
-            $sets = array_merge($sets, ['saml20-idp-hosted', 'saml20-sp-remote', 'saml20-idp-remote']);
+            $sets = array_merge($sets, ['saml20-idp-hosted', 'saml20-sp-remote']);
         }
         if ($globalConfig->getBoolean('enable.shib13-idp', false)) {
-            $sets = array_merge($sets, ['shib13-idp-hosted', 'shib13-sp-hosted', 'shib13-sp-remote', 'shib13-idp-remote']);
+            $sets = array_merge($sets, ['shib13-idp-hosted', 'shib13-sp-hosted', 'shib13-sp-remote']);
         }
         if ($globalConfig->getBoolean('enable.adfs-idp', false)) {
             $sets = array_merge($sets, ['adfs-idp-hosted', 'adfs-sp-remote']);
