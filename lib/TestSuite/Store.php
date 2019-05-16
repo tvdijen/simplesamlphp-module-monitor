@@ -35,7 +35,7 @@ final class Store extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         $configuration = $this->getConfiguration();
 
         if ($this->store === 'phpsession') {
-            $results = $this->testPhpSession();
+            $results = $this->testPhpSession($configuration);
         } else {
             $results = $this->testSspSession($configuration);
         }
@@ -78,9 +78,11 @@ final class Store extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
 
     /**
+     * @param TestConfiguration $configuration
+     *
      * @return array
      */
-    private function testPhpSession()
+    private function testPhpSession(TestConfiguration $configuration)
     {
         $results = [];
         switch (ini_get('session.save_handler')) {
@@ -95,7 +97,7 @@ final class Store extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
                 break;
             case 'memcache':
             case 'memcached':
-                $configuration = \SimpleSAML\Configuration::setPreLoadedConfig(
+                \SimpleSAML\Configuration::setPreLoadedConfig(
                     \SimpleSAML\Configuration::loadFromArray(
                         [
                             'memcache_store.servers' => $this->parsePhpMemcachedConfiguration(session_save_path())
