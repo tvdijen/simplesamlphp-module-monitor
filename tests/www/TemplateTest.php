@@ -8,9 +8,9 @@
  
 namespace SimpleSAML\Test\Web;
 
-use PHPUnit\Framework\TestCase
-use SimpleSAML\Configuration as Configuration;
-use SimpleSAML\XHTML\Template as Template;
+use PHPUnit\Framework\TestCase;
+use SimpleSAML\Configuration;
+use SimpleSAML\XHTML\Template;
 use SimpleSAML\Module;
 use Twig\Error\SyntaxError;
 
