@@ -8,11 +8,13 @@
  
 namespace SimpleSAML\Test\Web;
 
-use \SimpleSAML\Configuration as Configuration;
-use \SimpleSAML\XHTML\Template as Template;
-use \SimpleSAML\Module;
+use PHPUnit\Framework\TestCase
+use SimpleSAML\Configuration as Configuration;
+use SimpleSAML\XHTML\Template as Template;
+use SimpleSAML\Module;
+use Twig\Error\SyntaxError;
 
-class TemplateTest extends \PHPUnit\Framework\TestCase
+class TemplateTest extends TestCase
 {
     public function testSyntax()
     {
@@ -33,7 +35,7 @@ class TemplateTest extends \PHPUnit\Framework\TestCase
                 try {
                     $t->show();
                     $this->addToAssertionCount(1);
-                } catch (\Twig_Error_Syntax $e) {
+                } catch (SyntaxError $e) {
                     $this->fail($e->getMessage().' in '.$e->getFile().':'.$e->getLine());
                 }
                 ob_end_clean();
