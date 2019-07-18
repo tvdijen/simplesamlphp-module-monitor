@@ -31,6 +31,6 @@
     </issueHandlers>
 
     <stubs>
-        <file name="tests/stubs/krb5.php" />
+        <file name="vendor/simplesamlphp/simplesamlphp-test-framework/tests/stubs/krb5.php" />
     </stubs>
 </psalm>
