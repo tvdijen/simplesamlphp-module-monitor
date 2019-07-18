@@ -29,6 +29,7 @@ matrix:
     - env: SIMPLESAMLPHP_VERSION=dev-master
 
 before_script:
+  - pecl install krb5
   - sudo apt-get install stunnel4 apache2
   - openssl req -x509 -newkey rsa:1024 -nodes -keyout tests/files/webserver.key -out tests/files/webserver.crt -days 1 -subj '/CN=localhost'; cat tests/files/webserver.key tests/files/webserver.crt > tests/files/webserver.pem
   - php -S localhost:8080 &
