@@ -11,13 +11,16 @@ use \SimpleSAML\Modules\Monitor\State as State;
  */
 class TestCertificatesTest extends \PHPUnit_Framework_TestCase
 {
-    private static $certdir = dirname('../../../vendor/simplesamlphp/simplesamlphp-test-framework/certificates/pem');
-    private static $key = $certdir.DIRECTORY_SEPARATOR.'selfsigned.example.org_nopasswd.key';
+    private static $certdir;
+    private static $key;
 
     private static $dn;
 
     public static function setUpBeforeClass()
     {
+        self::$certdir = dirname('../../../vendor/simplesamlphp/simplesamlphp-test-framework/certificates/pem');
+        self::$key = $certdir.DIRECTORY_SEPARATOR.'selfsigned.example.org_nopasswd.key';
+
         self::$dn = [
             'countryName' => 'NL',
             'localityName' => 'Amsterdam',
