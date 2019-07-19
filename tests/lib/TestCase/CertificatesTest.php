@@ -70,7 +70,7 @@ class TestCertificatesTest extends \PHPUnit_Framework_TestCase
     {
         $testData = new TestData([
             'category' => 'Test certificate',
-            'certFile' => '../../../vendor/simplesamlphp/simplesamlphp-test-framework/certificates/pem/selfsigned.example.org.crt',
+            'certFile' => 'vendor/simplesamlphp/simplesamlphp-test-framework/certificates/pem/selfsigned.example.org.crt',
             'certExpirationWarning' => 10,
         ]);
         $certTest = new TestCase\Cert\File($testData);
