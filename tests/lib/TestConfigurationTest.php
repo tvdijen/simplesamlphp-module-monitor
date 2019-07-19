@@ -23,7 +23,7 @@ class TestConfigurationTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
             'metadata.sources' => [
                 [
                     'type' => 'xml',
-                    'file' => 'modules/monitor/tests/files/metadata.xml',
+                    'file' => 'vendor/simplesamlphp/simplesamlphp-test-framework/metadata/xml/valid-metadata-selfsigned.xml',
                 ],
             ],
         ];
@@ -52,7 +52,7 @@ class TestConfigurationTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
         $this->assertEquals($moduleConfig, $testConf->getModuleConfig());
 
         $metadataConfig = $testConf->getMetadataConfig();
-        $this->assertArrayHasKey('https://engine.surfconext.nl/authentication/idp/metadata', $metadataConfig['saml20-idp-remote']);
+        $this->assertArrayHasKey('https://idp.example.org/saml2/idp/metadata.php', $metadataConfig['saml20-idp-remote']);
 
         $this->assertNotEmpty($testConf->getAvailableApacheModules());
         $this->assertNotEmpty($testConf->getAvailablePhpModules());
