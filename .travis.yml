@@ -31,8 +31,6 @@ matrix:
 before_script:
   - pecl install krb5
   - sudo apt-get install stunnel4 apache2
-  - cat vendor/simplesamlphp/simplesamlphp-test-framework/certificates/pem/selfsigned.example.org_nopasswd.key
-    vendor/simplesamlphp/simplesamlphp-test-framework/certificates/pem/selfsigned.example.org.crt > tests/files/webserver.pem
   - php -S localhost:8080 &
   - export WEBPID=$!
   - if [[ "$TRAVIS_PHP_VERSION" < "5.6" ]]; then sudo stunnel3 -p tests/files/webserver.pem -d 443 -r 8080; else sudo stunnel4 tests/files/stunnel.conf; fi
@@ -40,6 +38,8 @@ before_script:
   - phpenv config-add tests/files/myphp.ini
   - composer require "simplesamlphp/simplesamlphp:${SIMPLESAMLPHP_VERSION}" --no-update
   - composer update --no-interaction
+  - cat vendor/simplesamlphp/simplesamlphp-test-framework/certificates/pem/selfsigned.example.org_nopasswd.key
+    vendor/simplesamlphp/simplesamlphp-test-framework/certificates/pem/selfsigned.example.org.crt > tests/files/webserver.pem
 
 script:
   - vendor/simplesamlphp/simplesamlphp-test-framework/bin/check-syntax-php.sh
