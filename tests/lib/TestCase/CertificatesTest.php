@@ -54,8 +54,8 @@ class TestCertificatesTest extends \PHPUnit_Framework_TestCase
         $dn = self::$dn;
         $dn['commonName'] = 'almostexpired';
 
-        $csr = openssl_csr_new($dn, $key, ['digest_alg' => 'sha256']);
-        $res = openssl_csr_sign($csr, null, $key, $days = 5, ['digest_alg' => 'sha256']);
+        $csr = openssl_csr_new($dn, self::$key, ['digest_alg' => 'sha256']);
+        $res = openssl_csr_sign($csr, null, self::$key, $days = 5, ['digest_alg' => 'sha256']);
         openssl_x509_export($res, $cert);
 
         $testData = new TestData([
@@ -74,7 +74,7 @@ class TestCertificatesTest extends \PHPUnit_Framework_TestCase
     {
         $testData = new TestData([
             'category' => 'Test certificate',
-            'certFile' => $certdir.DIRECTORY_SEPARATOR.'selfsigned.example.org.crt',
+            'certFile' => self::$certdir.DIRECTORY_SEPARATOR.'selfsigned.example.org.crt',
             'certExpirationWarning' => 10,
         ]);
         $certTest = new TestCase\Cert\File($testData);
