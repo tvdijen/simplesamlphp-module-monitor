@@ -11,7 +11,7 @@ use \SimpleSAML\Modules\Monitor\State as State;
  */
 class TestCertificatesTest extends \PHPUnit_Framework_TestCase
 {
-    private static '../../../vendor/simplesamlphp/simplesamlphp-test-framework/certificates/pem/selfsigned.example.org_nopasswd.key';
+    private static $key = '../../../vendor/simplesamlphp/simplesamlphp-test-framework/certificates/pem/selfsigned.example.org_nopasswd.key';
 
     private static $dn;
 
