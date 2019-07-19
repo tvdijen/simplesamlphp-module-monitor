@@ -18,7 +18,7 @@ class TestCertificatesTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        self::$certdir = dirname('../../../vendor/simplesamlphp/simplesamlphp-test-framework/certificates/pem');
+        self::$certdir = dirname('../../../vendor/simplesamlphp/simplesamlphp-test-framework/certificates/pem/.');
         self::$key = self::$certdir.DIRECTORY_SEPARATOR.'selfsigned.example.org_nopasswd.key';
 
         self::$dn = [
