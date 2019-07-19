@@ -82,18 +82,11 @@ class TestCertificatesTest extends \PHPUnit_Framework_TestCase
     public function testCertFileValid()
     {
         $dn = self::$dn;
-        $dn['commonName'] = 'valid';
-
-        $csr = openssl_csr_new($dn, $key, ['digest_alg' => 'sha256']);
-        $res = openssl_csr_sign($csr, null, $key, $days = 100, ['digest_alg' => 'sha256']);
-        openssl_x509_export($res, $cert);
-
-        $certFile = sys_get_temp_dir().'/validcert.crt';
-        file_put_contents($certFile, $cert);
+        $dn['commonName'] = 'selfsigned.example.org';
 
         $testData = new TestData([
             'category' => 'Test certificate',
-            'certFile' => $certFile,
+            'certFile' => '../../../vendor/simplesamlphp/simplesamlphp-test-framework/certificates/pem/selfsigned.example.org.crt',
             'certExpirationWarning' => 10,
         ]);
         $certTest = new TestCase\Cert\File($testData);
