@@ -23,7 +23,7 @@ class TestConfigurationTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
             'metadata.sources' => [
                 [
                     'type' => 'xml',
-                    'file' => 'vendor/simplesamlphp/simplesamlphp-test-framework/metadata/xml/valid-metadata-selfsigned.xml',
+                    'file' => '../../../vendor/simplesamlphp/simplesamlphp-test-framework/metadata/xml/valid-metadata-selfsigned.xml',
                 ],
             ],
         ];
