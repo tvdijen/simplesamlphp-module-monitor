@@ -11,30 +11,17 @@ use \SimpleSAML\Modules\Monitor\State as State;
  */
 class TestCertificatesTest extends \PHPUnit_Framework_TestCase
 {
-    private static $key;
+    private static '../../../vendor/simplesamlphp/simplesamlphp-test-framework/certificates/pem/selfsigned.example.org_nopasswd.key';
 
     private static $dn;
 
     public static function setUpBeforeClass()
     {
-        self::$key = openssl_pkey_new([
-            'digest_alg' => 'sha256',
-            'private_key_bits' => '1024',
-            'private_key_type' => OPENSSL_KEYTYPE_RSA,
-        ]);
-
         self::$dn = [
             'countryName' => 'NL',
             'localityName' => 'Amsterdam',
             'organizationName' => 'TestOrganization',
         ];
-    }
-
-    public static function tearDownAfterClass()
-    {
-        self::$key = null;
-        self::$dn = null;
-        unlink(sys_get_temp_dir().'/validcert.crt');
     }
 
     public function testCertExpired()
@@ -81,9 +68,6 @@ class TestCertificatesTest extends \PHPUnit_Framework_TestCase
 
     public function testCertFileValid()
     {
-        $dn = self::$dn;
-        $dn['commonName'] = 'selfsigned.example.org';
-
         $testData = new TestData([
             'category' => 'Test certificate',
             'certFile' => '../../../vendor/simplesamlphp/simplesamlphp-test-framework/certificates/pem/selfsigned.example.org.crt',
