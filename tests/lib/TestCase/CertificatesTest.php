@@ -11,7 +11,8 @@ use \SimpleSAML\Modules\Monitor\State as State;
  */
 class TestCertificatesTest extends \PHPUnit_Framework_TestCase
 {
-    private static $key = '../../../vendor/simplesamlphp/simplesamlphp-test-framework/certificates/pem/selfsigned.example.org_nopasswd.key';
+    private static $certdir = dirname('../../../vendor/simplesamlphp/simplesamlphp-test-framework/certificates/pem');
+    private static $key = $certdir.DIRECTORY_SEPARATOR.'selfsigned.example.org_nopasswd.key';
 
     private static $dn;
 
@@ -70,7 +71,7 @@ class TestCertificatesTest extends \PHPUnit_Framework_TestCase
     {
         $testData = new TestData([
             'category' => 'Test certificate',
-            'certFile' => 'vendor/simplesamlphp/simplesamlphp-test-framework/certificates/pem/selfsigned.example.org.crt',
+            'certFile' => $certdir.DIRECTORY_SEPARATOR.'selfsigned.example.org.crt',
             'certExpirationWarning' => 10,
         ]);
         $certTest = new TestCase\Cert\File($testData);
