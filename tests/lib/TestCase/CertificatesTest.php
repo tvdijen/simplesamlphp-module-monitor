@@ -14,18 +14,10 @@ class TestCertificatesTest extends \PHPUnit_Framework_TestCase
     private static $certdir;
     private static $key;
 
-    private static $dn;
-
     public static function setUpBeforeClass()
     {
         self::$certdir = getcwd().DIRECTORY_SEPARATOR.'vendor/simplesamlphp/simplesamlphp-test-framework/certificates/pem';
         self::$key = self::$certdir.DIRECTORY_SEPARATOR.'selfsigned.example.org_nopasswd.key';
-
-        self::$dn = [
-            'countryName' => 'NL',
-            'localityName' => 'Amsterdam',
-            'organizationName' => 'TestOrganization',
-        ];
     }
 
     public function testCertExpired()
@@ -47,22 +39,24 @@ class TestCertificatesTest extends \PHPUnit_Framework_TestCase
 
     public function testCertAboutToExpire()
     {
-        $dn = self::$dn;
-        $dn['commonName'] = 'almostexpired';
+        $certFile = self::$certdir.DIRECTORY_SEPARATOR.'signed.example.org.crt';
+        $certData = file_get_contents($certFile);
+        $certInfo = openssl_x509_parse($certData)
 
-        $csr = openssl_csr_new($dn, self::$key, ['digest_alg' => 'sha256']);
-        $res = openssl_csr_sign($csr, null, self::$key, $days = 5, ['digest_alg' => 'sha256']);
-        openssl_x509_export($res, $cert);
+        // Calculate the remaining days for the cert
+        $exp = (int)(($certInfo['validTo_time_t'] - time()) / 86400);
 
         $testData = new TestData([
             'category' => 'Test certificate',
-            'certData' => $cert,
+            'certData' => $certData,
             'certExpirationWarning' => 10,
         ]);
         $certTest = new TestCase\Cert\Data($testData);
         $testResult = $certTest->getTestResult();
         $expiration = $testResult->getOutput('expiration');
-        $this->assertGreaterThanOrEqual(4, $expiration);
+
+        // Test that remaining days+4 = greater than $expiration, but less than $expiration+10
+        $this->assertGreaterThanOrEqual($exp + 4, $expiration);
         $this->assertEquals(State::WARNING, $testResult->getState());
     }
 
