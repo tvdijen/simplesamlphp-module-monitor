@@ -33,7 +33,7 @@ class TestCertificatesTest extends \PHPUnit_Framework_TestCase
         $dn = self::$dn;
         $dn['commonName'] = 'expired';
 
-        $cert = self::$certdir.DIRECTORY_SEPARATOR.'exipred.example.crt';
+        $cert = self::$certdir.DIRECTORY_SEPARATOR.'expired.example.crt';
         
         $testData = new TestData([
             'category' => 'Test certificate',
