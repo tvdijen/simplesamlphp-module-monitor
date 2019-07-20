@@ -41,7 +41,7 @@ class TestCertificatesTest extends \PHPUnit_Framework_TestCase
     {
         $certFile = self::$certdir.DIRECTORY_SEPARATOR.'signed.example.org.crt';
         $certData = file_get_contents($certFile);
-        $certInfo = openssl_x509_parse($certData)
+        $certInfo = openssl_x509_parse($certData);
 
         // Calculate the remaining days for the cert
         $exp = (int)(($certInfo['validTo_time_t'] - time()) / 86400);
@@ -49,14 +49,15 @@ class TestCertificatesTest extends \PHPUnit_Framework_TestCase
         $testData = new TestData([
             'category' => 'Test certificate',
             'certData' => $certData,
-            'certExpirationWarning' => 10,
+            'certExpirationWarning' => $exp+10,
         ]);
+
         $certTest = new TestCase\Cert\Data($testData);
         $testResult = $certTest->getTestResult();
         $expiration = $testResult->getOutput('expiration');
 
-        // Test that remaining days+4 = greater than $expiration, but less than $expiration+10
-        $this->assertGreaterThanOrEqual($exp + 4, $expiration);
+        // Test that remaining days-4 = greater than $expiration, but less than $expiration+10
+        $this->assertGreaterThanOrEqual($exp, $expiration + 4);
         $this->assertEquals(State::WARNING, $testResult->getState());
     }
 
