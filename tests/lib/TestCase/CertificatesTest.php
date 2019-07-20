@@ -33,17 +33,18 @@ class TestCertificatesTest extends \PHPUnit_Framework_TestCase
         $dn = self::$dn;
         $dn['commonName'] = 'expired';
 
-        $cert = self::$certdir.DIRECTORY_SEPARATOR.'expired.example.crt';
-        
+        $certFile = self::$certdir.DIRECTORY_SEPARATOR.'expired.example.org.crt';
+        $cert = file_get_contents($certFile);
+
         $testData = new TestData([
             'category' => 'Test certificate',
-            'certData' => $cert,
+            'certData' => $certFile,
             'certExpirationWarning' => 10,
         ]);
         $certTest = new TestCase\Cert\Data($testData);
         $testResult = $certTest->getTestResult();
         $expiration = $testResult->getOutput('expiration');
-        $this->assertLessThanOrEqual(-10, $expiration);
+        $this->assertLessThanOrEqual(-1, $expiration);
         $this->assertEquals(State::ERROR, $testResult->getState());
     }
 
