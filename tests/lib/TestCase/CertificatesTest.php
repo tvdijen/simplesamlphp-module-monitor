@@ -33,10 +33,8 @@ class TestCertificatesTest extends \PHPUnit_Framework_TestCase
         $dn = self::$dn;
         $dn['commonName'] = 'expired';
 
-        $csr = openssl_csr_new($dn, self::$key, ['digest_alg' => 'sha256']);
-        $res = openssl_csr_sign($csr, null, self::$key, $days = -10, ['digest_alg' => 'sha256']);
-        openssl_x509_export($res, $cert);
-
+        $cert = self::$certdir.DIRECTORY_SEPARATOR.'exipred.example.crt';
+        
         $testData = new TestData([
             'category' => 'Test certificate',
             'certData' => $cert,
