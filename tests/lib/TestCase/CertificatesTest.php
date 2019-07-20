@@ -30,15 +30,12 @@ class TestCertificatesTest extends \PHPUnit_Framework_TestCase
 
     public function testCertExpired()
     {
-        $dn = self::$dn;
-        $dn['commonName'] = 'expired';
-
         $certFile = self::$certdir.DIRECTORY_SEPARATOR.'expired.example.org.crt';
         $cert = file_get_contents($certFile);
 
         $testData = new TestData([
             'category' => 'Test certificate',
-            'certData' => $certFile,
+            'certData' => $cert,
             'certExpirationWarning' => 10,
         ]);
         $certTest = new TestCase\Cert\Data($testData);
