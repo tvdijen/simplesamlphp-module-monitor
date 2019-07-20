@@ -49,7 +49,7 @@ class TestCertificatesTest extends \PHPUnit_Framework_TestCase
         $testData = new TestData([
             'category' => 'Test certificate',
             'certData' => $certData,
-            'certExpirationWarning' => $exp+10,
+            'certExpirationWarning' => $exp + 10,
         ]);
 
         $certTest = new TestCase\Cert\Data($testData);
@@ -57,7 +57,7 @@ class TestCertificatesTest extends \PHPUnit_Framework_TestCase
         $expiration = $testResult->getOutput('expiration');
 
         // Test that remaining days-4 = greater than $expiration, but less than $expiration+10
-        $this->assertGreaterThanOrEqual($exp, $expiration + 4);
+        $this->assertGreaterThanOrEqual($exp - 4, $expiration);
         $this->assertEquals(State::WARNING, $testResult->getState());
     }
 
