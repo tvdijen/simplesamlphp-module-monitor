@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monitor>
+  <health>{{ overall }}</health>
+
+  <checks>
+
+{% for key, check in modules %}
+{% set health = check.state %}
+    <check category="{{ check.category }}">
+      <subject>{{ check.subject }}</subject>
+      <health>{{ healthInfo[health][0] }}</health>
+      <summary>{{ check.summary }}</summary>
+    </check>
+{% endfor %}
+
+{% for key, check in configuration %}
+{% set health = check.state %}
+    <check category="{{ check.category }}">
+      <subject>{{ check.subject }}</subject>
+      <health>{{ healthInfo[health][0] }}</health>
+      <summary>{{ check.summary }}</summary>
+    </check>
+{% endfor %}
+
+{% for key, check in store %}
+{% set health = check.state %}
+    <check category="{{ check.category }}">
+      <subject>{{ check.subject }}</subject>
+      <health>{{ healthInfo[health][0] }}</health>
+      <summary>{{ check.summary }}</summary>
+    </check>
+{% endfor %}
+
+{% for authsource in authsources %}
+{% for key, check in authsource %}
+{% set health = check.state %}
+    <check category="{{ check.category }}">
+      <subject>{{ check.subject }}</subject>
+      <health>{{ healthInfo[health][0] }}</health>
+      <summary>{{ check.summary }}</summary>
+    </check>
+{% endfor %}
+{% endfor %}
+
+{% for entity in metadata %}
+{% for key, check in entity %}
+{% set health = check.state %}
+    <check category="{{ check.category }}">
+      <subject>{{ check.subject }}</subject>
+      <health>{{ healthInfo[health][0] }}</health>
+      <summary>{{ check.summary }}</summary>
+    </check>
+{% endfor %}
+{% endfor %}
+
+  </checks>
+
+</monitor>

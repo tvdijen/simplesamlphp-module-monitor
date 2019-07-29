@@ -46,17 +46,28 @@ if ($state === State::OK) {
 }
 
 $outputFormat = $requestVars->get('output');
+
 switch ($outputFormat) {
     case 'xml':
         $t = new \SimpleSAML\XHTML\Template($globalConfig, 'monitor:monitor.xml.php');
-        $protocol = $serverVars->get('HTTP_PROTOCOL');
-        $t->data['protocol'] = is_null($protocol) ? 'HTTP/1.0' : $protocol;
+        $GLOBALS['http_response_code'] = $responseCode;
+        http_response_code($responseCode);
+        header("Content-Type: text/xml");
         break;
     case 'json':
         JsonResponse::create(['overall' => $healthInfo[$state][0], 'results' => $results], $responseCode)->send();
         return;
     case 'text':
         $t = new \SimpleSAML\XHTML\Template($globalConfig, 'monitor:monitor.text.php');
+        $GLOBALS['http_response_code'] = $responseCode;
+        http_response_code($responseCode);
+        if ($responseCode === 200) {
+            $t->data['status'] = 'OK';
+        } else if ($responseCode === 417) {
+            $t->data['status'] = 'WARN';
+        } else {
+            $t->data['status'] = 'FAIL';
+        }
         break;
     default:
         $t = new \SimpleSAML\XHTML\Template($globalConfig, 'monitor:monitor.php');
