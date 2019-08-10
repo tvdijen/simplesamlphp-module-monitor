@@ -19,7 +19,6 @@ class TemplateTest extends TestCase
     public function testSyntax()
     {
         $config = Configuration::loadFromArray([
-            'language.i18n.backend' => 'gettext/gettext',
             'module.enable' => array_fill_keys(Module::getModules(), true),
         ]);
 
