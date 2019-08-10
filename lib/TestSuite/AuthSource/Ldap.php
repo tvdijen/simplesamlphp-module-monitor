@@ -94,25 +94,22 @@ final class Ldap extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
             if ($failure === 0) {
                 // Test bind
-                $testData = new TestData([
-                    'authSourceData' => $this->authSourceData,
-                    'connection' => $connection
-                ]);
                 $bindTest = new TestCase\AuthSource\Ldap\Bind(
-                    $testData
+                    new TestData([
+                        'authSourceData' => $this->authSourceData,
+                        'connection' => $connection
+                    ])
                 );
                 $bindTestResult = $bindTest->getTestResult();
                 $this->addTestResult($bindTestResult);
 
                 if ($bindTestResult->getState() === State::OK) {
                     // Test search
-                    $testData = new TestData([
-                        'authSourceData' => $this->authSourceData,
-                        'connection' => $connection
-                    ]);
-
                     $searchTest = new TestCase\AuthSource\Ldap\Search(
-                        $testData
+                        new TestData([
+                            'authSourceData' => $this->authSourceData,
+                            'connection' => $connection
+                        ])
                     );
                     $searchTestResult = $searchTest->getTestResult();
                     $this->addTestResult($searchTestResult);
