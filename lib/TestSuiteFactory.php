@@ -116,14 +116,14 @@ abstract class TestSuiteFactory extends TestCaseFactory
             $state = State::OK;
             foreach ($testResults as $testResult) {
                 $testState = $testResult->getState();
-                if ($testState !== State::NOSTATE && $testState !== State::SKIPPED) {
+                if ($testState !== State::EMPTY && $testState !== State::SKIPPED) {
                     if ($testState < $state) {
                         $state = $testState;
                     }
                 }
             }
         } else {
-            $state = State::NOSTATE;
+            $state = State::EMPTY;
         }
         return $state;
     }
