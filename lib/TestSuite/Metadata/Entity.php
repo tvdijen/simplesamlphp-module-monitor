@@ -60,6 +60,11 @@ final class Entity extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
         if (array_key_exists('keys', $this->entityMetadata)) {
             $keys = $this->entityMetadata['keys'];
+
+
+            $signing = array_filter($keys, [self::class, 'getSigning']);
+            $encryption = array_filter($keys, [self::class, 'getEncryption']);
+
             foreach ($keys as $key) {
                 $input = [
                     'category' => $this->getType($key),
@@ -104,6 +109,24 @@ final class Entity extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         $testResult = new TestResult('Metadata endpoint');
         $testResult->setState($state);
         $this->setTestResult($testResult);
+    }
+
+
+    /**
+     * @param array $key
+     * @return bool
+     */
+    private function getSigning(array $key) {
+        return ($key['signing'] === true) && ($key['encryption'] === false);
+    }
+
+
+    /**
+     * @param array $key
+     * @return bool
+     */
+    private function getEncryption(array $key) {
+        return ($key['signing'] === false) && ($key['encryption'] === true);
     }
 
 
