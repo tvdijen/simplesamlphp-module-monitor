@@ -7,7 +7,7 @@ use \SimpleSAML\Modules\Monitor\DependencyInjection as DependencyInjection;
 /**
  * Tests for DependencyInjection
  */
-class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
+class DependencyInjectionTest extends \PHPUnit\Framework\TestCase
 {
     public function testIO()
     {

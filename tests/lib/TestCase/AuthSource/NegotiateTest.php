@@ -10,7 +10,7 @@ use \SimpleSAML\Modules\Monitor\State as State;
 /**
  * Tests for TestCase\Negotiate
  */
-class TestNegotiateTest extends \PHPUnit_Framework_TestCase
+class TestNegotiateTest extends \PHPUnit\Framework\TestCase
 {
     public static function setUpBeforeClass()
     {

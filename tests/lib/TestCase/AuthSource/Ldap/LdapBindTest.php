@@ -10,7 +10,7 @@ use \SimpleSAML\Modules\Monitor\State as State;
 /**
  * Tests for TestCase\Ldap\Bind
  */
-class TestLdapBindTest extends \PHPUnit_Framework_TestCase
+class TestLdapBindTest extends \PHPUnit\Framework\TestCase
 {
     public function testBindSuccesful()
     {

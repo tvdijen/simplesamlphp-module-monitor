@@ -9,7 +9,7 @@ use \SimpleSAML\Modules\Monitor\State as State;
 /**
  * Tests for TestCase\Module
  */
-class TestModuleTest extends \PHPUnit_Framework_TestCase
+class TestModuleTest extends \PHPUnit\Framework\TestCase
 {
     public function testModuleAvailable()
     {

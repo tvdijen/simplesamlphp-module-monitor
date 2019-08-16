@@ -8,7 +8,7 @@ use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
 /**
  * Tests for DependencyInjection
  */
-class TestResultTest extends \PHPUnit_Framework_TestCase
+class TestResultTest extends \PHPUnit\Framework\TestCase
 {
     public function testTestResult()
     {

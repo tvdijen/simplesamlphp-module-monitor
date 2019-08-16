@@ -9,7 +9,7 @@ use \SimpleSAML\Modules\Monitor\TestData as TestData;
 /**
  * Tests for TestCase\Ldap\Configuration
  */
-class TestLdapConfigurationTest extends \PHPUnit_Framework_TestCase
+class TestLdapConfigurationTest extends \PHPUnit\Framework\TestCase
 {
     public function testLdapConfiguration()
     {

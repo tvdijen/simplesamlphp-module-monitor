@@ -9,7 +9,7 @@ use \SimpleSAML\Modules\Monitor\State as State;
 /**
  * Tests for TestCase\Network\ConnectUri
  */
-class TestConnectUriTest extends \PHPUnit_Framework_TestCase
+class TestConnectUriTest extends \PHPUnit\Framework\TestCase
 {
     public function testConnectUriOK()
     {

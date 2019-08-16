@@ -9,7 +9,7 @@ use \SimpleSAML\Modules\Monitor\State as State;
 /**
  * Tests for TestCase\Metadata\Expiration
  */
-class TestMetadataExpirationTest extends \PHPUnit_Framework_TestCase
+class TestMetadataExpirationTest extends \PHPUnit\Framework\TestCase
 {
     public function testMetadataExpired()
     {

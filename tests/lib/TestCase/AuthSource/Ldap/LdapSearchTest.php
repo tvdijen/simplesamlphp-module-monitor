@@ -10,7 +10,7 @@ use \SimpleSAML\Modules\Monitor\State as State;
 /**
  * Tests for TestCase\Ldap\Search
  */
-class TestLdapSearchTest extends \PHPUnit_Framework_TestCase
+class TestLdapSearchTest extends \PHPUnit\Framework\TestCase
 {
     public function testSearchSuccesful()
     {

@@ -10,7 +10,7 @@ use \SimpleSAML\Modules\Monitor\State as State;
 /**
  * Tests for MemcacheServer
  */
-class TestMemcacheServerTest extends \PHPUnit_Framework_TestCase
+class TestMemcacheServerTest extends \PHPUnit\Framework\TestCase
 {
     public function testMemcacheServerUp()
     {

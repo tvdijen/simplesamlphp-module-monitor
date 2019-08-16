@@ -9,7 +9,7 @@ use \SimpleSAML\Modules\Monitor\State as State;
 /**
  * Tests for TestCase\Cert\Data and TestCase\Cert\File
  */
-class TestCertificatesTest extends \PHPUnit_Framework_TestCase
+class TestCertificatesTest extends \PHPUnit\Framework\TestCase
 {
     private static $certdir;
     private static $key;

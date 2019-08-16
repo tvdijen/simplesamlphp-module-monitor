@@ -9,7 +9,7 @@ use \SimpleSAML\Modules\Monitor\State as State;
 /**
  * Tests for TestCase\FileSystem\FreeSpace
  */
-class TestFreeSpaceTest extends \PHPUnit_Framework_TestCase
+class TestFreeSpaceTest extends \PHPUnit\Framework\TestCase
 {
     public function testFreeSpaceAvailable()
     {

@@ -13,7 +13,7 @@ use \Tests\SimpleSAML\Modules\Monitor\TestFiles\TestSuiteImplementation as TestS
 /**
  * Tests for TestSuiteFactory
  */
-class TestSuiteFactoryTest extends \PHPUnit_Framework_TestCase
+class TestSuiteFactoryTest extends \PHPUnit\Framework\TestCase
 {
     public function testTestSuiteFactory()
     {
