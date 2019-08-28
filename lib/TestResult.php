@@ -5,7 +5,7 @@ namespace SimpleSAML\Modules\Monitor;
 final class TestResult
 {
     /** @var int The state reflecting the result */
-    private $state = State::EMPTY;
+    private $state = State::NOSTATE;
 
     /** @var string Test category this test belongs to */
     private $category;
@@ -161,7 +161,7 @@ final class TestResult
      *
      * @return void
      */
-    public function setState($state = State::EMPTY)
+    public function setState($state = State::NOSTATE)
     {
         assert(is_int($state));
         $this->state = $state;

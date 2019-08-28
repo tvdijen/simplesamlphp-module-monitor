@@ -17,7 +17,7 @@ class TestResultTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('Unknown category', $testResult->getCategory());
         $this->assertEquals('Unknown subject', $testResult->getSubject());
         $this->assertEquals([], $testResult->getOutput());
-        $this->assertEquals(State::EMPTY, $testResult->getState());
+        $this->assertEquals(State::NOSTATE, $testResult->getState());
         $this->assertEquals('', $testResult->getMessage());
 
         $testResult->setCategory('aaa');
