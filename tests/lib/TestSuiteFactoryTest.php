@@ -26,7 +26,7 @@ class TestSuiteFactoryTest extends \PHPUnit\Framework\TestCase
         );
         $testData = new TestData(['travis' => 'travis', 'test' => 'travis']);
         $testSuite = new TestSuiteImplementation($config, $testData);
-        $this->assertEquals(State::EMPTY, $testSuite->calculateState());
+        $this->assertEquals(State::NOSTATE, $testSuite->calculateState());
         $this->assertEquals($testData, $testSuite->getTestData());
 
         $results = $testSuite->prepareTests();

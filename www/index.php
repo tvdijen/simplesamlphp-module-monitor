@@ -31,7 +31,7 @@ $healthInfo = [
     State::SKIPPED => ['SKIPPED', 'yellow'],
     State::FATAL   => ['FATAL',   'purple'],
     State::ERROR   => ['NOK',     'red'   ],
-    State::EMPTY   => ['EMPTY',   'cyan'  ],
+    State::NOSTATE => ['NOSTATE', 'cyan'  ],
     State::WARNING => ['WARNING', 'orange'],
     State::OK      => ['OK',      'green' ]
 ];
