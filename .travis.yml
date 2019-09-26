@@ -3,9 +3,6 @@ sudo: required
 language: php
 
 php:
-  - 5.6
-  - 7.0
-  - 7.1
   - 7.2
   - 7.3
 
@@ -14,12 +11,6 @@ env:
   
 matrix:
   include:
-    - php: 5.6
-      env: SIMPLESAMLPHP_VERSION=dev-master
-    - php: 7.0
-      env: SIMPLESAMLPHP_VERSION=dev-master
-    - php: 7.1
-      env: SIMPLESAMLPHP_VERSION=dev-master
     - php: 7.2
       env: SIMPLESAMLPHP_VERSION=dev-master
     - php: 7.3
@@ -41,7 +32,7 @@ before_script:
 
 script:
   - vendor/simplesamlphp/simplesamlphp-test-framework/bin/check-syntax-php.sh
-  - if [[ "$TRAVIS_PHP_VERSION" == "5.6" ]]; then php vendor/phpunit/phpunit/phpunit; else php vendor/phpunit/phpunit/phpunit --no-coverage; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == "7.3" ]]; then php vendor/phpunit/phpunit/phpunit; else php vendor/phpunit/phpunit/phpunit --no-coverage; fi
   - if [[ "$TRAVIS_PHP_VERSION" == "7.3" ]]; then vendor/bin/psalm; fi
 
 after_success:
@@ -51,5 +42,5 @@ after_success:
   - curl -s https://codecov.io/bash > .codecov
   - sed -i -e 's/TRAVIS_.*_VERSION/^TRAVIS_.*_VERSION=/' .codecov
   - chmod +x .codecov
-  - if [[ $TRAVIS_PHP_VERSION == "5.6" ]]; then ./.codecov -X gcov; fi
-  # - if [[ "$TRAVIS_PHP_VERSION" == "5.6" ]]; then bash <(curl -s https://codecov.io/bash); fi
+  - if [[ $TRAVIS_PHP_VERSION == "7.3" ]]; then ./.codecov -X gcov; fi
+  # - if [[ "$TRAVIS_PHP_VERSION" == "7.3" ]]; then bash <(curl -s https://codecov.io/bash); fi
