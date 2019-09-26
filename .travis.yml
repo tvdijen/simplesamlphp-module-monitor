@@ -7,14 +7,10 @@ php:
   - 7.3
 
 env:
-  - SIMPLESAMLPHP_VERSION=1.17.*
+  - SIMPLESAMLPHP_VERSION=1.18.*
+  - SIMPLESAMLPHP_VERSION=dev-master
   
 matrix:
-  include:
-    - php: 7.2
-      env: SIMPLESAMLPHP_VERSION=dev-master
-    - php: 7.3
-      env: SIMPLESAMLPHP_VERSION=dev-master
   allow_failures:
     # We can't always keep up with changes in SSP-master
     - env: SIMPLESAMLPHP_VERSION=dev-master
