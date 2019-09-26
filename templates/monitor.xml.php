@@ -9,21 +9,10 @@ $state = $this->data['overall'];
 $authsources = $this->data['authsources'];
 $metadata = $this->data['metadata'];
 $healthInfo = $this->data['healthInfo'];
-$protocol = $this->data['protocol'];
-$responseCode = $this->data['responseCode'];
 
 list($healthState, $healthColor) = $healthInfo[$state];
 
 $overall = $healthState;
-
-$GLOBALS['http_response_code'] = $responseCode;
-if ($responseCode === 200) {
-  header($protocol . ' 200 OK');
-} else if ($responseCode === 417) {
-  header($protocol . ' 417 Expectation failed');
-} else {
-  header($protocol . ' 500 Internal Server Error');
-}
 
 $output = '<?xml version="1.0" encoding="UTF-8"?>';
 $output .= '<monitor>';
