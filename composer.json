@@ -35,6 +35,7 @@
     "require-dev": {
         "ext-krb5": "*",
 
+        "phpunit/phpunit": "~5.7",
         "simplesamlphp/simplesamlphp": "^1.18",
         "simplesamlphp/simplesamlphp-test-framework": "~0.0.11"
     },
