@@ -36,8 +36,8 @@
         "ext-krb5": "*",
 
         "phpunit/phpunit": "~5.7",
-        "simplesamlphp/simplesamlphp": "^1.18",
-        "simplesamlphp/simplesamlphp-test-framework": "~0.0.11"
+        "simplesamlphp/simplesamlphp": "^1.18@RC",
+        "simplesamlphp/simplesamlphp-test-framework": "~0.0.12"
     },
     "support": {
         "issues": "https://github.com/tvdijen/simplesamlphp-module-monitor/issues",
