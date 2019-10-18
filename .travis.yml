@@ -2,41 +2,139 @@ sudo: required
 
 language: php
 
+stages:
+  - pre-conditions
+  - test
+  - quality
+
+################
+#  Test stage  #
+################
+
 php:
   - 7.2
   - 7.3
+  - 7.4snapshot
 
 env:
-  - SIMPLESAMLPHP_VERSION=1.18.*
-  - SIMPLESAMLPHP_VERSION=dev-master
-  
-matrix:
-  allow_failures:
-    # We can't always keep up with changes in SSP-master
-    - env: SIMPLESAMLPHP_VERSION=dev-master
+  - COMMAND="composer install"
+  - COMMAND="composer update"
 
 before_script:
   - pecl install krb5
   - sudo apt-get install stunnel4 apache2
   - mkdir /tmp/testdisk; sudo mount -t tmpfs -o size=100k tmpfs /tmp/testdisk; sudo chmod -R 777 /tmp/testdisk
   - phpenv config-add tests/files/myphp.ini
-  - composer require "simplesamlphp/simplesamlphp:${SIMPLESAMLPHP_VERSION}" --no-update
-  - composer update --no-interaction
+  - ${COMMAND} --no-interaction
   - sudo stunnel4 tests/files/stunnel.conf
   - php -S localhost:8080 &
   - export WEBPID=$!
 
 script:
-  - vendor/simplesamlphp/simplesamlphp-test-framework/bin/check-syntax-php.sh
-  - if [[ "$TRAVIS_PHP_VERSION" == "7.3" ]]; then php vendor/phpunit/phpunit/phpunit; else php vendor/phpunit/phpunit/phpunit --no-coverage; fi
-  - if [[ "$TRAVIS_PHP_VERSION" == "7.3" ]]; then vendor/bin/psalm; fi
+  - php vendor/bin/phpunit --no-coverage
 
 after_success:
   - sudo umount /tmp/testdisk; rm -rf /tmp/testdisk
   - kill -kill $WEBPID
-  # Codecov, need to edit bash uploader for incorrect TRAVIS_PYTHON_VERSION environment variable matching, at least until codecov/codecov-bash#133 is resolved
-  - curl -s https://codecov.io/bash > .codecov
-  - sed -i -e 's/TRAVIS_.*_VERSION/^TRAVIS_.*_VERSION=/' .codecov
-  - chmod +x .codecov
-  - if [[ $TRAVIS_PHP_VERSION == "7.3" ]]; then ./.codecov -X gcov; fi
-  # - if [[ "$TRAVIS_PHP_VERSION" == "7.3" ]]; then bash <(curl -s https://codecov.io/bash); fi
+
+jobs:
+  fast_finish: true
+
+  allow_failures:
+    - php: 7.3
+      env: Security check (composer install)
+    - php: 7.3
+      env: Security check (composer update)
+    - php: 7.3
+      env: Psalm
+    - php: 7.3
+      env: PHP Codesniffer
+
+  include:
+
+    ##########################
+    #  Pre-conditions stage  #
+    ##########################
+
+    - stage: pre-conditions
+      env: Syntax check PHP
+      php: 7.2
+      before_script:
+        - composer install --ignore-platform-reqs
+      script:
+        - vendor/bin/check-syntax-php.sh
+
+    - stage: pre-conditions
+      env: Syntax check PHP
+      php: 7.3
+      before_script:
+        - composer install --ignore-platform-reqs
+      script:
+        - vendor/bin/check-syntax-php.sh
+
+    - stage: pre-conditions
+      env: Syntax check PHP
+      php: 7.4snapshot
+      before_script:
+        - composer install --ignore-platform-reqs
+      script:
+        - vendor/bin/check-syntax-php.sh
+
+    - stage: pre-conditions
+      env: Syntax check YAML / XML / JSON
+      before_script:
+        - composer install --ignore-platform-reqs
+      script:
+        - vendor/simplesamlphp/simplesamlphp-test-framework/bin/check-syntax-json.sh
+        - vendor/simplesamlphp/simplesamlphp-test-framework/bin/check-syntax-xml.sh
+        - vendor/simplesamlphp/simplesamlphp-test-framework/bin/check-syntax-yaml.sh
+
+    ###################
+    #  Quality stage  #
+    ###################
+
+    - stage: quality
+      php: 7.3
+      env: Security check (composer install)
+      before_script:
+        - composer install
+      script:
+        - vendor/bin/security-checker security:check
+
+    - stage: quality
+      php: 7.3
+      env: Security check (composer update)
+      before_script:
+        - composer update
+      script:
+        - vendor/bin/security-checker security:check
+
+    - stage: quality
+      php: 7.3
+      env: Codecov
+      before_script:
+        - composer update
+        - php vendor/bin/phpunit
+      script:
+        # Codecov, need to edit bash uploader for incorrect TRAVIS_PYTHON_VERSION environment variable matching, at least until codecov/codecov-bash#133 is resolved
+        - curl -s https://codecov.io/bash > .codecov
+        - sed -i -e 's/TRAVIS_.*_VERSION/^TRAVIS_.*_VERSION=/' .codecov
+        - chmod +x .codecov
+        - ./.codecov -X gcov
+        # - <(curl -s https://codecov.io/bash)
+
+    - stage: quality
+      php: 7.3
+      env: Psalm
+      before_script:
+        - composer update
+      script:
+        - vendor/bin/psalm
+
+    - stage: quality
+      php: 7.3
+      env: PHP Codesniffer
+      before_script:
+        - composer update
+      script:
+        - vendor/bin/phpcs src/
