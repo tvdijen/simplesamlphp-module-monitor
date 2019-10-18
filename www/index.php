@@ -2,12 +2,13 @@
 
 require_once(dirname(dirname(__FILE__)).'/lib/_autoload.php');
 
-use \SimpleSAML\Modules\Monitor\DependencyInjection as DependencyInjection;
-use \SimpleSAML\Modules\Monitor\State as State;
-use \SimpleSAML\Modules\Monitor\TestConfiguration as TestConfiguration;
-use \SimpleSAML\Modules\Monitor\Monitor as Monitor;
-use \SimpleSAML\Configuration as ApplicationConfiguration;
-use \Symfony\Component\HttpFoundation\JsonResponse;
+use SimpleSAML\Configuration as ApplicationConfiguration;
+use SimpleSAML\Modules\Monitor\DependencyInjection as DependencyInjection;
+use SimpleSAML\Modules\Monitor\State as State;
+use SimpleSAML\Modules\Monitor\TestConfiguration as TestConfiguration;
+use SimpleSAML\Modules\Monitor\Monitor as Monitor;
+use SimpleSAML\XHTML\Template;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 assert_options(ASSERT_ACTIVE, 1);
 assert_options(ASSERT_WARNING, 1);
@@ -49,7 +50,7 @@ $outputFormat = $requestVars->get('output');
 
 switch ($outputFormat) {
     case 'xml':
-        $t = new \SimpleSAML\XHTML\Template($globalConfig, 'monitor:monitor.xml.php');
+        $t = new Template($globalConfig, 'monitor:monitor.xml.php');
         $GLOBALS['http_response_code'] = $responseCode;
         http_response_code($responseCode);
         header("Content-Type: text/xml");
@@ -58,7 +59,7 @@ switch ($outputFormat) {
         JsonResponse::create(['overall' => $healthInfo[$state][0], 'results' => $results], $responseCode)->send();
         return;
     case 'text':
-        $t = new \SimpleSAML\XHTML\Template($globalConfig, 'monitor:monitor.text.php');
+        $t = new Template($globalConfig, 'monitor:monitor.text.php');
         $GLOBALS['http_response_code'] = $responseCode;
         http_response_code($responseCode);
         if ($responseCode === 200) {
@@ -70,7 +71,7 @@ switch ($outputFormat) {
         }
         break;
     default:
-        $t = new \SimpleSAML\XHTML\Template($globalConfig, 'monitor:monitor.php');
+        $t = new Template($globalConfig, 'monitor:monitor.php');
         break;
 }
 
