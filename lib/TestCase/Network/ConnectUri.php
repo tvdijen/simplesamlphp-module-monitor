@@ -63,7 +63,7 @@ final class ConnectUri extends \SimpleSAML\Module\Monitor\TestCaseFactory
      *
      * @return void
      */
-    private function setContext(resource $context): void
+    private function setContext($context): void
     {
         $this->context = $context;
     }

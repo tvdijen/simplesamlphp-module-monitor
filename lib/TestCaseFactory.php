@@ -76,7 +76,7 @@ abstract class TestCaseFactory implements TestInterface
      *
      * @return void
      */
-    protected function setTestData(TestData $testData = null): ?TestData
+    protected function setTestData(TestData $testData = null): void
     {
         $this->testData = $testData;
     }

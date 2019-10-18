@@ -8,7 +8,7 @@ use SimpleSAML\Module\Monitor\TestResult;
 use SimpleSAML\Module\Monitor\DependencyInjection;
 use SimpleSAML\Module\Monitor\TestConfiguration;
 use SimpleSAML\Module\Monitor\TestSuiteFactory;
-use Tests\SimpleSAML\Modules\Monitor\TestFiles\TestSuiteImplementation;
+use Tests\SimpleSAML\Module\Monitor\TestFiles\TestSuiteImplementation;
 
 /**
  * Tests for TestSuiteFactory

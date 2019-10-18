@@ -2,6 +2,7 @@
 
 namespace SimpleSAML\Module\Monitor\Test;
 
+use SimpleSAML\Configuration;
 use SimpleSAML\Module\Monitor\DependencyInjection;
 use SimpleSAML\Module\Monitor\TestConfiguration;
 use SimpleSAML\Module\Monitor\Monitor;
@@ -35,13 +36,13 @@ class MonitorTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
         $moduleConfig_input = [
             'test' => 'travis'
         ];
-        $globalConfig = \SimpleSAML\Configuration::loadFromArray($globalConfig_input);
-        $authSourceConfig = \SimpleSAML\Configuration::loadFromArray($authSourceConfig_input);
-        $moduleConfig = \SimpleSAML\Configuration::loadFromArray($moduleConfig_input);
+        $globalConfig = Configuration::loadFromArray($globalConfig_input);
+        $authSourceConfig = Configuration::loadFromArray($authSourceConfig_input);
+        $moduleConfig = Configuration::loadFromArray($moduleConfig_input);
 
-        \SimpleSAML\Configuration::setPreLoadedConfig($globalConfig, 'config.php');
-        \SimpleSAML\Configuration::setPreLoadedConfig($moduleConfig, 'module_monitor.php');
-        \SimpleSAML\Configuration::setPreLoadedConfig($authSourceConfig, 'authsources.php');
+        Configuration::setPreLoadedConfig($globalConfig, 'config.php');
+        Configuration::setPreLoadedConfig($moduleConfig, 'module_monitor.php');
+        Configuration::setPreLoadedConfig($authSourceConfig, 'authsources.php');
 
         $testConf = new TestConfiguration($serverVars, $requestVars, $globalConfig, $authSourceConfig, $moduleConfig);
         $monitor = new Monitor($testConf);

@@ -213,18 +213,18 @@ final class TestConfiguration
 
 
     /**
-     * @return DependencyInjection
+     * @return \SimpleSAML\Module\Monitor\DependencyInjection
      */
-    public function getServerVars(): array
+    public function getServerVars(): DependencyInjection
     {
         return $this->serverVars;
     }
 
 
     /**
-     * @return DependencyInjection
+     * @return \SimpleSAML\Module\Monitor\DependencyInjection
      */
-    public function getRequestVars(): array
+    public function getRequestVars(): DependencyInjection
     {
         return $this->requestVars;
     }
