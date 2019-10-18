@@ -1,13 +1,14 @@
 <?php
 
-namespace SimpleSAML\Module\monitor;
+namespace SimpleSAML\Module\Monitor;
 
-use \SimpleSAML\Modules\Monitor\DependencyInjection as DependencyInjection;
-use \SimpleSAML\Modules\Monitor\State as State;
-use \SimpleSAML\Modules\Monitor\TestConfiguration as TestConfiguration;
-use \SimpleSAML\Modules\Monitor\Monitor as Monitor;
-use \SimpleSAML\Configuration as ApplicationConfiguration;
-use \Symfony\Component\HttpFoundation\JsonResponse;
+use SimpleSAML\Configuration;
+use SimpleSAML\Modules\Monitor\DependencyInjection;
+use SimpleSAML\Modules\Monitor\State as State;
+use SimpleSAML\Modules\Monitor\TestConfiguration;
+use SimpleSAML\Modules\Monitor\Monitor;
+use SimpleSAML\XHTML\Template;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Controller class for the monitor module.
@@ -27,10 +28,10 @@ class Controller
     /** @var \SimpleSAML\Configuration */
     protected $authsourceConfig;
 
-    /** @var \SimpleSAML\Modules\Monitor\DependencyInjection */
+    /** @var \SimpleSAML\Module\Monitor\DependencyInjection */
     protected $serverVars;
 
-    /** @var \SimpleSAML\Modules\Monitor\DependencyInjection */
+    /** @var \SimpleSAML\Module\Monitor\DependencyInjection */
     protected $requestVars;
 
     /** @var array */
@@ -66,17 +67,22 @@ class Controller
      *
      * @throws \Exception
      */
-    public function __construct(
-        Configuration $config
-    ) {
+    public function __construct(Configuration $config)
+    {
         $this->config = $config;
-        $this->moduleConfig = ApplicationConfiguration::getOptionalConfig('module_monitor.php');
-        $this->authsourceConfig = ApplicationConfiguration::getOptionalConfig('authsources.php');
+        $this->moduleConfig = Configuration::getOptionalConfig('module_monitor.php');
+        $this->authsourceConfig = Configuration::getOptionalConfig('authsources.php');
 
         $this->serverVars = new DependencyInjection($_SERVER);
         $this->requestVars = new DependencyInjection($_REQUEST);
 
-        $this->testConfiguration = new TestConfiguration($this->serverVars, $this->requestVars, $this->config, $this->authsourceConfig, $this->moduleConfig);
+        $this->testConfiguration = new TestConfiguration(
+            $this->serverVars,
+            $this->requestVars,
+            $this->config,
+            $this->authsourceConfig,
+            $this->moduleConfig
+        );
         $this->monitor = new Monitor($this->testConfiguration);
 
         $this->state = $this->monitor->getState();
@@ -96,7 +102,7 @@ class Controller
      * @param string $format  Default is XHTML output
      * @return \SimpleSAML\XHTML\Template
      */
-    public function main($format)
+    public function main(string $format): Template
     {
         $this->monitor->invokeTestSuites();
         $results = $this->monitor->getResults();
@@ -111,7 +117,7 @@ class Controller
                 $t = $this->processText();
                 break;
             default:
-                $t = new \SimpleSAML\XHTML\Template($globalConfig, 'monitor:monitor.php');
+                $t = new Template($globalConfig, 'monitor:monitor.twig');
                 break;
         }
 
@@ -130,8 +136,9 @@ class Controller
     /**
      * @return \SimpleSAML\XHTML\Template
      */
-    private function processXml() {
-        $t = new \SimpleSAML\XHTML\Template($this->config, 'monitor:monitor.xml.php');
+    private function processXml(): Template
+    {
+        $t = new Template($this->config, 'monitor:monitor.xml.twig');
         $t->headers->set('Content-Type', 'text/xml');
         return $t;
     }
@@ -141,16 +148,22 @@ class Controller
      * @param array $results
      * @return \SimpleSAML\XHTML\Template
      */
-    private function processJson(array $results) {
-        return JsonResponse::create(['overall' => $this->healthInfo[$this->state][0], 'results' => $results], $this->responseCode);
+    private function processJson(array $results): Template
+    {
+        return JsonResponse::create(
+            ['overall' => $this->healthInfo[$this->state][0],
+            'results' => $results],
+            $this->responseCode
+        );
     }
 
 
     /**
      * @return \SimpleSAML\XHTML\Template
      */
-    private function processText() {
-        $t = new \SimpleSAML\XHTML\Template($this->config, 'monitor:monitor.text.php');
+    private function processText(): Template
+    {
+        $t = new Template($this->config, 'monitor:monitor.text.twig');
 
         if ($this->state === State::OK) {
             $t->data['status'] = 'OK';

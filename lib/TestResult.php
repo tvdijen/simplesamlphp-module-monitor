@@ -1,6 +1,6 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor;
+namespace SimpleSAML\Module\Monitor;
 
 final class TestResult
 {
@@ -24,7 +24,7 @@ final class TestResult
      * @param string $category
      * @param string $subject
      */
-    public function __construct($category = 'Unknown category', $subject = 'Unknown subject')
+    public function __construct(string $category = 'Unknown category', string $subject = 'Unknown subject')
     {
         $this->setCategory($category);
         $this->setSubject($subject);
@@ -36,7 +36,7 @@ final class TestResult
      *
      * @return array
      */
-    public function arrayizeTestResult($includeOutput = false)
+    public function arrayizeTestResult(bool $includeOutput = false): array
     {
         $output = [
             'state' => $this->getState(),
@@ -56,9 +56,8 @@ final class TestResult
      *
      * @return void
      */
-    public function setSubject($subject)
+    public function setSubject(string $subject): void
     {
-        assert(is_string($subject));
         $this->subject = $subject;
     }
 
@@ -66,9 +65,8 @@ final class TestResult
     /**
      * @return string
      */
-    public function getSubject()
+    public function getSubject(): string
     {
-        assert(is_string($this->subject));
         return $this->subject;
     }
 
@@ -78,9 +76,8 @@ final class TestResult
      *
      * @return void
      */
-    public function setCategory($category)
+    public function setCategory(string $category): void
     {
-        assert(is_string($category));
         $this->category = $category;
     }
 
@@ -88,9 +85,8 @@ final class TestResult
     /**
      * @return string
      */
-    public function getCategory()
+    public function getCategory(): string
     {
-        assert(is_string($this->category));
         return $this->category;
     }
 
@@ -100,9 +96,8 @@ final class TestResult
      *
      * @return void
      */
-    public function setMessage($message)
+    public function setMessage(string $message): void
     {
-        assert(is_string($message));
         $this->message = $message;
     }
 
@@ -110,9 +105,8 @@ final class TestResult
     /**
      * @return string
      */
-    public function getMessage()
+    public function getMessage(): string
     {
-        assert(is_string($this->message));
         return $this->message;
     }
 
@@ -122,7 +116,7 @@ final class TestResult
      *
      * @return void
      */
-    public function setOutput(array $value)
+    public function setOutput(array $value): void
     {
         $this->output = $value;
     }
@@ -134,7 +128,7 @@ final class TestResult
      *
      * @return void
      */
-    public function addOutput($value, $index = null)
+    public function addOutput($value, string $index = null): void
     {
         if ($index === null) {
             $this->output = array_merge($this->output, $value);
@@ -149,9 +143,8 @@ final class TestResult
      *
      * @return mixed
      */
-    public function getOutput($key = null)
+    public function getOutput(string $key = null)
     {
-        assert(is_array($this->output));
         return is_null($key) ? $this->output : (isSet($this->output[$key]) ? $this->output[$key] : null);
     }
     
@@ -161,9 +154,8 @@ final class TestResult
      *
      * @return void
      */
-    public function setState($state = State::NOSTATE)
+    public function setState(int $state = State::NOSTATE): void
     {
-        assert(is_int($state));
         $this->state = $state;
     }
 
@@ -171,9 +163,8 @@ final class TestResult
     /**
      * @return int
      */
-    public function getState()
+    public function getState(): int
     {
-        assert(is_int($this->state));
         return $this->state;
     }
 }

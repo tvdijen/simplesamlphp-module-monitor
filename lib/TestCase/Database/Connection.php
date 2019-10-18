@@ -1,12 +1,12 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\TestCase\Database;
+namespace SimpleSAML\Module\Monitor\TestCase\Database;
 
-use \SimpleSAML\Modules\Monitor\State as State;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
-use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
+use SimpleSAML\Module\Monitor\State;
+use SimpleSAML\Module\Monitor\TestData;
+use SimpleSAML\Module\Monitor\TestResult;
 
-final class Connection extends \SimpleSAML\Modules\Monitor\TestCaseFactory
+final class Connection extends \SimpleSAML\Module\Monitor\TestCaseFactory
 {
     /** @var \SimpleSAML\Database */
     private $db = null;
@@ -16,11 +16,11 @@ final class Connection extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 
 
     /**
-     * @param TestData $testData
+     * @param \SimpleSAML\Module\Monitor\TestData $testData
      *
      * @return void
      */
-    protected function initialize(TestData $testData)
+    protected function initialize(TestData $testData): void
     {
         $this->dsn = $testData->getInputItem('dsn');
         parent::initialize($testData);
@@ -30,7 +30,7 @@ final class Connection extends \SimpleSAML\Modules\Monitor\TestCaseFactory
     /**
      * @return void
      */
-    public function invokeTest()
+    public function invokeTest(): void
     {
         try {
             $this->db = \SimpleSAML\Database::getInstance();

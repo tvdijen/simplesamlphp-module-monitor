@@ -1,16 +1,16 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\Test;
+namespace SimpleSAML\Module\Monitor\Test;
 
-use \SimpleSAML\Modules\Monitor\DependencyInjection as DependencyInjection;
-use \SimpleSAML\Modules\Monitor\TestConfiguration as TestConfiguration;
+use SimpleSAML\Module\Monitor\DependencyInjection;
+use SimpleSAML\Module\Monitor\TestConfiguration;
 
 /**
  * Tests for TestConfiguration
  */
 class TestConfigurationTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
 {
-    public function testTestConfiguration()
+    public function testTestConfiguration(): void
     {
         $serverVars = new DependencyInjection(['SERVER_NAME' => 'localhost']);
         $requestVars = new DependencyInjection(['output' => 'travis']);

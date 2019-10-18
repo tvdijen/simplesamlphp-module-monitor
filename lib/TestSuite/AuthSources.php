@@ -1,15 +1,15 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\TestSuite;
+namespace SimpleSAML\Module\Monitor\TestSuite;
 
-use \SimpleSAML\Configuration as ApplicationConfiguration;
-use \SimpleSAML\Modules\Monitor\TestConfiguration as TestConfiguration;
-use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
+use SimpleSAML\Configuration as ApplicationConfiguration;
+use SimpleSAML\Module\Monitor\TestConfiguration;
+use SimpleSAML\Module\Monitor\TestResult;
+use SimpleSAML\Module\Monitor\TestData;
 
-final class AuthSources extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
+final class AuthSources extends \SimpleSAML\Module\Monitor\TestSuiteFactory
 {
-    /** @var ApplicationConfiguration */
+    /** @var \SimpleSAML\Configuration */
     private $authSourceConfig;
 
     /** @var array|bool */
@@ -20,7 +20,7 @@ final class AuthSources extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
 
     /**
-     * @param TestConfiguration $configuration
+     * @param \SimpleSAML\Module\Monitor\TestConfiguration $configuration
      */
     public function __construct(TestConfiguration $configuration)
     {
@@ -37,7 +37,7 @@ final class AuthSources extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /**
      * @return void
      */
-    public function invokeTest()
+    public function invokeTest(): void
     {
         if ($this->checkAuthSources === true) {
             $authSources = $this->authSourceConfig->getOptions();
@@ -101,7 +101,7 @@ final class AuthSources extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
      *
      * @return array|null
      */
-    private function getAuthSourceSpecifics($authSourceId)
+    private function getAuthSourceSpecifics(string $authSourceId): ?array
     {
         if (is_array($this->authSourceSpecifics)) {
             if (array_key_exists($authSourceId, $this->authSourceSpecifics)) {
@@ -117,7 +117,7 @@ final class AuthSources extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
      *
      * @return void
      */
-    private function convertAuthSourceData(array &$authSourceData)
+    private function convertAuthSourceData(array &$authSourceData): void
     {
         // LDAP and Negotiate authSources use different names for equal properties
         // Hopefully this function can go away in SSP 2.0

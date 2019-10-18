@@ -1,12 +1,12 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\TestSuite\AuthSource;
+namespace SimpleSAML\Module\Monitor\TestSuite\AuthSource;
 
-use \SimpleSAML\Modules\Monitor\TestConfiguration as TestConfiguration;
-use \SimpleSAML\Modules\Monitor\TestCase as TestCase;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
+use SimpleSAML\Module\Monitor\TestConfiguration;
+use SimpleSAML\Module\Monitor\TestCase;
+use SimpleSAML\Module\Monitor\TestData;
 
-final class Negotiate extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
+final class Negotiate extends \SimpleSAML\Module\Monitor\TestSuiteFactory
 {
     /** @var string|null */
     private $authorization;
@@ -16,8 +16,8 @@ final class Negotiate extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
 
     /**
-     * @param TestConfiguration $configuration
-     * @param TestData $testData
+     * @param \SimpleSAML\Module\Monitor\TestConfiguration $configuration
+     * @param \SimpleSAML\Module\Monitor\TestData $testData
      */
     public function __construct(TestConfiguration $configuration, TestData $testData)
     {
@@ -38,7 +38,7 @@ final class Negotiate extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /**
      * @return void
      */
-    public function invokeTest()
+    public function invokeTest(): void
     {
         $input = [
             'handle' => $this->handle,

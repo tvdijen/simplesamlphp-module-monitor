@@ -1,6 +1,6 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor;
+namespace SimpleSAML\Module\Monitor;
 
 class State
 {

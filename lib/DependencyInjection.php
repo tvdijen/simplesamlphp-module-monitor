@@ -1,6 +1,6 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor;
+namespace SimpleSAML\Module\Monitor;
 
 final class DependencyInjection
 {
@@ -22,7 +22,7 @@ final class DependencyInjection
      *
      * @return mixed
      */
-    public function get($key)
+    public function get(string $key)
     {
         return array_key_exists($key, $this->vars) ? $this->vars[$key] : null;
     }

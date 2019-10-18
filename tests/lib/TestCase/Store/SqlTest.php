@@ -1,17 +1,17 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\Test;
+namespace SimpleSAML\Module\Monitor\Test;
 
-use \SimpleSAML\Modules\Monitor\TestCase\Store\Sql as Sql;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
-use \SimpleSAML\Modules\Monitor\State as State;
+use SimpleSAML\Module\Monitor\TestCase\Store\Sql;
+use SimpleSAML\Module\Monitor\TestData;
+use SimpleSAML\Module\Monitor\State;
 
 /**
  * Tests for Sql
  */
 class TestSqlTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
 {
-    public function testSqlSuccess()
+    public function testSqlSuccess(): void
     {
         $globalConfig_input = [
             'store.type' => 'sql',
@@ -28,7 +28,7 @@ class TestSqlTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
         unlink('/tmp/test.sqlite');
     }
 
-    public function testSqlFailure()
+    public function testSqlFailure(): void
     {
         $globalConfig_input = [
             'store.type' => 'sql',

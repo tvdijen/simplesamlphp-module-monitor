@@ -1,17 +1,17 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\Test;
+namespace SimpleSAML\Module\Monitor\Test;
 
-use \SimpleSAML\Modules\Monitor\DependencyInjection as DependencyInjection;
-use \SimpleSAML\Modules\Monitor\TestConfiguration as TestConfiguration;
-use \SimpleSAML\Modules\Monitor\Monitor as Monitor;
+use SimpleSAML\Module\Monitor\DependencyInjection;
+use SimpleSAML\Module\Monitor\TestConfiguration;
+use SimpleSAML\Module\Monitor\Monitor;
 
 /**
  * Tests for Monitor
  */
 class MonitorTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
 {
-    public function testMonitor()
+    public function testMonitor(): void
     {
         $_SERVER['REQUEST_URI'] = '/';
         $serverVars = new DependencyInjection(['SERVER_NAME' => 'localhost']);

@@ -1,14 +1,14 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\TestSuite\Metadata;
+namespace SimpleSAML\Module\Monitor\TestSuite\Metadata;
 
-use \SimpleSAML\Modules\Monitor\State as State;
-use \SimpleSAML\Modules\Monitor\TestConfiguration as TestConfiguration;
-use \SimpleSAML\Modules\Monitor\TestCase as TestCase;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
-use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
+use SimpleSAML\Module\Monitor\State;
+use SimpleSAML\Module\Monitor\TestConfiguration;
+use SimpleSAML\Module\Monitor\TestCase;
+use SimpleSAML\Module\Monitor\TestData;
+use SimpleSAML\Module\Monitor\TestResult;
 
-final class Entity extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
+final class Entity extends \SimpleSAML\Module\Monitor\TestSuiteFactory
 {
     /** @var array */
     private $entityMetadata;
@@ -21,8 +21,8 @@ final class Entity extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
 
     /**
-     * @param TestConfiguration $configuration
-     * @param TestData $testData
+     * @param \SimpleSAML\Module\Monitor\TestConfiguration $configuration
+     * @param \SimpleSAML\Module\Monitor\TestData $testData
      */
     public function __construct(TestConfiguration $configuration, TestData $testData)
     {
@@ -45,7 +45,7 @@ final class Entity extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /**
      * @return void
      */
-    public function invokeTest()
+    public function invokeTest(): void
     {
         $input = [
             'entityId' => $this->entityId,
@@ -116,7 +116,7 @@ final class Entity extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
      * @param array $key
      * @return bool
      */
-    private function getSigning(array $key) {
+    private function getSigning(array $key): bool {
         return ($key['signing'] === true) && ($key['encryption'] === false);
     }
 
@@ -125,7 +125,7 @@ final class Entity extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
      * @param array $key
      * @return bool
      */
-    private function getEncryption(array $key) {
+    private function getEncryption(array $key): bool {
         return ($key['signing'] === false) && ($key['encryption'] === true);
     }
 
@@ -135,7 +135,7 @@ final class Entity extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
      *
      * @return string
      */
-    public function getType(array $key)
+    public function getType(array $key): string
     {
         if ($key['encryption'] === true && $key['signing'] === false) {
             $category = 'Encryption certificate';

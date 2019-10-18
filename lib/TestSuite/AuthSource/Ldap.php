@@ -1,17 +1,17 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\TestSuite\AuthSource;
+namespace SimpleSAML\Module\Monitor\TestSuite\AuthSource;
 
-use \SimpleSAML\Configuration as ApplicationConfiguration;
-use \SimpleSAML\Modules\Monitor\State as State;
-use \SimpleSAML\Modules\Monitor\TestConfiguration as TestConfiguration;
-use \SimpleSAML\Modules\Monitor\TestCase as TestCase;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
-use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
+use SimpleSAML\Configuration;
+use SimpleSAML\Module\Monitor\State;
+use SimpleSAML\Module\Monitor\TestConfiguration;
+use SimpleSAML\Module\Monitor\TestCase;
+use SimpleSAML\Module\Monitor\TestData;
+use SimpleSAML\Module\Monitor\TestResult;
 
-final class Ldap extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
+final class Ldap extends \SimpleSAML\Module\Monitor\TestSuiteFactory
 {
-    /** @var ApplicationConfiguration */
+    /** @var \SimpleSAML\Configuration */
     private $authSourceData;
 
     /** @var array|null */
@@ -25,8 +25,8 @@ final class Ldap extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
 
     /**
-     * @param TestConfiguration $configuration
-     * @param TestData $testData
+     * @param \SimpleSAML\Module\Monitor\TestConfiguration $configuration
+     * @param \SimpleSAML\Module\Monitor\TestData $testData
      */
     public function __construct(TestConfiguration $configuration, TestData $testData)
     {
@@ -51,7 +51,7 @@ final class Ldap extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /**
      * @return void
      */
-    public function invokeTest()
+    public function invokeTest(): void
     {
         // Test LDAP configuration
         $confTest = new TestCase\AuthSource\Ldap\Configuration(
@@ -131,7 +131,7 @@ final class Ldap extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
      *
      * @return array
      */
-    private function prepareConnection($connectString)
+    private function prepareConnection(string $connectString): array
     {
         $hostname = parse_url($connectString, PHP_URL_HOST);
         $authSourceData = $this->authSourceData;

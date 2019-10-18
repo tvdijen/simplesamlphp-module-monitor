@@ -1,13 +1,13 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\TestSuite;
+namespace SimpleSAML\Module\Monitor\TestSuite;
 
-use \SimpleSAML\Modules\Monitor\TestConfiguration as TestConfiguration;
-use \SimpleSAML\Modules\Monitor\TestCase as TestCase;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
-use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
+use SimpleSAML\Module\Monitor\TestConfiguration;
+use SimpleSAML\Module\Monitor\TestCase;
+use SimpleSAML\Module\Monitor\TestData;
+use SimpleSAML\Module\Monitor\TestResult;
 
-final class Metadata extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
+final class Metadata extends \SimpleSAML\Module\Monitor\TestSuiteFactory
 {
     /** @var array */
     private $metadata = [];
@@ -17,7 +17,7 @@ final class Metadata extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
 
     /**
-     * @param TestConfiguration $configuration
+     * @param \SimpleSAML\Module\Monitor\TestConfiguration $configuration
      */
     public function __construct(TestConfiguration $configuration)
     {
@@ -53,7 +53,7 @@ final class Metadata extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /**
      * @return void
      */
-    public function invokeTest()
+    public function invokeTest(): void
     {
         $configuration = $this->getConfiguration();
         $output = [];
@@ -87,7 +87,7 @@ final class Metadata extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
      *
      * @return void
      */
-    private function fixEntityIds(array &$metadata)
+    private function fixEntityIds(array &$metadata): void
     {
         foreach ($metadata as $set => $metadataSet) {
             foreach ($metadataSet as $entityId => $entityMetadata) {

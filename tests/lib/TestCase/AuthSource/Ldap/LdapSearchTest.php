@@ -1,18 +1,18 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\Test;
+namespace SimpleSAML\Module\Monitor\Test;
 
-use \SimpleSAML\Configuration as ApplicationConfiguration;
-use \SimpleSAML\Modules\Monitor\TestCase as TestCase;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
-use \SimpleSAML\Modules\Monitor\State as State;
+use SimpleSAML\Configuration;
+use SimpleSAML\Module\Monitor\TestCase;
+use SimpleSAML\Module\Monitor\TestData;
+use SimpleSAML\Module\Monitor\State;
 
 /**
  * Tests for TestCase\Ldap\Search
  */
 class TestLdapSearchTest extends \PHPUnit\Framework\TestCase
 {
-    public function testSearchSuccesful()
+    public function testSearchSuccesful(): void
     {
         $authSourceData = [
             'search.base' => 'OU=example,DC=example,DC=org',
@@ -24,7 +24,7 @@ class TestLdapSearchTest extends \PHPUnit\Framework\TestCase
         $connectionMock->expects($this->once())->method('searchfordn')->will($this->returnValue(true));
         $confTest = new TestCase\AuthSource\Ldap\Search(
             new TestData([
-                'authSourceData' => ApplicationConfiguration::loadFromArray($authSourceData),
+                'authSourceData' => Configuration::loadFromArray($authSourceData),
                 'connection' => $connectionMock,
             ])
         );
@@ -33,7 +33,7 @@ class TestLdapSearchTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(State::OK, $testResult->getState());
     }
 
-    public function testSearchFailed()
+    public function testSearchFailed(): void
     {
         $authSourceData = [
             'search.base' => 'OU=example,DC=example,DC=org',
@@ -44,7 +44,7 @@ class TestLdapSearchTest extends \PHPUnit\Framework\TestCase
         $connectionMock->expects($this->once())->method('searchfordn')->will($this->throwException(new \SimpleSAML\Error\Error('UNHANDLEDEXCEPTION')));
         $confTest = new TestCase\AuthSource\Ldap\Search(
             new TestData([
-                'authSourceData' => ApplicationConfiguration::loadFromArray($authSourceData),
+                'authSourceData' => Configuration::loadFromArray($authSourceData),
                 'connection' => $connectionMock,
             ])
         );

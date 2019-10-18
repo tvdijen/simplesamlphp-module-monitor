@@ -1,23 +1,23 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor;
+namespace SimpleSAML\Module\Monitor;
 
 interface TestInterface
 {
     /**
      * @return string
      */
-    public function getCategory();
+    public function getCategory(): string;
 
 
     /**
-     * @return TestResult
+     * @return \SimpleSAML\Module\Monitor\TestResult
      */
-    public function getTestResult();
+    public function getTestResult(): TestResult;
 
 
     /**
      * @return void
      */
-    public function invokeTest();
+    public function invokeTest(): void;
 }

@@ -1,17 +1,17 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\Test;
+namespace SimpleSAML\Module\Monitor\Test;
 
-use \SimpleSAML\Modules\Monitor\TestCase as TestCase;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
-use \SimpleSAML\Modules\Monitor\State as State;
+use SimpleSAML\Module\Monitor\TestCase;
+use SimpleSAML\Module\Monitor\TestData;
+use SimpleSAML\Module\Monitor\State;
 
 /**
  * Tests for TestCase\FileSystem\FreeSpace
  */
 class TestFreeSpaceTest extends \PHPUnit\Framework\TestCase
 {
-    public function testFreeSpaceAvailable()
+    public function testFreeSpaceAvailable(): void
     {
         // /tmp/testdisk will be 1MB
         $testData = new TestData([
@@ -26,7 +26,7 @@ class TestFreeSpaceTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(State::OK, $testResult->getState());
     }
 
-    public function testFreeSpaceAlmostOut()
+    public function testFreeSpaceAlmostOut(): void
     {
         // Fill /tmp/testdisk for 90%
         $free = (disk_free_space('/tmp/testdisk') / 100) * 90;
@@ -47,7 +47,7 @@ class TestFreeSpaceTest extends \PHPUnit\Framework\TestCase
         unlink('/tmp/testdisk/90percent.txt');
     }
 
-    public function testFreeSpaceOut()
+    public function testFreeSpaceOut(): void
     {
         // Fill /tmp/testdisk for 99%
         $free = (disk_free_space('/tmp/testdisk') / 100) * 99;

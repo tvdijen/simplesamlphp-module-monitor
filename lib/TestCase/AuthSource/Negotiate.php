@@ -1,12 +1,12 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\TestCase\AuthSource;
+namespace SimpleSAML\Module\Monitor\TestCase\AuthSource;
 
-use \SimpleSAML\Modules\Monitor\State as State;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
-use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
+use SimpleSAML\Module\Monitor\State;
+use SimpleSAML\Module\Monitor\TestData;
+use SimpleSAML\Module\Monitor\TestResult;
 
-final class Negotiate extends \SimpleSAML\Modules\Monitor\TestCaseFactory
+final class Negotiate extends \SimpleSAML\Module\Monitor\TestCaseFactory
 {
     /** @var \KRB5NegotiateAuth */
     private $handle;
@@ -16,11 +16,11 @@ final class Negotiate extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 
 
     /*
-     * @param TestData $testData
+     * @param \SimpleSAML\Module\Monitor\TestData $testData
      *
      * @return void
      */
-    protected function initialize(TestData $testData)
+    protected function initialize(TestData $testData): void
     {
         $this->handle = $testData->getInputItem('handle');
 
@@ -34,7 +34,7 @@ final class Negotiate extends \SimpleSAML\Modules\Monitor\TestCaseFactory
     /*
      * @return void
      */
-    public function invokeTest()
+    public function invokeTest(): void
     {
         $testResult = new TestResult('Authentication', 'Kerberos token validation');
 

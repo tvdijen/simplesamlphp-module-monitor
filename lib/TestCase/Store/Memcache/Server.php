@@ -1,12 +1,12 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\TestCase\Store\Memcache;
+namespace SimpleSAML\Module\Monitor\TestCase\Store\Memcache;
 
-use \SimpleSAML\Modules\Monitor\State as State;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
-use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
+use SimpleSAML\Module\Monitor\State;
+use SimpleSAML\Module\Monitor\TestData;
+use SimpleSAML\Module\Monitor\TestResult;
 
-final class Server extends \SimpleSAML\Modules\Monitor\TestCaseFactory
+final class Server extends \SimpleSAML\Module\Monitor\TestCaseFactory
 {
     /** @var array|false */
     private $serverStats;
@@ -17,11 +17,11 @@ final class Server extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 
 
     /**
-     * @param TestData $testData
+     * @param \SimpleSAML\Module\Monitor\TestData $testData
      *
      * @return void
      */
-    protected function initialize(TestData $testData)
+    protected function initialize(TestData $testData): void
     {
         $this->serverStats = $testData->getInputItem('serverStats');
         $this->host = $testData->getInputItem('host');
@@ -33,7 +33,7 @@ final class Server extends \SimpleSAML\Modules\Monitor\TestCaseFactory
     /**
      * @return void
      */
-    public function invokeTest()
+    public function invokeTest(): void
     {
         $testResult = new TestResult('Memcache Server Health', $this->host);
 

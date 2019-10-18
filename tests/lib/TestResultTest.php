@@ -1,16 +1,16 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\Test;
+namespace SimpleSAML\Module\Monitor\Test;
 
-use \SimpleSAML\Modules\Monitor\State as State;
-use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
+use SimpleSAML\Module\Monitor\State;
+use SimpleSAML\Module\Monitor\TestResult;
 
 /**
  * Tests for DependencyInjection
  */
 class TestResultTest extends \PHPUnit\Framework\TestCase
 {
-    public function testTestResult()
+    public function testTestResult(): void
     {
         $testResult = new TestResult();
 

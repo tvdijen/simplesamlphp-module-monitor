@@ -1,17 +1,17 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\Test;
+namespace SimpleSAML\Module\Monitor\Test;
 
-use \SimpleSAML\Configuration as ApplicationConfiguration;
-use \SimpleSAML\Modules\Monitor\TestCase as TestCase;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
+use SimpleSAML\Configuration;
+use SimpleSAML\Module\Monitor\TestCase;
+use SimpleSAML\Module\Monitor\TestData;
 
 /**
  * Tests for TestCase\Ldap\Configuration
  */
 class TestLdapConfigurationTest extends \PHPUnit\Framework\TestCase
 {
-    public function testLdapConfiguration()
+    public function testLdapConfiguration(): void
     {
         $authSourceData = [
             'hostname' => 'ldaps://ldap.example.com:636',
@@ -20,7 +20,7 @@ class TestLdapConfigurationTest extends \PHPUnit\Framework\TestCase
 
         $confTest = new TestCase\AuthSource\Ldap\Configuration(
             new TestData([
-                'authSourceData' => ApplicationConfiguration::loadFromArray($authSourceData),
+                'authSourceData' => Configuration::loadFromArray($authSourceData),
             ])
         );
 
@@ -37,7 +37,7 @@ class TestLdapConfigurationTest extends \PHPUnit\Framework\TestCase
         ];
 
         $confTest = new TestCase\AuthSource\Ldap\Configuration(
-            new TestData(['authSourceData' => ApplicationConfiguration::loadFromArray($authSourceData)])
+            new TestData(['authSourceData' => Configuration::loadFromArray($authSourceData)])
         );
 
         $testResult = $confTest->getTestResult();

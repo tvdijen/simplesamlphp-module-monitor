@@ -1,28 +1,28 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\Test;
+namespace SimpleSAML\Module\Monitor\Test;
 
-use \SimpleSAML\Configuration as ApplicationConfiguration;
-use \SimpleSAML\Modules\Monitor\TestCase as TestCase;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
-use \SimpleSAML\Modules\Monitor\State as State;
+use SimpleSAML\Configuration;
+use SimpleSAML\Module\Monitor\TestCase;
+use SimpleSAML\Module\Monitor\TestData;
+use SimpleSAML\Module\Monitor\State;
 
 /**
  * Tests for TestCase\Negotiate
  */
 class TestNegotiateTest extends \PHPUnit\Framework\TestCase
 {
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         $_SERVER['SERVER_NAME'] = 'localhost';
     }
 
-    public static function tearDownAfterClass()
+    public static function tearDownAfterClass(): void
     {
         unset($_SERVER['SERVER_NAME']);
     }
 
-    public function testNegotiateException()
+    public function testNegotiateException(): void
     {
         $KRB5NegotiateAuthMock = $this->getMockBuilder('KRB5NegotiateAuth')->setMethods(['doAuthentication', 'getAuthenticatedUser'])->disableOriginalConstructor()->getMock();
         $KRB5NegotiateAuthMock->expects($this->any())->method('doAuthentication')->will($this->throwException(new \Exception('Generic exception message')));
@@ -35,7 +35,7 @@ class TestNegotiateTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(State::WARNING, $testResult->getState());
     }
 
-    public function testNegotiateSuccess()
+    public function testNegotiateSuccess(): void
     {
         $KRB5NegotiateAuthMock = $this->getMockBuilder('KRB5NegotiateAuth')->setMethods(['doAuthentication', 'getAuthenticatedUser'])->disableOriginalConstructor()->getMock();
         $KRB5NegotiateAuthMock->expects($this->any())->method('doAuthentication')->will($this->returnValue(true));
@@ -49,7 +49,7 @@ class TestNegotiateTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(State::OK, $testResult->getState());
     }
 
-    public function testNegotiateNoAuthorzation()
+    public function testNegotiateNoAuthorzation(): void
     {
         $KRB5NegotiateAuthMock = $this->getMockBuilder('KRB5NegotiateAuth')->setMethods(['doAuthentication', 'getAuthenticatedUser'])->disableOriginalConstructor()->getMock();
         $KRB5NegotiateAuthMock->expects($this->any())->method('doAuthentication')->will($this->returnValue(false));
@@ -62,7 +62,7 @@ class TestNegotiateTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(State::SKIPPED, $testResult->getState());
     }
 
-    public function testNegotiateError()
+    public function testNegotiateError(): void
     {
         $KRB5NegotiateAuthMock = $this->getMockBuilder('KRB5NegotiateAuth')->setMethods(['doAuthentication', 'getAuthenticatedUser'])->disableOriginalConstructor()->getMock();
         $KRB5NegotiateAuthMock->expects($this->any())->method('doAuthentication')->will($this->returnValue(false));

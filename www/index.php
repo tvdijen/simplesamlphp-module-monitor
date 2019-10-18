@@ -2,11 +2,11 @@
 
 require_once(dirname(dirname(__FILE__)).'/lib/_autoload.php');
 
-use SimpleSAML\Configuration as ApplicationConfiguration;
-use SimpleSAML\Modules\Monitor\DependencyInjection as DependencyInjection;
-use SimpleSAML\Modules\Monitor\State as State;
-use SimpleSAML\Modules\Monitor\TestConfiguration as TestConfiguration;
-use SimpleSAML\Modules\Monitor\Monitor as Monitor;
+use SimpleSAML\Configuration;
+use SimpleSAML\Module\Monitor\DependencyInjection;
+use SimpleSAML\Module\Monitor\State;
+use SimpleSAML\Module\Monitor\TestConfiguration;
+use SimpleSAML\Module\Monitor\Monitor;
 use SimpleSAML\XHTML\Template;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -15,12 +15,12 @@ assert_options(ASSERT_WARNING, 1);
 
 $serverVars = new DependencyInjection($_SERVER);
 $requestVars = new DependencyInjection($_REQUEST);
-$globalConfig = ApplicationConfiguration::getInstance();
+$globalConfig = Configuration::getInstance();
 
 assert(!is_null($globalConfig));
 
-$authSourceConfig = ApplicationConfiguration::getOptionalConfig('authsources.php');
-$moduleConfig = ApplicationConfiguration::getOptionalConfig('module_monitor.php');
+$authSourceConfig = Configuration::getOptionalConfig('authsources.php');
+$moduleConfig = Configuration::getOptionalConfig('module_monitor.php');
 
 $testConfiguration = new TestConfiguration($serverVars, $requestVars, $globalConfig, $authSourceConfig, $moduleConfig);
 $monitor = new Monitor($testConfiguration);

@@ -1,14 +1,14 @@
 <?php
 
-namespace Tests\SimpleSAML\Modules\Monitor\TestFiles;
+namespace Tests\SimpleSAML\Module\Monitor\TestFiles;
 
-use \SimpleSAML\Modules\Monitor\State as State;
-use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
-use \SimpleSAML\Modules\Monitor\TestSuiteFactory as TestSuiteFactory;
+use SimpleSAML\Module\Monitor\State;
+use SimpleSAML\Module\Monitor\TestResult;
+use SimpleSAML\Module\Monitor\TestSuiteFactory;
 
 class TestSuiteImplementation extends TestSuiteFactory
 {
-    public function prepareTests()
+    public function prepareTests(): array
     {
         $a = new TestResult('a', 'b');
         $b = new TestResult('c', 'd');
@@ -24,7 +24,7 @@ class TestSuiteImplementation extends TestSuiteFactory
         return [$a, $b, $c];
     }
 
-    public function invokeTest()
+    public function invokeTest(): void
     {
         $this->setCategory('travis');
         $this->setSubject('travis');

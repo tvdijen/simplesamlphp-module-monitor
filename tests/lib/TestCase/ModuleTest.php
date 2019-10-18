@@ -1,17 +1,17 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\Test;
+namespace SimpleSAML\Module\Monitor\Test;
 
-use \SimpleSAML\Modules\Monitor\TestCase as TestCase;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
-use \SimpleSAML\Modules\Monitor\State as State;
+use SimpleSAML\Module\Monitor\TestCase;
+use SimpleSAML\Module\Monitor\TestData;
+use SimpleSAML\Module\Monitor\State;
 
 /**
  * Tests for TestCase\Module
  */
 class TestModuleTest extends \PHPUnit\Framework\TestCase
 {
-    public function testModuleAvailable()
+    public function testModuleAvailable(): void
     {
         $testData = new TestData([
             'required' => 'mod_test',
@@ -25,7 +25,7 @@ class TestModuleTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('mod_test', $moduleTest->getModuleName());
     }
 
-    public function testEitherModuleAvailable()
+    public function testEitherModuleAvailable(): void
     {
         $testData = new TestData([
             'required' => 'mod_test|mod_test2',
@@ -39,7 +39,7 @@ class TestModuleTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('mod_test', $moduleTest->getModuleName());
     }
 
-    public function testBothModulesAvailable()
+    public function testBothModulesAvailable(): void
     {
         $testData = new TestData([
             'required' => 'mod_test|mod_test2',
@@ -53,7 +53,7 @@ class TestModuleTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('mod_test', $moduleTest->getModuleName());
     }
 
-    public function testModuleUnavailable()
+    public function testModuleUnavailable(): void
     {
         $testData = new TestData([
             'required' => 'mod_test',
@@ -67,7 +67,7 @@ class TestModuleTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('mod_test', $moduleTest->getModuleName());
     }
 
-    public function testBothModulesUnavailable()
+    public function testBothModulesUnavailable(): void
     {
         $testData = new TestData([
             'required' => 'mod_test|mod_test2',

@@ -1,21 +1,21 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\TestSuite;
+namespace SimpleSAML\Module\Monitor\TestSuite;
 
-use \SimpleSAML\Modules\Monitor\TestConfiguration as TestConfiguration;
-use \SimpleSAML\Modules\Monitor\State as State;
-use \SimpleSAML\Modules\Monitor\TestCase as TestCase;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
-use \SimpleSAML\Logger as Logger;
+use SimpleSAML\Logger;
+use SimpleSAML\Module\Monitor\TestConfiguration;
+use SimpleSAML\Module\Monitor\State;
+use SimpleSAML\Module\Monitor\TestCase;
+use SimpleSAML\Module\Monitor\TestData;
 
-final class Store extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
+final class Store extends \SimpleSAML\Module\Monitor\TestSuiteFactory
 {
     /** var string|null */
     private $store = null;
 
 
     /**
-     * @param TestConfiguration $configuration
+     * @param \SimpleSAML\Module\Monitor\TestConfiguration $configuration
      */
     public function __construct(TestConfiguration $configuration)
     {
@@ -30,7 +30,7 @@ final class Store extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /**
      * @return void
      */
-    public function invokeTest()
+    public function invokeTest(): void
     {
         $configuration = $this->getConfiguration();
 
@@ -48,11 +48,11 @@ final class Store extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
 
     /**
-     * @param TestConfiguration $configuration
+     * @param \SimpleSAML\Module\Monitor\TestConfiguration $configuration
      *
      * @return array
      */
-    private function testSspSession(TestConfiguration $configuration)
+    private function testSspSession(TestConfiguration $configuration): array
     {
         $results = [];
 
@@ -78,11 +78,11 @@ final class Store extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
 
     /**
-     * @param TestConfiguration $configuration
+     * @param \SimpleSAML\Module\Monitor\TestConfiguration $configuration
      *
      * @return array
      */
-    private function testPhpSession(TestConfiguration $configuration)
+    private function testPhpSession(TestConfiguration $configuration): array
     {
         $results = [];
         switch (ini_get('session.save_handler')) {
@@ -123,7 +123,7 @@ final class Store extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
      *
      * @return array
      */
-    private function parsePhpMemcachedConfiguration($spec)
+    private function parsePhpMemcachedConfiguration(string $spec): array
     {
         $servers = preg_split('/\s*,\s*/', $spec);
 

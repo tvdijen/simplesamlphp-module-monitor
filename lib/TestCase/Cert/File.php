@@ -1,13 +1,13 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\TestCase\Cert;
+namespace SimpleSAML\Module\Monitor\TestCase\Cert;
 
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
+use SimpleSAML\Module\Monitor\TestData;
 
 final class File extends Data
 {
     /**
-     * @param TestData $testData
+     * @param \SimpleSAML\Module\Monitor\TestData $testData
      */
     public function __construct(TestData $testData)
     {

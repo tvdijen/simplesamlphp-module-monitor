@@ -1,20 +1,20 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor;
+namespace SimpleSAML\Module\Monitor;
 
-use \SimpleSAML\Modules\Monitor\DependencyInjection as DependencyInjection;
-use \SimpleSAML\Configuration as ApplicationConfiguration;
-use \SimpleSAML\Metadata\MetaDataStorageSource as MetaDataStorageSource;
+use SimpleSAML\Configuration;
+use SimpleSAML\Metadata\MetaDataStorageSource;
+use SimpleSAML\Modules\Monitor\DependencyInjection;
 
 final class TestConfiguration
 {
-    /** @var ApplicationConfiguration */
+    /** @var \SimpleSAML\Configuration */
     private $globalConfig;
 
-    /** @var ApplicationConfiguration */
+    /** @var \SimpleSAML\Configuration */
     private $moduleConfig;
 
-    /** @var ApplicationConfiguration */
+    /** @var \SimpleSAML\Configuration */
     private $authSourceConfig;
 
     /** @var array */
@@ -26,26 +26,26 @@ final class TestConfiguration
     /** @var array */
     private $availablePhpModules;
 
-    /** @var DependencyInjection */
+    /** @var \SimpleSAML\Module\Monitor\DependencyInjection */
     private $serverVars;
 
-    /** @var DependencyInjection */
+    /** @var \SimpleSAML\Module\Monitor\DependencyInjection */
     private $requestVars;
 
 
     /**
-     * @param DependencyInjection $serverVars
-     * @param DependencyInjection $requestVars
-     * @param ApplicationConfiguration $globalConfig
-     * @param ApplicationConfiguration $authSourceConfig
-     * @param ApplicationConfiguration $moduleConfig
+     * @param \SimpleSAML\Module\Monitor\DependencyInjection $serverVars
+     * @param \SimpleSAML\Module\Monitor\DependencyInjection $requestVars
+     * @param \SimpleSAML\Configuration $globalConfig
+     * @param \SimpleSAML\Configuration $authSourceConfig
+     * @param \SimpleSAML\Configuration $moduleConfig
      */
     public function __construct(
         DependencyInjection $serverVars,
         DependencyInjection $requestVars,
-        ApplicationConfiguration $globalConfig,
-        ApplicationConfiguration $authSourceConfig,
-        ApplicationConfiguration $moduleConfig
+        Configuration $globalConfig,
+        Configuration $authSourceConfig,
+        Configuration $moduleConfig
     ) {
         $this->serverVars = $serverVars;
         $this->requestVars = $requestVars;
@@ -60,33 +60,33 @@ final class TestConfiguration
 
 
     /**
-     * @param ApplicationConfiguration $authSourceConfig
+     * @param \SimpleSAML\Configuration $authSourceConfig
      *
      * @return void
      */
-    private function setAuthsourceConfig(ApplicationConfiguration $authSourceConfig)
+    private function setAuthsourceConfig(Configuration $authSourceConfig): void
     {
         $this->authSourceConfig = $authSourceConfig;
     }
 
 
     /**
-     * @param ApplicationConfiguration $moduleConfig
+     * @param \SimpleSAML\Configuration $moduleConfig
      *
      * @return void
      */
-    private function setModuleConfig(ApplicationConfiguration $moduleConfig)
+    private function setModuleConfig(Configuration $moduleConfig): void
     {
         $this->moduleConfig = $moduleConfig;
     }
 
 
     /**
-     * @param ApplicationConfiguration $globalConfig
+     * @param \SimpleSAML\Configuration $globalConfig
      *
      * @return void
      */
-    private function setGlobalConfig(ApplicationConfiguration $globalConfig)
+    private function setGlobalConfig(Configuration $globalConfig): void
     {
         $this->globalConfig = $globalConfig;
     }
@@ -95,7 +95,7 @@ final class TestConfiguration
     /**
      * @return void
      */
-    private function setMetadataConfig()
+    private function setMetadataConfig(): void
     {
         $sets = $this->getAvailableMetadataSets();
         $sources = $this->globalConfig->getValue('metadata.sources');
@@ -116,7 +116,7 @@ final class TestConfiguration
     /**
      * @return array
      */
-    protected function getAvailableMetadataSets()
+    protected function getAvailableMetadataSets(): array
     {
         $globalConfig = $this->getGlobalConfig();
         $sets = ['shib13-idp-remote', 'saml20-idp-remote'];
@@ -139,7 +139,7 @@ final class TestConfiguration
     /**
      * @return void
      */
-    private function setAvailableApacheModules()
+    private function setAvailableApacheModules(): void
     {
         // Determine available Apache-modules
         if (function_exists('apache_get_modules')) {
@@ -153,7 +153,7 @@ final class TestConfiguration
     /**
      * @return array
      */
-    private function getAvailableApacheModulesCgi()
+    private function getAvailableApacheModulesCgi(): array
     {
         $knownLocations = [
             '/usr/sbin/httpd',
@@ -188,7 +188,7 @@ final class TestConfiguration
     /**
      * @return void
      */
-    private function setAvailablePhpModules()
+    private function setAvailablePhpModules(): void
     {
         $this->availablePhpModules = array_merge(get_loaded_extensions(), get_loaded_extensions(true));
     }
@@ -197,7 +197,7 @@ final class TestConfiguration
     /**
      * @return array
      */
-    public function getAvailableApacheModules()
+    public function getAvailableApacheModules(): array
     {
         return $this->availableApacheModules;
     }
@@ -206,7 +206,7 @@ final class TestConfiguration
     /**
      * @return array
      */
-    public function getAvailablePhpModules()
+    public function getAvailablePhpModules(): array
     {
         return $this->availablePhpModules;
     }
@@ -215,7 +215,7 @@ final class TestConfiguration
     /**
      * @return DependencyInjection
      */
-    public function getServerVars()
+    public function getServerVars(): array
     {
         return $this->serverVars;
     }
@@ -224,38 +224,35 @@ final class TestConfiguration
     /**
      * @return DependencyInjection
      */
-    public function getRequestVars()
+    public function getRequestVars(): array
     {
         return $this->requestVars;
     }
 
 
     /**
-     * @return ApplicationConfiguration
+     * @return \SimpleSAML\Configuration
      */
-    public function getGlobalConfig()
+    public function getGlobalConfig(): Configuration
     {
-        assert($this->moduleConfig instanceof ApplicationConfiguration);
         return $this->globalConfig;
     }
 
 
     /**
-     * @return ApplicationConfiguration
+     * @return \SimpleSAML\Configuration
      */
-    public function getModuleConfig()
+    public function getModuleConfig(): Configuration
     {
-        assert($this->moduleConfig instanceof ApplicationConfiguration);
         return $this->moduleConfig;
     }
 
 
     /**
-     * @return ApplicationConfiguration
+     * @return \SimpleSAML\Configuration
      */
-    public function getAuthSourceConfig()
+    public function getAuthSourceConfig(): Configuration
     {
-        assert($this->authSourceConfig instanceof ApplicationConfiguration);
         return $this->authSourceConfig;
     }
 
@@ -263,9 +260,8 @@ final class TestConfiguration
     /**
      * @return array
      */
-    public function getMetadataConfig()
+    public function getMetadataConfig(): array
     {
-        assert(is_array($this->metadataConfig));
         return $this->metadataConfig;
     }
 }
