@@ -12,13 +12,15 @@ abstract class TestSuiteFactory extends TestCaseFactory
 
 
     /**
-     * @param \SimpleSAML\Module\Monitor\TestConfiguration|null $configuration
+     * @param \SimpleSAML\Module\Monitor\TestConfiguration $configuration
      * @param \SimpleSAML\Module\Monitor\TestData|null $testData
      */
-    public function __construct(TestConfiguration $configuration = null, TestData $testData = null)
+    public function __construct(TestConfiguration $configuration, TestData $testData = null)
     {
         $this->setConfiguration($configuration);
-        $this->initialize($testData);
+
+        parent::__construct($testData);
+
         $this->invokeTestSuite();
     }
 
@@ -30,7 +32,9 @@ abstract class TestSuiteFactory extends TestCaseFactory
      */
     protected function initialize(TestData $testData = null): void
     {
-        $this->setTestData($testData);
+        if (!is_null($testData)) {
+            parent::initialize($testData);
+        }
     }
 
 
@@ -39,11 +43,9 @@ abstract class TestSuiteFactory extends TestCaseFactory
      *
      * @return void
      */
-    protected function setConfiguration(TestConfiguration $configuration = null): void
+    protected function setConfiguration(TestConfiguration $configuration): void
     {
-        if (!is_null($configuration)) {
-            $this->configuration = $configuration;
-        }
+        $this->configuration = $configuration;
     }
 
 

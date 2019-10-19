@@ -4,8 +4,10 @@ namespace SimpleSAML\Module\Monitor\TestSuite\Modules;
 
 use SimpleSAML\Module\Monitor\State;
 use SimpleSAML\Module\Monitor\TestCase;
+use SimpleSAML\Module\Monitor\TestConfiguration;
 use SimpleSAML\Module\Monitor\TestData;
 use SimpleSAML\Module\Monitor\TestResult;
+use Webmozart\Assert\Assert;
 
 final class ModuleSet extends \SimpleSAML\Module\Monitor\TestSuiteFactory
 {
@@ -23,18 +25,18 @@ final class ModuleSet extends \SimpleSAML\Module\Monitor\TestSuiteFactory
 
 
     /**
-     * @param \SimpleSAML\Module\Monitor\TestData|null $testData
-     * @return void
+     * @param \SimpleSAML\Module\Monitor\TestConfiguration $configuration
+     * @param \SimpleSAML\Module\Monitor\TestData $testData
      */
-    protected function initialize(TestData $testData = null): void
+    public function __construct(TestConfiguration $configuration, TestData $testData)
     {
-        if (!is_null($testData)) {
-            $this->setRequired($testData->getInputItem('required'));
-            $this->setAvailable($testData->getInputItem('available'));
-            $this->setDependencies($testData->getInputItem('dependencies'));
-            $this->setType($testData->getInputItem('type'));
-            $this->setCategory($this->type.' modules');
-        }
+        $this->setRequired($testData->getInputItem('required'));
+        $this->setAvailable($testData->getInputItem('available'));
+        $this->setDependencies($testData->getInputItem('dependencies'));
+        $this->setType($testData->getInputItem('type'));
+        $this->setCategory($this->type.' modules');
+
+        parent::__construct($configuration);
     }
 
 

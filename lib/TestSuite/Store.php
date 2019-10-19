@@ -140,8 +140,10 @@ final class Store extends \SimpleSAML\Module\Monitor\TestSuiteFactory
             }
 
             $result['hostname'] = $hostname;
+            /** @psalm-suppress RedundantCondition  Remove for Psalm >= 3.6.3 */
             if (isset($port)) {
                 $result['port'] = $port;
+                unset($port);
             }
             parse_str($params, $tmp);
             $results[]  = array_merge($result, $tmp);

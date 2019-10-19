@@ -66,9 +66,9 @@ class Module extends \SimpleSAML\Module\Monitor\TestCaseFactory
 
 
     /**
-     * @return array|null
+     * @return array
      */
-    private function getAvailable(): ?array
+    private function getAvailable(): array
     {
         return $this->available;
     }

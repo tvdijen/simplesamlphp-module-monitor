@@ -14,14 +14,14 @@ final class Certificates extends \SimpleSAML\Module\Monitor\TestSuiteFactory
     /** @var string|null */
     private $metadataCert = null;
 
-    /** @var string|null */
-    private $serverName = null;
+    /** @var string */
+    private $serverName;
 
-    /** @var integer|null */
-    private $serverPort = null;
+    /** @var integer */
+    private $serverPort;
 
-    /** @var integer|null */
-    private $certExpirationWarning = null;
+    /** @var integer */
+    private $certExpirationWarning;
 
 
     /**

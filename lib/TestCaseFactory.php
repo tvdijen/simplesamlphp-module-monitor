@@ -72,11 +72,11 @@ abstract class TestCaseFactory implements TestInterface
 
 
     /**
-     * @param \SimpleSAML\Module\Monitor\TestData|null $testData
+     * @param \SimpleSAML\Module\Monitor\TestData $testData
      *
      * @return void
      */
-    protected function setTestData(TestData $testData = null): void
+    protected function setTestData(TestData $testData): void
     {
         $this->testData = $testData;
     }

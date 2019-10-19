@@ -8,8 +8,8 @@ use SimpleSAML\Module\Monitor\TestResult;
 
 final class Sql extends \SimpleSAML\Module\Monitor\TestCaseFactory
 {
-    /** @var string|null */
-    private $host;
+    /** @var string */
+    private $host = '<< unset >>';
 
 
     /**

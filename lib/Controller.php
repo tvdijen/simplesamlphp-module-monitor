@@ -9,6 +9,7 @@ use SimpleSAML\Module\Monitor\TestConfiguration;
 use SimpleSAML\Module\Monitor\Monitor;
 use SimpleSAML\XHTML\Template;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Controller class for the monitor module.
@@ -100,9 +101,9 @@ class Controller
      * Display the main monitoring page.
      *
      * @param string $format  Default is XHTML output
-     * @return \SimpleSAML\XHTML\Template
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function main(string $format): Template
+    public function main(string $format): Response
     {
         $this->monitor->invokeTestSuites();
         $results = $this->monitor->getResults();
@@ -117,7 +118,7 @@ class Controller
                 $t = $this->processText();
                 break;
             default:
-                $t = new Template($globalConfig, 'monitor:monitor.twig');
+                $t = new Template($this->config, 'monitor:monitor.twig');
                 break;
         }
 
@@ -128,7 +129,6 @@ class Controller
         $t->data['healthInfo'] = $this->healthInfo;
         $t->data['responseCode'] = $this->responseCode;
 
-        $this->setStatusCode($this->responseCode);
         return $t;
     }
 

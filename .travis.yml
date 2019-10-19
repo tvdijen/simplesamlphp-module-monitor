@@ -144,4 +144,4 @@ jobs:
       before_script:
         - composer update --ignore-platform-reqs
       script:
-        - vendor/bin/phpcs src/
+        - vendor/bin/phpcs config-templates/ hooks/ lib/ tests/ www/

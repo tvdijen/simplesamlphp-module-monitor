@@ -43,7 +43,7 @@ final class Connection extends \SimpleSAML\Module\Monitor\TestCaseFactory
         if (isSet($error)) {
             $testResult->setState(State::WARNING);
             $testResult->setMessage($error->getMessage());
-        } else if (!is_null($this->db)) {
+        } else if (isset($this->db)) {
             $testResult->setState(State::OK);
             $testResult->setMessage('Connection established');
             $testResult->addOutput($this->db, 'db');

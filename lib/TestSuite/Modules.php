@@ -58,6 +58,8 @@ class Modules extends \SimpleSAML\Module\Monitor\TestSuiteFactory
         $this->setRequiredPhpModules();
         $this->setRequiredSspModules();
         $this->setCategory('Modules');
+
+        parent::initialize($testData);
     }
 
 
