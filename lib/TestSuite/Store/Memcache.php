@@ -15,7 +15,7 @@ final class Memcache extends \SimpleSAML\Module\Monitor\TestSuiteFactory
 
 
     /**
-     * @param \SimpleSAML\Module\Module\TestConfiguration $configuration
+     * @param \SimpleSAML\Module\Monitor\TestConfiguration $configuration
      */
     public function __construct(TestConfiguration $configuration)
     {

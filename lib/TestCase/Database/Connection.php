@@ -9,7 +9,7 @@ use SimpleSAML\Module\Monitor\TestResult;
 final class Connection extends \SimpleSAML\Module\Monitor\TestCaseFactory
 {
     /** @var \SimpleSAML\Database */
-    private $db = null;
+    private $db;
 
     /** @var string */
     private $dsn;

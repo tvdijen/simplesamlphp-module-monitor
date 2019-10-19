@@ -3,10 +3,10 @@
 namespace SimpleSAML\Module\Monitor;
 
 use SimpleSAML\Configuration;
-use SimpleSAML\Modules\Monitor\DependencyInjection;
-use SimpleSAML\Modules\Monitor\State as State;
-use SimpleSAML\Modules\Monitor\TestConfiguration;
-use SimpleSAML\Modules\Monitor\Monitor;
+use SimpleSAML\Module\Monitor\DependencyInjection;
+use SimpleSAML\Module\Monitor\State;
+use SimpleSAML\Module\Monitor\TestConfiguration;
+use SimpleSAML\Module\Monitor\Monitor;
 use SimpleSAML\XHTML\Template;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -51,7 +51,7 @@ class Controller
     protected $state;
 
     /** @var int */
-    protected $reponseCode = 200;
+    protected $responseCode = 200;
 
     /** @var \SimpleSAML\Module\Monitor\Monitor */
     protected $monitor;
@@ -146,9 +146,9 @@ class Controller
 
     /**
      * @param array $results
-     * @return \SimpleSAML\XHTML\Template
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    private function processJson(array $results): Template
+    private function processJson(array $results): JsonResponse
     {
         return JsonResponse::create(
             ['overall' => $this->healthInfo[$this->state][0],
