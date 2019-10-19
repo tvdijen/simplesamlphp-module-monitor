@@ -97,7 +97,7 @@ jobs:
       php: 7.3
       env: Security check (composer install)
       before_script:
-        - composer install
+        - composer install --ignore-platform-reqs
       script:
         - vendor/bin/security-checker security:check
 
@@ -105,7 +105,7 @@ jobs:
       php: 7.3
       env: Security check (composer update)
       before_script:
-        - composer update
+        - composer update --ignore-platform-reqs
       script:
         - vendor/bin/security-checker security:check
 
@@ -113,7 +113,7 @@ jobs:
       php: 7.3
       env: Codecov
       before_script:
-        - composer update
+        - composer update --ignore-platform-reqs
         - php vendor/bin/phpunit
       script:
         # Codecov, need to edit bash uploader for incorrect TRAVIS_PYTHON_VERSION environment variable matching, at least until codecov/codecov-bash#133 is resolved
@@ -127,7 +127,7 @@ jobs:
       php: 7.3
       env: Psalm
       before_script:
-        - composer update
+        - composer update --ignore-platform-reqs
       script:
         - vendor/bin/psalm
 
@@ -135,6 +135,6 @@ jobs:
       php: 7.3
       env: PHP Codesniffer
       before_script:
-        - composer update
+        - composer update --ignore-platform-reqs
       script:
         - vendor/bin/phpcs src/
