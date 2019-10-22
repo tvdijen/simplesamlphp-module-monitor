@@ -47,7 +47,7 @@ final class Server extends \SimpleSAML\Module\Monitor\TestCaseFactory
             $testResult->addOutput($free, 'freePercentage');
 
             $testResult->setState(State::OK);
-            $testResult->setMessage($free.'% free space');
+            $testResult->setMessage($free . '% free space');
         }
 
         $this->setTestResult($testResult);

@@ -99,7 +99,9 @@ final class Store extends \SimpleSAML\Module\Monitor\TestSuiteFactory
             case 'memcached':
                 $tmp_configuration = \SimpleSAML\Configuration::getInstance();
                 $tmp_configuration = $tmp_configuration->toArray();
-                $tmp_configuration['memcache_store.servers'] = $this->parsePhpMemcachedConfiguration(session_save_path());
+                $tmp_configuration['memcache_store.servers'] = $this->parsePhpMemcachedConfiguration(
+                    session_save_path()
+                );
                 $tmp_configuration = \SimpleSAML\Configuration::loadFromArray($tmp_configuration);
                 \SimpleSAML\Configuration::setPreloadedConfig($tmp_configuration);
 

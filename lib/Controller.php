@@ -36,7 +36,7 @@ class Controller
     protected $requestVars;
 
     /** @var array */
-    static private $healthInfo = [
+    private static $healthInfo = [
         State::SKIPPED => ['SKIPPED', 'yellow'],
         State::FATAL   => ['FATAL',   'purple'],
         State::ERROR   => ['NOK',     'red'   ],
@@ -89,7 +89,7 @@ class Controller
         $this->state = $this->monitor->getState();
         if ($this->state === State::OK) {
             $this->responseCode = 200;
-        } else if ($this->state === State::WARNING) {
+        } elseif ($this->state === State::WARNING) {
             $this->responseCode = 417;
         } else {
             $this->responseCode = 500;
@@ -167,7 +167,7 @@ class Controller
 
         if ($this->state === State::OK) {
             $t->data['status'] = 'OK';
-        } else if ($this->state === State::WARNING) {
+        } elseif ($this->state === State::WARNING) {
             $t->data['status'] = 'WARN';
         } else {
             $t->data['status'] = 'FAIL';

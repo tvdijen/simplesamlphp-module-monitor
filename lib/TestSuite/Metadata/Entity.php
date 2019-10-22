@@ -68,7 +68,9 @@ final class Entity extends \SimpleSAML\Module\Monitor\TestSuiteFactory
             foreach ($keys as $key) {
                 $input = [
                     'category' => $this->getType($key),
-                    'certData' => "-----BEGIN CERTIFICATE-----\n" .chunk_split($key['X509Certificate'], 64)."-----END CERTIFICATE-----\n",
+                    'certData' => "-----BEGIN CERTIFICATE-----\n"
+                        . chunk_split($key['X509Certificate'], 64)
+                        . "-----END CERTIFICATE-----\n",
                     'certExpirationWarning' => $this->certExpirationWarning,
                 ];
                 $testData = new TestData($input);
@@ -116,7 +118,8 @@ final class Entity extends \SimpleSAML\Module\Monitor\TestSuiteFactory
      * @param array $key
      * @return bool
      */
-    private function getSigning(array $key): bool {
+    private function getSigning(array $key): bool
+    {
         return ($key['signing'] === true) && ($key['encryption'] === false);
     }
 
@@ -125,7 +128,8 @@ final class Entity extends \SimpleSAML\Module\Monitor\TestSuiteFactory
      * @param array $key
      * @return bool
      */
-    private function getEncryption(array $key): bool {
+    private function getEncryption(array $key): bool
+    {
         return ($key['signing'] === false) && ($key['encryption'] === true);
     }
 

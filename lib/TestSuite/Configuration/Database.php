@@ -46,9 +46,9 @@ final class Database extends \SimpleSAML\Module\Monitor\TestSuiteFactory
     {
         if ($this->store === 'sql') {
             // We use a database for session-storage
-        } else if (in_array(['type' => 'pdo'], $this->metadataSources, true)) {
+        } elseif (in_array(['type' => 'pdo'], $this->metadataSources, true)) {
             // We use a database for metadata-storage
-        } else if ($this->areModulesDependingOnDatabase() === false) {
+        } elseif ($this->areModulesDependingOnDatabase() === false) {
             $testResult = new TestResult('Database connection', '-');
             $testResult->setState(State::SKIPPED);
             $testResult->setMessage('Database currently not in use');

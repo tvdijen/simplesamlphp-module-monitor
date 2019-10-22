@@ -4,10 +4,10 @@ namespace SimpleSAML\Module\Monitor;
 
 class State
 {
-    const OK = 2;
-    const WARNING = 1;
-    const NOSTATE = 0;
-    const ERROR = -2;
-    const FATAL = -3;
-    const SKIPPED = -1;
+    public const OK = 2;
+    public const WARNING = 1;
+    public const NOSTATE = 0;
+    public const ERROR = -2;
+    public const FATAL = -3;
+    public const SKIPPED = -1;
 }

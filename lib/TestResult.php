@@ -45,7 +45,7 @@ final class TestResult
             'message' => $this->getMessage()
         ];
         if ($includeOutput === true) {
-           $output['output'] =  $this->getOutput();
+            $output['output'] =  $this->getOutput();
         }
         return $output;
     }
@@ -145,7 +145,7 @@ final class TestResult
      */
     public function getOutput(string $key = null)
     {
-        return is_null($key) ? $this->output : (isSet($this->output[$key]) ? $this->output[$key] : null);
+        return is_null($key) ? $this->output : (isset($this->output[$key]) ? $this->output[$key] : null);
     }
     
 

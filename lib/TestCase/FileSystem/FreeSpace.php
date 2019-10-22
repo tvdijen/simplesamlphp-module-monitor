@@ -59,13 +59,13 @@ final class FreeSpace extends \SimpleSAML\Module\Monitor\TestCaseFactory
             $free = round(100 - ((($size - $free) / $size) * 100));
 
             if ($free >= 15) {
-                $testResult->setMessage($free.'% free space');
+                $testResult->setMessage($free . '% free space');
                 $testResult->setState(State::OK);
-            } else if ($free < 5) {
-                $testResult->setMessage('Critical: '.$free.'% free space');
+            } elseif ($free < 5) {
+                $testResult->setMessage('Critical: ' . $free . '% free space');
                 $testResult->setState(State::ERROR);
             } else {
-                $testResult->setMessage($free.'% free space');
+                $testResult->setMessage($free . '% free space');
                 $testResult->setState(State::WARNING);
             }
             $testResult->addOutput($free, 'free_percentage');

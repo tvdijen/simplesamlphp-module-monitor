@@ -46,7 +46,7 @@ final class TestData
      */
     public function addInput(string $key, $value = null): void
     {
-        if (isSet($this->testData[$key])) {
+        if (isset($this->testData[$key])) {
             assert(is_array($this->testData[$key]));
             $this->testData[$key] = array_merge($this->testData[$key], $value);
         } else {
@@ -69,7 +69,8 @@ final class TestData
      *
      * @return mixed|null
      */
-    public function getInputItem(string $item) {
+    public function getInputItem(string $item)
+    {
         return array_key_exists($item, $this->testData) ? $this->testData[$item] : null;
     }
 }

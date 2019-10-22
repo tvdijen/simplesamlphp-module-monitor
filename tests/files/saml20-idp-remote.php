@@ -1,3 +1,5 @@
+<?php
+
 $metadata['https://engine.surfconext.nl/authentication/idp/metadata'] = [
     'entityid' => 'https://engine.surfconext.nl/authentication/idp/metadata',
     'description' => [

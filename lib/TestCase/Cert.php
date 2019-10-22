@@ -39,13 +39,14 @@ class Cert extends \SimpleSAML\Module\Monitor\TestCaseFactory
     public function getSubject(): string
     {
         $certInfo = $this->getCertInfo();
-        if (isset($certInfo['subject']) &&
-            !empty($certInfo['subject']) &&
-            array_key_exists('CN', $certInfo['subject'])
+        if (
+            isset($certInfo['subject'])
+            && !empty($certInfo['subject'])
+            && array_key_exists('CN', $certInfo['subject'])
         ) {
-            return 'CN='.$certInfo['subject']['CN'];
-        } else if (isset($certInfo['serialNumber'])) {
-            return 'SN='.$certInfo['serialNumber'];
+            return 'CN=' . $certInfo['subject']['CN'];
+        } elseif (isset($certInfo['serialNumber'])) {
+            return 'SN=' . $certInfo['serialNumber'];
         } else {
             return 'UNKNOWN';
         }
@@ -103,7 +104,7 @@ class Cert extends \SimpleSAML\Module\Monitor\TestCaseFactory
 
     /**
      * @param integer $expiration
-     * 
+     *
      * @return void
      */
     private function setExpiration(int $expiration): void
@@ -134,19 +135,19 @@ class Cert extends \SimpleSAML\Module\Monitor\TestCaseFactory
         $expiration = $this->getExpiration();
 
         $days = abs($expiration);
-        $daysStr = $days.' '.(($days === 1) ? 'day' : 'days');
+        $daysStr = $days . ' ' . (($days === 1) ? 'day' : 'days');
 
         $testResult = new TestResult($this->getCategory(), $this->getSubject());
 
         if ($expiration < 0) {
             $testResult->setState(State::ERROR);
-            $testResult->setMessage('Certificate has expired '.$daysStr.' ago');
-        } else if ($expiration <= $threshold) {
+            $testResult->setMessage('Certificate has expired ' . $daysStr . ' ago');
+        } elseif ($expiration <= $threshold) {
             $testResult->setState(State::WARNING);
-            $testResult->setMessage('Certificate will expire in '.$daysStr);
+            $testResult->setMessage('Certificate will expire in ' . $daysStr);
         } else {
             $testResult->setState(State::OK);
-            $testResult->setMessage('Certificate valid for another '.$daysStr);
+            $testResult->setMessage('Certificate valid for another ' . $daysStr);
         }
 
         $testResult->addOutput($expiration, 'expiration');

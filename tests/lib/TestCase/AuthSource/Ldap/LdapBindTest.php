@@ -18,7 +18,9 @@ class TestLdapBindTest extends \PHPUnit\Framework\TestCase
             'search.username' => 'testuser',
             'search.password' => 'password',
         ];
-        $connectionMock = $this->getMockBuilder('Ldapconnection')->setMethods(['bind'])->disableOriginalConstructor()->getMock();
+        $connectionMock = $this->getMockBuilder('Ldapconnection')->setMethods(
+            ['bind']
+        )->disableOriginalConstructor()->getMock();
         $connectionMock->expects($this->once())->method('bind')->will($this->returnValue(true));
         $confTest = new TestCase\AuthSource\Ldap\Bind(
             new TestData([
@@ -37,8 +39,12 @@ class TestLdapBindTest extends \PHPUnit\Framework\TestCase
             'search.username' => 'testuser',
             'search.password' => 'password',
         ];
-        $connectionMock = $this->getMockBuilder('Ldapconnection')->setMethods(['bind'])->disableOriginalConstructor()->getMock();
-        $connectionMock->expects($this->once())->method('bind')->will($this->throwException(new \Exception()));
+        $connectionMock = $this->getMockBuilder('Ldapconnection')->setMethods(
+            ['bind']
+        )->disableOriginalConstructor()->getMock();
+        $connectionMock->expects($this->once())->method('bind')->will(
+            $this->throwException(new \Exception())
+        );
         $confTest = new TestCase\AuthSource\Ldap\Bind(
             new TestData([
                 'authSourceData' => Configuration::loadFromArray($authSourceData),
@@ -56,7 +62,9 @@ class TestLdapBindTest extends \PHPUnit\Framework\TestCase
             'search.username' => 'testuser',
             'search.password' => 'password',
         ];
-        $connectionMock = $this->getMockBuilder('Ldapconnection')->setMethods(['bind'])->disableOriginalConstructor()->getMock();
+        $connectionMock = $this->getMockBuilder('Ldapconnection')->setMethods(
+            ['bind']
+        )->disableOriginalConstructor()->getMock();
         $connectionMock->expects($this->once())->method('bind')->will($this->returnValue(false));
         $confTest = new TestCase\AuthSource\Ldap\Bind(
             new TestData([

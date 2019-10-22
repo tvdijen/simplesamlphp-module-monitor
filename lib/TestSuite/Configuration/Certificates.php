@@ -50,7 +50,7 @@ final class Certificates extends \SimpleSAML\Module\Monitor\TestSuiteFactory
     {
         // Check network connection to full public URL
         $input = [
-            'uri' => 'ssl://'.$this->serverName.':'.$this->serverPort,
+            'uri' => 'ssl://' . $this->serverName . ':' . $this->serverPort,
             'context' => stream_context_create([
                 "ssl" => [
                     "capture_peer_cert" => true,

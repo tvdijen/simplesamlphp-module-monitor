@@ -2,9 +2,9 @@
 
 namespace SimpleSAML\Module\Monitor\TestCase;
 
-use \SimpleSAML\Module\Monitor\State as State;
-use \SimpleSAML\Module\Monitor\TestData as TestData;
-use \SimpleSAML\Module\Monitor\TestResult as TestResult;
+use SimpleSAML\Module\Monitor\State as State;
+use SimpleSAML\Module\Monitor\TestData as TestData;
+use SimpleSAML\Module\Monitor\TestResult as TestResult;
 
 class Module extends \SimpleSAML\Module\Monitor\TestCaseFactory
 {

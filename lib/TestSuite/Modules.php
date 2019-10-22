@@ -36,7 +36,8 @@ class Modules extends \SimpleSAML\Module\Monitor\TestSuiteFactory
     private $modulePhpDependencies = [
         'authfacebook' => ['curl', 'json'],
         'authYubiKey' => 'curl',
-// TODO: consent only requires pdo when database backend is used.. Should probably add this to required-list when processing metadata
+// TODO: consent only requires pdo when database backend is used..
+//       Should probably add this to required-list when processing metadata
 //        'consent' => 'PDO',
         'consentAdmin' => 'PDO',
         'ldap' => 'ldap',

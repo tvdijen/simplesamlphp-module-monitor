@@ -4,7 +4,7 @@ namespace SimpleSAML\Module\Monitor;
 
 use SimpleSAML\Configuration;
 use SimpleSAML\Metadata\MetaDataStorageSource;
-use SimpleSAML\Modules\Monitor\DependencyInjection;
+use SimpleSAML\Module\Monitor\DependencyInjection;
 
 final class TestConfiguration
 {
@@ -178,7 +178,7 @@ final class TestConfiguration
         foreach ($output as $module) {
             $module = ltrim($module);
             if (($res = preg_replace('/(_module \((shared|static)\))/', '', $module)) !== $module) {
-                $modules[] = 'mod_'.$res;
+                $modules[] = 'mod_' . $res;
             } // else skip
         }
         return $modules;

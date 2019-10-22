@@ -59,7 +59,7 @@ final class Configuration extends \SimpleSAML\Module\Monitor\TestCaseFactory
         if (preg_match('/^(ldap[s]?:\/\/(.*))$/', $this->hostname, $matches)) {
             $connectString = $this->hostname;
         } else {
-            $connectString = $this->hostname .':'.$this->port;
+            $connectString = $this->hostname . ':' . $this->port;
         }
 
         $testResult = new TestResult('LDAP configuration', $connectString);
@@ -78,7 +78,7 @@ final class Configuration extends \SimpleSAML\Module\Monitor\TestCaseFactory
             $state = State::FATAL;
         }
 
-        if (isSet($error)) {
+        if (isset($error)) {
             // When you feed str_replace a string, outcome will be string too, but Psalm doesn't see it that way
 
             /** @var string $msg */

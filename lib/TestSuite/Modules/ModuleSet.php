@@ -34,7 +34,7 @@ final class ModuleSet extends \SimpleSAML\Module\Monitor\TestSuiteFactory
         $this->setAvailable($testData->getInputItem('available'));
         $this->setDependencies($testData->getInputItem('dependencies'));
         $this->setType($testData->getInputItem('type'));
-        $this->setCategory($this->type.' modules');
+        $this->setCategory($this->type . ' modules');
 
         parent::__construct($configuration);
     }

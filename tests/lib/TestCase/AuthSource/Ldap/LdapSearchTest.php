@@ -20,7 +20,9 @@ class TestLdapSearchTest extends \PHPUnit\Framework\TestCase
             'search.password' => 'password',
         ];
 
-        $connectionMock = $this->getMockBuilder('LdapSearch')->setMethods(['searchfordn'])->disableOriginalConstructor()->getMock();
+        $connectionMock = $this->getMockBuilder('LdapSearch')->setMethods(
+            ['searchfordn']
+        )->disableOriginalConstructor()->getMock();
         $connectionMock->expects($this->once())->method('searchfordn')->will($this->returnValue(true));
         $confTest = new TestCase\AuthSource\Ldap\Search(
             new TestData([
@@ -40,8 +42,12 @@ class TestLdapSearchTest extends \PHPUnit\Framework\TestCase
             'search.username' => 'CN=testuser,OU=example,DC=example,DC=org',
             'search.password' => 'password',
         ];
-        $connectionMock = $this->getMockBuilder('LdapSearch')->setMethods(['searchfordn'])->disableOriginalConstructor()->getMock();
-        $connectionMock->expects($this->once())->method('searchfordn')->will($this->throwException(new \SimpleSAML\Error\Error('UNHANDLEDEXCEPTION')));
+        $connectionMock = $this->getMockBuilder('LdapSearch')->setMethods(
+            ['searchfordn']
+        )->disableOriginalConstructor()->getMock();
+        $connectionMock->expects($this->once())->method('searchfordn')->will(
+            $this->throwException(new \SimpleSAML\Error\Error('UNHANDLEDEXCEPTION'))
+        );
         $confTest = new TestCase\AuthSource\Ldap\Search(
             new TestData([
                 'authSourceData' => Configuration::loadFromArray($authSourceData),

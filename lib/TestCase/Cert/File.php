@@ -18,4 +18,3 @@ final class File extends Data
         parent::__construct($testData);
     }
 }
-

@@ -34,7 +34,7 @@ final class ServerGroup extends \SimpleSAML\Module\Monitor\TestCaseFactory
      */
     public function invokeTest(): void
     {
-        $testResult = new TestResult('Memcache Server Group Health', 'Group '.$this->group);
+        $testResult = new TestResult('Memcache Server Group Health', 'Group ' . $this->group);
 
         $states = [];
         foreach ($this->results as $result) {

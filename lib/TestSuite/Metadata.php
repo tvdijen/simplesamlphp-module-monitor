@@ -38,7 +38,7 @@ final class Metadata extends \SimpleSAML\Module\Monitor\TestSuiteFactory
                     }
                 }
             }
-        } 
+        }
 
         $this->certExpirationWarning = $moduleConfig->getValue('certExpirationWarning', 28);
 
@@ -70,7 +70,6 @@ final class Metadata extends \SimpleSAML\Module\Monitor\TestSuiteFactory
                 $output[$entityId] = $metadataTest->getArrayizeTestResults();
 
                 $this->addTestResults($metadataTest->getTestResults());
-
             }
         }
 

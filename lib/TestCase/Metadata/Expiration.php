@@ -43,7 +43,7 @@ final class Expiration extends \SimpleSAML\Module\Monitor\TestCaseFactory
                 $testResult->setMessage('Metadata has expired');
             } else {
                 $testResult->setState(State::OK);
-                $testResult->setMessage('Metadata will expire on '.strftime('%c', $expiration));
+                $testResult->setMessage('Metadata will expire on ' . strftime('%c', $expiration));
             }
         } else {
             $testResult->setState(State::OK);

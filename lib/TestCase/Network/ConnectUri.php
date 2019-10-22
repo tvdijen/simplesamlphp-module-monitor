@@ -86,7 +86,14 @@ final class ConnectUri extends \SimpleSAML\Module\Monitor\TestCaseFactory
     public function invokeTest(): void
     {
         list($errno, $errstr) = [0, ''];
-        $connection = @stream_socket_client($this->uri, $errno, $errstr, $this->timeout, STREAM_CLIENT_CONNECT, $this->context);
+        $connection = @stream_socket_client(
+            $this->uri,
+            $errno,
+            $errstr,
+            $this->timeout,
+            STREAM_CLIENT_CONNECT,
+            $this->context
+        );
 
         $testResult = new TestResult('Network connection', $this->uri);
 
@@ -94,7 +101,7 @@ final class ConnectUri extends \SimpleSAML\Module\Monitor\TestCaseFactory
             $params = stream_context_get_params($connection);
 
             $testResult->addOutput($connection, 'connection');
-            if (isSet($params['options']['ssl']['peer_certificate'])) {
+            if (isset($params['options']['ssl']['peer_certificate'])) {
                 $certData = openssl_x509_parse($params['options']['ssl']['peer_certificate']);
                 $testResult->addOutput($certData, 'certData');
             }
@@ -102,7 +109,7 @@ final class ConnectUri extends \SimpleSAML\Module\Monitor\TestCaseFactory
             $testResult->setMessage('Connection established');
         } else {
             $testResult->setState(State::ERROR);
-            $testResult->setMessage($errstr.' ('.$errno.')');
+            $testResult->setMessage($errstr . ' (' . $errno . ')');
         }
 
         $this->setTestResult($testResult);

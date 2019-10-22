@@ -41,7 +41,7 @@ final class AuthSources extends \SimpleSAML\Module\Monitor\TestSuiteFactory
     {
         if ($this->checkAuthSources === true) {
             $authSources = $this->authSourceConfig->getOptions();
-        } else if (is_array($this->checkAuthSources)) {
+        } elseif (is_array($this->checkAuthSources)) {
             $authSources = array_intersect($this->authSourceConfig->getOptions(), $this->checkAuthSources);
         } else { // false or invalid value
             return;
@@ -77,7 +77,10 @@ final class AuthSources extends \SimpleSAML\Module\Monitor\TestSuiteFactory
                     $ldapTest = new AuthSource\Ldap($configuration, $testData);
                     $this->addTestResults($ldapTest->getTestResults());
 
-                    $output[$authSourceId] = array_merge($negoTest->getArrayizeTestResults(), $ldapTest->getArrayizeTestResults());
+                    $output[$authSourceId] = array_merge(
+                        $negoTest->getArrayizeTestResults(),
+                        $ldapTest->getArrayizeTestResults()
+                    );
                     break;
                 case 'multiauth:MultiAuth':
                     // Relies on other authSources
@@ -121,19 +124,19 @@ final class AuthSources extends \SimpleSAML\Module\Monitor\TestSuiteFactory
     {
         // LDAP and Negotiate authSources use different names for equal properties
         // Hopefully this function can go away in SSP 2.0
-        if (isSet($authSourceData['debugLDAP'])) {
+        if (isset($authSourceData['debugLDAP'])) {
             $authSourceData['debug'] = $authSourceData['debugLDAP'];
             unset($authSourceData['debugLDAP']);
         }
-        if (isSet($authSourceData['adminUser'])) {
+        if (isset($authSourceData['adminUser'])) {
             $authSourceData['search.username'] = $authSourceData['adminUser'];
             unset($authSourceData['adminUser']);
         }
-        if (isSet($authSourceData['adminPassword'])) {
+        if (isset($authSourceData['adminPassword'])) {
             $authSourceData['search.password'] = $authSourceData['adminPassword'];
             unset($authSourceData['adminPassword']);
         }
-        if (isSet($authSourceData['base'])) {
+        if (isset($authSourceData['base'])) {
             $authSourceData['search.base'] = $authSourceData['base'];
             unset($authSourceData['base']);
         }

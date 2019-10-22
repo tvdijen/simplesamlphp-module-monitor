@@ -44,13 +44,13 @@ final class Negotiate extends \SimpleSAML\Module\Monitor\TestCaseFactory
             // Fallthru
         }
 
-        if (isSet($error)) {
+        if (isset($error)) {
             $testResult->setState(State::WARNING);
             $testResult->setMessage($error->getMessage());
-        } else if ($reply === true) {
+        } elseif ($reply === true) {
             $testResult->setState(State::OK);
-            $testResult->setMessage('Succesfully authenticated as '.$this->handle->getAuthenticatedUser());
-        } else if (is_null($this->authorization)) {
+            $testResult->setMessage('Succesfully authenticated as ' . $this->handle->getAuthenticatedUser());
+        } elseif (is_null($this->authorization)) {
             // Either misconfiguration of the browser, or user not authenticated at a KDC
             $testResult->setState(State::SKIPPED);
             $testResult->setMessage('Unable to authenticate; no token provided');

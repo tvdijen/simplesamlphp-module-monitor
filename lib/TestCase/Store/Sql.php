@@ -37,7 +37,7 @@ final class Sql extends \SimpleSAML\Module\Monitor\TestCaseFactory
             $testResult->setMessage('Connection to the database succesfully established');
         } catch (\Exception $e) {
             $testResult->setState(State::FATAL);
-            $testResult->setMessage('Unable to connect to the database; '.$e->getMessage());
+            $testResult->setMessage('Unable to connect to the database; ' . $e->getMessage());
         }
 
         $this->setTestResult($testResult);

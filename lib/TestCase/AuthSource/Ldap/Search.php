@@ -73,7 +73,7 @@ final class Search extends \SimpleSAML\Module\Monitor\TestCaseFactory
 
         $testResult = new TestResult('LDAP Search', $this->getSubject());
 
-        if (isSet($error)) {
+        if (isset($error)) {
             // When you feed str_replace a string, outcome will be string too, but Psalm doesn't see it that way
 
             /** @var string $msg */
