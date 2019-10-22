@@ -12,6 +12,8 @@ use SimpleSAML\Module\Monitor\Monitor;
  */
 class MonitorTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
 {
+    private const FRAMEWORK = 'vendor/simplesamlphp/simplesamlphp-test-framework';
+
     public function testMonitor(): void
     {
         $_SERVER['REQUEST_URI'] = '/';
@@ -25,7 +27,7 @@ class MonitorTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
             'metadata.sources' => [
                 [
                     'type' => 'flatfile',
-                    'file' => 'modules/monitor/tests/files/saml20-idp-remote.php',
+                    'file' => self::FRAMEWORK . '/metadata/simplesamlphp/saml20-idp-remote_cert_selfsigned.php',
                 ],
             ],
             'database.dsn' => 'mysql:host=localhost;dbname=saml',
