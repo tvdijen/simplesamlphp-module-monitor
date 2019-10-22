@@ -108,7 +108,7 @@ class Controller
         $this->monitor->invokeTestSuites();
         $results = $this->monitor->getResults();
 
-        switch ($this->requestVars->get('output')) {
+        switch ($format) {
             case 'xml':
                 $t = $this->processXml();
                 break;
