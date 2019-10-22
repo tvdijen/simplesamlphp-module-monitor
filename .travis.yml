@@ -137,6 +137,7 @@ jobs:
         - composer update --ignore-platform-reqs
       script:
         - vendor/bin/psalm
+        - vendor/bin/psalter --issues=UnnecessaryVarAnnotation
 
     - stage: quality
       php: 7.3
@@ -144,4 +145,4 @@ jobs:
       before_script:
         - composer update --ignore-platform-reqs
       script:
-        - vendor/bin/phpcs config-templates/ hooks/ lib/ tests/ www/
+        - vendor/bin/phpcs
