@@ -36,11 +36,11 @@ class Controller
     protected $requestVars;
 
     /** @var array */
-    private static $healthInfo = [
+    private $healthInfo = [
         State::SKIPPED => ['SKIPPED', 'yellow'],
         State::FATAL   => ['FATAL',   'purple'],
         State::ERROR   => ['NOK',     'red'   ],
-        State::NOSTATE   => ['NOSTATE',   'cyan'  ],
+        State::NOSTATE => ['NOSTATE',   'cyan'],
         State::WARNING => ['WARNING', 'orange'],
         State::OK      => ['OK',      'green' ]
     ];
@@ -85,15 +85,6 @@ class Controller
             $this->moduleConfig
         );
         $this->monitor = new Monitor($this->testConfiguration);
-
-        $this->state = $this->monitor->getState();
-        if ($this->state === State::OK) {
-            $this->responseCode = 200;
-        } elseif ($this->state === State::WARNING) {
-            $this->responseCode = 417;
-        } else {
-            $this->responseCode = 500;
-        }
     }
 
 
@@ -106,6 +97,16 @@ class Controller
     public function main(string $format): Response
     {
         $this->monitor->invokeTestSuites();
+
+        $this->state = $this->monitor->getState();
+        if ($this->state === State::OK) {
+            $this->responseCode = 200;
+        } elseif ($this->state === State::WARNING) {
+            $this->responseCode = 417;
+        } else {
+            $this->responseCode = 500;
+        }
+
         $results = $this->monitor->getResults();
 
         switch ($format) {
