@@ -20,8 +20,6 @@ abstract class TestSuiteFactory extends TestCaseFactory
         $this->setConfiguration($configuration);
 
         parent::__construct($testData);
-
-        $this->invokeTestSuite();
     }
 
 
@@ -125,14 +123,5 @@ abstract class TestSuiteFactory extends TestCaseFactory
             $state = State::NOSTATE;
         }
         return $state;
-    }
-
-
-    /**
-     * @return void
-     */
-    public function invokeTestSuite(): void
-    {
-        $this->invokeTest();
     }
 }
