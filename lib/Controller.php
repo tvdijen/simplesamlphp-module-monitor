@@ -64,8 +64,6 @@ class Controller
      * It initializes the global configuration and auth source configuration for the controllers implemented here.
      *
      * @param \SimpleSAML\Configuration              $config The configuration to use by the controllers.
-     * @param \SimpleSAML\Monitor                    $monitor The monitor object to use by the controllers.
-     *
      * @throws \Exception
      */
     public function __construct(Configuration $config)
