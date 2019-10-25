@@ -1,17 +1,20 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\Test;
+namespace SimpleSAML\Module\Monitor\Test;
 
-use \SimpleSAML\Modules\Monitor\DependencyInjection as DependencyInjection;
-use \SimpleSAML\Modules\Monitor\TestConfiguration as TestConfiguration;
-use \SimpleSAML\Modules\Monitor\Monitor as Monitor;
+use SimpleSAML\Configuration;
+use SimpleSAML\Module\Monitor\DependencyInjection;
+use SimpleSAML\Module\Monitor\TestConfiguration;
+use SimpleSAML\Module\Monitor\Monitor;
 
 /**
  * Tests for Monitor
  */
 class MonitorTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
 {
-    public function testMonitor()
+    private const FRAMEWORK = 'vendor/simplesamlphp/simplesamlphp-test-framework';
+
+    public function testMonitor(): void
     {
         $_SERVER['REQUEST_URI'] = '/';
         $serverVars = new DependencyInjection(['SERVER_NAME' => 'localhost']);
@@ -24,7 +27,7 @@ class MonitorTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
             'metadata.sources' => [
                 [
                     'type' => 'flatfile',
-                    'file' => 'modules/monitor/tests/files/saml20-idp-remote.php',
+                    'file' => self::FRAMEWORK . '/metadata/simplesamlphp/saml20-idp-remote_cert_selfsigned.php',
                 ],
             ],
             'database.dsn' => 'mysql:host=localhost;dbname=saml',
@@ -35,13 +38,13 @@ class MonitorTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
         $moduleConfig_input = [
             'test' => 'travis'
         ];
-        $globalConfig = \SimpleSAML\Configuration::loadFromArray($globalConfig_input);
-        $authSourceConfig = \SimpleSAML\Configuration::loadFromArray($authSourceConfig_input);
-        $moduleConfig = \SimpleSAML\Configuration::loadFromArray($moduleConfig_input);
+        $globalConfig = Configuration::loadFromArray($globalConfig_input);
+        $authSourceConfig = Configuration::loadFromArray($authSourceConfig_input);
+        $moduleConfig = Configuration::loadFromArray($moduleConfig_input);
 
-        \SimpleSAML\Configuration::setPreLoadedConfig($globalConfig, 'config.php');
-        \SimpleSAML\Configuration::setPreLoadedConfig($moduleConfig, 'module_monitor.php');
-        \SimpleSAML\Configuration::setPreLoadedConfig($authSourceConfig, 'authsources.php');
+        Configuration::setPreLoadedConfig($globalConfig, 'config.php');
+        Configuration::setPreLoadedConfig($moduleConfig, 'module_monitor.php');
+        Configuration::setPreLoadedConfig($authSourceConfig, 'authsources.php');
 
         $testConf = new TestConfiguration($serverVars, $requestVars, $globalConfig, $authSourceConfig, $moduleConfig);
         $monitor = new Monitor($testConf);

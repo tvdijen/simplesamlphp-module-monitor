@@ -1,14 +1,14 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\TestSuite;
+namespace SimpleSAML\Module\Monitor\TestSuite;
 
-use \SimpleSAML\Modules\Monitor\TestConfiguration as TestConfiguration;
-use \SimpleSAML\Modules\Monitor\State as State;
-use \SimpleSAML\Modules\Monitor\TestCase as TestCase;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
-use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
+use SimpleSAML\Module\Monitor\TestConfiguration;
+use SimpleSAML\Module\Monitor\State;
+use SimpleSAML\Module\Monitor\TestCase;
+use SimpleSAML\Module\Monitor\TestData;
+use SimpleSAML\Module\Monitor\TestResult;
 
-class Modules extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
+class Modules extends \SimpleSAML\Module\Monitor\TestSuiteFactory
 {
     /** @var array */
     private $requiredApacheModules = [];
@@ -36,7 +36,8 @@ class Modules extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     private $modulePhpDependencies = [
         'authfacebook' => ['curl', 'json'],
         'authYubiKey' => 'curl',
-// TODO: consent only requires pdo when database backend is used.. Should probably add this to required-list when processing metadata
+// TODO: consent only requires pdo when database backend is used..
+//       Should probably add this to required-list when processing metadata
 //        'consent' => 'PDO',
         'consentAdmin' => 'PDO',
         'ldap' => 'ldap',
@@ -48,16 +49,18 @@ class Modules extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
 
     /**
-     * @param TestData|null $testData
+     * @param \SimpleSAML\Module\Monitor\TestData|null $testData
      *
      * @return void
      */
-    protected function initialize(TestData $testData = null)
+    protected function initialize(TestData $testData = null): void
     {
         $this->setRequiredApacheModules();
         $this->setRequiredPhpModules();
         $this->setRequiredSspModules();
         $this->setCategory('Modules');
+
+        parent::initialize($testData);
     }
 
 
@@ -66,7 +69,7 @@ class Modules extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
      *
      * @return void
      */
-    private function addRequiredApacheModule($module)
+    private function addRequiredApacheModule(string $module): void
     {
         if (!in_array($module, $this->requiredApacheModules)) {
             $this->requiredApacheModules[] = $module;
@@ -77,7 +80,7 @@ class Modules extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /**
      * @return void
      */
-    private function setRequiredApacheModules()
+    private function setRequiredApacheModules(): void
     {
         // Apache Modules
         if (function_exists('apache_get_modules')) {
@@ -102,7 +105,7 @@ class Modules extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
      *
      * @return void
      */
-    private function addRequiredPhpModule($module)
+    private function addRequiredPhpModule(string $module): void
     {
         if (!in_array($module, $this->requiredPhpModules)) {
             $this->requiredPhpModules[] = $module;
@@ -113,7 +116,7 @@ class Modules extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /**
      * @return void
      */
-    private function setRequiredPhpModules()
+    private function setRequiredPhpModules(): void
     {
         // PHP modules required
         $composerFile = \SimpleSAML\Utils\System::resolvePath('composer.json');
@@ -140,7 +143,7 @@ class Modules extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /**
      * @return void
      */
-    private function setRequiredSspModules()
+    private function setRequiredSspModules(): void
     {
         $modules = \SimpleSAML\Module::getModules();
         foreach ($modules as $module) {
@@ -165,7 +168,7 @@ class Modules extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /**
      * @return array
      */
-    public function getAvailableApacheModules()
+    public function getAvailableApacheModules(): array
     {
         $configuration = $this->getConfiguration();
         return $configuration->getAvailableApacheModules();
@@ -175,7 +178,7 @@ class Modules extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /**
      * @return array
      */
-    public function getAvailablePhpModules()
+    public function getAvailablePhpModules(): array
     {
         $configuration = $this->getConfiguration();
         return $configuration->getAvailablePhpModules();
@@ -185,7 +188,7 @@ class Modules extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /**
      * @return array
      */
-    private function getRequiredApacheModules()
+    private function getRequiredApacheModules(): array
     {
         return $this->requiredApacheModules;
     }
@@ -194,7 +197,7 @@ class Modules extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /**
      * @return array
      */
-    private function getRequiredPhpModules()
+    private function getRequiredPhpModules(): array
     {
         return $this->requiredPhpModules;
     }
@@ -203,7 +206,7 @@ class Modules extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /**
      * @return void
      */
-    public function invokeTest()
+    public function invokeTest(): void
     {
         $configuration = $this->getConfiguration();
 

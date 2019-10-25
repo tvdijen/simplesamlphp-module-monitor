@@ -1,10 +1,10 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor;
+namespace SimpleSAML\Module\Monitor;
 
 class Monitor
 {
-    /** @var TestConfiguration */
+    /** @var \SimpleSAML\Module\Monitor\TestConfiguration */
     private $configuration;
 
     /** @var array */
@@ -15,7 +15,7 @@ class Monitor
 
 
     /**
-     * @param TestConfiguration $testConfiguration
+     * @param \SimpleSAML\Module\Monitor\TestConfiguration $testConfiguration
      */
     public function __construct(TestConfiguration $testConfiguration)
     {
@@ -26,7 +26,7 @@ class Monitor
     /**
      * @return void
      */
-    public function invokeTestSuites()
+    public function invokeTestSuites(): void
     {
         $this->invokeModuleCheck();
         $this->invokeConfigurationCheck();
@@ -37,22 +37,20 @@ class Monitor
 
 
     /**
-     * @return TestConfiguration
+     * @return \SimpleSAML\Module\Monitor\TestConfiguration
      */
-    public function getTestConfiguration()
+    public function getTestConfiguration(): TestConfiguration
     {
-        assert($this->configuration instanceof TestConfiguration);
         return $this->configuration;
     }
 
 
     /**
-     * @param TestConfiguration $testConfiguration
+     * @param \SimpleSAML\Module\Monitor\TestConfiguration $testConfiguration
      * @return void
      */
-    private function setTestConfiguration($testConfiguration)
+    private function setTestConfiguration(TestConfiguration $testConfiguration): void
     {
-        assert($testConfiguration instanceof TestConfiguration);
         $this->configuration = $testConfiguration;
     }
 
@@ -60,7 +58,7 @@ class Monitor
     /**
      * @return array
      */
-    public function getResults()
+    public function getResults(): array
     {
         return $this->results;
     }
@@ -69,7 +67,7 @@ class Monitor
     /**
      * @return integer
      */
-    public function getState()
+    public function getState(): int
     {
         $filtered = array_diff($this->state, [State::SKIPPED, State::NOSTATE]);
         return empty($filtered) ? State::NOSTATE : min($filtered);
@@ -79,7 +77,7 @@ class Monitor
     /**
      * @return void
      */
-    private function invokeModuleCheck()
+    private function invokeModuleCheck(): void
     {
         $testsuite = new TestSuite\Modules($this->configuration);
         $this->results['modules'] = $testsuite->getArrayizeTestResults();
@@ -90,7 +88,7 @@ class Monitor
     /**
      * @return void
      */
-    private function invokeConfigurationCheck()
+    private function invokeConfigurationCheck(): void
     {
         $testsuite = new TestSuite\Configuration($this->configuration);
         $this->results['configuration'] = $testsuite->getArrayizeTestResults();
@@ -101,7 +99,7 @@ class Monitor
     /**
      * @return void
      */
-    private function invokeStoreCheck()
+    private function invokeStoreCheck(): void
     {
         $testsuite = new TestSuite\Store($this->configuration);
         $this->results['store'] = $testsuite->getArrayizeTestResults();
@@ -112,7 +110,7 @@ class Monitor
     /**
      * @return void
      */
-    private function invokeAuthSourceCheck()
+    private function invokeAuthSourceCheck(): void
     {
         $testsuite = new TestSuite\AuthSources($this->configuration);
         $testResult = $testsuite->getTestResult();
@@ -124,7 +122,7 @@ class Monitor
     /**
      * @return void
      */
-    private function invokeMetadataCheck()
+    private function invokeMetadataCheck(): void
     {
         $testsuite = new TestSuite\Metadata($this->configuration);
         $testResult = $testsuite->getTestResult();

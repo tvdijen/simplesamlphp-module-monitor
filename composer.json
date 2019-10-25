@@ -18,12 +18,12 @@
     },
     "autoload": {
         "psr-4": {
-            "SimpleSAML\\Modules\\Monitor\\": "lib/"
+            "SimpleSAML\\Module\\Monitor\\": "lib/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\SimpleSAML\\Modules\\Monitor\\TestFiles\\": "tests/files",
+            "Tests\\SimpleSAML\\Module\\Monitor\\TestFiles\\": "tests/files",
             "SimpleSAML\\Test\\Utils\\": "vendor/simplesamlphp/simplesamlphp/tests/Utils"
         }
     },
@@ -36,8 +36,11 @@
         "ext-krb5": "*",
 
         "phpunit/phpunit": "~5.7",
-        "simplesamlphp/simplesamlphp": "^1.18@rc",
-        "simplesamlphp/simplesamlphp-test-framework": "~0.0.13"
+        "simplesamlphp/simplesamlphp": "^1.18@RC",
+        "sensiolabs/security-checker": "^5.0.3",
+        "simplesamlphp/simplesamlphp-test-framework": "^0.0.14",
+        "squizlabs/php_codesniffer": "^3.5",
+        "vimeo/psalm": "~1.1.9"
     },
     "support": {
         "issues": "https://github.com/tvdijen/simplesamlphp-module-monitor/issues",

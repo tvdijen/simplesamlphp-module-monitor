@@ -1,21 +1,21 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\Test;
+namespace SimpleSAML\Module\Monitor\Test;
 
-use \SimpleSAML\Modules\Monitor\State as State;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
-use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
-use \SimpleSAML\Modules\Monitor\DependencyInjection as DependencyInjection;
-use \SimpleSAML\Modules\Monitor\TestConfiguration as TestConfiguration;
-use \SimpleSAML\Modules\Monitor\TestSuiteFactory as TestSuiteFactory;
-use \Tests\SimpleSAML\Modules\Monitor\TestFiles\TestSuiteImplementation as TestSuiteImplementation;
+use SimpleSAML\Module\Monitor\State;
+use SimpleSAML\Module\Monitor\TestData;
+use SimpleSAML\Module\Monitor\TestResult;
+use SimpleSAML\Module\Monitor\DependencyInjection;
+use SimpleSAML\Module\Monitor\TestConfiguration;
+use SimpleSAML\Module\Monitor\TestSuiteFactory;
+use Tests\SimpleSAML\Module\Monitor\TestFiles\TestSuiteImplementation;
 
 /**
  * Tests for TestSuiteFactory
  */
 class TestSuiteFactoryTest extends \PHPUnit\Framework\TestCase
 {
-    public function testTestSuiteFactory()
+    public function testTestSuiteFactory(): void
     {
         $config = new TestConfiguration(
             new DependencyInjection([]),

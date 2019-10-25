@@ -1,23 +1,23 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\TestCase\Store;
+namespace SimpleSAML\Module\Monitor\TestCase\Store;
 
-use \SimpleSAML\Modules\Monitor\State as State;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
-use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
+use SimpleSAML\Module\Monitor\State;
+use SimpleSAML\Module\Monitor\TestData;
+use SimpleSAML\Module\Monitor\TestResult;
 
-final class Sql extends \SimpleSAML\Modules\Monitor\TestCaseFactory
+final class Sql extends \SimpleSAML\Module\Monitor\TestCaseFactory
 {
-    /** @var string|null */
-    private $host;
+    /** @var string */
+    private $host = '<< unset >>';
 
 
     /**
-     * @param TestData $testData
+     * @param \SimpleSAML\Module\Monitor\TestData $testData
      *
      * @return void
      */
-    protected function initialize(TestData $testData)
+    protected function initialize(TestData $testData): void
     {
         $this->host = $testData->getInputItem('host');
         parent::initialize($testData);
@@ -27,7 +27,7 @@ final class Sql extends \SimpleSAML\Modules\Monitor\TestCaseFactory
     /**
      * @return void
      */
-    public function invokeTest()
+    public function invokeTest(): void
     {
         $testResult = new TestResult('SQL Server Health', $this->host);
 
@@ -37,7 +37,7 @@ final class Sql extends \SimpleSAML\Modules\Monitor\TestCaseFactory
             $testResult->setMessage('Connection to the database succesfully established');
         } catch (\Exception $e) {
             $testResult->setState(State::FATAL);
-            $testResult->setMessage('Unable to connect to the database; '.$e->getMessage());
+            $testResult->setMessage('Unable to connect to the database; ' . $e->getMessage());
         }
 
         $this->setTestResult($testResult);

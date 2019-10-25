@@ -1,15 +1,15 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\TestSuite\Configuration;
+namespace SimpleSAML\Module\Monitor\TestSuite\Configuration;
 
-use \SimpleSAML\Modules\Monitor\TestConfiguration as TestConfiguration;
-use \SimpleSAML\Modules\Monitor\TestCase as TestCase;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
-use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
-use \SimpleSAML\Modules\Monitor\State as State;
-use \SimpleSAML\Utils as Utils;
+use SimpleSAML\Module\Monitor\TestConfiguration;
+use SimpleSAML\Module\Monitor\TestCase;
+use SimpleSAML\Module\Monitor\TestData;
+use SimpleSAML\Module\Monitor\TestResult;
+use SimpleSAML\Module\Monitor\State;
+use SimpleSAML\Utils;
 
-final class Database extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
+final class Database extends \SimpleSAML\Module\Monitor\TestSuiteFactory
 {
     /** @var string|null */
     private $store = null;
@@ -25,7 +25,7 @@ final class Database extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
 
     /**
-     * @param TestConfiguration $configuration
+     * @param \SimpleSAML\Module\Monitor\TestConfiguration $configuration
      */
     public function __construct(TestConfiguration $configuration)
     {
@@ -42,13 +42,13 @@ final class Database extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /**
      * @return void
      */
-    public function invokeTest()
+    public function invokeTest(): void
     {
         if ($this->store === 'sql') {
             // We use a database for session-storage
-        } else if (in_array(['type' => 'pdo'], $this->metadataSources, true)) {
+        } elseif (in_array(['type' => 'pdo'], $this->metadataSources, true)) {
             // We use a database for metadata-storage
-        } else if ($this->areModulesDependingOnDatabase() === false) {
+        } elseif ($this->areModulesDependingOnDatabase() === false) {
             $testResult = new TestResult('Database connection', '-');
             $testResult->setState(State::SKIPPED);
             $testResult->setMessage('Database currently not in use');
@@ -67,7 +67,7 @@ final class Database extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /**
      * @return bool
      */
-    private function areModulesDependingOnDatabase()
+    private function areModulesDependingOnDatabase(): bool
     {
         foreach ($this->dependentModules as $module) {
             if (\SimpleSAML\Module::isModuleEnabled($module)) {

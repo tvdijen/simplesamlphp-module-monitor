@@ -1,13 +1,13 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\TestCase\Cert;
+namespace SimpleSAML\Module\Monitor\TestCase\Cert;
 
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
+use SimpleSAML\Module\Monitor\TestData;
 
-class Data extends \SimpleSAML\Modules\Monitor\TestCase\Cert
+class Data extends \SimpleSAML\Module\Monitor\TestCase\Cert
 {
     /**
-     * @param TestData $testData
+     * @param \SimpleSAML\Module\Monitor\TestData $testData
      */
     public function __construct(TestData $testData)
     {

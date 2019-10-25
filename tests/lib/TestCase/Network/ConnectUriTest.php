@@ -1,17 +1,17 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\Test;
+namespace SimpleSAML\Module\Monitor\Test;
 
-use \SimpleSAML\Modules\Monitor\TestCase as TestCase;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
-use \SimpleSAML\Modules\Monitor\State as State;
+use SimpleSAML\Module\Monitor\TestCase;
+use SimpleSAML\Module\Monitor\TestData;
+use SimpleSAML\Module\Monitor\State;
 
 /**
  * Tests for TestCase\Network\ConnectUri
  */
 class TestConnectUriTest extends \PHPUnit\Framework\TestCase
 {
-    public function testConnectUriOK()
+    public function testConnectUriOK(): void
     {
         $testData = new TestData([
             'uri' => 'ssl://127.0.0.1:443',
@@ -28,7 +28,7 @@ class TestConnectUriTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(State::OK, $testResult->getState());
     }
 
-    public function testConnectUriFailed()
+    public function testConnectUriFailed(): void
     {
         $testData = new TestData([
             'uri' => 'ssl://127.0.0.1:442',

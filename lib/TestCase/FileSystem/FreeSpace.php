@@ -1,23 +1,23 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\TestCase\FileSystem;
+namespace SimpleSAML\Module\Monitor\TestCase\FileSystem;
 
-use \SimpleSAML\Modules\Monitor\State as State;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
-use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
+use SimpleSAML\Module\Monitor\State;
+use SimpleSAML\Module\Monitor\TestData;
+use SimpleSAML\Module\Monitor\TestResult;
 
-final class FreeSpace extends \SimpleSAML\Modules\Monitor\TestCaseFactory
+final class FreeSpace extends \SimpleSAML\Module\Monitor\TestCaseFactory
 {
     /** @var string */
     private $path = '';
 
 
     /**
-     * @var TestData $testData
+     * @var \SimpleSAML\Module\Monitor\TestData $testData
      *
      * @return void
      */
-    protected function initialize(TestData $testData)
+    protected function initialize(TestData $testData): void
     {
         $this->setPath($testData->getInputItem('path'));
         $this->setCategory($testData->getInputItem('category'));
@@ -29,9 +29,8 @@ final class FreeSpace extends \SimpleSAML\Modules\Monitor\TestCaseFactory
      * @param string $path
      * @return void
      */
-    private function setPath($path)
+    private function setPath(string $path): void
     {
-        assert(is_string($path));
         $this->path = $path;
     }
 
@@ -39,9 +38,8 @@ final class FreeSpace extends \SimpleSAML\Modules\Monitor\TestCaseFactory
     /**
      * @return string
      */
-    private function getPath()
+    private function getPath(): string
     {
-        assert(is_string($this->path));
         return $this->path;
     }
 
@@ -49,24 +47,25 @@ final class FreeSpace extends \SimpleSAML\Modules\Monitor\TestCaseFactory
     /**
      * @return void
      */
-    public function invokeTest()
+    public function invokeTest(): void
     {
         $path = $this->getPath();
         $testResult = new TestResult($this->getCategory(), $path);
 
+        /** @psalm-var float|false $size   Remove after upgrading Psalm to >=3.2.7 */
         $size = disk_total_space($path);
         $free = disk_free_space($path);
         if ($size !== false && $free !== false) {
             $free = round(100 - ((($size - $free) / $size) * 100));
 
             if ($free >= 15) {
-                $testResult->setMessage($free.'% free space');
+                $testResult->setMessage($free . '% free space');
                 $testResult->setState(State::OK);
-            } else if ($free < 5) {
-                $testResult->setMessage('Critical: '.$free.'% free space');
+            } elseif ($free < 5) {
+                $testResult->setMessage('Critical: ' . $free . '% free space');
                 $testResult->setState(State::ERROR);
             } else {
-                $testResult->setMessage($free.'% free space');
+                $testResult->setMessage($free . '% free space');
                 $testResult->setState(State::WARNING);
             }
             $testResult->addOutput($free, 'free_percentage');

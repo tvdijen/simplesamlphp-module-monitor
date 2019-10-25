@@ -1,6 +1,6 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor;
+namespace SimpleSAML\Module\Monitor;
 
 final class TestData
 {
@@ -23,9 +23,8 @@ final class TestData
      *
      * @return void
      */
-    public function setInput($input, $key = null)
+    public function setInput($input, string $key = null): void
     {
-        assert(is_string($key) || is_null($key));
         if (is_null($key)) {
             assert(is_array($input));
             foreach ($input as $key => $value) {
@@ -45,10 +44,9 @@ final class TestData
      *
      * @return void
      */
-    public function addInput($key, $value = null)
+    public function addInput(string $key, $value = null): void
     {
-        assert(is_string($key));
-        if (isSet($this->testData[$key])) {
+        if (isset($this->testData[$key])) {
             assert(is_array($this->testData[$key]));
             $this->testData[$key] = array_merge($this->testData[$key], $value);
         } else {
@@ -60,7 +58,7 @@ final class TestData
     /**
      * @return array
      */
-    public function getInput()
+    public function getInput(): array
     {
         return $this->testData;
     }
@@ -71,8 +69,8 @@ final class TestData
      *
      * @return mixed|null
      */
-    public function getInputItem($item) {
-        assert(is_string($item));
+    public function getInputItem(string $item)
+    {
         return array_key_exists($item, $this->testData) ? $this->testData[$item] : null;
     }
 }

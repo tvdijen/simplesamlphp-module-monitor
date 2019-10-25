@@ -1,12 +1,12 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\TestCase;
+namespace SimpleSAML\Module\Monitor\TestCase;
 
-use \SimpleSAML\Modules\Monitor\State as State;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
-use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
+use SimpleSAML\Module\Monitor\State as State;
+use SimpleSAML\Module\Monitor\TestData as TestData;
+use SimpleSAML\Module\Monitor\TestResult as TestResult;
 
-class Module extends \SimpleSAML\Modules\Monitor\TestCaseFactory
+class Module extends \SimpleSAML\Module\Monitor\TestCaseFactory
 {
     /** @var array */
     private $parsed = [];
@@ -19,11 +19,11 @@ class Module extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 
 
     /**
-     * @param TestData $testData
+     * @param \SimpleSAML\Module\Monitor\TestData $testData
      *
      * @return void
      */
-    protected function initialize(TestData $testData)
+    protected function initialize(TestData $testData): void
     {
         $this->module = $testData->getInputItem('required');
         $available = $testData->getInputItem('available');
@@ -40,7 +40,7 @@ class Module extends \SimpleSAML\Modules\Monitor\TestCaseFactory
     /**
      * @return void
      */
-    public function invokeTest()
+    public function invokeTest(): void
     {
         $testResult = new TestResult($this->getCategory(), $this->getModuleName());
 
@@ -66,11 +66,10 @@ class Module extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 
 
     /**
-     * @return array|null
+     * @return array
      */
-    private function getAvailable()
+    private function getAvailable(): array
     {
-        assert(is_array($this->available));
         return $this->available;
     }
 
@@ -78,9 +77,8 @@ class Module extends \SimpleSAML\Modules\Monitor\TestCaseFactory
     /**
      * @return string
      */
-    private function getModule()
+    private function getModule(): string
     {
-        assert(is_string($this->module));
         return $this->module;
     }
 
@@ -88,7 +86,7 @@ class Module extends \SimpleSAML\Modules\Monitor\TestCaseFactory
     /**
      * @return string
      */
-    public function getModuleName()
+    public function getModuleName(): string
     {
         $available = $this->available;
 

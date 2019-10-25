@@ -1,14 +1,14 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\TestCase\AuthSource\Ldap;
+namespace SimpleSAML\Module\Monitor\TestCase\AuthSource\Ldap;
 
-use \SimpleSAML\Modules\Monitor\State as State;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
-use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
+use SimpleSAML\Module\Monitor\State;
+use SimpleSAML\Module\Monitor\TestData;
+use SimpleSAML\Module\Monitor\TestResult;
 
-final class Search extends \SimpleSAML\Modules\Monitor\TestCaseFactory
+final class Search extends \SimpleSAML\Module\Monitor\TestCaseFactory
 {
-    /** @var \SimpleSAML\Auth\LDAP */
+    /** @var \SimpleSAML\Module\ldap\Auth\Ldap */
     private $connection;
 
     /** @var string */
@@ -25,11 +25,11 @@ final class Search extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 
 
     /**
-     * @param TestData $testData
+     * @param \SimpleSAML\Module\Monitor\TestData $testData
      *
      * @return void
      */
-    protected function initialize(TestData $testData)
+    protected function initialize(TestData $testData): void
     {
         $authSourceData = $testData->getInputItem('authSourceData');
 
@@ -63,7 +63,7 @@ final class Search extends \SimpleSAML\Modules\Monitor\TestCaseFactory
     /**
      * @return void
      */
-    public function invokeTest()
+    public function invokeTest(): void
     {
         try {
             $this->connection->searchfordn($this->base, $this->attributes, $this->username);
@@ -73,7 +73,7 @@ final class Search extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 
         $testResult = new TestResult('LDAP Search', $this->getSubject());
 
-        if (isSet($error)) {
+        if (isset($error)) {
             // When you feed str_replace a string, outcome will be string too, but Psalm doesn't see it that way
 
             /** @var string $msg */

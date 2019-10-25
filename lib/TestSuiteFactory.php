@@ -1,10 +1,10 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor;
+namespace SimpleSAML\Module\Monitor;
 
 abstract class TestSuiteFactory extends TestCaseFactory
 {
-    /** @var TestConfiguration */
+    /** @var \SimpleSAML\Module\Monitor\TestConfiguration */
     private $configuration;
 
     /** @var array An associative array of name => TestResult pairs */
@@ -12,57 +12,56 @@ abstract class TestSuiteFactory extends TestCaseFactory
 
 
     /**
-     * @param TestConfiguration|null $configuration
-     * @param TestData|null $testData
+     * @param \SimpleSAML\Module\Monitor\TestConfiguration $configuration
+     * @param \SimpleSAML\Module\Monitor\TestData|null $testData
      */
-    public function __construct(TestConfiguration $configuration = null, TestData $testData = null)
+    public function __construct(TestConfiguration $configuration, TestData $testData = null)
     {
         $this->setConfiguration($configuration);
-        $this->initialize($testData);
-        $this->invokeTestSuite();
+
+        parent::__construct($testData);
     }
 
 
     /**
-     * @param TestData|null $testData
+     * @param \SimpleSAML\Module\Monitor\TestData|null $testData
      *
      * @return void
      */
-    protected function initialize(TestData $testData = null)
+    protected function initialize(TestData $testData = null): void
     {
-        $this->setTestData($testData);
-    }
-
-
-    /**
-     * @param TestConfiguration $configuration
-     *
-     * @return void
-     */
-    protected function setConfiguration(TestConfiguration $configuration = null)
-    {
-        if (!is_null($configuration)) {
-            $this->configuration = $configuration;
+        if (!is_null($testData)) {
+            parent::initialize($testData);
         }
     }
 
 
     /**
-     * @return TestConfiguration
+     * @param \SimpleSAML\Module\Monitor\TestConfiguration $configuration
+     *
+     * @return void
      */
-    public function getConfiguration()
+    protected function setConfiguration(TestConfiguration $configuration): void
     {
-        assert($this->configuration instanceof TestConfiguration);
+        $this->configuration = $configuration;
+    }
+
+
+    /**
+     * @return \SimpleSAML\Module\Monitor\TestConfiguration
+     */
+    public function getConfiguration(): TestConfiguration
+    {
         return $this->configuration;
     }
 
 
     /**
-     * @param TestResult $testResult
+     * @param \SimpleSAML\Module\Monitor\TestResult $testResult
      *
      * @return void
      */
-    protected function addTestResult(TestResult $testResult)
+    protected function addTestResult(TestResult $testResult): void
     {
         $this->testResults[] = $testResult;
     }
@@ -73,7 +72,7 @@ abstract class TestSuiteFactory extends TestCaseFactory
      *
      * @return void
      */
-    protected function addTestResults(array $testResults)
+    protected function addTestResults(array $testResults): void
     {
         $this->testResults = array_merge($this->testResults, $testResults);
     }
@@ -82,9 +81,8 @@ abstract class TestSuiteFactory extends TestCaseFactory
     /**
      * @return array
      */
-    public function getTestResults()
+    public function getTestResults(): array
     {
-        assert(is_array($this->testResults));
         return $this->testResults;
     }
 
@@ -94,9 +92,8 @@ abstract class TestSuiteFactory extends TestCaseFactory
      *
      * @return array
      */
-    public function getArrayizeTestResults($includeOutput = false)
+    public function getArrayizeTestResults(bool $includeOutput = false): array
     {
-        assert(is_array($this->testResults));
         $result = [];
         foreach ($this->testResults as $testResult) {
             $result[] = $testResult->arrayizeTestResult($includeOutput);
@@ -108,7 +105,7 @@ abstract class TestSuiteFactory extends TestCaseFactory
     /**
      * @return int
      */
-    public function calculateState()
+    public function calculateState(): int
     {
         $testResults = $this->getTestResults();
 
@@ -126,14 +123,5 @@ abstract class TestSuiteFactory extends TestCaseFactory
             $state = State::NOSTATE;
         }
         return $state;
-    }
-
-
-    /**
-     * @return void
-     */
-    public function invokeTestSuite()
-    {
-        $this->invokeTest();
     }
 }

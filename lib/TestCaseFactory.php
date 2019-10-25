@@ -1,6 +1,6 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor;
+namespace SimpleSAML\Module\Monitor;
 
 abstract class TestCaseFactory implements TestInterface
 {
@@ -10,15 +10,15 @@ abstract class TestCaseFactory implements TestInterface
     /** @var string */
     private $subject;
 
-    /** @var TestData */
+    /** @var \SimpleSAML\Module\Monitor\TestData */
     private $testData;
 
-    /** @var TestResult */
+    /** @var \SimpleSAML\Module\Monitor\TestResult */
     private $testResult;
 
 
     /**
-     * @param TestData|null $testData
+     * @param \SimpleSAML\Module\Monitor\TestData|null $testData
      */
     public function __construct(TestData $testData = null)
     {
@@ -32,11 +32,11 @@ abstract class TestCaseFactory implements TestInterface
 
 
     /**
-     * @param TestData $testData
+     * @param \SimpleSAML\Module\Monitor\TestData $testData
      *
      * @return void
      */
-    protected function initialize(TestData $testData)
+    protected function initialize(TestData $testData): void
     {
         $this->setTestData($testData);
     }
@@ -47,9 +47,8 @@ abstract class TestCaseFactory implements TestInterface
      *
      * @return void
      */
-    protected function setCategory($category)
+    protected function setCategory(string $category): void
     {
-        assert(is_string($category));
         $this->category = $category;
     }
 
@@ -57,51 +56,48 @@ abstract class TestCaseFactory implements TestInterface
     /**
      * @return string
      */
-    public function getCategory()
+    public function getCategory(): string
     {
-        assert(is_string($this->category));
         return $this->category;
     }
 
 
     /**
-     * @return TestData
+     * @return \SimpleSAML\Module\Monitor\TestData
      */
-    public function getTestData()
+    public function getTestData(): TestData
     {
-        assert($this->testData instanceof TestData);
         return $this->testData;
     }
 
 
     /**
-     * @param TestData|null $testData
+     * @param \SimpleSAML\Module\Monitor\TestData $testData
      *
      * @return void
      */
-    protected function setTestData(TestData $testData = null)
+    protected function setTestData(TestData $testData): void
     {
         $this->testData = $testData;
     }
 
 
     /**
-     * @param TestResult $testResult
+     * @param \SimpleSAML\Module\Monitor\TestResult $testResult
      *
      * @return void
      */
-    protected function setTestResult(TestResult $testResult)
+    protected function setTestResult(TestResult $testResult): void
     {
         $this->testResult = $testResult;
     }
 
 
     /**
-     * @return TestResult
+     * @return \SimpleSAML\Module\Monitor\TestResult
      */
-    public function getTestResult()
+    public function getTestResult(): TestResult
     {
-        assert($this->testResult instanceof TestResult);
         return $this->testResult;
     }
 
@@ -111,9 +107,8 @@ abstract class TestCaseFactory implements TestInterface
      *
      * @return void
      */
-    protected function setSubject($subject)
+    protected function setSubject(string $subject): void
     {
-        assert(is_string($subject));
         $this->subject = $subject;
     }
 
@@ -121,11 +116,10 @@ abstract class TestCaseFactory implements TestInterface
     /**
      * @return string
      */
-    public function getSubject()
+    public function getSubject(): string
     {
-        assert(is_string($this->subject));
         return $this->subject;
     }
 
-    abstract public function invokeTest();
+    abstract public function invokeTest(): void;
 }

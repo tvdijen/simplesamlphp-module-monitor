@@ -1,18 +1,18 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\Test;
+namespace SimpleSAML\Module\Monitor\Test;
 
-use \SimpleSAML\Modules\Monitor\TestCase as TestCase;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
-use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
-use \SimpleSAML\Modules\Monitor\State as State;
+use SimpleSAML\Module\Monitor\TestCase;
+use SimpleSAML\Module\Monitor\TestData;
+use SimpleSAML\Module\Monitor\TestResult;
+use SimpleSAML\Module\Monitor\State;
 
 /**
  * Tests for MemcacheServerGroup
  */
 class TestMemcacheServerGroupTest extends \PHPUnit\Framework\TestCase
 {
-    public function testMemcacheServerGroup()
+    public function testMemcacheServerGroup(): void
     {
         $a = new TestResult();
         $a->setState(State::OK);

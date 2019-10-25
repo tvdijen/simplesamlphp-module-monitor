@@ -1,17 +1,17 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\Test;
+namespace SimpleSAML\Module\Monitor\Test;
 
-use \SimpleSAML\Modules\Monitor\TestCase as TestCase;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
-use \SimpleSAML\Modules\Monitor\State as State;
+use SimpleSAML\Module\Monitor\TestCase;
+use SimpleSAML\Module\Monitor\TestData;
+use SimpleSAML\Module\Monitor\State;
 
 /**
  * Tests for TestCase\Metadata\Expiration
  */
 class TestMetadataExpirationTest extends \PHPUnit\Framework\TestCase
 {
-    public function testMetadataExpired()
+    public function testMetadataExpired(): void
     {
         $testData = new TestData([
             'entityId' => 'https://example.org',
@@ -23,7 +23,7 @@ class TestMetadataExpirationTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(State::ERROR, $testResult->getState());
     }
 
-    public function testMetadataValid()
+    public function testMetadataValid(): void
     {
         $testData = new TestData([
             'entityId' => 'https://example.org',
@@ -35,7 +35,7 @@ class TestMetadataExpirationTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(State::OK, $testResult->getState());
     }
 
-    public function testMetadataNeverExpires()
+    public function testMetadataNeverExpires(): void
     {
         $testData = new TestData([
             'entityId' => 'https://example.org',

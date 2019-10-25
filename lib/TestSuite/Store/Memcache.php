@@ -1,21 +1,21 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\TestSuite\Store;
+namespace SimpleSAML\Module\Monitor\TestSuite\Store;
 
-use \SimpleSAML\Modules\Monitor\TestConfiguration as TestConfiguration;
-use \SimpleSAML\Modules\Monitor\TestCase as TestCase;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
-use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
-use \SimpleSAML\Modules\Monitor\State as State;
+use SimpleSAML\Module\Monitor\TestConfiguration;
+use SimpleSAML\Module\Monitor\TestCase;
+use SimpleSAML\Module\Monitor\TestData;
+use SimpleSAML\Module\Monitor\TestResult;
+use SimpleSAML\Module\Monitor\State;
 
-final class Memcache extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
+final class Memcache extends \SimpleSAML\Module\Monitor\TestSuiteFactory
 {
     /** var string|null */
     private $class = null;
 
 
     /**
-     * @param TestConfiguration $configuration
+     * @param \SimpleSAML\Module\Monitor\TestConfiguration $configuration
      */
     public function __construct(TestConfiguration $configuration)
     {
@@ -32,7 +32,7 @@ final class Memcache extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /**
      * @return void
      */
-    public function invokeTest()
+    public function invokeTest(): void
     {
         $testResult = new TestResult('Memcache', 'Overall health');
 

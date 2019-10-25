@@ -1,12 +1,12 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\TestCase\Store\Memcache;
+namespace SimpleSAML\Module\Monitor\TestCase\Store\Memcache;
 
-use \SimpleSAML\Modules\Monitor\State as State;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
-use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
+use SimpleSAML\Module\Monitor\State;
+use SimpleSAML\Module\Monitor\TestData;
+use SimpleSAML\Module\Monitor\TestResult;
 
-final class ServerGroup extends \SimpleSAML\Modules\Monitor\TestCaseFactory
+final class ServerGroup extends \SimpleSAML\Module\Monitor\TestCaseFactory
 {
     /** @var array */
     private $results = [];
@@ -16,11 +16,11 @@ final class ServerGroup extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 
 
     /**
-     * @param TestData $testData
+     * @param \SimpleSAML\Module\Monitor\TestData $testData
      *
      * @return void
      */
-    protected function initialize(TestData $testData)
+    protected function initialize(TestData $testData): void
     {
         $this->results = $testData->getInputItem('results');
         $this->group = $testData->getInputItem('group');
@@ -32,9 +32,9 @@ final class ServerGroup extends \SimpleSAML\Modules\Monitor\TestCaseFactory
     /**
      * @return void
      */
-    public function invokeTest()
+    public function invokeTest(): void
     {
-        $testResult = new TestResult('Memcache Server Group Health', 'Group '.$this->group);
+        $testResult = new TestResult('Memcache Server Group Health', 'Group ' . $this->group);
 
         $states = [];
         foreach ($this->results as $result) {

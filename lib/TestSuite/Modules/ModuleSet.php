@@ -1,13 +1,15 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\TestSuite\Modules;
+namespace SimpleSAML\Module\Monitor\TestSuite\Modules;
 
-use \SimpleSAML\Modules\Monitor\State as State;
-use \SimpleSAML\Modules\Monitor\TestCase as TestCase;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
-use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
+use SimpleSAML\Module\Monitor\State;
+use SimpleSAML\Module\Monitor\TestCase;
+use SimpleSAML\Module\Monitor\TestConfiguration;
+use SimpleSAML\Module\Monitor\TestData;
+use SimpleSAML\Module\Monitor\TestResult;
+use Webmozart\Assert\Assert;
 
-final class ModuleSet extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
+final class ModuleSet extends \SimpleSAML\Module\Monitor\TestSuiteFactory
 {
     /** @var array */
     private $required;
@@ -23,26 +25,26 @@ final class ModuleSet extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
 
     /**
-     * @param TestData|null $testData
-     *
-     * @return void
+     * @param \SimpleSAML\Module\Monitor\TestConfiguration $configuration
+     * @param \SimpleSAML\Module\Monitor\TestData $testData
      */
-    protected function initialize(TestData $testData = null)
+    public function __construct(TestConfiguration $configuration, TestData $testData)
     {
-        if (!is_null($testData)) {
-            $this->setRequired($testData->getInputItem('required'));
-            $this->setAvailable($testData->getInputItem('available'));
-            $this->setDependencies($testData->getInputItem('dependencies'));
-            $this->setType($testData->getInputItem('type'));
-            $this->setCategory($this->type.' modules');
-        }
+        $this->setRequired($testData->getInputItem('required'));
+        $this->setAvailable($testData->getInputItem('available'));
+        $this->setDependencies($testData->getInputItem('dependencies'));
+        $this->setType($testData->getInputItem('type'));
+        $this->setCategory($this->type . ' modules');
+
+        parent::__construct($configuration);
     }
 
 
     /**
      * @param array $required
+     * @return void
      */
-    private function setRequired(array $required)
+    private function setRequired(array $required): void
     {
         $this->required = $required;
     }
@@ -50,8 +52,9 @@ final class ModuleSet extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
     /**
      * @param array $available
+     * @return void
      */
-    private function setAvailable(array $available)
+    private function setAvailable(array $available): void
     {
         $this->available = $available;
     }
@@ -59,8 +62,9 @@ final class ModuleSet extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
     /**
      * @param array $dependencies
+     * @return void
      */
-    private function setDependencies(array $dependencies)
+    private function setDependencies(array $dependencies): void
     {
         $this->dependencies = $dependencies;
     }
@@ -68,10 +72,10 @@ final class ModuleSet extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
     /**
      * @param string $type
+     * @return void
      */
-    private function setType($type)
+    private function setType(string $type): void
     {
-        assert(is_string($type));
         $this->type = $type;
     }
 
@@ -79,7 +83,7 @@ final class ModuleSet extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
     /**
      * @return void
      */
-    public function invokeTest()
+    public function invokeTest(): void
     {
         if (empty($this->available)) {
             $state = State::SKIPPED;
@@ -112,11 +116,11 @@ final class ModuleSet extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
 
 
     /**
-     * @param TestResult $testResult
+     * @param \SimpleSAML\Module\Monitor\TestResult $testResult
      *
      * return void
      */
-    protected function setTestResult(TestResult $testResult)
+    protected function setTestResult(TestResult $testResult): void
     {
         $state = $testResult->getState();
         if ($state === State::OK) {
@@ -135,7 +139,7 @@ final class ModuleSet extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
      *
      * @return array
      */
-    private function findMissingDependencies($module)
+    private function findMissingDependencies(string $module): array
     {
         $dependencies = $this->dependencies;
         $missing = [];

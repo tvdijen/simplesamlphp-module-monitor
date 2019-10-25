@@ -1,12 +1,12 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\TestCase\Network;
+namespace SimpleSAML\Module\Monitor\TestCase\Network;
 
-use \SimpleSAML\Modules\Monitor\State as State;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
-use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
+use SimpleSAML\Module\Monitor\State;
+use SimpleSAML\Module\Monitor\TestData;
+use SimpleSAML\Module\Monitor\TestResult;
 
-final class ConnectUri extends \SimpleSAML\Modules\Monitor\TestCaseFactory
+final class ConnectUri extends \SimpleSAML\Module\Monitor\TestCaseFactory
 {
     /** @var integer */
     private $timeout;
@@ -19,11 +19,11 @@ final class ConnectUri extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 
 
     /**
-     * @param TestData $testData
+     * @param \SimpleSAML\Module\Monitor\TestData $testData
      *
      * @return void
      */
-    protected function initialize(TestData $testData)
+    protected function initialize(TestData $testData): void
     {
         $uri = $testData->getInputItem('uri');
         $context = $testData->getInputItem('context');
@@ -52,9 +52,8 @@ final class ConnectUri extends \SimpleSAML\Modules\Monitor\TestCaseFactory
      *
      * @return void
      */
-    private function setUri($uri)
+    private function setUri(string $uri): void
     {
-        assert(is_string($uri));
         $this->uri = $uri;
     }
 
@@ -64,9 +63,8 @@ final class ConnectUri extends \SimpleSAML\Modules\Monitor\TestCaseFactory
      *
      * @return void
      */
-    private function setContext($context)
+    private function setContext($context): void
     {
-        assert(is_resource($context));
         $this->context = $context;
     }
 
@@ -76,9 +74,8 @@ final class ConnectUri extends \SimpleSAML\Modules\Monitor\TestCaseFactory
      *
      * @return void
      */
-    private function setTimeout($timeout)
+    private function setTimeout(int $timeout): void
     {
-        assert(is_int($timeout));
         $this->timeout = $timeout;
     }
 
@@ -86,10 +83,17 @@ final class ConnectUri extends \SimpleSAML\Modules\Monitor\TestCaseFactory
     /**
      * @return void
      */
-    public function invokeTest()
+    public function invokeTest(): void
     {
         list($errno, $errstr) = [0, ''];
-        $connection = @stream_socket_client($this->uri, $errno, $errstr, $this->timeout, STREAM_CLIENT_CONNECT, $this->context);
+        $connection = @stream_socket_client(
+            $this->uri,
+            $errno,
+            $errstr,
+            $this->timeout,
+            STREAM_CLIENT_CONNECT,
+            $this->context
+        );
 
         $testResult = new TestResult('Network connection', $this->uri);
 
@@ -97,7 +101,7 @@ final class ConnectUri extends \SimpleSAML\Modules\Monitor\TestCaseFactory
             $params = stream_context_get_params($connection);
 
             $testResult->addOutput($connection, 'connection');
-            if (isSet($params['options']['ssl']['peer_certificate'])) {
+            if (isset($params['options']['ssl']['peer_certificate'])) {
                 $certData = openssl_x509_parse($params['options']['ssl']['peer_certificate']);
                 $testResult->addOutput($certData, 'certData');
             }
@@ -105,7 +109,7 @@ final class ConnectUri extends \SimpleSAML\Modules\Monitor\TestCaseFactory
             $testResult->setMessage('Connection established');
         } else {
             $testResult->setState(State::ERROR);
-            $testResult->setMessage($errstr.' ('.$errno.')');
+            $testResult->setMessage($errstr . ' (' . $errno . ')');
         }
 
         $this->setTestResult($testResult);

@@ -1,15 +1,15 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\Test;
+namespace SimpleSAML\Module\Monitor\Test;
 
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
+use SimpleSAML\Module\Monitor\TestData;
 
 /**
  * Tests for TestData
  */
 class TestDataTest extends \PHPUnit\Framework\TestCase
 {
-    public function testTestData()
+    public function testTestData(): void
     {
         $input = ['test' => [1, 2, 3]];
         $testData = new TestData($input);

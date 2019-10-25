@@ -1,28 +1,31 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\Test;
+namespace SimpleSAML\Module\Monitor\Test;
 
-use \SimpleSAML\Modules\Monitor\TestCase as TestCase;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
-use \SimpleSAML\Modules\Monitor\State as State;
+use SimpleSAML\Module\Monitor\TestCase;
+use SimpleSAML\Module\Monitor\TestData;
+use SimpleSAML\Module\Monitor\State;
 
 /**
  * Tests for TestCase\Cert\Data and TestCase\Cert\File
  */
 class TestCertificatesTest extends \PHPUnit\Framework\TestCase
 {
+    /** @var string */
     private static $certdir;
+
+    /** @var string */
     private static $key;
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
-        self::$certdir = getcwd().DIRECTORY_SEPARATOR.'vendor/simplesamlphp/simplesamlphp-test-framework/certificates/pem';
-        self::$key = self::$certdir.DIRECTORY_SEPARATOR.'selfsigned.example.org_nopasswd.key';
+        self::$certdir = getcwd() . '/vendor/simplesamlphp/simplesamlphp-test-framework/certificates/pem';
+        self::$key = self::$certdir . '/selfsigned.example.org_nopasswd.key';
     }
 
-    public function testCertExpired()
+    public function testCertExpired(): void
     {
-        $certFile = self::$certdir.DIRECTORY_SEPARATOR.'expired.example.org.crt';
+        $certFile = self::$certdir . '/expired.example.org.crt';
         $cert = file_get_contents($certFile);
 
         $testData = new TestData([
@@ -37,9 +40,9 @@ class TestCertificatesTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(State::ERROR, $testResult->getState());
     }
 
-    public function testCertAboutToExpire()
+    public function testCertAboutToExpire(): void
     {
-        $certFile = self::$certdir.DIRECTORY_SEPARATOR.'signed.example.org.crt';
+        $certFile = self::$certdir . '/signed.example.org.crt';
         $certData = file_get_contents($certFile);
         $certInfo = openssl_x509_parse($certData);
 
@@ -61,11 +64,11 @@ class TestCertificatesTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(State::WARNING, $testResult->getState());
     }
 
-    public function testCertFileValid()
+    public function testCertFileValid(): void
     {
         $testData = new TestData([
             'category' => 'Test certificate',
-            'certFile' => self::$certdir.DIRECTORY_SEPARATOR.'selfsigned.example.org.crt',
+            'certFile' => self::$certdir . '/selfsigned.example.org.crt',
             'certExpirationWarning' => 10,
         ]);
         $certTest = new TestCase\Cert\File($testData);

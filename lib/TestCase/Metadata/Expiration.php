@@ -1,12 +1,12 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\TestCase\Metadata;
+namespace SimpleSAML\Module\Monitor\TestCase\Metadata;
 
-use \SimpleSAML\Modules\Monitor\State as State;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
-use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
+use SimpleSAML\Module\Monitor\State;
+use SimpleSAML\Module\Monitor\TestData;
+use SimpleSAML\Module\Monitor\TestResult;
 
-final class Expiration extends \SimpleSAML\Modules\Monitor\TestCaseFactory
+final class Expiration extends \SimpleSAML\Module\Monitor\TestCaseFactory
 {
     /** @var string */
     private $entityId;
@@ -16,11 +16,11 @@ final class Expiration extends \SimpleSAML\Modules\Monitor\TestCaseFactory
 
 
     /**
-     * @param TestData $testData
+     * @param \SimpleSAML\Module\Monitor\TestData $testData
      *
      * @return void
      */
-    protected function initialize(TestData $testData)
+    protected function initialize(TestData $testData): void
     {
         $this->entityId = $testData->getInputItem('entityId');
         $this->metadata = $testData->getInputItem('entityMetadata');
@@ -32,7 +32,7 @@ final class Expiration extends \SimpleSAML\Modules\Monitor\TestCaseFactory
     /**
      * @return void
      */
-    public function invokeTest()
+    public function invokeTest(): void
     {
         $testResult = new TestResult('Metadata expiration', $this->entityId);
 
@@ -43,7 +43,7 @@ final class Expiration extends \SimpleSAML\Modules\Monitor\TestCaseFactory
                 $testResult->setMessage('Metadata has expired');
             } else {
                 $testResult->setState(State::OK);
-                $testResult->setMessage('Metadata will expire on '.strftime('%c', $expiration));
+                $testResult->setMessage('Metadata will expire on ' . strftime('%c', $expiration));
             }
         } else {
             $testResult->setState(State::OK);
@@ -53,4 +53,3 @@ final class Expiration extends \SimpleSAML\Modules\Monitor\TestCaseFactory
         $this->setTestResult($testResult);
     }
 }
-

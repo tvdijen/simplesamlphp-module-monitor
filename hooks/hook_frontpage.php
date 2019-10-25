@@ -1,6 +1,7 @@
 <?php
 
-use \SimpleSAML\Module;
+use SimpleSAML\Module;
+use Webmozart\Assert\Assert;
 
 /**
  * Hook to add the monitor module to the frontpage.
@@ -10,8 +11,8 @@ use \SimpleSAML\Module;
  */
 function monitor_hook_frontpage(array &$links)
 {
-    assert(is_array($links));
-    assert(array_key_exists('links', $links));
+    Assert::keyExists($links, 'links');
+
     $links['config'][] = [
         'href' => Module::getModuleURL('monitor/index.php'),
         'text' => ['en' => 'Monitor'],
