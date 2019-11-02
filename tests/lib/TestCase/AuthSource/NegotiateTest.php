@@ -2,6 +2,7 @@
 
 namespace SimpleSAML\Module\Monitor\Test;
 
+use KRB5NegotiateAuth;
 use SimpleSAML\Configuration;
 use SimpleSAML\Module\Monitor\TestCase;
 use SimpleSAML\Module\Monitor\TestData;
@@ -24,7 +25,7 @@ class TestNegotiateTest extends \PHPUnit\Framework\TestCase
 
     public function testNegotiateException(): void
     {
-        $KRB5NegotiateAuthMock = $this->getMockBuilder('KRB5NegotiateAuth')->setMethods(
+        $KRB5NegotiateAuthMock = $this->getMockBuilder(KRB5NegotiateAuth::class)->onlyMethods(
             ['doAuthentication', 'getAuthenticatedUser']
         )->disableOriginalConstructor()->getMock();
         $KRB5NegotiateAuthMock->expects($this->any())->method('doAuthentication')->will(
@@ -41,7 +42,7 @@ class TestNegotiateTest extends \PHPUnit\Framework\TestCase
 
     public function testNegotiateSuccess(): void
     {
-        $KRB5NegotiateAuthMock = $this->getMockBuilder('KRB5NegotiateAuth')->setMethods(
+        $KRB5NegotiateAuthMock = $this->getMockBuilder(KRB5NegotiateAuth::class)->onlyMethods(
             ['doAuthentication', 'getAuthenticatedUser']
         )->disableOriginalConstructor()->getMock();
         $KRB5NegotiateAuthMock->expects($this->any())->method('doAuthentication')->will($this->returnValue(true));
@@ -59,7 +60,7 @@ class TestNegotiateTest extends \PHPUnit\Framework\TestCase
 
     public function testNegotiateNoAuthorzation(): void
     {
-        $KRB5NegotiateAuthMock = $this->getMockBuilder('KRB5NegotiateAuth')->setMethods(
+        $KRB5NegotiateAuthMock = $this->getMockBuilder(KRB5NegotiateAuth::class)->onlyMethods(
             ['doAuthentication', 'getAuthenticatedUser']
         )->disableOriginalConstructor()->getMock();
         $KRB5NegotiateAuthMock->expects($this->any())->method('doAuthentication')->will($this->returnValue(false));
@@ -74,7 +75,7 @@ class TestNegotiateTest extends \PHPUnit\Framework\TestCase
 
     public function testNegotiateError(): void
     {
-        $KRB5NegotiateAuthMock = $this->getMockBuilder('KRB5NegotiateAuth')->setMethods(
+        $KRB5NegotiateAuthMock = $this->getMockBuilder(KRB5NegotiateAuth::class)->onlyMethods(
             ['doAuthentication', 'getAuthenticatedUser']
         )->disableOriginalConstructor()->getMock();
         $KRB5NegotiateAuthMock->expects($this->any())->method('doAuthentication')->will($this->returnValue(false));

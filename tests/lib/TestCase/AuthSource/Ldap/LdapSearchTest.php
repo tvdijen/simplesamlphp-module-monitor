@@ -3,6 +3,7 @@
 namespace SimpleSAML\Module\Monitor\Test;
 
 use SimpleSAML\Configuration;
+use SimpleSAML\Module\ldap\Auth\Ldap;
 use SimpleSAML\Module\Monitor\TestCase;
 use SimpleSAML\Module\Monitor\TestData;
 use SimpleSAML\Module\Monitor\State;
@@ -20,7 +21,7 @@ class TestLdapSearchTest extends \PHPUnit\Framework\TestCase
             'search.password' => 'password',
         ];
 
-        $connectionMock = $this->getMockBuilder('LdapSearch')->setMethods(
+        $connectionMock = $this->getMockBuilder(Ldap::class)->onlyMethods(
             ['searchfordn']
         )->disableOriginalConstructor()->getMock();
         $connectionMock->expects($this->once())->method('searchfordn')->will($this->returnValue(true));
@@ -42,7 +43,7 @@ class TestLdapSearchTest extends \PHPUnit\Framework\TestCase
             'search.username' => 'CN=testuser,OU=example,DC=example,DC=org',
             'search.password' => 'password',
         ];
-        $connectionMock = $this->getMockBuilder('LdapSearch')->setMethods(
+        $connectionMock = $this->getMockBuilder(Ldap::class)->onlyMethods(
             ['searchfordn']
         )->disableOriginalConstructor()->getMock();
         $connectionMock->expects($this->once())->method('searchfordn')->will(
