@@ -9,7 +9,7 @@ use SimpleSAML\Module\Monitor\State;
 /**
  * Tests for Sql
  */
-class TestSqlTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
+class TestSqlTest extends \SimpleSAML\TestUtils\ClearStateTestCase
 {
     public function testSqlSuccess(): void
     {
