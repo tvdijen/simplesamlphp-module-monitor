@@ -49,8 +49,6 @@ final class Bind extends \SimpleSAML\Module\Monitor\TestCaseFactory
         $testResult = new TestResult('LDAP Bind', $this->username);
         if (isset($error)) {
             // When you feed str_replace a string, outcome will be string too, but Psalm doesn't see it that way
-
-            /** @var string $msg */
             $msg = str_replace('Library - LDAP bind(): ', '', $error->getMessage());
             $testResult->setState(State::FATAL);
         } elseif ($bind === true) {
