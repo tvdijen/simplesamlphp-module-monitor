@@ -75,8 +75,6 @@ final class Search extends \SimpleSAML\Module\Monitor\TestCaseFactory
 
         if (isset($error)) {
             // When you feed str_replace a string, outcome will be string too, but Psalm doesn't see it that way
-
-            /** @var string $msg */
             $msg = str_replace('Library - LDAP searchfordn(): ', '', $error->getMessage());
             $testResult->setState(State::ERROR);
             $testResult->setMessage($msg);

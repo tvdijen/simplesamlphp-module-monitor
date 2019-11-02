@@ -3,6 +3,7 @@
 namespace SimpleSAML\Module\Monitor\Test;
 
 use SimpleSAML\Configuration;
+use SimpleSAML\Module\ldap\Auth\Ldap;
 use SimpleSAML\Module\Monitor\TestCase;
 use SimpleSAML\Module\Monitor\TestData;
 use SimpleSAML\Module\Monitor\State;
@@ -18,7 +19,7 @@ class TestLdapBindTest extends \PHPUnit\Framework\TestCase
             'search.username' => 'testuser',
             'search.password' => 'password',
         ];
-        $connectionMock = $this->getMockBuilder('Ldapconnection')->setMethods(
+        $connectionMock = $this->getMockBuilder(Ldap::class)->onlyMethods(
             ['bind']
         )->disableOriginalConstructor()->getMock();
         $connectionMock->expects($this->once())->method('bind')->will($this->returnValue(true));
@@ -39,7 +40,7 @@ class TestLdapBindTest extends \PHPUnit\Framework\TestCase
             'search.username' => 'testuser',
             'search.password' => 'password',
         ];
-        $connectionMock = $this->getMockBuilder('Ldapconnection')->setMethods(
+        $connectionMock = $this->getMockBuilder(Ldap::class)->onlyMethods(
             ['bind']
         )->disableOriginalConstructor()->getMock();
         $connectionMock->expects($this->once())->method('bind')->will(
@@ -62,7 +63,7 @@ class TestLdapBindTest extends \PHPUnit\Framework\TestCase
             'search.username' => 'testuser',
             'search.password' => 'password',
         ];
-        $connectionMock = $this->getMockBuilder('Ldapconnection')->setMethods(
+        $connectionMock = $this->getMockBuilder(Ldap::class)->onlyMethods(
             ['bind']
         )->disableOriginalConstructor()->getMock();
         $connectionMock->expects($this->once())->method('bind')->will($this->returnValue(false));

@@ -9,7 +9,7 @@ use SimpleSAML\Module\Monitor\TestConfiguration;
 /**
  * Tests for TestConfiguration
  */
-class TestConfigurationTest extends \SimpleSAML\Test\Utils\ClearStateTestCase
+class TestConfigurationTest extends \SimpleSAML\TestUtils\ClearStateTestCase
 {
     private const FRAMEWORK = '../../../vendor/simplesamlphp/simplesamlphp-test-framework';
 

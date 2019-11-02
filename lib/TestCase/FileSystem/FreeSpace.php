@@ -52,7 +52,6 @@ final class FreeSpace extends \SimpleSAML\Module\Monitor\TestCaseFactory
         $path = $this->getPath();
         $testResult = new TestResult($this->getCategory(), $path);
 
-        /** @psalm-var float|false $size   Remove after upgrading Psalm to >=3.2.7 */
         $size = disk_total_space($path);
         $free = disk_free_space($path);
         if ($size !== false && $free !== false) {
