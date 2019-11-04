@@ -60,7 +60,7 @@ final class Memcache extends \SimpleSAML\Module\Monitor\TestSuiteFactory
 
                 $input = [
                     'results' => $results,
-                    'group' => $i
+                    'group' => strval($i)
                 ];
                 $testData = new TestData($input);
                 $groupTest = new TestCase\Store\Memcache\ServerGroup($testData);
