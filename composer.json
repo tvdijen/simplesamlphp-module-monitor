@@ -38,7 +38,7 @@
         "phpunit/phpunit": "~8.4",
         "simplesamlphp/simplesamlphp": "^1.18@RC",
         "sensiolabs/security-checker": "^6.0",
-        "simplesamlphp/simplesamlphp-test-framework": "^0.0.15",
+        "simplesamlphp/simplesamlphp-test-framework": "^0.1.0",
         "squizlabs/php_codesniffer": "^3.5",
         "vimeo/psalm": "~3.6"
     },
