@@ -14,7 +14,7 @@ stages:
 php:
   - 7.2
   - 7.3
-  - 7.4snapshot
+  - 7.4
 
 env:
   - COMMAND="composer install --no-interaction"
@@ -74,7 +74,7 @@ jobs:
 
     - stage: pre-conditions
       env: Syntax check PHP
-      php: 7.4snapshot
+      php: 7.4
       before_script:
         - composer install --ignore-platform-reqs
       script:
@@ -123,12 +123,7 @@ jobs:
         - export WEBPID=$!
       script:
         - php vendor/bin/phpunit
-        # Codecov, need to edit bash uploader for incorrect TRAVIS_PYTHON_VERSION environment variable matching, at least until codecov/codecov-bash#133 is resolved
-        - curl -s https://codecov.io/bash > .codecov
-        - sed -i -e 's/TRAVIS_.*_VERSION/^TRAVIS_.*_VERSION=/' .codecov
-        - chmod +x .codecov
-        - ./.codecov -X gcov
-        # - <(curl -s https://codecov.io/bash)
+        - bash <(curl -s https://codecov.io/bash)
 
     - stage: quality
       php: 7.3
