@@ -161,7 +161,7 @@ final class TestConfiguration
             '/opt/rh/httpd24/root/usr/sbin/httpd'
         ];
 
-        $output = null;
+        $output = [];
         foreach ($knownLocations as $location) {
             if (file_exists($location)) {
                 exec("$location -t -D DUMP_MODULES", $output);
@@ -169,8 +169,8 @@ final class TestConfiguration
             }
         }
 
-        if ($output === null) {
-            return []; // Cannot determine available modules
+        if (empty($output)) {
+            return $output; // Cannot determine available modules
         }
         array_shift($output);
 
