@@ -108,7 +108,7 @@ final class TestConfiguration
                 }
             }
         }
-        assert(is_array($metadata));
+
         $this->metadataConfig = $metadata;
     }
 
