@@ -24,7 +24,7 @@ class TestLdapSearchTest extends \PHPUnit\Framework\TestCase
         $connectionMock = $this->getMockBuilder(Ldap::class)->onlyMethods(
             ['searchfordn']
         )->disableOriginalConstructor()->getMock();
-        $connectionMock->expects($this->once())->method('searchfordn')->will($this->returnValue(true));
+        $connectionMock->expects($this->once())->method('searchfordn')->will($this->returnValue('testDN'));
         $confTest = new TestCase\AuthSource\Ldap\Search(
             new TestData([
                 'authSourceData' => Configuration::loadFromArray($authSourceData),
