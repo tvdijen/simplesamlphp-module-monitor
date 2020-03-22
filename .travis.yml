@@ -115,7 +115,6 @@ jobs:
       php: 7.3
       env: Codecov
       before_script:
-        - pecl install krb5
         - sudo apt-get install stunnel4 apache2
         - mkdir /tmp/testdisk; sudo mount -t tmpfs -o size=100k tmpfs /tmp/testdisk; sudo chmod -R 777 /tmp/testdisk
         - phpenv config-add tests/files/myphp.ini
