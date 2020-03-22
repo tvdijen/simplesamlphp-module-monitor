@@ -65,7 +65,7 @@ final class Configuration extends \SimpleSAML\Module\Monitor\TestCaseFactory
         $testResult = new TestResult('LDAP configuration', $connectString);
 
         try {
-            $this->connection = new \SimpleSAML\Auth\LDAP(
+            $this->connection = new \SimpleSAML\Module\ldap\Auth\Ldap(
                 $this->hostname,
                 $this->enableTls,
                 $this->debug,
