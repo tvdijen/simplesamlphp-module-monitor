@@ -8,7 +8,7 @@ use SimpleSAML\Module\Monitor\TestResult;
 
 final class Configuration extends \SimpleSAML\Module\Monitor\TestCaseFactory
 {
-    /** @var \SimpleSAML\Auth\LDAP|null */
+    /** @var \SimpleSAML\Module\ldap\Auth\LDAP|null */
     private $connection = null;
 
     /** @var string */
