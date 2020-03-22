@@ -3,7 +3,7 @@
     "description": "A module that is able to perform various checks on the health of a SimpleSAMLphp installation",
     "type": "simplesamlphp-module",
     "keywords": ["simplesamlphp", "monitoring", "health"],
-    "license": "LGPL-3.0-or-later",
+    "license": "LGPL-2.1-or-later",
     "authors": [
         {
             "name": "Tim van Dijen",
