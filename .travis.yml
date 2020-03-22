@@ -20,8 +20,10 @@ env:
   - COMMAND="composer install --no-interaction"
   - COMMAND="composer update --no-interaction"
 
-before_script:
+before_install:
   - printf "\n" | pecl install krb5
+
+before_script:
   - sudo apt-get install stunnel4 apache2
   - mkdir /tmp/testdisk; sudo mount -t tmpfs -o size=100k tmpfs /tmp/testdisk; sudo chmod -R 777 /tmp/testdisk
   - phpenv config-add tests/files/myphp.ini
