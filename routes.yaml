@@ -1,3 +1,0 @@
-monitor-admin:
-    path:       /{format}
-    defaults:   { _controller: 'SimpleSAML\Module\Monitor\Controller::main', format: 'xhtml' }

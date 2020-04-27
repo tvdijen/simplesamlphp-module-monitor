@@ -1,6 +1,6 @@
 <?php
 
-namespace SimpleSAML\Module\Monitor;
+namespace SimpleSAML\Module\Monitor\Controller;
 
 use SimpleSAML\Configuration;
 use SimpleSAML\Module\Monitor\DependencyInjection;
@@ -16,9 +16,9 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * This class serves the different views available in the module.
  *
- * @package SimpleSAML\Module\monitor
+ * @package SimpleSAML\Module\Monitor
  */
-class Controller
+class MonitorController
 {
     /** @var \SimpleSAML\Configuration */
     protected $config;
