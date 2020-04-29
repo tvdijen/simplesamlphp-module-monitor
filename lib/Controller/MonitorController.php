@@ -117,7 +117,7 @@ class MonitorController
                 $t = $this->processText();
                 break;
             default:
-                $t = new Template($this->config, 'monitor:monitor.twig');
+                $t = new Template($this->config, 'Monitor:monitor.twig');
                 break;
         }
 
@@ -137,7 +137,7 @@ class MonitorController
      */
     private function processXml(): Template
     {
-        $t = new Template($this->config, 'monitor:monitor.xml.twig');
+        $t = new Template($this->config, 'Monitor:monitor.xml.twig');
         $t->headers->set('Content-Type', 'text/xml');
         return $t;
     }
@@ -162,7 +162,7 @@ class MonitorController
      */
     private function processText(): Template
     {
-        $t = new Template($this->config, 'monitor:monitor.text.twig');
+        $t = new Template($this->config, 'Monitor:monitor.text.twig');
 
         if ($this->state === State::OK) {
             $t->data['status'] = 'OK';
