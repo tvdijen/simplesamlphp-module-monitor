@@ -1,7 +1,0 @@
-services:
-  _defaults:
-    autowire: true
-
-  SimpleSAML\Module\Monitor\Controller\:
-    resource: "../../lib/Controller"
-    tags: ["controller.service_arguments"]
