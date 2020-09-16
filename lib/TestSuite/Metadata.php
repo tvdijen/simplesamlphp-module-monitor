@@ -23,6 +23,7 @@ final class Metadata extends \SimpleSAML\Module\Monitor\TestSuiteFactory
     {
         $moduleConfig = $configuration->getModuleConfig();
         $metadataConfig = $configuration->getMetadataConfig();
+        $this->fixEntityIds($metadataConfig);
 
         $checkMetadata = $moduleConfig->getValue('checkMetadata', true);
         if ($checkMetadata === true) {
@@ -30,10 +31,12 @@ final class Metadata extends \SimpleSAML\Module\Monitor\TestSuiteFactory
         } else {
             $metadata = [];
             if (is_array($checkMetadata)) {
-                foreach ($checkMetadata as $set => $entityId) {
+                foreach ($checkMetadata as $set => $entityIds) {
                     if (array_key_exists($set, $metadataConfig)) {
-                        if (array_key_exists($entityId, $metadataConfig[$set])) {
-                            $metadata[$set][$entityId] = $metadataConfig[$set][$entityId];
+                        foreach ($entityIds as $entityId) {
+                            if (array_key_exists($entityId, $metadataConfig[$set])) {
+                                $metadata[$set][$entityId] = $metadataConfig[$set][$entityId];
+                            }
                         }
                     }
                 }
