@@ -40,9 +40,9 @@ $state = $monitor->getState();
 if ($state === State::OK) {
     $responseCode = 200;
 } else if ($state === State::WARNING) {
-    $responseCode = 417;
+    $responseCode = $moduleConfig->getInteger('warningStatusCode', 202);
 } else {
-    $responseCode = 500;
+    $responseCode = $moduleConfig->getInteger('errorStatusCode', 500);
 }
 
 $outputFormat = $requestVars->get('output');
