@@ -100,9 +100,9 @@ class MonitorController
         if ($this->state === State::OK) {
             $this->responseCode = 200;
         } elseif ($this->state === State::WARNING) {
-            $this->responseCode = 417;
+            $this->responseCode = $this->moduleConfig->getInteger('warningStatusCode', 202);
         } else {
-            $this->responseCode = 500;
+            $this->responseCode = $this->moduleConfig->getInteger('errorStatusCode', 500);
         }
 
         $results = $this->monitor->getResults();

@@ -18,4 +18,10 @@ $config = [
 
     // Expiration warning is shown x days prior to expiration
     'certExpirationWarning' => 28,
+
+    // The status code to use in case of a warning
+    'warningStatusCode' => 202,
+
+    // The status code to use in case of an error
+    'errorStatusCode' => 500,
 ];
