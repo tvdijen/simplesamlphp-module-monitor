@@ -63,7 +63,7 @@ switch ($outputFormat) {
         http_response_code($responseCode);
         if ($responseCode === 200) {
             $t->data['status'] = 'OK';
-        } else if ($responseCode === 417) {
+        } else if ($responseCode === $moduleConfig->getInteger('warningStatusCode', 202)) {
             $t->data['status'] = 'WARN';
         } else {
             $t->data['status'] = 'FAIL';
