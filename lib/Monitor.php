@@ -1,10 +1,10 @@
 <?php
 
-namespace SimpleSAML\Module\Monitor;
+namespace SimpleSAML\Module\monitor;
 
 class Monitor
 {
-    /** @var \SimpleSAML\Module\Monitor\TestConfiguration */
+    /** @var \SimpleSAML\Module\monitor\TestConfiguration */
     private $configuration;
 
     /** @var array */
@@ -15,7 +15,7 @@ class Monitor
 
 
     /**
-     * @param \SimpleSAML\Module\Monitor\TestConfiguration $testConfiguration
+     * @param \SimpleSAML\Module\monitor\TestConfiguration $testConfiguration
      */
     public function __construct(TestConfiguration $testConfiguration)
     {
@@ -37,7 +37,7 @@ class Monitor
 
 
     /**
-     * @return \SimpleSAML\Module\Monitor\TestConfiguration
+     * @return \SimpleSAML\Module\monitor\TestConfiguration
      */
     public function getTestConfiguration(): TestConfiguration
     {
@@ -46,7 +46,7 @@ class Monitor
 
 
     /**
-     * @param \SimpleSAML\Module\Monitor\TestConfiguration $testConfiguration
+     * @param \SimpleSAML\Module\monitor\TestConfiguration $testConfiguration
      * @return void
      */
     private function setTestConfiguration(TestConfiguration $testConfiguration): void

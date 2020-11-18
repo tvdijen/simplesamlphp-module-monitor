@@ -1,12 +1,12 @@
 <?php
 
-namespace SimpleSAML\Module\Monitor\Test;
+namespace SimpleSAML\Module\monitor\Test;
 
 use KRB5NegotiateAuth;
 use SimpleSAML\Configuration;
-use SimpleSAML\Module\Monitor\TestCase;
-use SimpleSAML\Module\Monitor\TestData;
-use SimpleSAML\Module\Monitor\State;
+use SimpleSAML\Module\monitor\TestCase;
+use SimpleSAML\Module\monitor\TestData;
+use SimpleSAML\Module\monitor\State;
 
 /**
  * Tests for TestCase\Negotiate

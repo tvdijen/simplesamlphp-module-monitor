@@ -1,18 +1,18 @@
 <?php
 
-namespace SimpleSAML\Module\Monitor\TestSuite;
+namespace SimpleSAML\Module\monitor\TestSuite;
 
-use SimpleSAML\Module\Monitor\TestConfiguration;
-use SimpleSAML\Module\Monitor\TestCase;
-use SimpleSAML\Module\Monitor\TestData;
-use SimpleSAML\Module\Monitor\TestResult;
-use SimpleSAML\Module\Monitor\State;
+use SimpleSAML\Module\monitor\TestConfiguration;
+use SimpleSAML\Module\monitor\TestCase;
+use SimpleSAML\Module\monitor\TestData;
+use SimpleSAML\Module\monitor\TestResult;
+use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Utils;
 
-final class Configuration extends \SimpleSAML\Module\Monitor\TestSuiteFactory
+final class Configuration extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
     /**
-     * @param \SimpleSAML\Module\Monitor\TestConfiguration $configuration
+     * @param \SimpleSAML\Module\monitor\TestConfiguration $configuration
      */
     public function __construct(TestConfiguration $configuration)
     {
@@ -22,7 +22,7 @@ final class Configuration extends \SimpleSAML\Module\Monitor\TestSuiteFactory
 
 
     /**
-     * @param \SimpleSAML\Module\Monitor\TestConfiguration $configuration
+     * @param \SimpleSAML\Module\monitor\TestConfiguration $configuration
      * @return array
      */
     private function testCertificates(TestConfiguration $configuration): array
@@ -33,7 +33,7 @@ final class Configuration extends \SimpleSAML\Module\Monitor\TestSuiteFactory
 
 
     /**
-     * @param \SimpleSAML\Module\Monitor\TestConfiguration $configuration
+     * @param \SimpleSAML\Module\monitor\TestConfiguration $configuration
      * @return array
      */
     private function testDatabase(TestConfiguration $configuration): array

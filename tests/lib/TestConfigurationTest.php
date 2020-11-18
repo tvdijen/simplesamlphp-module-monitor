@@ -1,10 +1,10 @@
 <?php
 
-namespace SimpleSAML\Module\Monitor\Test;
+namespace SimpleSAML\Module\monitor\Test;
 
 use SimpleSAML\Configuration;
-use SimpleSAML\Module\Monitor\DependencyInjection;
-use SimpleSAML\Module\Monitor\TestConfiguration;
+use SimpleSAML\Module\monitor\DependencyInjection;
+use SimpleSAML\Module\monitor\TestConfiguration;
 
 /**
  * Tests for TestConfiguration

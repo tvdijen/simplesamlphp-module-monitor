@@ -1,6 +1,6 @@
 <?php
 
-namespace SimpleSAML\Module\Monitor;
+namespace SimpleSAML\Module\monitor;
 
 use SimpleSAML\Configuration;
 use SimpleSAML\Metadata\MetaDataStorageSource;
@@ -26,16 +26,16 @@ final class TestConfiguration
     /** @var array */
     private $availablePhpModules;
 
-    /** @var \SimpleSAML\Module\Monitor\DependencyInjection */
+    /** @var \SimpleSAML\Module\monitor\DependencyInjection */
     private $serverVars;
 
-    /** @var \SimpleSAML\Module\Monitor\DependencyInjection */
+    /** @var \SimpleSAML\Module\monitor\DependencyInjection */
     private $requestVars;
 
 
     /**
-     * @param \SimpleSAML\Module\Monitor\DependencyInjection $serverVars
-     * @param \SimpleSAML\Module\Monitor\DependencyInjection $requestVars
+     * @param \SimpleSAML\Module\monitor\DependencyInjection $serverVars
+     * @param \SimpleSAML\Module\monitor\DependencyInjection $requestVars
      * @param \SimpleSAML\Configuration $globalConfig
      * @param \SimpleSAML\Configuration $authSourceConfig
      * @param \SimpleSAML\Configuration $moduleConfig
@@ -213,7 +213,7 @@ final class TestConfiguration
 
 
     /**
-     * @return \SimpleSAML\Module\Monitor\DependencyInjection
+     * @return \SimpleSAML\Module\monitor\DependencyInjection
      */
     public function getServerVars(): DependencyInjection
     {
@@ -222,7 +222,7 @@ final class TestConfiguration
 
 
     /**
-     * @return \SimpleSAML\Module\Monitor\DependencyInjection
+     * @return \SimpleSAML\Module\monitor\DependencyInjection
      */
     public function getRequestVars(): DependencyInjection
     {

@@ -1,12 +1,12 @@
 <?php
 
-namespace SimpleSAML\Module\Monitor\Test;
+namespace SimpleSAML\Module\monitor\Test;
 
 use SimpleSAML\Configuration;
 use SimpleSAML\Module\ldap\Auth\Ldap;
-use SimpleSAML\Module\Monitor\TestCase;
-use SimpleSAML\Module\Monitor\TestData;
-use SimpleSAML\Module\Monitor\State;
+use SimpleSAML\Module\monitor\TestCase;
+use SimpleSAML\Module\monitor\TestData;
+use SimpleSAML\Module\monitor\State;
 
 /**
  * Tests for TestCase\Ldap\Search

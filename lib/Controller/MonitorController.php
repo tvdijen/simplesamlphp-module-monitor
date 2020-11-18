@@ -1,12 +1,12 @@
 <?php
 
-namespace SimpleSAML\Module\Monitor\Controller;
+namespace SimpleSAML\Module\monitor\Controller;
 
 use SimpleSAML\Configuration;
-use SimpleSAML\Module\Monitor\DependencyInjection;
-use SimpleSAML\Module\Monitor\State;
-use SimpleSAML\Module\Monitor\TestConfiguration;
-use SimpleSAML\Module\Monitor\Monitor;
+use SimpleSAML\Module\monitor\DependencyInjection;
+use SimpleSAML\Module\monitor\State;
+use SimpleSAML\Module\monitor\TestConfiguration;
+use SimpleSAML\Module\monitor\Monitor;
 use SimpleSAML\XHTML\Template;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,10 +29,10 @@ class MonitorController
     /** @var \SimpleSAML\Configuration */
     protected $authsourceConfig;
 
-    /** @var \SimpleSAML\Module\Monitor\DependencyInjection */
+    /** @var \SimpleSAML\Module\monitor\DependencyInjection */
     protected $serverVars;
 
-    /** @var \SimpleSAML\Module\Monitor\DependencyInjection */
+    /** @var \SimpleSAML\Module\monitor\DependencyInjection */
     protected $requestVars;
 
     /** @var array */
@@ -45,7 +45,7 @@ class MonitorController
         State::OK      => ['OK',      'green' ]
     ];
 
-    /** @var \SimpleSAML\Module\Monitor\TestConfiguration */
+    /** @var \SimpleSAML\Module\monitor\TestConfiguration */
     protected $testConfiguration;
 
     /** @var int */
@@ -54,7 +54,7 @@ class MonitorController
     /** @var int */
     protected $responseCode = 200;
 
-    /** @var \SimpleSAML\Module\Monitor\Monitor */
+    /** @var \SimpleSAML\Module\monitor\Monitor */
     protected $monitor;
 
 

@@ -1,19 +1,19 @@
 <?php
 
-namespace SimpleSAML\Module\Monitor\TestCase\FileSystem;
+namespace SimpleSAML\Module\monitor\TestCase\FileSystem;
 
-use SimpleSAML\Module\Monitor\State;
-use SimpleSAML\Module\Monitor\TestData;
-use SimpleSAML\Module\Monitor\TestResult;
+use SimpleSAML\Module\monitor\State;
+use SimpleSAML\Module\monitor\TestData;
+use SimpleSAML\Module\monitor\TestResult;
 
-final class FreeSpace extends \SimpleSAML\Module\Monitor\TestCaseFactory
+final class FreeSpace extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     /** @var string */
     private $path = '';
 
 
     /**
-     * @var \SimpleSAML\Module\Monitor\TestData $testData
+     * @var \SimpleSAML\Module\monitor\TestData $testData
      *
      * @return void
      */

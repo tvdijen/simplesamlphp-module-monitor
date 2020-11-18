@@ -21,12 +21,12 @@
     },
     "autoload": {
         "psr-4": {
-            "SimpleSAML\\Module\\Monitor\\": "lib/"
+            "SimpleSAML\\Module\\monitor\\": "lib/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\SimpleSAML\\Module\\Monitor\\TestFiles\\": "tests/files",
+            "Tests\\SimpleSAML\\Module\\monitor\\TestFiles\\": "tests/files",
             "SimpleSAML\\Test\\Utils\\": "vendor/simplesamlphp/simplesamlphp/tests/Utils"
         }
     },

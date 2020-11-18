@@ -1,6 +1,6 @@
 <?php
 
-namespace SimpleSAML\Module\Monitor;
+namespace SimpleSAML\Module\monitor;
 
 abstract class TestCaseFactory implements TestInterface
 {
@@ -10,15 +10,15 @@ abstract class TestCaseFactory implements TestInterface
     /** @var string */
     private $subject;
 
-    /** @var \SimpleSAML\Module\Monitor\TestData */
+    /** @var \SimpleSAML\Module\monitor\TestData */
     private $testData;
 
-    /** @var \SimpleSAML\Module\Monitor\TestResult */
+    /** @var \SimpleSAML\Module\monitor\TestResult */
     private $testResult;
 
 
     /**
-     * @param \SimpleSAML\Module\Monitor\TestData|null $testData
+     * @param \SimpleSAML\Module\monitor\TestData|null $testData
      */
     public function __construct(TestData $testData = null)
     {
@@ -32,7 +32,7 @@ abstract class TestCaseFactory implements TestInterface
 
 
     /**
-     * @param \SimpleSAML\Module\Monitor\TestData $testData
+     * @param \SimpleSAML\Module\monitor\TestData $testData
      *
      * @return void
      */
@@ -72,7 +72,7 @@ abstract class TestCaseFactory implements TestInterface
 
 
     /**
-     * @param \SimpleSAML\Module\Monitor\TestData $testData
+     * @param \SimpleSAML\Module\monitor\TestData $testData
      *
      * @return void
      */
@@ -83,7 +83,7 @@ abstract class TestCaseFactory implements TestInterface
 
 
     /**
-     * @param \SimpleSAML\Module\Monitor\TestResult $testResult
+     * @param \SimpleSAML\Module\monitor\TestResult $testResult
      *
      * @return void
      */
@@ -94,7 +94,7 @@ abstract class TestCaseFactory implements TestInterface
 
 
     /**
-     * @return \SimpleSAML\Module\Monitor\TestResult
+     * @return \SimpleSAML\Module\monitor\TestResult
      */
     public function getTestResult(): TestResult
     {

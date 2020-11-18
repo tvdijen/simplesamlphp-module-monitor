@@ -1,14 +1,14 @@
 <?php
 
-namespace SimpleSAML\Module\Monitor\Test;
+namespace SimpleSAML\Module\monitor\Test;
 
-use SimpleSAML\Module\Monitor\State;
-use SimpleSAML\Module\Monitor\TestData;
-use SimpleSAML\Module\Monitor\TestResult;
-use SimpleSAML\Module\Monitor\DependencyInjection;
-use SimpleSAML\Module\Monitor\TestConfiguration;
-use SimpleSAML\Module\Monitor\TestSuiteFactory;
-use Tests\SimpleSAML\Module\Monitor\TestFiles\TestSuiteImplementation;
+use SimpleSAML\Module\monitor\State;
+use SimpleSAML\Module\monitor\TestData;
+use SimpleSAML\Module\monitor\TestResult;
+use SimpleSAML\Module\monitor\DependencyInjection;
+use SimpleSAML\Module\monitor\TestConfiguration;
+use SimpleSAML\Module\monitor\TestSuiteFactory;
+use Tests\SimpleSAML\Module\monitor\TestFiles\TestSuiteImplementation;
 
 /**
  * Tests for TestSuiteFactory

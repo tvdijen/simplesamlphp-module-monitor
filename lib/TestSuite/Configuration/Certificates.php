@@ -1,15 +1,15 @@
 <?php
 
-namespace SimpleSAML\Module\Monitor\TestSuite\Configuration;
+namespace SimpleSAML\Module\monitor\TestSuite\Configuration;
 
-use SimpleSAML\Module\Monitor\TestConfiguration;
-use SimpleSAML\Module\Monitor\TestCase;
-use SimpleSAML\Module\Monitor\TestData;
-use SimpleSAML\Module\Monitor\TestResult;
-use SimpleSAML\Module\Monitor\State;
+use SimpleSAML\Module\monitor\TestConfiguration;
+use SimpleSAML\Module\monitor\TestCase;
+use SimpleSAML\Module\monitor\TestData;
+use SimpleSAML\Module\monitor\TestResult;
+use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Utils;
 
-final class Certificates extends \SimpleSAML\Module\Monitor\TestSuiteFactory
+final class Certificates extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
     /** @var string|null */
     private $metadataCert = null;
@@ -25,7 +25,7 @@ final class Certificates extends \SimpleSAML\Module\Monitor\TestSuiteFactory
 
 
     /**
-     * @param \SimpleSAML\Module\Monitor\TestConfiguration $configuration
+     * @param \SimpleSAML\Module\monitor\TestConfiguration $configuration
      */
     public function __construct(TestConfiguration $configuration)
     {

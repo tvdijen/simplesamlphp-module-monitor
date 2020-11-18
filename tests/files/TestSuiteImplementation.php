@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\SimpleSAML\Module\Monitor\TestFiles;
+namespace Tests\SimpleSAML\Module\monitor\TestFiles;
 
-use SimpleSAML\Module\Monitor\State;
-use SimpleSAML\Module\Monitor\TestResult;
-use SimpleSAML\Module\Monitor\TestSuiteFactory;
+use SimpleSAML\Module\monitor\State;
+use SimpleSAML\Module\monitor\TestResult;
+use SimpleSAML\Module\monitor\TestSuiteFactory;
 
 class TestSuiteImplementation extends TestSuiteFactory
 {

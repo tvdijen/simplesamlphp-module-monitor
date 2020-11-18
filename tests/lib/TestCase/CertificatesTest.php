@@ -1,10 +1,10 @@
 <?php
 
-namespace SimpleSAML\Module\Monitor\Test;
+namespace SimpleSAML\Module\monitor\Test;
 
-use SimpleSAML\Module\Monitor\TestCase;
-use SimpleSAML\Module\Monitor\TestData;
-use SimpleSAML\Module\Monitor\State;
+use SimpleSAML\Module\monitor\TestCase;
+use SimpleSAML\Module\monitor\TestData;
+use SimpleSAML\Module\monitor\State;
 
 /**
  * Tests for TestCase\Cert\Data and TestCase\Cert\File
@@ -19,13 +19,13 @@ class TestCertificatesTest extends \PHPUnit\Framework\TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$certdir = getcwd() . '/vendor/simplesamlphp/simplesamlphp-test-framework/certificates/pem';
-        self::$key = self::$certdir . '/selfsigned.example.org_nopasswd.key';
+        self::$certdir = getcwd() . '/vendor/simplesamlphp/simplesamlphp-test-framework/certificates/rsa-pem';
+        self::$key = self::$certdir . '/selfsigned.simplesamlphp.org_nopasswd.key';
     }
 
     public function testCertExpired(): void
     {
-        $certFile = self::$certdir . '/expired.example.org.crt';
+        $certFile = self::$certdir . '/expired.simplesamlphp.org.crt';
         $cert = file_get_contents($certFile);
 
         $testData = new TestData([
@@ -42,7 +42,7 @@ class TestCertificatesTest extends \PHPUnit\Framework\TestCase
 
     public function testCertAboutToExpire(): void
     {
-        $certFile = self::$certdir . '/signed.example.org.crt';
+        $certFile = self::$certdir . '/signed.simplesamlphp.org.crt';
         $certData = file_get_contents($certFile);
         $certInfo = openssl_x509_parse($certData);
 
@@ -68,7 +68,7 @@ class TestCertificatesTest extends \PHPUnit\Framework\TestCase
     {
         $testData = new TestData([
             'category' => 'Test certificate',
-            'certFile' => self::$certdir . '/selfsigned.example.org.crt',
+            'certFile' => self::$certdir . '/selfsigned.simplesamlphp.org.crt',
             'certExpirationWarning' => 10,
         ]);
         $certTest = new TestCase\Cert\File($testData);

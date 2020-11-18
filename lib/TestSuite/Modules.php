@@ -1,14 +1,14 @@
 <?php
 
-namespace SimpleSAML\Module\Monitor\TestSuite;
+namespace SimpleSAML\Module\monitor\TestSuite;
 
-use SimpleSAML\Module\Monitor\TestConfiguration;
-use SimpleSAML\Module\Monitor\State;
-use SimpleSAML\Module\Monitor\TestCase;
-use SimpleSAML\Module\Monitor\TestData;
-use SimpleSAML\Module\Monitor\TestResult;
+use SimpleSAML\Module\monitor\TestConfiguration;
+use SimpleSAML\Module\monitor\State;
+use SimpleSAML\Module\monitor\TestCase;
+use SimpleSAML\Module\monitor\TestData;
+use SimpleSAML\Module\monitor\TestResult;
 
-class Modules extends \SimpleSAML\Module\Monitor\TestSuiteFactory
+class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
     /** @var array */
     private $requiredApacheModules = [];
@@ -49,7 +49,7 @@ class Modules extends \SimpleSAML\Module\Monitor\TestSuiteFactory
 
 
     /**
-     * @param \SimpleSAML\Module\Monitor\TestData|null $testData
+     * @param \SimpleSAML\Module\monitor\TestData|null $testData
      *
      * @return void
      */
@@ -219,7 +219,7 @@ class Modules extends \SimpleSAML\Module\Monitor\TestSuiteFactory
         ]);
         $apacheTest = new Modules\ModuleSet($configuration, $testData);
         $apacheTestResult = $apacheTest->getTestResult();
-        
+
          // Test Php modules
         $testData = new TestData([
             'available' => $configuration->getAvailablePhpModules(),
@@ -235,7 +235,7 @@ class Modules extends \SimpleSAML\Module\Monitor\TestSuiteFactory
 
         $testResult = new TestResult('Modules', '');
         $testResult->setState($this->calculateState());
-        
+
         $this->setTestResult($testResult);
     }
 }

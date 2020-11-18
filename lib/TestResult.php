@@ -1,6 +1,6 @@
 <?php
 
-namespace SimpleSAML\Module\Monitor;
+namespace SimpleSAML\Module\monitor;
 
 final class TestResult
 {
@@ -147,7 +147,7 @@ final class TestResult
     {
         return is_null($key) ? $this->output : (isset($this->output[$key]) ? $this->output[$key] : null);
     }
-    
+
 
     /**
      * @param integer $state

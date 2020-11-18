@@ -1,10 +1,10 @@
 <?php
 
-namespace SimpleSAML\Module\Monitor\Test;
+namespace SimpleSAML\Module\monitor\Test;
 
-use SimpleSAML\Module\Monitor\TestCase\Store\Sql;
-use SimpleSAML\Module\Monitor\TestData;
-use SimpleSAML\Module\Monitor\State;
+use SimpleSAML\Module\monitor\TestCase\Store\Sql;
+use SimpleSAML\Module\monitor\TestData;
+use SimpleSAML\Module\monitor\State;
 
 /**
  * Tests for Sql

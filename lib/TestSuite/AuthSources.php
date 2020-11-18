@@ -1,13 +1,13 @@
 <?php
 
-namespace SimpleSAML\Module\Monitor\TestSuite;
+namespace SimpleSAML\Module\monitor\TestSuite;
 
 use SimpleSAML\Configuration as ApplicationConfiguration;
-use SimpleSAML\Module\Monitor\TestConfiguration;
-use SimpleSAML\Module\Monitor\TestResult;
-use SimpleSAML\Module\Monitor\TestData;
+use SimpleSAML\Module\monitor\TestConfiguration;
+use SimpleSAML\Module\monitor\TestResult;
+use SimpleSAML\Module\monitor\TestData;
 
-final class AuthSources extends \SimpleSAML\Module\Monitor\TestSuiteFactory
+final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
     /** @var \SimpleSAML\Configuration */
     private $authSourceConfig;
@@ -20,7 +20,7 @@ final class AuthSources extends \SimpleSAML\Module\Monitor\TestSuiteFactory
 
 
     /**
-     * @param \SimpleSAML\Module\Monitor\TestConfiguration $configuration
+     * @param \SimpleSAML\Module\monitor\TestConfiguration $configuration
      */
     public function __construct(TestConfiguration $configuration)
     {

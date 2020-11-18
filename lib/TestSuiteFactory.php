@@ -1,10 +1,10 @@
 <?php
 
-namespace SimpleSAML\Module\Monitor;
+namespace SimpleSAML\Module\monitor;
 
 abstract class TestSuiteFactory extends TestCaseFactory
 {
-    /** @var \SimpleSAML\Module\Monitor\TestConfiguration */
+    /** @var \SimpleSAML\Module\monitor\TestConfiguration */
     private $configuration;
 
     /** @var array An associative array of name => TestResult pairs */
@@ -12,8 +12,8 @@ abstract class TestSuiteFactory extends TestCaseFactory
 
 
     /**
-     * @param \SimpleSAML\Module\Monitor\TestConfiguration $configuration
-     * @param \SimpleSAML\Module\Monitor\TestData|null $testData
+     * @param \SimpleSAML\Module\monitor\TestConfiguration $configuration
+     * @param \SimpleSAML\Module\monitor\TestData|null $testData
      */
     public function __construct(TestConfiguration $configuration, TestData $testData = null)
     {
@@ -24,7 +24,7 @@ abstract class TestSuiteFactory extends TestCaseFactory
 
 
     /**
-     * @param \SimpleSAML\Module\Monitor\TestData|null $testData
+     * @param \SimpleSAML\Module\monitor\TestData|null $testData
      *
      * @return void
      */
@@ -37,7 +37,7 @@ abstract class TestSuiteFactory extends TestCaseFactory
 
 
     /**
-     * @param \SimpleSAML\Module\Monitor\TestConfiguration $configuration
+     * @param \SimpleSAML\Module\monitor\TestConfiguration $configuration
      *
      * @return void
      */
@@ -48,7 +48,7 @@ abstract class TestSuiteFactory extends TestCaseFactory
 
 
     /**
-     * @return \SimpleSAML\Module\Monitor\TestConfiguration
+     * @return \SimpleSAML\Module\monitor\TestConfiguration
      */
     public function getConfiguration(): TestConfiguration
     {
@@ -57,7 +57,7 @@ abstract class TestSuiteFactory extends TestCaseFactory
 
 
     /**
-     * @param \SimpleSAML\Module\Monitor\TestResult $testResult
+     * @param \SimpleSAML\Module\monitor\TestResult $testResult
      *
      * @return void
      */

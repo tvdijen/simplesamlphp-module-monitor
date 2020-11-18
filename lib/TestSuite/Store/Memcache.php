@@ -1,21 +1,21 @@
 <?php
 
-namespace SimpleSAML\Module\Monitor\TestSuite\Store;
+namespace SimpleSAML\Module\monitor\TestSuite\Store;
 
-use SimpleSAML\Module\Monitor\TestConfiguration;
-use SimpleSAML\Module\Monitor\TestCase;
-use SimpleSAML\Module\Monitor\TestData;
-use SimpleSAML\Module\Monitor\TestResult;
-use SimpleSAML\Module\Monitor\State;
+use SimpleSAML\Module\monitor\TestConfiguration;
+use SimpleSAML\Module\monitor\TestCase;
+use SimpleSAML\Module\monitor\TestData;
+use SimpleSAML\Module\monitor\TestResult;
+use SimpleSAML\Module\monitor\State;
 
-final class Memcache extends \SimpleSAML\Module\Monitor\TestSuiteFactory
+final class Memcache extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
     /** var string|null */
     private $class = null;
 
 
     /**
-     * @param \SimpleSAML\Module\Monitor\TestConfiguration $configuration
+     * @param \SimpleSAML\Module\monitor\TestConfiguration $configuration
      */
     public function __construct(TestConfiguration $configuration)
     {

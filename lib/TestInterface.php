@@ -1,6 +1,6 @@
 <?php
 
-namespace SimpleSAML\Module\Monitor;
+namespace SimpleSAML\Module\monitor;
 
 interface TestInterface
 {
@@ -11,7 +11,7 @@ interface TestInterface
 
 
     /**
-     * @return \SimpleSAML\Module\Monitor\TestResult
+     * @return \SimpleSAML\Module\monitor\TestResult
      */
     public function getTestResult(): TestResult;
 

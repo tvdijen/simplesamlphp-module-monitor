@@ -1,14 +1,14 @@
 <?php
 
-namespace SimpleSAML\Module\Monitor\TestSuite\Metadata;
+namespace SimpleSAML\Module\monitor\TestSuite\Metadata;
 
-use SimpleSAML\Module\Monitor\State;
-use SimpleSAML\Module\Monitor\TestConfiguration;
-use SimpleSAML\Module\Monitor\TestCase;
-use SimpleSAML\Module\Monitor\TestData;
-use SimpleSAML\Module\Monitor\TestResult;
+use SimpleSAML\Module\monitor\State;
+use SimpleSAML\Module\monitor\TestConfiguration;
+use SimpleSAML\Module\monitor\TestCase;
+use SimpleSAML\Module\monitor\TestData;
+use SimpleSAML\Module\monitor\TestResult;
 
-final class Entity extends \SimpleSAML\Module\Monitor\TestSuiteFactory
+final class Entity extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
     /** @var array */
     private $entityMetadata;
@@ -21,8 +21,8 @@ final class Entity extends \SimpleSAML\Module\Monitor\TestSuiteFactory
 
 
     /**
-     * @param \SimpleSAML\Module\Monitor\TestConfiguration $configuration
-     * @param \SimpleSAML\Module\Monitor\TestData $testData
+     * @param \SimpleSAML\Module\monitor\TestConfiguration $configuration
+     * @param \SimpleSAML\Module\monitor\TestData $testData
      */
     public function __construct(TestConfiguration $configuration, TestData $testData)
     {

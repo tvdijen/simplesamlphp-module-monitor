@@ -1,19 +1,19 @@
 <?php
 
-namespace SimpleSAML\Module\Monitor\TestCase\Store;
+namespace SimpleSAML\Module\monitor\TestCase\Store;
 
-use SimpleSAML\Module\Monitor\State;
-use SimpleSAML\Module\Monitor\TestData;
-use SimpleSAML\Module\Monitor\TestResult;
+use SimpleSAML\Module\monitor\State;
+use SimpleSAML\Module\monitor\TestData;
+use SimpleSAML\Module\monitor\TestResult;
 
-final class Sql extends \SimpleSAML\Module\Monitor\TestCaseFactory
+final class Sql extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     /** @var string */
     private $host = '<< unset >>';
 
 
     /**
-     * @param \SimpleSAML\Module\Monitor\TestData $testData
+     * @param \SimpleSAML\Module\monitor\TestData $testData
      *
      * @return void
      */
