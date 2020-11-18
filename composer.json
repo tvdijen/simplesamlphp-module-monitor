@@ -41,8 +41,7 @@
         "simplesamlphp/simplesamlphp": "dev-master",
         "simplesamlphp/simplesamlphp-module-ldap": "^1.2.6",
         "simplesamlphp/simplesamlphp-test-framework": "^1.0.3",
-        "simplesamlphp/xml-security": "^0.0.6",
-        "vimeo/psalm": "~4.11"
+        "simplesamlphp/xml-security": "^0.0.6"
     },
     "support": {
         "issues": "https://github.com/tvdijen/simplesamlphp-module-monitor/issues",
