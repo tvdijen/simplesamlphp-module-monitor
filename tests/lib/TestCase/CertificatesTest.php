@@ -19,7 +19,7 @@ class TestCertificatesTest extends \PHPUnit\Framework\TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$certdir = getcwd() . '/vendor/simplesamlphp/simplesamlphp-test-framework/certificates/rsa-pem';
+        self::$certdir = getcwd() . '/vendor/simplesamlphp/xml-security/tests/resources/certificates/rsa-pem';
         self::$key = self::$certdir . '/selfsigned.simplesamlphp.org_nopasswd.key';
     }
 
