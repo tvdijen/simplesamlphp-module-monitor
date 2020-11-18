@@ -3,6 +3,7 @@
     <testsuites>
         <testsuite name="The project's test suite">
             <directory>./tests</directory>
+            <file>./vendor/simplesamlphp/simplesamlphp-test-framework/tests/TemplateTest.php</file>
         </testsuite>
     </testsuites>
     <filter>
