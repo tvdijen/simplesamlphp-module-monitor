@@ -33,6 +33,7 @@ before_script:
   - sudo apt-get install stunnel4 apache2
   - mkdir /tmp/testdisk; sudo mount -t tmpfs -o size=100k tmpfs /tmp/testdisk; sudo chmod -R 777 /tmp/testdisk
   - phpenv config-add tests/files/myphp.ini
+  - composer self-update --1
   - composer require "simplesamlphp/simplesamlphp:${SIMPLESAMLPHP_VERSION}" --no-update
   - composer update --no-interaction
   - sudo stunnel4 tests/files/stunnel.conf
