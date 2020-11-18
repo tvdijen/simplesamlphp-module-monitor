@@ -11,8 +11,6 @@ use SimpleSAML\Module\monitor\TestConfiguration;
  */
 class TestConfigurationTest extends \SimpleSAML\TestUtils\ClearStateTestCase
 {
-    private const FRAMEWORK = '../../../vendor/simplesamlphp/simplesamlphp-test-framework';
-
     public function testTestConfiguration(): void
     {
         $serverVars = new DependencyInjection(['SERVER_NAME' => 'localhost']);
@@ -26,7 +24,7 @@ class TestConfigurationTest extends \SimpleSAML\TestUtils\ClearStateTestCase
             'metadata.sources' => [
                 [
                     'type' => 'xml',
-                    'file' => self::FRAMEWORK . '/metadata/xml/valid-metadata-selfsigned.xml',
+                    'file' => '../../../tests/resources/xml/valid-metadata-selfsigned.xml',
                 ],
             ],
         ];
