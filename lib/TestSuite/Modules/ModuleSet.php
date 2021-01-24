@@ -2,12 +2,12 @@
 
 namespace SimpleSAML\Module\monitor\TestSuite\Modules;
 
+use SimpleSAML\Assert\Assert;
 use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestCase;
 use SimpleSAML\Module\monitor\TestConfiguration;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\TestResult;
-use Webmozart\Assert\Assert;
 
 final class ModuleSet extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
