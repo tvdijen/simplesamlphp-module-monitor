@@ -10,6 +10,8 @@ use SimpleSAML\Module\monitor\State;
 
 /**
  * Tests for TestCase\Negotiate
+ *
+ * @requires extension krb5
  */
 class TestNegotiateTest extends \PHPUnit\Framework\TestCase
 {
