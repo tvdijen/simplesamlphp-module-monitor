@@ -2,10 +2,10 @@
 
 namespace SimpleSAML\Module\monitor\TestCase\Network;
 
+use SimpleSAML\Assert\Assert;
 use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\TestResult;
-use Webmozart\Assert\Assert;
 
 use function ini_get;
 use function intval;

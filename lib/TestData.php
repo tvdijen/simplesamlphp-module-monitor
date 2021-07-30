@@ -2,8 +2,8 @@
 
 namespace SimpleSAML\Module\monitor;
 
-use SimpleSAML\Utils\Arrays;
-use Webmozart\Assert\Assert;
+use SimpleSAML\\Assert\Assert;
+use SimpleSAML\Utils;
 
 use function array_key_exists;
 use function array_merge;
@@ -35,6 +35,7 @@ final class TestData
     {
         if (is_null($key)) {
             Assert::isArray($input);
+
             foreach ($input as $key => $value) {
                 $this->addInput($key, $value);
             }
@@ -56,7 +57,9 @@ final class TestData
     {
         if (isset($this->testData[$key])) {
             Assert::isArray($this->testData[$key]);
-            $this->testData[$key] = array_merge($this->testData[$key], Arrays::arrayize($value));
+
+            $arrayUtils = new Utils\Arrays();
+            $this->testData[$key] = array_merge($this->testData[$key], $arrayUtils->arrayize($value));
         } else {
             $this->testData[$key] = $value;
         }

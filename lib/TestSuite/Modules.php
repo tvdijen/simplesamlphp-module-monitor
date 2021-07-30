@@ -93,7 +93,9 @@ class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
         if (function_exists('apache_get_modules')) {
             $this->addRequiredApacheModule('mod_php|mod_php5|mod_php7');
         }
-        if (Utils\HTTP::isHTTPS()) {
+
+        $httpUtils = new Utils\HTTP();
+        if ($httpUtils->isHTTPS()) {
             $this->addRequiredApacheModule('mod_ssl');
         }
 
@@ -126,7 +128,8 @@ class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
     private function setRequiredPhpModules(): void
     {
         // PHP modules required
-        $composerFile = Utils\System::resolvePath('composer.json');
+        $sysUtils = new Utils\System();
+        $composerFile = $sysUtils->resolvePath('composer.json');
         $composerData = file_get_contents($composerFile);
         $composer = json_decode($composerData, true);
         $composerRequired = $composer['require'];
