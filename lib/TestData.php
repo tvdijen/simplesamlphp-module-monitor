@@ -2,6 +2,14 @@
 
 namespace SimpleSAML\Module\monitor;
 
+use SimpleSAML\Utils\Arrays;
+use Webmozart\Assert\Assert;
+
+use function array_key_exists;
+use function array_merge;
+use function is_array;
+use function is_null;
+
 final class TestData
 {
     /** @var array */
@@ -26,7 +34,7 @@ final class TestData
     public function setInput($input, string $key = null): void
     {
         if (is_null($key)) {
-            assert(is_array($input));
+            Assert::isArray($input);
             foreach ($input as $key => $value) {
                 $this->addInput($key, $value);
             }
@@ -47,8 +55,8 @@ final class TestData
     public function addInput(string $key, $value = null): void
     {
         if (isset($this->testData[$key])) {
-            assert(is_array($this->testData[$key]));
-            $this->testData[$key] = array_merge($this->testData[$key], $value);
+            Assert::isArray($this->testData[$key]);
+            $this->testData[$key] = array_merge($this->testData[$key], Arrays::arrayize($value));
         } else {
             $this->testData[$key] = $value;
         }

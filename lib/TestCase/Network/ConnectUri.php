@@ -5,6 +5,15 @@ namespace SimpleSAML\Module\monitor\TestCase\Network;
 use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\TestResult;
+use Webmozart\Assert\Assert;
+
+use function ini_get;
+use function intval;
+use function is_null;
+use function is_resource;
+use function openssl_x509_parse;
+use function stream_context_get_params;
+use function stream_socket_client;
 
 final class ConnectUri extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
@@ -33,11 +42,11 @@ final class ConnectUri extends \SimpleSAML\Module\monitor\TestCaseFactory
         }
 
         $timeout = $testData->getInputItem('timeout');
-        $timeout = is_null($timeout) ? (int)ini_get("default_socket_timeout") : $timeout;
+        $timeout = is_null($timeout) ? intval(ini_get("default_socket_timeout")) : $timeout;
 
-        assert(is_string($uri));
-        assert(is_resource($context));
-        assert(is_int($timeout));
+        Assert::string($uri);
+        Assert::resource($context);
+        Assert::integer($timeout);
 
         $this->setUri($uri);
         $this->setContext($context);

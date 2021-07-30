@@ -6,6 +6,12 @@ use SimpleSAML\Configuration;
 use SimpleSAML\Metadata\MetaDataStorageSource;
 use SimpleSAML\Module\Monitor\DependencyInjection;
 
+use function array_merge;
+use function array_shift;
+use function function_exists;
+use function ltrim;
+use function preg_replace;
+
 final class TestConfiguration
 {
     /** @var \SimpleSAML\Configuration */

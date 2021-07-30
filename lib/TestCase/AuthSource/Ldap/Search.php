@@ -2,9 +2,19 @@
 
 namespace SimpleSAML\Module\monitor\TestCase\AuthSource\Ldap;
 
+use SimpleSAML\Configuration;
+use SimpleSAML\Error;
+use SimpleSAML\Module\ldap\Auth\Ldap;
 use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\TestResult;
+
+use function intval;
+use function ldap_explode_dn;
+use function str_replace;
+use function stripos;
+use function strpos;
+use function substr;
 
 final class Search extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
@@ -67,7 +77,7 @@ final class Search extends \SimpleSAML\Module\monitor\TestCaseFactory
     {
         try {
             $this->connection->searchfordn($this->base, $this->attributes, $this->username);
-        } catch (\SimpleSAML\Error\Error $error) {
+        } catch (Error\Error $error) {
             // Fallthru
         }
 

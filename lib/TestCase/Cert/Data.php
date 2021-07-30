@@ -4,6 +4,8 @@ namespace SimpleSAML\Module\monitor\TestCase\Cert;
 
 use SimpleSAML\Module\monitor\TestData;
 
+use function openssl_x509_parse;
+
 class Data extends \SimpleSAML\Module\monitor\TestCase\Cert
 {
     /**

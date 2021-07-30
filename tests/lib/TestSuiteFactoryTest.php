@@ -2,6 +2,7 @@
 
 namespace SimpleSAML\Module\monitor\Test;
 
+use SimpleSAML\Configuration;
 use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\TestResult;
@@ -20,9 +21,9 @@ class TestSuiteFactoryTest extends \PHPUnit\Framework\TestCase
         $config = new TestConfiguration(
             new DependencyInjection([]),
             new DependencyInjection([]),
-            \SimpleSAML\Configuration::loadFromArray(['metadata.sources' => []]),
-            \SimpleSAML\Configuration::loadFromArray([]),
-            \SimpleSAML\Configuration::loadFromArray([])
+            Configuration::loadFromArray(['metadata.sources' => []]),
+            Configuration::loadFromArray([]),
+            Configuration::loadFromArray([])
         );
         $testData = new TestData(['travis' => 'travis', 'test' => 'travis']);
         $testSuite = new TestSuiteImplementation($config, $testData);

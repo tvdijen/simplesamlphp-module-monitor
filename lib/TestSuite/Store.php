@@ -2,11 +2,20 @@
 
 namespace SimpleSAML\Module\monitor\TestSuite;
 
+use SimpleSAML\Configuration;
 use SimpleSAML\Logger;
 use SimpleSAML\Module\monitor\TestConfiguration;
 use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestCase;
 use SimpleSAML\Module\monitor\TestData;
+
+use function array_merge;
+use function explode;
+use function ini_get;
+use function preg_split;
+use function parse_str;
+use function session_save_path;
+use function substr;
 
 final class Store extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
@@ -97,18 +106,18 @@ final class Store extends \SimpleSAML\Module\monitor\TestSuiteFactory
                 break;
             case 'memcache':
             case 'memcached':
-                $tmp_configuration = \SimpleSAML\Configuration::getInstance();
+                $tmp_configuration = Configuration::getInstance();
                 $tmp_configuration = $tmp_configuration->toArray();
                 $tmp_configuration['memcache_store.servers'] = $this->parsePhpMemcachedConfiguration(
                     session_save_path()
                 );
-                $tmp_configuration = \SimpleSAML\Configuration::loadFromArray($tmp_configuration);
-                \SimpleSAML\Configuration::setPreloadedConfig($tmp_configuration);
+                $tmp_configuration = Configuration::loadFromArray($tmp_configuration);
+                Configuration::setPreloadedConfig($tmp_configuration);
 
                 $test = new Store\Memcache($configuration);
                 $results = $test->getTestResults();
 
-                \SimpleSAML\Configuration::setPreloadedConfig($configuration->getGlobalConfig());
+                Configuration::setPreloadedConfig($configuration->getGlobalConfig());
                 break;
 //          case 'sqlite':
 //          case 'mm':

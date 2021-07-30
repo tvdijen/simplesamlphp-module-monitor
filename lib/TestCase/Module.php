@@ -6,6 +6,10 @@ use SimpleSAML\Module\monitor\State as State;
 use SimpleSAML\Module\monitor\TestData as TestData;
 use SimpleSAML\Module\monitor\TestResult as TestResult;
 
+use function explode;
+use function in_array;
+use function is_null;
+
 class Module extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     /** @var array */

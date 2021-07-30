@@ -9,6 +9,9 @@ use SimpleSAML\Module\monitor\TestResult;
 use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Utils;
 
+use function is_string;
+use function stream_context_create;
+
 final class Certificates extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
     /** @var string|null */

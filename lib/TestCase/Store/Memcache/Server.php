@@ -6,6 +6,8 @@ use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\TestResult;
 
+use function round;
+
 final class Server extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     /** @var array|false */

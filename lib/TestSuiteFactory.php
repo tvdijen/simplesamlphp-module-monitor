@@ -2,6 +2,9 @@
 
 namespace SimpleSAML\Module\monitor;
 
+use function array_merge;
+use function is_null;
+
 abstract class TestSuiteFactory extends TestCaseFactory
 {
     /** @var \SimpleSAML\Module\monitor\TestConfiguration */

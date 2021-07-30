@@ -2,6 +2,8 @@
 
 namespace SimpleSAML\Module\monitor;
 
+use function array_key_exists;
+
 final class DependencyInjection
 {
     /** @var array */

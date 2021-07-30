@@ -2,11 +2,14 @@
 
 namespace SimpleSAML\Module\monitor\TestSuite\Store;
 
+use SimpleSAML\Memcache;
 use SimpleSAML\Module\monitor\TestConfiguration;
 use SimpleSAML\Module\monitor\TestCase;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\TestResult;
 use SimpleSAML\Module\monitor\State;
+
+use function class_exists;
 
 final class Memcache extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
@@ -43,7 +46,7 @@ final class Memcache extends \SimpleSAML\Module\monitor\TestSuiteFactory
         } else {
             // Check Memcache-servers
 
-            $stats = \SimpleSAML\Memcache::getRawStats();
+            $stats = Memcache::getRawStats();
             $i = 1;
             foreach ($stats as $key => $serverGroup) {
                 $results = [];

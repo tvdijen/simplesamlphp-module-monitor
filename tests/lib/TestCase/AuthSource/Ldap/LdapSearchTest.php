@@ -3,6 +3,7 @@
 namespace SimpleSAML\Module\monitor\Test;
 
 use SimpleSAML\Configuration;
+use SimpleSAML\Error;
 use SimpleSAML\Module\ldap\Auth\Ldap;
 use SimpleSAML\Module\monitor\TestCase;
 use SimpleSAML\Module\monitor\TestData;
@@ -47,7 +48,7 @@ class TestLdapSearchTest extends \PHPUnit\Framework\TestCase
             ['searchfordn']
         )->disableOriginalConstructor()->getMock();
         $connectionMock->expects($this->once())->method('searchfordn')->will(
-            $this->throwException(new \SimpleSAML\Error\Error('UNHANDLEDEXCEPTION'))
+            $this->throwException(new Error\Error('UNHANDLEDEXCEPTION'))
         );
         $confTest = new TestCase\AuthSource\Ldap\Search(
             new TestData([

@@ -6,6 +6,10 @@ use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\TestResult;
 
+use function disk_free_space;
+use function disk_total_space;
+use function round;
+
 final class FreeSpace extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     /** @var string */

@@ -2,6 +2,8 @@
 
 namespace SimpleSAML\Module\monitor;
 
+use function is_null;
+
 abstract class TestCaseFactory implements TestInterface
 {
     /** @var string */

@@ -2,9 +2,14 @@
 
 namespace SimpleSAML\Module\monitor\TestCase\AuthSource\Ldap;
 
+use Exception;
+use SimpleSAML\Configuration as SspConfiguration;
 use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\TestResult;
+
+use function preg_match;
+use function str_replace;
 
 final class Configuration extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
@@ -74,7 +79,7 @@ final class Configuration extends \SimpleSAML\Module\monitor\TestCaseFactory
                 $this->referrals
             );
             $state = State::OK;
-        } catch (\Exception $error) {
+        } catch (Exception $error) {
             $state = State::FATAL;
         }
 

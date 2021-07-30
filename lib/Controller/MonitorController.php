@@ -11,6 +11,8 @@ use SimpleSAML\XHTML\Template;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
+use function array_merge;
+
 /**
  * Controller class for the monitor module.
  *

@@ -6,6 +6,9 @@ use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\TestResult;
 
+use function array_key_exists;
+use function strftime;
+
 final class Expiration extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     /** @var string */

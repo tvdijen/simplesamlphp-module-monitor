@@ -7,6 +7,10 @@ use SimpleSAML\Module\monitor\TestCase;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\TestResult;
 
+use function array_key_exists;
+use function is_array;
+use function preg_match;
+
 final class Metadata extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
     /** @var array */

@@ -2,12 +2,15 @@
 
 namespace SimpleSAML\Module\monitor\TestSuite\Configuration;
 
+use SimpleSAML\Module;
 use SimpleSAML\Module\monitor\TestConfiguration;
 use SimpleSAML\Module\monitor\TestCase;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\TestResult;
 use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Utils;
+
+use function in_array;
 
 final class Database extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
@@ -70,7 +73,7 @@ final class Database extends \SimpleSAML\Module\monitor\TestSuiteFactory
     private function areModulesDependingOnDatabase(): bool
     {
         foreach ($this->dependentModules as $module) {
-            if (\SimpleSAML\Module::isModuleEnabled($module)) {
+            if (Module::isModuleEnabled($module)) {
                 return true;
             }
         }

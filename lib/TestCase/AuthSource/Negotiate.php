@@ -2,9 +2,13 @@
 
 namespace SimpleSAML\Module\monitor\TestCase\AuthSource;
 
+use Exception;
+use KRB5NegotiateAuth;
 use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\TestResult;
+
+use function is_null;
 
 final class Negotiate extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
@@ -40,7 +44,7 @@ final class Negotiate extends \SimpleSAML\Module\monitor\TestCaseFactory
 
         try {
             $reply = @$this->handle->doAuthentication();
-        } catch (\Exception $error) {
+        } catch (Exception $error) {
             // Fallthru
         }
 

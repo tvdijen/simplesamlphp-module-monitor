@@ -2,6 +2,9 @@
 
 namespace SimpleSAML\Module\monitor;
 
+use function array_merge;
+use function is_null;
+
 final class TestResult
 {
     /** @var int The state reflecting the result */
@@ -44,6 +47,7 @@ final class TestResult
             'subject' => $this->getSubject(),
             'message' => $this->getMessage()
         ];
+
         if ($includeOutput === true) {
             $output['output'] =  $this->getOutput();
         }

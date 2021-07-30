@@ -2,9 +2,12 @@
 
 namespace SimpleSAML\Module\monitor\Test;
 
+use SimpleSAML\Configuration;
 use SimpleSAML\Module\monitor\TestCase\Store\Sql;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\State;
+
+use function unlink;
 
 /**
  * Tests for Sql
@@ -18,8 +21,8 @@ class TestSqlTest extends \SimpleSAML\TestUtils\ClearStateTestCase
             'store.sql.dsn' => 'sqlite:/tmp/test.sqlite',
         ];
 
-        $globalConfig = \SimpleSAML\Configuration::loadFromArray($globalConfig_input);
-        \SimpleSAML\Configuration::setPreLoadedConfig($globalConfig, 'config.php');
+        $globalConfig = Configuration::loadFromArray($globalConfig_input);
+        Configuration::setPreLoadedConfig($globalConfig, 'config.php');
         $testData = new TestData(['host' => 'test.localhost']);
 
         $test = new Sql($testData);
@@ -35,8 +38,8 @@ class TestSqlTest extends \SimpleSAML\TestUtils\ClearStateTestCase
             'store.sql.dsn' => 'somenonexistingfile',
         ];
 
-        $globalConfig = \SimpleSAML\Configuration::loadFromArray($globalConfig_input);
-        \SimpleSAML\Configuration::setPreLoadedConfig($globalConfig, 'config.php');
+        $globalConfig = Configuration::loadFromArray($globalConfig_input);
+        Configuration::setPreLoadedConfig($globalConfig, 'config.php');
         $testData = new TestData(['host' => 'test.localhost']);
 
         $test = new Sql($testData);

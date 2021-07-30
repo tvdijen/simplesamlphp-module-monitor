@@ -9,6 +9,8 @@ use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\TestResult;
 use SimpleSAML\Module\monitor\TestSuite\Store;
 
+use function session_save_path;
+
 final class Files extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
     /**

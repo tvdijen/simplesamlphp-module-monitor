@@ -9,6 +9,14 @@ use SimpleSAML\Module\monitor\TestCase;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\TestResult;
 
+use function array_key_exists;
+use function array_replace;
+use function explode;
+use function is_null;
+use function parse_url;
+use function preg_match;
+use function stream_context_create;
+
 final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
     /** @var \SimpleSAML\Configuration */
@@ -34,10 +42,10 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
         $authSourceData = $testData->getInputItem('authSourceData');
         $authSourceSpecifics = $testData->getInputItem('authSourceSpecifics');
 
-        assert(is_array($authSourceData));
-        assert(is_array($authSourceSpecifics) || is_null($authSourceSpecifics));
+        Assert:;isArray($authSourceData);
+        Assert::nullOrIsArray($authSourceSpecifics);
 
-        $authSourceData = \SimpleSAML\Configuration::loadFromArray($authSourceData);
+        $authSourceData = Configuration::loadFromArray($authSourceData);
         $this->hosts = explode(' ', $authSourceData->getString('hostname'));
         $this->authSourceData = $authSourceData;
         $this->authSourceSpecifics = $authSourceSpecifics;

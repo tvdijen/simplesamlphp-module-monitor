@@ -6,6 +6,10 @@ use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\TestResult;
 
+use function abs;
+use function array_key_exists;
+use function intval;
+
 class Cert extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     /** @var array */
@@ -119,7 +123,7 @@ class Cert extends \SimpleSAML\Module\monitor\TestCaseFactory
     protected function calculateExpiration(): void
     {
         $certInfo = $this->getCertInfo();
-        $expiration = (int)(($certInfo['validTo_time_t'] - time()) / 86400);
+        $expiration = intval(($certInfo['validTo_time_t'] - time()) / 86400);
         $this->setExpiration($expiration);
     }
 

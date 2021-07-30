@@ -6,6 +6,8 @@ use SimpleSAML\Module\monitor\TestCase;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\State;
 
+use function time;
+
 /**
  * Tests for TestCase\Metadata\Expiration
  */

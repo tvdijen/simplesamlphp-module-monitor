@@ -2,11 +2,18 @@
 
 namespace SimpleSAML\Module\monitor\TestSuite;
 
+use SimpleSAML\Module;
 use SimpleSAML\Module\monitor\TestConfiguration;
 use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestCase;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\TestResult;
+use SimpleSAML\Utils;
+
+use function array_key_exists;
+use function function_exists;
+use function in_array;
+use function preg_match;
 
 class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
@@ -86,7 +93,7 @@ class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
         if (function_exists('apache_get_modules')) {
             $this->addRequiredApacheModule('mod_php|mod_php5|mod_php7');
         }
-        if (\SimpleSAML\Utils\HTTP::isHTTPS()) {
+        if (Utils\HTTP::isHTTPS()) {
             $this->addRequiredApacheModule('mod_ssl');
         }
 
@@ -119,7 +126,7 @@ class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
     private function setRequiredPhpModules(): void
     {
         // PHP modules required
-        $composerFile = \SimpleSAML\Utils\System::resolvePath('composer.json');
+        $composerFile = Utils\System::resolvePath('composer.json');
         $composerData = file_get_contents($composerFile);
         $composer = json_decode($composerData, true);
         $composerRequired = $composer['require'];
@@ -145,17 +152,17 @@ class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
      */
     private function setRequiredSspModules(): void
     {
-        $modules = \SimpleSAML\Module::getModules();
+        $modules = Module::getModules();
         foreach ($modules as $module) {
-            if (\SimpleSAML\Module::isModuleEnabled($module)) {
+            if (Module::isModuleEnabled($module)) {
                 if (array_key_exists($module, $this->moduleApacheDependencies)) {
-                    $dependencies = \SimpleSAML\Utils\Arrays::Arrayize($this->moduleApacheDependencies[$module]);
+                    $dependencies = Utils\Arrays::Arrayize($this->moduleApacheDependencies[$module]);
                     foreach ($dependencies as $dependency) {
                         $this->addRequiredApacheModule($dependency);
                     }
                 }
                 if (array_key_exists($module, $this->modulePhpDependencies)) {
-                    $dependencies = \SimpleSAML\Utils\Arrays::Arrayize($this->modulePhpDependencies[$module]);
+                    $dependencies = Utils\Arrays::Arrayize($this->modulePhpDependencies[$module]);
                     foreach ($dependencies as $dependency) {
                         $this->addRequiredPhpModule($dependency);
                     }

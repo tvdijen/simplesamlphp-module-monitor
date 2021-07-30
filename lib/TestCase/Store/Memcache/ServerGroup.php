@@ -6,6 +6,9 @@ use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\TestResult;
 
+use function max;
+use function min;
+
 final class ServerGroup extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     /** @var array */

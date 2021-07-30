@@ -4,6 +4,8 @@ namespace SimpleSAML\Module\monitor\TestCase\Cert;
 
 use SimpleSAML\Module\monitor\TestData;
 
+use function file_get_contents;
+
 final class File extends Data
 {
     /**

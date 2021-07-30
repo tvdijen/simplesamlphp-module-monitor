@@ -3,11 +3,14 @@
 namespace SimpleSAML\Module\monitor\TestSuite\Modules;
 
 use SimpleSAML\Assert\Assert;
+use SimpleSAML\Module;
 use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestCase;
 use SimpleSAML\Module\monitor\TestConfiguration;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\TestResult;
+
+use function array_search;
 
 final class ModuleSet extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
@@ -144,7 +147,7 @@ final class ModuleSet extends \SimpleSAML\Module\monitor\TestSuiteFactory
         $dependencies = $this->dependencies;
         $missing = [];
         while ($dependency = array_search($module, $dependencies)) {
-            if (\SimpleSAML\Module::isModuleEnabled($dependency)) {
+            if (Module::isModuleEnabled($dependency)) {
                 $missing[] = $dependency;
             }
             unset($dependencies[$dependency]);

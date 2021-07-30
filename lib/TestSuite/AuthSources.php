@@ -7,6 +7,11 @@ use SimpleSAML\Module\monitor\TestConfiguration;
 use SimpleSAML\Module\monitor\TestResult;
 use SimpleSAML\Module\monitor\TestData;
 
+use function array_intersect;
+use function array_key_exists;
+use function array_merge;
+use function is_array;
+
 final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
     /** @var \SimpleSAML\Configuration */

@@ -2,9 +2,14 @@
 
 namespace SimpleSAML\Module\monitor\TestCase\AuthSource\Ldap;
 
+use Exception;
+use SimpleSAML\Configuration;
+use SimpleSAML\Module\ldap\Auth\Ldap;
 use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\TestResult;
+
+use function str_repalce;
 
 final class Bind extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
@@ -42,7 +47,7 @@ final class Bind extends \SimpleSAML\Module\monitor\TestCaseFactory
     {
         try {
             $bind = $this->connection->bind($this->username, $this->password);
-        } catch (\Exception $error) {
+        } catch (Exception $error) {
             // Fallthru
         }
 

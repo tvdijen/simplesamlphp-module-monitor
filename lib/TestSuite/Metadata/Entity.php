@@ -7,6 +7,11 @@ use SimpleSAML\Module\monitor\TestConfiguration;
 use SimpleSAML\Module\monitor\TestCase;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\TestResult;
+use SimpleSAML\Utils;
+
+use function array_filter;
+use function array_key_exists;
+use function chunk_split;
 
 final class Entity extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
@@ -30,8 +35,8 @@ final class Entity extends \SimpleSAML\Module\monitor\TestSuiteFactory
         $entityMetadata = $testData->getInputItem('entityMetadata');
         $entityId = $testData->getInputItem('entityId');
 
-        assert(is_array($entityMetadata));
-        assert(is_string($entityId));
+        Assert::isArray($entityMetadata);
+        Assert::string($entityId);
 
         $this->certExpirationWarning = $moduleConfig->getValue('certExpirationWarning', 28);
         $this->entityMetadata = $entityMetadata;
@@ -93,7 +98,7 @@ final class Entity extends \SimpleSAML\Module\monitor\TestSuiteFactory
             foreach ($files as $file) {
                 $input = [
                     'category' => $this->getType(['signing' => true, 'encryption' => false]),
-                    'certFile' => \SimpleSAML\Utils\Config::getCertPath($file),
+                    'certFile' => Utils\Config::getCertPath($file),
                     'certExpirationWarning' => $this->certExpirationWarning,
                 ];
 

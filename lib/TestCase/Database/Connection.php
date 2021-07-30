@@ -2,6 +2,8 @@
 
 namespace SimpleSAML\Module\monitor\TestCase\Database;
 
+use Exception;
+use SimpleSAML\Database;
 use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\TestResult;
@@ -33,8 +35,8 @@ final class Connection extends \SimpleSAML\Module\monitor\TestCaseFactory
     public function invokeTest(): void
     {
         try {
-            $this->db = \SimpleSAML\Database::getInstance();
-        } catch (\Exception $error) {
+            $this->db = Database::getInstance();
+        } catch (Exception $error) {
             // Fallthru
         }
 
