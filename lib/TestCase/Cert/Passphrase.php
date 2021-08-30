@@ -20,7 +20,7 @@ class Passphrase extends \SimpleSAML\Module\Monitor\TestCaseFactory
      *
      * @return void
      */
-    protected function initialize(TestData $testData)
+    protected function initialize(TestData $testData): void
     {
         $this->setCategory($testData->getInputItem('category'));
         $this->setPrivateKey($testData->getInputItem('privatekey'));
@@ -35,7 +35,7 @@ class Passphrase extends \SimpleSAML\Module\Monitor\TestCaseFactory
      *
      * @return void
      */
-    protected function setPrivateKey(string $privateKey)
+    protected function setPrivateKey(string $privateKey): void
     {
         $this->privateKey = $privateKey;
     }
@@ -44,9 +44,8 @@ class Passphrase extends \SimpleSAML\Module\Monitor\TestCaseFactory
     /**
      * @return string
      */
-    protected function getPrivateKey()
+    protected function getPrivateKey(): string
     {
-        assert(is_string($this->privateKey));
         return $this->privateKey;
     }
 
@@ -56,7 +55,7 @@ class Passphrase extends \SimpleSAML\Module\Monitor\TestCaseFactory
      *
      * @return void
      */
-    protected function setPassphrase(string $passphrase)
+    protected function setPassphrase(string $passphrase): void
     {
         $this->passphrase = $passphrase;
     }
@@ -65,7 +64,7 @@ class Passphrase extends \SimpleSAML\Module\Monitor\TestCaseFactory
     /**
      * @return string
      */
-    protected function getPassphrase()
+    protected function getPassphrase(): string
     {
         assert(is_string($this->passphrase));
         return $this->passphrase;
@@ -75,7 +74,7 @@ class Passphrase extends \SimpleSAML\Module\Monitor\TestCaseFactory
     /**
      * @return void
      */
-    public function invokeTest()
+    public function invokeTest(): void
     {
         $testResult = new TestResult($this->getCategory(), "Associated private key");
 
