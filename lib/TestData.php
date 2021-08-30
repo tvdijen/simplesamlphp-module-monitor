@@ -2,7 +2,7 @@
 
 namespace SimpleSAML\Module\monitor;
 
-use SimpleSAML\\Assert\Assert;
+use SimpleSAML\Assert\Assert;
 use SimpleSAML\Utils;
 
 use function array_key_exists;
