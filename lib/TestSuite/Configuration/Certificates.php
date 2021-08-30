@@ -86,7 +86,7 @@ final class Certificates extends \SimpleSAML\Module\monitor\TestSuiteFactory
         }
 
         // Check metadata signing certificate when available
-        if (is_string($this->metadataCert)) {
+        if (is_string($this->metadataCert) && is_string($this->metadataKey)) {
             $input = [
                 'certFile' => Utils\Config::getCertPath($this->metadataCert),
                 'category' => 'Metadata Signing Certificate',
@@ -96,6 +96,18 @@ final class Certificates extends \SimpleSAML\Module\monitor\TestSuiteFactory
 
             $test = new TestCase\Cert\File($testData);
             $this->addTestResult($test->getTestResult());
+
+            // Check if the passphrase can be used to decrypt the private key
+            if (is_string($this->metadataKeyPass)) {
+                $input = [
+                    'privatekey' => Utils\Config::getCertPath($this->metadataKey),
+                    'privatekey_pass' => $this->metadataKeyPass,
+                ];
+                $testData = new TestData($input);
+
+                $test = new TestCase\Cert\Passphrase($testData);
+                $this->addTestResult($test->getTestResult());
+            }
         }
 
         $testResult = new TestResult('Configuration', '');
