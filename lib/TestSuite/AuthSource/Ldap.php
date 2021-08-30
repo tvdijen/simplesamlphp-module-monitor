@@ -43,7 +43,7 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
         $authSourceData = $testData->getInputItem('authSourceData');
         $authSourceSpecifics = $testData->getInputItem('authSourceSpecifics');
 
-        Assert:;isArray($authSourceData);
+        Assert::isArray($authSourceData);
         Assert::nullOrIsArray($authSourceSpecifics);
 
         $authSourceData = Configuration::loadFromArray($authSourceData);
