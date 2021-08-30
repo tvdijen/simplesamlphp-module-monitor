@@ -108,6 +108,7 @@ final class Certificates extends \SimpleSAML\Module\monitor\TestSuiteFactory
             // Check if the passphrase can be used to decrypt the private key
             if (is_string($this->metadataKeyPass)) {
                 $input = [
+                    'category' => 'Metadata Signing Certificate',
                     'privatekey' => Utils\Config::getCertPath($this->metadataKey),
                     'privatekey_pass' => $this->metadataKeyPass,
                 ];
