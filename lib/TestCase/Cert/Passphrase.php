@@ -1,6 +1,6 @@
 <?php
 
-namespace SimpleSAML\Module\monitor\TestCase;
+namespace SimpleSAML\Module\monitor\TestCase\Cert;
 
 use \SimpleSAML\Module\monitor\State as State;
 use \SimpleSAML\Module\monitor\TestData as TestData;
