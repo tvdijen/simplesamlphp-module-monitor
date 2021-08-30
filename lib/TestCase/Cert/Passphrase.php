@@ -77,8 +77,7 @@ class Passphrase extends \SimpleSAML\Module\monitor\TestCaseFactory
     public function invokeTest(): void
     {
         $testResult = new TestResult($this->getCategory(), "Associated private key");
-
-        if (openssl_pkey_get_private($this->privateKey, $this->passphrase)) {
+        if (openssl_pkey_get_private($this->privateKey, $this->passphrase) !== false) {
             $testResult->setState(State::OK);
             $testResult->setMessage('Encrypted private key could be decrypted with the configured passphrase');
         } else {
