@@ -2,6 +2,7 @@
 
 namespace SimpleSAML\Module\monitor\TestSuite\AuthSource;
 
+use SimpleSAML\Assert\Assert;
 use SimpleSAML\Configuration;
 use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestConfiguration;
