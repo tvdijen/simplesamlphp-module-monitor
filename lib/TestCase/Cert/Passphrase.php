@@ -1,12 +1,12 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\TestCase;
+namespace SimpleSAML\Module\Monitor\TestCase;
 
-use \SimpleSAML\Modules\Monitor\State as State;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
-use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
+use \SimpleSAML\Module\Monitor\State as State;
+use \SimpleSAML\Module\Monitor\TestData as TestData;
+use \SimpleSAML\Module\Monitor\TestResult as TestResult;
 
-class Passphrase extends \SimpleSAML\Modules\Monitor\TestCaseFactory
+class Passphrase extends \SimpleSAML\Module\Monitor\TestCaseFactory
 {
     /** @var string */
     private $privateKey;
