@@ -4,7 +4,7 @@ namespace SimpleSAML\Module\monitor;
 
 use SimpleSAML\Configuration;
 use SimpleSAML\Metadata\MetaDataStorageSource;
-use SimpleSAML\Module\Monitor\DependencyInjection;
+use SimpleSAML\Module\monitor\DependencyInjection;
 
 use function array_merge;
 use function array_shift;

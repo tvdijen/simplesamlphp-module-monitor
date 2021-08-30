@@ -65,7 +65,7 @@ abstract class TestCaseFactory implements TestInterface
 
 
     /**
-     * @return \SimpleSAML\Module\Monitor\TestData
+     * @return \SimpleSAML\Module\monitor\TestData
      */
     public function getTestData(): TestData
     {
