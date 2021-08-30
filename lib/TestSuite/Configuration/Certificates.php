@@ -17,6 +17,12 @@ final class Certificates extends \SimpleSAML\Module\monitor\TestSuiteFactory
     /** @var string|null */
     private $metadataCert = null;
 
+    /** @var string|null */
+    private $metadataKey = null;
+
+    /** @var string|null */
+    private $metadataKeyPass = null;
+
     /** @var string */
     private $serverName;
 
@@ -37,6 +43,8 @@ final class Certificates extends \SimpleSAML\Module\monitor\TestSuiteFactory
         $serverVars = $configuration->getServerVars();
 
         $this->metadataCert = $globalConfig->getString('metadata.sign.certificate', null);
+        $this->metadataKey = $globalConfig->getString('metadata.sign.privatekey', null);
+        $this->metadataKeyPass = $globalConfig->getString('metadata.sign.privatekey_pass', null);
         $this->certExpirationWarning = $moduleConfig->getValue('certExpirationWarning', 28);
         $this->serverName = $serverVars->get('SERVER_NAME');
         $this->serverPort = $serverVars->get('SERVER_PORT');
