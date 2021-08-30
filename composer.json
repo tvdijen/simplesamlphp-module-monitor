@@ -16,9 +16,6 @@
             "*": "dist"
         }
     },
-    "extra": {
-        "ssp-mixedcase-module-name": "Monitor"
-    },
     "autoload": {
         "psr-4": {
             "SimpleSAML\\Module\\monitor\\": "lib/"
