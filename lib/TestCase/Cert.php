@@ -23,7 +23,7 @@ class Cert extends \SimpleSAML\Module\monitor\TestCaseFactory
 
 
     /**
-     * @var \SimpleSAML\Module\Monitor\TestData $testData
+     * @var \SimpleSAML\Module\monitor\TestData $testData
      *
      * @return void
      */
