@@ -69,8 +69,10 @@ final class Certificates extends \SimpleSAML\Module\monitor\TestSuiteFactory
         $this->addTestResult($connTest->getTestResult());
 
         if ($connTestResult->getState() === State::OK) {
+            $httpUtils = new Utils\HTTP();
+
             // We were able to connect
-            if (Utils\HTTP::isHTTPS()) {
+            if ($httpUtils->isHTTPS()) {
                 // Check Service Communications Certificate
                 $certData = $connTestResult->getOutput('certData');
 
@@ -87,8 +89,10 @@ final class Certificates extends \SimpleSAML\Module\monitor\TestSuiteFactory
 
         // Check metadata signing certificate when available
         if (is_string($this->metadataCert)) {
+            $configUtils = Utils\Config();
+
             $input = [
-                'certFile' => Utils\Config::getCertPath($this->metadataCert),
+                'certFile' => $configUtils->getCertPath($this->metadataCert),
                 'category' => 'Metadata Signing Certificate',
                 'certExpirationWarning' => $this->certExpirationWarning,
             ];
