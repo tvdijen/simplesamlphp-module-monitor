@@ -89,7 +89,7 @@ final class Certificates extends \SimpleSAML\Module\monitor\TestSuiteFactory
 
         // Check metadata signing certificate when available
         if (is_string($this->metadataCert)) {
-            $configUtils = Utils\Config();
+            $configUtils = new Utils\Config();
 
             $input = [
                 'certFile' => $configUtils->getCertPath($this->metadataCert),
