@@ -2,6 +2,7 @@
 
 namespace SimpleSAML\Module\monitor\TestSuite\Metadata;
 
+use SimpleSAML\Assert\Assert;
 use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestConfiguration;
 use SimpleSAML\Module\monitor\TestCase;
