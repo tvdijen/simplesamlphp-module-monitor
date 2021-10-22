@@ -96,10 +96,11 @@ final class Entity extends \SimpleSAML\Module\monitor\TestSuiteFactory
                 $files[] = $this->entityMetadata['new_certificate'];
             }
 
+            $configUtils = new Utils\Config();
             foreach ($files as $file) {
                 $input = [
                     'category' => $this->getType(['signing' => true, 'encryption' => false]),
-                    'certFile' => Utils\Config::getCertPath($file),
+                    'certFile' => $configUtils->getCertPath($file),
                     'certExpirationWarning' => $this->certExpirationWarning,
                 ];
 
