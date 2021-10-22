@@ -9,7 +9,7 @@ use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\TestResult;
 
-use function str_repalce;
+use function str_replace;
 
 final class Bind extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
