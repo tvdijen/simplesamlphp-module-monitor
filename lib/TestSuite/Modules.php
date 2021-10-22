@@ -155,17 +155,19 @@ class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
      */
     private function setRequiredSspModules(): void
     {
+        $arrayUtils = new Utils\Arrays();
+
         $modules = Module::getModules();
         foreach ($modules as $module) {
             if (Module::isModuleEnabled($module)) {
                 if (array_key_exists($module, $this->moduleApacheDependencies)) {
-                    $dependencies = Utils\Arrays::Arrayize($this->moduleApacheDependencies[$module]);
+                    $dependencies = $arrayUtils->arrayize($this->moduleApacheDependencies[$module]);
                     foreach ($dependencies as $dependency) {
                         $this->addRequiredApacheModule($dependency);
                     }
                 }
                 if (array_key_exists($module, $this->modulePhpDependencies)) {
-                    $dependencies = Utils\Arrays::Arrayize($this->modulePhpDependencies[$module]);
+                    $dependencies = $arrayUtils->arrayize($this->modulePhpDependencies[$module]);
                     foreach ($dependencies as $dependency) {
                         $this->addRequiredPhpModule($dependency);
                     }
