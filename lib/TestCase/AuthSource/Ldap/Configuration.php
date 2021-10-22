@@ -13,7 +13,7 @@ use function str_replace;
 
 final class Configuration extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
-    /** @var \SimpleSAML\Module\ldap\Auth\LDAP|null */
+    /** @var \SimpleSAML\Module\ldap\Auth\Ldap|null */
     private $connection = null;
 
     /** @var string */
