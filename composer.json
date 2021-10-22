@@ -36,6 +36,8 @@
         "ext-krb5": "*",
 
         "simplesamlphp/simplesamlphp": "dev-master",
+        "simplesamlphp/simplesamlphp-module-ldap": "dev-master",
+        "simplesamlphp/simplesamlphp-module-negotiate": "dev-master",
         "simplesamlphp/simplesamlphp-test-framework": "^1.0.5",
         "simplesamlphp/xml-security": "^0.3.3"
     },
