@@ -63,6 +63,12 @@ jobs:
         run: |
           echo "NO_COVERAGE=--no-coverage" >> $GITHUB_ENV
 
+      - name: Create RAM-disk
+        run: |
+          mkdir /tmp/testdisk
+          sudo mount -t tmpfs -o size=100k tmpfs /tmp/testdisk
+          sudo chmod -R 777 /tmp/testdisk
+
       - name: Run unit tests
         run: |
           echo $NO_COVERAGE
@@ -74,6 +80,9 @@ jobs:
         with:
             name: build-data
             path: ${{ github.workspace }}/build
+
+      - name: Cleanup RAM-disk
+        run: sudo umount /tmp/testdisk; rm -rf /tmp/testdisk
 
   security:
     name: Security checks
