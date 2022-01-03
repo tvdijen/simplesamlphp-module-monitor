@@ -34,7 +34,7 @@ final class Sql extends \SimpleSAML\Module\monitor\TestCaseFactory
         $testResult = new TestResult('SQL Server Health', $this->host);
 
         try {
-            new Store\SQL();
+            new Store\SQLStore();
             $testResult->setState(State::OK);
             $testResult->setMessage('Connection to the database succesfully established');
         } catch (Exception $e) {
