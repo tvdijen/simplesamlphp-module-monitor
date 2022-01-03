@@ -14,6 +14,11 @@
         "preferred-install": {
             "simplesamlphp/simplesamlphp": "source",
             "*": "dist"
+        },
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "simplesamlphp/composer-module-installer": true,
+            "muglug/package-versions-56": true
         }
     },
     "autoload": {
@@ -35,7 +40,7 @@
     "require-dev": {
         "ext-krb5": "*",
 
-        "simplesamlphp/simplesamlphp": "dev-master",
+        "simplesamlphp/simplesamlphp": "^2.0.0-beta.2",
         "simplesamlphp/simplesamlphp-module-negotiate": "dev-master",
         "simplesamlphp/simplesamlphp-test-framework": "^1.0.5",
         "simplesamlphp/xml-security": "^0.3.3"
