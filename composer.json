@@ -10,6 +10,12 @@
             "email": "tvdijen@gmail.com"
         }
     ],
+    "config": {
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "simplesamlphp/composer-module-installer": true
+        }
+    },
     "autoload": {
         "psr-4": {
             "SimpleSAML\\Module\\monitor\\": "lib"
