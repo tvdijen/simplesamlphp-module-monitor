@@ -7,7 +7,7 @@ use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\TestResult;
 
 use function array_key_exists;
-use function strftime;
+use function date;
 
 final class Expiration extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
@@ -46,7 +46,7 @@ final class Expiration extends \SimpleSAML\Module\monitor\TestCaseFactory
                 $testResult->setMessage('Metadata has expired');
             } else {
                 $testResult->setState(State::OK);
-                $testResult->setMessage('Metadata will expire on ' . strftime('%c', $expiration));
+                $testResult->setMessage('Metadata will expire on ' . date('r', $expiration));
             }
         } else {
             $testResult->setState(State::OK);
