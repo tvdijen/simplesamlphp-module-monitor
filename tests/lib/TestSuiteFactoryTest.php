@@ -21,7 +21,12 @@ class TestSuiteFactoryTest extends \PHPUnit\Framework\TestCase
         $config = new TestConfiguration(
             new DependencyInjection([]),
             new DependencyInjection([]),
-            Configuration::loadFromArray(['metadata.sources' => []]),
+            Configuration::loadFromArray([
+                'metadata.sources' => [],
+                'enable.saml20-idp' => true,
+                'enable.adfs-idp' => false,
+                'enable.wsfed-sp' => false,
+            ]),
             Configuration::loadFromArray([]),
             Configuration::loadFromArray([])
         );

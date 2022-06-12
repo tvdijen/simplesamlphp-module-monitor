@@ -31,8 +31,8 @@ final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
     {
         $moduleConfig = $configuration->getModuleConfig();
         $this->authSourceConfig = $configuration->getAuthSourceConfig();
-        $this->checkAuthSources = $moduleConfig->getValue('checkAuthSources', true);
-        $this->authSourceSpecifics = $moduleConfig->getValue('authSourceSpecifics', null);
+        $this->checkAuthSources = $moduleConfig->getOptionalValue('checkAuthSources', true);
+        $this->authSourceSpecifics = $moduleConfig->getOptionalValue('authSourceSpecifics', null);
         $this->setCategory('Authentication sources');
 
         parent::__construct($configuration);

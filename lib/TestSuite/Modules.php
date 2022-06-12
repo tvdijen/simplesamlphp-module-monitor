@@ -102,7 +102,7 @@ class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
         // Determine extra required modules
         $configuration = $this->getConfiguration();
         $globalConfig = $configuration->getGlobalConfig();
-        $store = $globalConfig->getValue('store.type');
+        $store = $globalConfig->getOptionalValue('store.type', 'phpsession');
         if (array_key_exists($store, $this->storeApacheDependencies)) {
             $this->addRequiredApacheModule($this->storeApacheDependencies[$store]);
         }
@@ -143,7 +143,7 @@ class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
         // Determine extra required modules
         $configuration = $this->getConfiguration();
         $globalConfig = $configuration->getGlobalConfig();
-        $store = $globalConfig->getValue('store.type');
+        $store = $globalConfig->getOptionalValue('store.type', 'phpsession');
         if (array_key_exists($store, $this->storePhpDependencies)) {
             $this->addRequiredPhpModule($this->storePhpDependencies[$store]);
         }

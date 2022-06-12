@@ -43,12 +43,12 @@ final class Configuration extends \SimpleSAML\Module\monitor\TestCaseFactory
     protected function initialize(TestData $testData): void
     {
         $authSourceData = $testData->getInputItem('authSourceData');
-        $this->hostname = $authSourceData->getString('hostname', '<< unset >>');
-        $this->port = $authSourceData->getInteger('port', 636);
-        $this->enableTls = $authSourceData->getBoolean('enable_tls', false);
-        $this->timeout = $authSourceData->getInteger('timeout', 3);
-        $this->referrals = $authSourceData->getBoolean('referrals', false);
-        $this->debug = $authSourceData->getBoolean('debug', false);
+        $this->hostname = $authSourceData->getOptionalString('hostname', '<< unset >>');
+        $this->port = $authSourceData->getOptionalInteger('port', 636);
+        $this->enableTls = $authSourceData->getOptionalBoolean('enable_tls', false);
+        $this->timeout = $authSourceData->getOptionalInteger('timeout', 3);
+        $this->referrals = $authSourceData->getOptionalBoolean('referrals', false);
+        $this->debug = $authSourceData->getOptionalBoolean('debug', false);
 
         $this->setSubject($this->hostname);
 

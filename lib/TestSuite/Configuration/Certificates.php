@@ -36,8 +36,8 @@ final class Certificates extends \SimpleSAML\Module\monitor\TestSuiteFactory
         $moduleConfig = $configuration->getModuleConfig();
         $serverVars = $configuration->getServerVars();
 
-        $this->metadataCert = $globalConfig->getString('metadata.sign.certificate', null);
-        $this->certExpirationWarning = $moduleConfig->getValue('certExpirationWarning', 28);
+        $this->metadataCert = $globalConfig->getOptionalString('metadata.sign.certificate', null);
+        $this->certExpirationWarning = $moduleConfig->getOptionalValue('certExpirationWarning', 28);
         $this->serverName = $serverVars->get('SERVER_NAME');
         $this->serverPort = $serverVars->get('SERVER_PORT');
         $this->setCategory('Configuration');

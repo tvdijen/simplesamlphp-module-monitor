@@ -18,7 +18,6 @@ class TestConfigurationTest extends \SimpleSAML\TestUtils\ClearStateTestCase
 
         $globalConfig_input = [
             'enable.saml20-idp' => true,
-            'enable.shib13-idp' => true,
             'enable.adfs-idp' => true,
             'enable.wsfed-sp' => true,
             'metadata.sources' => [

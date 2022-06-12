@@ -33,9 +33,9 @@ final class Database extends \SimpleSAML\Module\monitor\TestSuiteFactory
     public function __construct(TestConfiguration $configuration)
     {
         $globalConfig = $configuration->getGlobalConfig();
-        $this->store = $globalConfig->getString('store.type', 'phpsession');
+        $this->store = $globalConfig->getOptionalString('store.type', 'phpsession');
         $this->dsn = $globalConfig->getString('database.dsn');
-        $this->metadataSources = $globalConfig->getArray('metadata.sources', []);
+        $this->metadataSources = $globalConfig->getOptionalArray('metadata.sources', []);
 
         $this->setCategory('Configuration');
         parent::__construct($configuration);

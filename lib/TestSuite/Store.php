@@ -29,7 +29,7 @@ final class Store extends \SimpleSAML\Module\monitor\TestSuiteFactory
     public function __construct(TestConfiguration $configuration)
     {
         $globalConfig = $configuration->getGlobalConfig();
-        $this->store = $globalConfig->getString('store.type', 'phpsession');
+        $this->store = $globalConfig->getOptionalString('store.type', 'phpsession');
         $this->setCategory('Session store');
 
         parent::__construct($configuration);

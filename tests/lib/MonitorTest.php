@@ -21,7 +21,6 @@ class MonitorTest extends \SimpleSAML\TestUtils\ClearStateTestCase
         $requestVars = new DependencyInjection(['output' => 'travis']);
         $globalConfig_input = [
             'enable.saml20-idp' => true,
-            'enable.shib13-idp' => true,
             'enable.adfs-idp' => true,
             'enable.wsfed-sp' => true,
             'metadata.sources' => [

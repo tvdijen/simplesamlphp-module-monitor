@@ -29,7 +29,7 @@ final class Metadata extends \SimpleSAML\Module\monitor\TestSuiteFactory
         $metadataConfig = $configuration->getMetadataConfig();
         $this->fixEntityIds($metadataConfig);
 
-        $checkMetadata = $moduleConfig->getValue('checkMetadata', true);
+        $checkMetadata = $moduleConfig->getOptionalValue('checkMetadata', true);
         if ($checkMetadata === true) {
             $metadata = $metadataConfig;
         } else {
@@ -47,7 +47,7 @@ final class Metadata extends \SimpleSAML\Module\monitor\TestSuiteFactory
             }
         }
 
-        $this->certExpirationWarning = $moduleConfig->getValue('certExpirationWarning', 28);
+        $this->certExpirationWarning = $moduleConfig->getOptionalValue('certExpirationWarning', 28);
 
         $this->fixEntityIds($metadata);
         $this->metadata = $metadata;

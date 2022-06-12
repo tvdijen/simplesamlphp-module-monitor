@@ -40,9 +40,9 @@
     "require-dev": {
         "ext-krb5": "*",
 
-        "simplesamlphp/simplesamlphp": "^2.0.0-beta.2",
+        "simplesamlphp/simplesamlphp": "^2.0.0-beta.11",
         "simplesamlphp/simplesamlphp-module-negotiate": "dev-master",
-        "simplesamlphp/simplesamlphp-test-framework": "^1.0.5",
+        "simplesamlphp/simplesamlphp-test-framework": "^1.2.1",
         "simplesamlphp/xml-security": "^0.3.3"
     },
     "support": {
