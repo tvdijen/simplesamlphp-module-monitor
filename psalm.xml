@@ -5,8 +5,8 @@
     totallyTyped="false"
 >
     <projectFiles>
-        <directory name="lib" />
         <directory name="hooks" />
+        <directory name="src" />
         <directory name="www" />
     </projectFiles>
 

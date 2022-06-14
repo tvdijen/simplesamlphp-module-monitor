@@ -95,7 +95,7 @@ final class ConnectUri extends \SimpleSAML\Module\monitor\TestCaseFactory
     public function invokeTest(): void
     {
         list($errno, $errstr) = [0, ''];
-        $connection = @stream_socket_client(
+        $connection = stream_socket_client(
             $this->uri,
             $errno,
             $errstr,
