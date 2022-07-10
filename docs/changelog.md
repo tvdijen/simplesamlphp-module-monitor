@@ -59,7 +59,7 @@ Bugfix: Remove a function-call that breaks the monitor
 ## Version 2.5.1
 Released 4-10-2018
 
-Bugfix: Fix erroneous test in LDAP TestSuite that caused bind/search tests to run only when connection failures had occured in an earlier test (instead of the other way around)
+Bugfix: Fix erroneous test in LDAP TestSuite that caused bind/search tests to run only when connection failures had occurred in an earlier test (instead of the other way around)
 
 ## Version 2.5.0
 Released 2-10-2018
