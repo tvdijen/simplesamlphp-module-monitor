@@ -1,15 +1,25 @@
 <?php
 
-namespace SimpleSAML\Modules\Monitor\TestSuite\AuthSource;
+namespace SimpleSAML\Module\monitor\TestSuite\AuthSource;
 
-use \SimpleSAML\Configuration as ApplicationConfiguration;
-use \SimpleSAML\Modules\Monitor\State as State;
-use \SimpleSAML\Modules\Monitor\TestConfiguration as TestConfiguration;
-use \SimpleSAML\Modules\Monitor\TestCase as TestCase;
-use \SimpleSAML\Modules\Monitor\TestData as TestData;
-use \SimpleSAML\Modules\Monitor\TestResult as TestResult;
+use SimpleSAML\Assert\Assert;
+use SimpleSAML\Configuration;
+use SimpleSAML\Module\monitor\State;
+use SimpleSAML\Module\monitor\TestConfiguration;
+use SimpleSAML\Module\monitor\TestCase;
+use SimpleSAML\Module\monitor\TestData;
+use SimpleSAML\Module\monitor\TestResult;
 
-final class Ldap extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
+use function array_key_exists;
+use function array_replace;
+use function explode;
+use function is_null;
+use function parse_url;
+use function preg_match;
+use function preg_split;
+use function stream_context_create;
+
+final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
     /** @var ApplicationConfiguration */
     private $authSourceData;
@@ -37,8 +47,8 @@ final class Ldap extends \SimpleSAML\Modules\Monitor\TestSuiteFactory
         assert(is_array($authSourceData));
         assert(is_array($authSourceSpecifics) || is_null($authSourceSpecifics));
 
-        $authSourceData = \SimpleSAML\Configuration::loadFromArray($authSourceData);
-        $this->hosts = explode(' ', $authSourceData->getString('hostname'));
+        $authSourceData = Configuration::loadFromArray($authSourceData);
+        $this->hosts = preg_split('/\s+/', $authSourceData->getString('hostname'), -1, PREG_SPLIT_NO_EMPTY);
         $this->authSourceData = $authSourceData;
         $this->authSourceSpecifics = $authSourceSpecifics;
         $this->certExpirationWarning = $moduleConfig->getValue('certExpirationWarning', 28);
