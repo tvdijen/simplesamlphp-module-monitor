@@ -16,6 +16,7 @@ use function explode;
 use function is_null;
 use function parse_url;
 use function preg_match;
+use function preg_split;
 use function stream_context_create;
 
 final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
@@ -47,7 +48,7 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
         Assert::nullOrIsArray($authSourceSpecifics);
 
         $authSourceData = Configuration::loadFromArray($authSourceData);
-        $this->hosts = explode(' ', $authSourceData->getString('hostname'));
+        $this->hosts = preg_split('/\s+/', $authSourceData->getString('hostname'), -1, PREG_SPLIT_NO_EMPTY);
         $this->authSourceData = $authSourceData;
         $this->authSourceSpecifics = $authSourceSpecifics;
         $this->certExpirationWarning = $moduleConfig->getValue('certExpirationWarning', 28);
