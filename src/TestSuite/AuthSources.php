@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SimpleSAML\Module\monitor\TestSuite;
 
 use SimpleSAML\Configuration as ApplicationConfiguration;
+use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestConfiguration;
 use SimpleSAML\Module\monitor\TestResult;
 use SimpleSAML\Module\monitor\TestData;
@@ -51,6 +52,9 @@ final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
         } elseif (is_array($this->checkAuthSources)) {
             $authSources = array_intersect($this->authSourceConfig->getOptions(), $this->checkAuthSources);
         } else { // false or invalid value
+            $testResult = new TestResult('Authentication sources');
+            $testResult->setState(State::NOSTATE);
+            $this->setTestResult($testResult);
             return;
         }
 
