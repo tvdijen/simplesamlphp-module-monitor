@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\monitor\Test;
 
 use SimpleSAML\Module\monitor\DependencyInjection;

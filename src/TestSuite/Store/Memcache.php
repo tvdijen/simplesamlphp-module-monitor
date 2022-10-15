@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\monitor\TestSuite\Store;
 
 use SimpleSAML\Memcache as M;
@@ -14,7 +16,7 @@ use function class_exists;
 final class Memcache extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
     /** var string|null */
-    private $class = null;
+    private ?string $class = null;
 
 
     /**

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\monitor\TestCase\AuthSource;
 
 use Exception;
@@ -13,10 +15,10 @@ use function is_null;
 final class Negotiate extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     /** @var \KRB5NegotiateAuth */
-    private $handle;
+    private KRB5NegotiateAuth $handle;
 
     /** @var string|null */
-    private $authorization;
+    private ?string $authorization;
 
 
     /*

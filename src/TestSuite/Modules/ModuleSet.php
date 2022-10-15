@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\monitor\TestSuite\Modules;
 
 use SimpleSAML\Assert\Assert;
@@ -15,16 +17,16 @@ use function array_search;
 final class ModuleSet extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
     /** @var array */
-    private $required;
+    private array $required;
 
     /** @var array */
-    private $available;
+    private array $available;
 
     /** @var array */
-    private $dependencies;
+    private array $dependencies;
 
     /** @var string */
-    private $type;
+    private string $type;
 
 
     /**

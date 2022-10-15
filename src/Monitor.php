@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\monitor;
 
 use function array_diff;
@@ -7,13 +9,13 @@ use function array_diff;
 class Monitor
 {
     /** @var \SimpleSAML\Module\monitor\TestConfiguration */
-    private $configuration;
+    private TestConfiguration $configuration;
 
     /** @var array */
-    private $results = [];
+    private array $results = [];
 
     /** @var array */
-    private $state = [];
+    private array $state = [];
 
 
     /**

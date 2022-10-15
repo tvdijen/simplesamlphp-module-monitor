@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\monitor\TestSuite;
 
 use SimpleSAML\Module;
@@ -18,29 +20,29 @@ use function preg_match;
 class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
     /** @var array */
-    private $requiredApacheModules = [];
+    private array $requiredApacheModules = [];
 
     // Important!!  Modules-names are handled case-sensitive!!
     /** @var array */
-    private $storeApacheDependencies = [];
+    private array $storeApacheDependencies = [];
 
     /** @var array */
-    private $moduleApacheDependencies = [
+    private array $moduleApacheDependencies = [
         'negotiateext' => 'mod_auth_kerb|mod_auth_gssapi'
     ];
 
     /** @var array */
-    private $requiredPhpModules = [];
+    private array $requiredPhpModules = [];
 
     /** @var array */
-    private $storePhpDependencies = [
+    private array $storePhpDependencies = [
         'memcache' => 'memcached|memcache',
         'phpsession' => 'session',
         'sql' => 'PDO'
     ];
 
     /** @var array */
-    private $modulePhpDependencies = [
+    private array $modulePhpDependencies = [
         'authfacebook' => ['curl', 'json'],
         'authYubiKey' => 'curl',
 // TODO: consent only requires pdo when database backend is used..

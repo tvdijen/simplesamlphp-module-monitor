@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\monitor\TestCase\AuthSource\Ldap;
 
 use SimpleSAML\Configuration;
@@ -19,19 +21,19 @@ use function substr;
 final class Search extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     /** @var \SimpleSAML\Module\ldap\Auth\Ldap */
-    private $connection;
+    private Ldap $connection;
 
     /** @var string */
-    private $base;
+    private string $base;
 
     /** @var string */
-    private $username;
+    private string $username;
 
     /** @var string */
-    private $password;
+    private string $password;
 
     /** @var array */
-    private $attributes = [];
+    private array $attributes = [];
 
 
     /**

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\monitor\TestCase\Store\Memcache;
 
 use SimpleSAML\Module\monitor\State;
@@ -12,10 +14,10 @@ use function min;
 final class ServerGroup extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     /** @var array */
-    private $results = [];
+    private array $results = [];
 
-    /** @var string */
-    private $group;
+    /** @var string|null */
+    private ?string $group;
 
 
     /**

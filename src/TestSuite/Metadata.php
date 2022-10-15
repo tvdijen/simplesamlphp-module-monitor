@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\monitor\TestSuite;
 
 use SimpleSAML\Module\monitor\TestConfiguration;
@@ -14,10 +16,10 @@ use function preg_match;
 final class Metadata extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
     /** @var array */
-    private $metadata = [];
+    private array $metadata = [];
 
     /** @var integer|null */
-    private $certExpirationWarning = null;
+    private ?int $certExpirationWarning = null;
 
 
     /**

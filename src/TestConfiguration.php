@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\monitor;
 
 use SimpleSAML\Configuration;
@@ -15,28 +17,28 @@ use function preg_replace;
 final class TestConfiguration
 {
     /** @var \SimpleSAML\Configuration */
-    private $globalConfig;
+    private Configuration $globalConfig;
 
     /** @var \SimpleSAML\Configuration */
-    private $moduleConfig;
+    private Configuration $moduleConfig;
 
     /** @var \SimpleSAML\Configuration */
-    private $authSourceConfig;
+    private Configuration $authSourceConfig;
 
     /** @var array */
-    private $metadataConfig;
+    private array $metadataConfig;
 
     /** @var array */
-    private $availableApacheModules;
+    private array $availableApacheModules;
 
     /** @var array */
-    private $availablePhpModules;
+    private array $availablePhpModules;
 
     /** @var \SimpleSAML\Module\monitor\DependencyInjection */
-    private $serverVars;
+    private DependencyInjection $serverVars;
 
     /** @var \SimpleSAML\Module\monitor\DependencyInjection */
-    private $requestVars;
+    private DependencyInjection $requestVars;
 
 
     /**
@@ -126,14 +128,11 @@ final class TestConfiguration
     {
         $globalConfig = $this->getGlobalConfig();
         $sets = ['saml20-idp-remote'];
-        if ($globalConfig->getBoolean('enable.saml20-idp', false)) {
+        if ($globalConfig->getOptionalBoolean('enable.saml20-idp', false)) {
             $sets = array_merge($sets, ['saml20-idp-hosted', 'saml20-sp-remote']);
         }
-        if ($globalConfig->getBoolean('enable.adfs-idp', false)) {
+        if ($globalConfig->getOptionalBoolean('enable.adfs-idp', false)) {
             $sets = array_merge($sets, ['adfs-idp-hosted', 'adfs-sp-remote']);
-        }
-        if ($globalConfig->getBoolean('enable.wsfed-sp', false)) {
-            $sets = array_merge($sets, ['wsfed-sp-hosted', 'wsfed-idp-remote']);
         }
         return $sets;
     }

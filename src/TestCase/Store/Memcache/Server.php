@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\monitor\TestCase\Store\Memcache;
 
 use SimpleSAML\Module\monitor\State;
@@ -15,7 +17,7 @@ final class Server extends \SimpleSAML\Module\monitor\TestCaseFactory
 
 
     /** @var string */
-    private $host;
+    private string $host;
 
 
     /**

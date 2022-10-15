@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\monitor\TestSuite\Configuration;
 
 use SimpleSAML\Module;
@@ -15,16 +17,16 @@ use function in_array;
 final class Database extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
     /** @var string|null */
-    private $store = null;
+    private ?string $store = null;
 
     /** @var array */
-    private $metadataSources = [];
+    private array $metadataSources = [];
 
     /** @var array */
-    private $dependentModules = ['consent'];
+    private array $dependentModules = ['consent'];
 
     /** @var string */
-    private $dsn = 'undefined';
+    private string $dsn = 'undefined';
 
 
     /**

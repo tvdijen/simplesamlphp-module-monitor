@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\monitor\TestSuite\Configuration;
 
 use SimpleSAML\Module\monitor\TestConfiguration;
@@ -15,16 +17,16 @@ use function stream_context_create;
 final class Certificates extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
     /** @var string|null */
-    private $metadataCert = null;
+    private ?string $metadataCert = null;
 
     /** @var string */
-    private $serverName;
+    private string $serverName;
+
+    /** @var string|null */
+    private ?string $serverPort;
 
     /** @var integer */
-    private $serverPort;
-
-    /** @var integer */
-    private $certExpirationWarning;
+    private int $certExpirationWarning;
 
 
     /**

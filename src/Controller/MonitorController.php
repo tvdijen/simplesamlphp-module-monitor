@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\monitor\Controller;
 
 use SimpleSAML\Configuration;
@@ -23,22 +25,22 @@ use function array_merge;
 class MonitorController
 {
     /** @var \SimpleSAML\Configuration */
-    protected $config;
+    protected Configuration $config;
 
     /** @var \SimpleSAML\Configuration */
-    protected $moduleConfig;
+    protected Configuration $moduleConfig;
 
     /** @var \SimpleSAML\Configuration */
-    protected $authsourceConfig;
+    protected Configuration $authsourceConfig;
 
     /** @var \SimpleSAML\Module\monitor\DependencyInjection */
-    protected $serverVars;
+    protected DependencyInjection $serverVars;
 
     /** @var \SimpleSAML\Module\monitor\DependencyInjection */
-    protected $requestVars;
+    protected DependencyInjection $requestVars;
 
     /** @var array */
-    private $healthInfo = [
+    private array $healthInfo = [
         State::SKIPPED => ['SKIPPED', 'yellow'],
         State::FATAL   => ['FATAL',   'purple'],
         State::ERROR   => ['NOK',     'red'   ],
@@ -48,16 +50,16 @@ class MonitorController
     ];
 
     /** @var \SimpleSAML\Module\monitor\TestConfiguration */
-    protected $testConfiguration;
+    protected TestConfiguration $testConfiguration;
 
     /** @var int */
-    protected $state;
+    protected int $state;
 
     /** @var int */
-    protected $responseCode = 200;
+    protected int $responseCode = 200;
 
     /** @var \SimpleSAML\Module\monitor\Monitor */
-    protected $monitor;
+    protected Monitor $monitor;
 
 
     /**
@@ -102,9 +104,9 @@ class MonitorController
         if ($this->state === State::OK) {
             $this->responseCode = 200;
         } elseif ($this->state === State::WARNING) {
-            $this->responseCode = $this->moduleConfig->getInteger('warningStatusCode', 202);
+            $this->responseCode = $this->moduleConfig->getOptionalInteger('warningStatusCode', 202);
         } else {
-            $this->responseCode = $this->moduleConfig->getInteger('errorStatusCode', 500);
+            $this->responseCode = $this->moduleConfig->getOptionalInteger('errorStatusCode', 500);
         }
 
         $results = $this->monitor->getResults();

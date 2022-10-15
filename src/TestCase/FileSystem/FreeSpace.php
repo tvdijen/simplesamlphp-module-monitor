@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\monitor\TestCase\FileSystem;
 
 use SimpleSAML\Module\monitor\State;
@@ -13,7 +15,7 @@ use function round;
 final class FreeSpace extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     /** @var string */
-    private $path = '';
+    private string $path = '';
 
 
     /**

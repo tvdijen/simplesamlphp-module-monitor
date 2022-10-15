@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\monitor\TestSuite\Metadata;
 
 use SimpleSAML\Assert\Assert;
@@ -17,13 +19,13 @@ use function chunk_split;
 final class Entity extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
     /** @var array */
-    private $entityMetadata;
+    private array $entityMetadata;
 
     /** @var string */
-    private $entityId;
+    private string $entityId;
 
     /** @var integer|null */
-    private $certExpirationWarning = null;
+    private ?int $certExpirationWarning = null;
 
 
     /**

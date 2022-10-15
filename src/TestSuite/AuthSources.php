@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\monitor\TestSuite;
 
 use SimpleSAML\Configuration as ApplicationConfiguration;
@@ -15,13 +17,13 @@ use function is_array;
 final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
     /** @var \SimpleSAML\Configuration */
-    private $authSourceConfig;
+    private ApplicationConfiguration $authSourceConfig;
 
     /** @var array|bool */
     private $checkAuthSources;
 
     /** @var array|null */
-    private $authSourceSpecifics;
+    private ?array $authSourceSpecifics;
 
 
     /**

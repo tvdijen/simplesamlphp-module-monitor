@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\monitor\TestSuite;
 
 use SimpleSAML\Configuration;
@@ -20,7 +22,7 @@ use function substr;
 final class Store extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
     /** var string|null */
-    private $store = null;
+    private ?string $store = null;
 
 
     /**

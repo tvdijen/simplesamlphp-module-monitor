@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\monitor\TestCase;
 
 use SimpleSAML\Module\monitor\State;
@@ -13,13 +15,13 @@ use function intval;
 class Cert extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     /** @var array */
-    private $certInfo = [];
+    private array $certInfo = [];
 
     /** @var integer */
-    private $expiration;
+    private int $expiration;
 
     /** @var integer|null */
-    private $certExpirationWarning = null;
+    private ?int $certExpirationWarning = null;
 
 
     /**

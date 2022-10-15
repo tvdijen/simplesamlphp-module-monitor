@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\monitor\TestCase\AuthSource\Ldap;
 
 use Exception;
@@ -14,13 +16,13 @@ use function str_replace;
 final class Bind extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     /** @var \SimpleSAML\Module\ldap\Auth\Ldap */
-    private $connection;
+    private Ldap $connection;
 
     /** @var string */
-    private $username;
+    private string $username;
 
     /** @var string */
-    private $password;
+    private string $password;
 
 
     /**

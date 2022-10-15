@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\monitor\TestCase\Metadata;
 
 use SimpleSAML\Module\monitor\State;
@@ -12,10 +14,10 @@ use function date;
 final class Expiration extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     /** @var string */
-    private $entityId;
+    private string $entityId;
 
     /** @var array */
-    private $metadata;
+    private array $metadata;
 
 
     /**

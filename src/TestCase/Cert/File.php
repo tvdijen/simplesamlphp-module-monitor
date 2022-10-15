@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\monitor\TestCase\Cert;
 
 use SimpleSAML\Module\monitor\TestData;

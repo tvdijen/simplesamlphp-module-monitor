@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\monitor;
 
 use function array_merge;
@@ -8,10 +10,10 @@ use function is_null;
 abstract class TestSuiteFactory extends TestCaseFactory
 {
     /** @var \SimpleSAML\Module\monitor\TestConfiguration */
-    private $configuration;
+    private TestConfiguration $configuration;
 
     /** @var array An associative array of name => TestResult pairs */
-    private $testResults = [];
+    private array $testResults = [];
 
 
     /**

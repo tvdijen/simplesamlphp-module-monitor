@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\monitor;
 
 use function is_null;
@@ -7,16 +9,16 @@ use function is_null;
 abstract class TestCaseFactory implements TestInterface
 {
     /** @var string */
-    private $category;
+    private string $category;
 
     /** @var string */
-    private $subject;
+    private string $subject;
 
     /** @var \SimpleSAML\Module\monitor\TestData */
-    private $testData;
+    private TestData $testData;
 
     /** @var \SimpleSAML\Module\monitor\TestResult */
-    private $testResult;
+    private TestResult $testResult;
 
 
     /**

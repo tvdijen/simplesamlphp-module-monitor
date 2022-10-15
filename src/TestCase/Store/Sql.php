@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\monitor\TestCase\Store;
 
 use Exception;
@@ -11,7 +13,7 @@ use SimpleSAML\Store;
 final class Sql extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     /** @var string */
-    private $host = '<< unset >>';
+    private string $host = '<< unset >>';
 
 
     /**

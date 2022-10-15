@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\monitor;
 
 use function array_merge;
@@ -8,19 +10,19 @@ use function is_null;
 final class TestResult
 {
     /** @var int The state reflecting the result */
-    private $state = State::NOSTATE;
+    private int $state = State::NOSTATE;
 
     /** @var string Test category this test belongs to */
-    private $category;
+    private string $category;
 
     /** @var string The subject that was tested */
-    private $subject;
+    private string $subject;
 
     /** @var string Message describing the result */
-    private $message = '';
+    private string $message = '';
 
     /** @var array Data to be used by TestSuite or other TestCases */
-    private $output = [];
+    private array $output = [];
 
 
     /**

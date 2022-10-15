@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\monitor\TestSuite\AuthSource;
 
 use SimpleSAML\Assert\Assert;
@@ -22,16 +24,16 @@ use function stream_context_create;
 final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {
     /** @var \SimpleSAML\Configuration */
-    private $authSourceData;
+    private Configuration $authSourceData;
 
     /** @var array|null */
-    private $authSourceSpecifics;
+    private ?array $authSourceSpecifics;
 
     /** @var string[] */
-    private $hosts;
+    private array $hosts;
 
     /** @var integer|null */
-    private $certExpirationWarning = null;
+    private ?int $certExpirationWarning = null;
 
 
     /**
@@ -51,7 +53,7 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
         $this->hosts = preg_split('/\s+/', $authSourceData->getString('hostname'), -1, PREG_SPLIT_NO_EMPTY);
         $this->authSourceData = $authSourceData;
         $this->authSourceSpecifics = $authSourceSpecifics;
-        $this->certExpirationWarning = $moduleConfig->getValue('certExpirationWarning', 28);
+        $this->certExpirationWarning = $moduleConfig->getOptionalValue('certExpirationWarning', 28);
         $this->setCategory('LDAP authentication source');
 
         parent::__construct($configuration);

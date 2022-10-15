@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\monitor\TestCase\AuthSource\Ldap;
 
 use Exception;
 use SimpleSAML\Configuration as SspConfiguration;
+use SimpleSAML\Module\ldap\Auth\Ldap;
 use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\TestResult;
@@ -14,25 +17,25 @@ use function str_replace;
 final class Configuration extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     /** @var \SimpleSAML\Module\ldap\Auth\Ldap|null */
-    private $connection = null;
+    private ?Ldap $connection = null;
 
     /** @var string */
-    private $hostname = '';
+    private string $hostname = '';
 
     /** @var integer */
-    private $port = 636;
+    private int $port = 636;
 
     /** @var bool */
-    private $enableTls = false;
+    private bool $enableTls = false;
 
     /** @var integer */
-    private $timeout = 3;
+    private int $timeout = 3;
 
     /** @var bool */
-    private $referrals = false;
+    private bool $referrals = false;
 
     /** @var bool */
-    private $debug = false;
+    private bool $debug = false;
 
 
     /**

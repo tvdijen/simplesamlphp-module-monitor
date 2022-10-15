@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\monitor;
 
 use SimpleSAML\Assert\Assert;
@@ -13,7 +15,7 @@ use function is_null;
 final class TestData
 {
     /** @var array */
-    private $testData = [];
+    private array $testData = [];
 
 
     /**

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\monitor\TestCase\Network;
 
 use SimpleSAML\Assert\Assert;
@@ -18,13 +20,13 @@ use function stream_socket_client;
 final class ConnectUri extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     /** @var integer */
-    private $timeout;
+    private int $timeout;
 
     /** @var resource */
     private $context;
 
     /** @var string */
-    private $uri;
+    private string $uri;
 
 
     /**

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\monitor\TestCase\Database;
 
 use Exception;
@@ -11,10 +13,10 @@ use SimpleSAML\Module\monitor\TestResult;
 final class Connection extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     /** @var \SimpleSAML\Database */
-    private $db;
+    private Database $db;
 
     /** @var string */
-    private $dsn;
+    private string $dsn;
 
 
     /**

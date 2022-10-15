@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\monitor\TestCase;
 
 use SimpleSAML\Module\monitor\State as State;
@@ -13,13 +15,13 @@ use function is_null;
 class Module extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
     /** @var array */
-    private $parsed = [];
+    private array $parsed = [];
 
     /** @var array */
-    private $available = [];
+    private array $available = [];
 
     /** @var string */
-    private $module;
+    private string $module;
 
 
     /**
