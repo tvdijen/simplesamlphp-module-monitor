@@ -43,7 +43,7 @@
         "simplesamlphp/simplesamlphp": "^2.0.0-rc2",
         "simplesamlphp/simplesamlphp-module-negotiate": "^2.0.0",
         "simplesamlphp/simplesamlphp-test-framework": "^1.2.1",
-        "simplesamlphp/xml-security": "^1.0.0"
+        "simplesamlphp/xml-security": "^0.6.6"
     },
     "support": {
         "issues": "https://github.com/tvdijen/simplesamlphp-module-monitor/issues",
