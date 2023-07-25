@@ -72,7 +72,7 @@ final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
             $testData = new TestData($input);
 
             switch ($authSourceData[0]) {
-                case 'ldap:LDAP':
+                case 'ldap:Ldap':
                     $ldapTest = new AuthSource\Ldap($configuration, $testData);
                     $this->addTestResults($ldapTest->getTestResults());
                     $output[$authSourceId] = $ldapTest->getArrayizeTestResults();

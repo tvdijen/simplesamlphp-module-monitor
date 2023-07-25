@@ -6,7 +6,8 @@ namespace SimpleSAML\Module\monitor\TestCase\AuthSource\Ldap;
 
 use Exception;
 use SimpleSAML\Configuration as SspConfiguration;
-use SimpleSAML\Module\ldap\Auth\Ldap;
+use SimpleSAML\Module\ldap\ConnectorInterface;
+use SimpleSAML\Module\ldap\Connector\Ldap as LdapConnector;
 use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\TestResult;
@@ -16,17 +17,17 @@ use function str_replace;
 
 final class Configuration extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
-    /** @var \SimpleSAML\Module\ldap\Auth\Ldap|null */
-    private ?Ldap $connection = null;
+    /** @var \SimpleSAML\Module\ConnectorInterface|null */
+    private ?ConnectorInterface $connection = null;
 
     /** @var string */
     private string $hostname = '';
 
-    /** @var integer */
-    private int $port = 636;
+    /** @var string */
+    private string $encryption = 'none';
 
-    /** @var bool */
-    private bool $enableTls = false;
+    /** @var integer */
+    private int $version = 3;
 
     /** @var integer */
     private int $timeout = 3;
@@ -46,9 +47,9 @@ final class Configuration extends \SimpleSAML\Module\monitor\TestCaseFactory
     protected function initialize(TestData $testData): void
     {
         $authSourceData = $testData->getInputItem('authSourceData');
-        $this->hostname = $authSourceData->getOptionalString('hostname', '<< unset >>');
-        $this->port = $authSourceData->getOptionalInteger('port', 636);
-        $this->enableTls = $authSourceData->getOptionalBoolean('enable_tls', false);
+        $this->hostname = $authSourceData->getOptionalString('connection_string', '<< unset >>');
+        $this->encryption = $authSourceData->getOptionalString('encryption', 'none');
+        $this->version = $authSourceData->getOptionalInteger('version', 3);
         $this->timeout = $authSourceData->getOptionalInteger('timeout', 3);
         $this->referrals = $authSourceData->getOptionalBoolean('referrals', false);
         $this->debug = $authSourceData->getOptionalBoolean('debug', false);
@@ -73,13 +74,13 @@ final class Configuration extends \SimpleSAML\Module\monitor\TestCaseFactory
         $testResult = new TestResult('LDAP configuration', $connectString);
 
         try {
-            $this->connection = new \SimpleSAML\Module\ldap\Auth\Ldap(
+            $this->connection = new LdapConnector(
                 $this->hostname,
-                $this->enableTls,
+                $this->encryption,
+                $this->version,
+                'ext_ldap',
                 $this->debug,
-                $this->timeout,
-                $this->port,
-                $this->referrals
+                ['network_timeout' => $this->timeout, 'referrals' => $this->referrals],
             );
             $state = State::OK;
         } catch (Exception $error) {

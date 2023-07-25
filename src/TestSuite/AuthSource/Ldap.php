@@ -50,7 +50,7 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
         Assert::nullOrIsArray($authSourceSpecifics);
 
         $authSourceData = Configuration::loadFromArray($authSourceData);
-        $this->hosts = preg_split('/\s+/', $authSourceData->getString('hostname'), -1, PREG_SPLIT_NO_EMPTY);
+        $this->hosts = preg_split('/\s+/', $authSourceData->getString('connection_string'), -1, PREG_SPLIT_NO_EMPTY);
         $this->authSourceData = $authSourceData;
         $this->authSourceSpecifics = $authSourceSpecifics;
         $this->certExpirationWarning = $moduleConfig->getOptionalValue('certExpirationWarning', 28);
@@ -159,17 +159,16 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
             }
 
             $port = parse_url($connectString, PHP_URL_PORT);
-            $port = $port ?: $authSourceData->getInteger('port', 636);
+            $port = $port ?: 636;
 
             $uri = 'ssl://' .  $hostname . ':' . $port;
             $context = stream_context_create(['ssl' => $sslContext]);
         } else {
-            $port = $authSourceData->getInteger('port', 389);
+            $port = 389;
             $uri = 'tcp://' . $hostname . ':' . $port;
             $context = stream_context_create();
         }
 
-        $timeout = $authSourceData->getInteger('timeout', null);
-        return ['uri' => $uri, 'context' => $context, 'timeout' => $timeout];
+        return ['uri' => $uri, 'context' => $context, 'timeout' => 3];
     }
 }

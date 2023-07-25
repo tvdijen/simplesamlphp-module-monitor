@@ -6,7 +6,7 @@ namespace SimpleSAML\Module\monitor\TestCase\AuthSource\Ldap;
 
 use Exception;
 use SimpleSAML\Configuration;
-use SimpleSAML\Module\ldap\Auth\Ldap;
+use SimpleSAML\Module\ldap\ConnectorInterface;
 use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\TestResult;
@@ -15,8 +15,8 @@ use function str_replace;
 
 final class Bind extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
-    /** @var \SimpleSAML\Module\ldap\Auth\Ldap */
-    private Ldap $connection;
+    /** @var \SimpleSAML\Module\ldap\ConnectorInterface */
+    private ConnectorInterface $connection;
 
     /** @var string */
     private string $username;
