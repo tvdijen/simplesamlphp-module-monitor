@@ -33,13 +33,18 @@
         }
     },
     "require": {
-        "php": ">=7.4 || ^8.0"
+        "php": ">=7.4 || ^8.0",
+        "ext-openssl": "*",
+        "ext-session": "*",
+
+        "simplesamlphp/assert": "^0.8.0",
+        "symfony/http-foundation": "^5.4"
     },
     "require-dev": {
+        "ext-ldap": "*",
         "ext-krb5": "*",
 
         "simplesamlphp/simplesamlphp": "^2.0.0",
-        "simplesamlphp/simplesamlphp-module-negotiate": "^2.1.0",
         "simplesamlphp/simplesamlphp-test-framework": "^1.5.5",
         "simplesamlphp/xml-security": "^0.6.6"
     },
