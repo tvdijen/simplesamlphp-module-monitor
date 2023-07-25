@@ -82,7 +82,7 @@ final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
                     $this->addTestResults($negoTest->getTestResults());
 
                     // We need to do some convertions from Negotiate > LDAP
-                    $this->convertAuthSourceData($authSourceData);
+                    $authSourceData = $this->authSourceConfig->getValue($authSourceData['fallback']);
                     $testData->setInput($authSourceData, 'authSourceData');
 
                     $ldapTest = new AuthSource\Ldap($configuration, $testData);
@@ -123,33 +123,5 @@ final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
             }
         }
         return null;
-    }
-
-
-    /**
-     * @param array $authSourceData
-     *
-     * @return void
-     */
-    private function convertAuthSourceData(array &$authSourceData): void
-    {
-        // LDAP and Negotiate authSources use different names for equal properties
-        // Hopefully this function can go away in SSP 2.0
-        if (isset($authSourceData['debugLDAP'])) {
-            $authSourceData['debug'] = $authSourceData['debugLDAP'];
-            unset($authSourceData['debugLDAP']);
-        }
-        if (isset($authSourceData['adminUser'])) {
-            $authSourceData['search.username'] = $authSourceData['adminUser'];
-            unset($authSourceData['adminUser']);
-        }
-        if (isset($authSourceData['adminPassword'])) {
-            $authSourceData['search.password'] = $authSourceData['adminPassword'];
-            unset($authSourceData['adminPassword']);
-        }
-        if (isset($authSourceData['base'])) {
-            $authSourceData['search.base'] = $authSourceData['base'];
-            unset($authSourceData['base']);
-        }
     }
 }
