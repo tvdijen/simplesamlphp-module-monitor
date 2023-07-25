@@ -13,6 +13,7 @@ use SimpleSAML\Module\monitor\TestResult;
 
 use function intval;
 use function ldap_explode_dn;
+use function sprintf;
 use function str_replace;
 use function stripos;
 use function strpos;
@@ -78,7 +79,12 @@ final class Search extends \SimpleSAML\Module\monitor\TestCaseFactory
     public function invokeTest(): void
     {
         try {
-            $this->connection->search([$this->base], sprintf('(|(%s=%s))', $this->attributes[0], $this->username), [], false);
+            $this->connection->search(
+                [$this->base],
+                sprintf('(|(%s=%s))', $this->attributes[0], $this->username),
+                [],
+                false,
+            );
         } catch (Error\Error $error) {
             // Fallthru
         }

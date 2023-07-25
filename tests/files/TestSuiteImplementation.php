@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\SimpleSAML\Module\monitor\TestFiles;
 
 use SimpleSAML\Module\monitor\State;

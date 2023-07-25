@@ -6,7 +6,7 @@ namespace SimpleSAML\Module\monitor\Test;
 
 use SimpleSAML\Configuration;
 use SimpleSAML\Error;
-use SimpleSAML\Module\ldap\Auth\Ldap;
+use SimpleSAML\Module\ldap\Connector\Ldap;
 use SimpleSAML\Module\monitor\TestCase;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\State;

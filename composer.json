@@ -45,8 +45,10 @@
         "ext-krb5": "*",
 
         "simplesamlphp/simplesamlphp": "^2.0.0",
+        "simplesamlphp/simplesamlphp-module-ldap": "^2.0.0",
         "simplesamlphp/simplesamlphp-test-framework": "^1.5.5",
-        "simplesamlphp/xml-security": "^0.6.6"
+        "simplesamlphp/xml-security": "^0.6.6",
+        "vimeo/psalm": "^5.13"
     },
     "support": {
         "issues": "https://github.com/tvdijen/simplesamlphp-module-monitor/issues",
