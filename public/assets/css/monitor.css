@@ -16,8 +16,7 @@
 .pure-table thead tr:first-child {
     height: 25px;
     vertical-align: middle;
-    background-color: darkred;
-    background: linear-gradient(141deg, #b8002c 0%, #db0100 51%, #e8410c 75%) !important;
+    background: linear-gradient(141deg, rgb(184 0 44) 0%, rgb(219 1 0) 51%, rgb(232 65 12) 75%) !important;
     font-weight: bold;
-    color: rgb(248, 248, 248);
+    color: rgb(248 248 248);
 }
