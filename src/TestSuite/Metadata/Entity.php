@@ -41,7 +41,7 @@ final class Entity extends \SimpleSAML\Module\monitor\TestSuiteFactory
         Assert::isArray($entityMetadata);
         Assert::string($entityId);
 
-        $this->certExpirationWarning = $moduleConfig->getValue('certExpirationWarning', 28);
+        $this->certExpirationWarning = $moduleConfig->getOptionalValue('certExpirationWarning', 28);
         $this->entityMetadata = $entityMetadata;
         $this->entityId = $entityId;
 
