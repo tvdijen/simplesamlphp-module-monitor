@@ -6,7 +6,7 @@ namespace SimpleSAML\Module\monitor\TestCase\AuthSource\Ldap;
 
 use SimpleSAML\Configuration;
 use SimpleSAML\Error;
-use SimpleSAML\Module\ldap\Auth\Ldap;
+use SimpleSAML\Module\ldap\ConnectorInterface;
 use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\TestResult;
@@ -20,8 +20,8 @@ use function substr;
 
 final class Search extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
-    /** @var \SimpleSAML\Module\ldap\Auth\Ldap */
-    private Ldap $connection;
+    /** @var \SimpleSAML\Module\ldap\ConnectorInterface */
+    private ConnectorInterface $connection;
 
     /** @var string */
     private string $base;
@@ -46,14 +46,14 @@ final class Search extends \SimpleSAML\Module\monitor\TestCaseFactory
         $authSourceData = $testData->getInputItem('authSourceData');
 
         // Just to be on the safe side, strip off any OU's and search to whole directory
-        $base = $authSourceData->getArrayizeString('search.base', '<< unset >>');
+        $base = $authSourceData->getArrayizeString('search.base');
         $base = is_array($base) ? $base[0] : $base;
         if (($i = intval(stripos($base, 'DC='))) > 0) {
             $base = substr($base, $i);
         }
         $this->base = $base;
 
-        $username = $authSourceData->getString('search.username', '<< unset >>');
+        $username = $authSourceData->getString('search.username');
         $this->setSubject($username);
         if (strpos($username, 'DC=') > 0) {
             // We have been given a DN
@@ -65,7 +65,7 @@ final class Search extends \SimpleSAML\Module\monitor\TestCaseFactory
             $this->username = $username;
             $this->attributes = ['sAMAccountName'];
         }
-        $this->password = $authSourceData->getString('search.password', '<< unset >>');
+        $this->password = $authSourceData->getString('search.password');
         $this->connection = $testData->getInputItem('connection');
 
         parent::initialize($testData);
@@ -78,7 +78,7 @@ final class Search extends \SimpleSAML\Module\monitor\TestCaseFactory
     public function invokeTest(): void
     {
         try {
-            $this->connection->searchfordn($this->base, $this->attributes, $this->username);
+            $this->connection->search([$this->base], sprintf('(|(%s=%s))', $this->attributes[0], $this->username), [], false);
         } catch (Error\Error $error) {
             // Fallthru
         }
@@ -87,7 +87,7 @@ final class Search extends \SimpleSAML\Module\monitor\TestCaseFactory
 
         if (isset($error)) {
             // When you feed str_replace a string, outcome will be string too, but Psalm doesn't see it that way
-            $msg = str_replace('Library - LDAP searchfordn(): ', '', $error->getMessage());
+            $msg = str_replace('Library - LDAP search(): ', '', $error->getMessage());
             $testResult->setState(State::ERROR);
             $testResult->setMessage($msg);
         } else {
