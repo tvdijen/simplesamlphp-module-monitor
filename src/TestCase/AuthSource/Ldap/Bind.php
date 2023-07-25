@@ -35,8 +35,8 @@ final class Bind extends \SimpleSAML\Module\monitor\TestCaseFactory
         $this->connection = $testData->getInputItem('connection');
         $authSourceData = $testData->getInputItem('authSourceData');
 
-        $this->username = $authSourceData->getString('search.username', '<< unset >>');
-        $this->password = $authSourceData->getString('search.password', '<< unset >>');
+        $this->username = $authSourceData->getString('search.username');
+        $this->password = $authSourceData->getString('search.password');
 
         parent::initialize($testData);
     }
@@ -55,15 +55,11 @@ final class Bind extends \SimpleSAML\Module\monitor\TestCaseFactory
 
         $testResult = new TestResult('LDAP Bind', $this->username);
         if (isset($error)) {
-            // When you feed str_replace a string, outcome will be string too, but Psalm doesn't see it that way
             $msg = str_replace('Library - LDAP bind(): ', '', $error->getMessage());
             $testResult->setState(State::FATAL);
-        } elseif ($bind === true) {
+        } else {
             $msg = 'Bind succesful';
             $testResult->setState(State::OK);
-        } else {
-            $msg = 'Authentication failed';
-            $testResult->setState(State::ERROR);
         }
 
         $testResult->setMessage($msg);
