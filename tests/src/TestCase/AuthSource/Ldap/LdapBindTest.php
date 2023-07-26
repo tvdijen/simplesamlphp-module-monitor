@@ -50,13 +50,15 @@ class TestLdapBindTest extends \PHPUnit\Framework\TestCase
             $this->throwException(new Error\Error('Invalid credentials.'))
         );
 
-        $this->expectException(Error\Error::class);
-        $this->expectExceptionMessage('Invalid credentials.');
-        new TestCase\AuthSource\Ldap\Bind(
+        $testResult = new TestCase\AuthSource\Ldap\Bind(
             new TestData([
                 'authSourceData' => Configuration::loadFromArray($authSourceData),
                 'connection' => $connectionMock,
             ])
         );
+
+        $this->expectException(Error\Error::class);
+        $this->expectExceptionMessage('Invalid credentials.');
+        $testResult->getTestResult();
     }
 }
