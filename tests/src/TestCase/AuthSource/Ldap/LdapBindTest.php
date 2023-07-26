@@ -70,16 +70,16 @@ class TestLdapBindTest extends \PHPUnit\Framework\TestCase
             ['bind']
         )->disableOriginalConstructor()->getMock();
         $connectionMock->expects($this->once())->method('bind')->will(
-            $this->throwException(new Error\Error('InvalidCredentials'))
+            $this->throwException(new Error\Error('Invalid credentials.'))
         );
-        $confTest = new TestCase\AuthSource\Ldap\Bind(
+
+        $this->expectException(Error\Error::class);
+        $this->expectExceptionMessage('Invalid credentials.');
+        new TestCase\AuthSource\Ldap\Bind(
             new TestData([
                 'authSourceData' => Configuration::loadFromArray($authSourceData),
                 'connection' => $connectionMock,
             ])
         );
-        $testResult = $confTest->getTestResult();
-
-        $this->assertEquals(State::ERROR, $testResult->getState());
     }
 }
