@@ -189,6 +189,12 @@ jobs:
           git config --global core.autocrlf false
           git config --global core.eol lf
 
+      - name: Create RAM-disk
+        run: |
+          mkdir /tmp/testdisk
+          sudo mount -t tmpfs -o size=100k tmpfs /tmp/testdisk
+          sudo chmod -R 777 /tmp/testdisk
+
       - uses: actions/checkout@v3
 
       - name: Get composer cache directory
@@ -218,6 +224,9 @@ jobs:
         with:
           name: coverage-data
           path: ${{ github.workspace }}/build
+
+      - name: Cleanup RAM-disk
+        run: sudo umount /tmp/testdisk; rm -rf /tmp/testdisk
 
   unit-tests-windows:
     name: "Unit tests, PHP ${{ matrix.php-versions }}, ${{ matrix.operating-system }}"
@@ -255,6 +264,12 @@ jobs:
           git config --global core.autocrlf false
           git config --global core.eol lf
 
+      - name: Create RAM-disk
+        run: |
+          mkdir /tmp/testdisk
+          sudo mount -t tmpfs -o size=100k tmpfs /tmp/testdisk
+          sudo chmod -R 777 /tmp/testdisk
+
       - uses: actions/checkout@v3
 
       - name: Get composer cache directory
@@ -272,6 +287,9 @@ jobs:
 
       - name: Run unit tests
         run: vendor/bin/phpunit --no-coverage
+
+      - name: Cleanup RAM-disk
+        run: sudo umount /tmp/testdisk; rm -rf /tmp/testdisk
 
   coverage:
     name: Code coverage

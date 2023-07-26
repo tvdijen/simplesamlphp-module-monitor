@@ -10,6 +10,7 @@ use SimpleSAML\Module\ldap\Connector\Ldap;
 use SimpleSAML\Module\monitor\TestCase;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\State;
+use Symfony\Component\Ldap\Entry;
 
 /**
  * Tests for TestCase\Ldap\Search
@@ -23,11 +24,12 @@ class TestLdapSearchTest extends \PHPUnit\Framework\TestCase
             'search.username' => 'testuser',
             'search.password' => 'password',
         ];
+        $entry = new Entry('DN=testuser,OU=example,DC=example,DC=org', ['firstName' => ['John'], 'lastName' => ['Doe']]);
 
         $connectionMock = $this->getMockBuilder(Ldap::class)->onlyMethods(
-            ['searchfordn']
+            ['search']
         )->disableOriginalConstructor()->getMock();
-        $connectionMock->expects($this->once())->method('searchfordn')->will($this->returnValue('testDN'));
+        $connectionMock->expects($this->once())->method('search')->will($this->returnValue($entry));
         $confTest = new TestCase\AuthSource\Ldap\Search(
             new TestData([
                 'authSourceData' => Configuration::loadFromArray($authSourceData),
@@ -47,9 +49,9 @@ class TestLdapSearchTest extends \PHPUnit\Framework\TestCase
             'search.password' => 'password',
         ];
         $connectionMock = $this->getMockBuilder(Ldap::class)->onlyMethods(
-            ['searchfordn']
+            ['search']
         )->disableOriginalConstructor()->getMock();
-        $connectionMock->expects($this->once())->method('searchfordn')->will(
+        $connectionMock->expects($this->once())->method('search')->will(
             $this->throwException(new Error\Error('UNHANDLEDEXCEPTION'))
         );
         $confTest = new TestCase\AuthSource\Ldap\Search(

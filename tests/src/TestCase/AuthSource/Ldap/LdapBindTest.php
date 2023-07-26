@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SimpleSAML\Module\monitor\Test;
 
 use SimpleSAML\Configuration;
+use SimpleSAML\Error;
 use SimpleSAML\Module\ldap\Connector\Ldap;
 use SimpleSAML\Module\monitor\TestCase;
 use SimpleSAML\Module\monitor\TestData;
@@ -68,7 +69,9 @@ class TestLdapBindTest extends \PHPUnit\Framework\TestCase
         $connectionMock = $this->getMockBuilder(Ldap::class)->onlyMethods(
             ['bind']
         )->disableOriginalConstructor()->getMock();
-        $connectionMock->expects($this->once())->method('bind')->will($this->returnValue(false));
+        $connectionMock->expects($this->once())->method('bind')->will(
+            $this->throwException(new Error\Error('InvalidCredentials'))
+        );
         $confTest = new TestCase\AuthSource\Ldap\Bind(
             new TestData([
                 'authSourceData' => Configuration::loadFromArray($authSourceData),

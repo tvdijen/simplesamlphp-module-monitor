@@ -16,13 +16,9 @@ class TestCertificatesTest extends \PHPUnit\Framework\TestCase
     /** @var string */
     private static $certdir;
 
-    /** @var string */
-    private static $key;
-
     public static function setUpBeforeClass(): void
     {
-        self::$certdir = getcwd() . '/vendor/simplesamlphp/xml-security/tests/resources/certificates/rsa-pem';
-        self::$key = self::$certdir . '/selfsigned.simplesamlphp.org_nopasswd.key';
+        self::$certdir = getcwd() . '/vendor/simplesamlphp/xml-security/tests/resources/certificates/';
     }
 
     public function testCertExpired(): void

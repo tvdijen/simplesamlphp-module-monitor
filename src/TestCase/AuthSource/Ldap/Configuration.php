@@ -47,7 +47,7 @@ final class Configuration extends \SimpleSAML\Module\monitor\TestCaseFactory
     protected function initialize(TestData $testData): void
     {
         $authSourceData = $testData->getInputItem('authSourceData');
-        $this->hostname = $authSourceData->getOptionalString('connection_string', '<< unset >>');
+        $this->hostname = $authSourceData->getString('connection_string');
         $this->encryption = $authSourceData->getOptionalString('encryption', 'none');
         $this->version = $authSourceData->getOptionalInteger('version', 3);
         $this->timeout = $authSourceData->getOptionalInteger('timeout', 3);
