@@ -6,6 +6,7 @@ namespace SimpleSAML\Module\monitor\TestCase\AuthSource\Ldap;
 
 use Exception;
 use SimpleSAML\Configuration;
+use SimpleSAML\Error;
 use SimpleSAML\Module\ldap\ConnectorInterface;
 use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestData;
@@ -49,7 +50,7 @@ final class Bind extends \SimpleSAML\Module\monitor\TestCaseFactory
     {
         try {
             $bind = $this->connection->bind($this->username, $this->password);
-        } catch (Exception $error) {
+        } catch (Error\Error $error) {
             // Fallthru
         }
 
