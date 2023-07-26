@@ -49,40 +49,14 @@ class TestLdapBindTest extends \PHPUnit\Framework\TestCase
         $connectionMock->expects($this->once())->method('bind')->will(
             $this->throwException(new Error\Error('Invalid credentials.'))
         );
-        $confTest = new TestCase\AuthSource\Ldap\Bind(
-            new TestData([
-                'authSourceData' => Configuration::loadFromArray($authSourceData),
-                'connection' => $connectionMock,
-            ])
-        );
-        $testResult = $confTest->getTestResult();
-
-        $this->assertEquals(State::FATAL, $testResult->getState());
-    }
-
-    public function testAuthenticationFailed(): void {
-        $this->assertEquals(State::FATAL, $testResult->getState());
-        $authSourceData = [
-            'search.username' => 'testuser',
-            'search.password' => 'password',
-        ];
-        $connectionMock = $this->getMockBuilder(Ldap::class)->onlyMethods(
-            ['bind']
-        )->disableOriginalConstructor()->getMock();
-        $connectionMock->expects($this->once())->method('bind')->will(
-            $this->throwException(new Error\Error('Invalid credentials.'))
-        );
 
         $this->expectException(Error\Error::class);
         $this->expectExceptionMessage('Invalid credentials.');
-        $confTest = new TestCase\AuthSource\Ldap\Bind(
+        new TestCase\AuthSource\Ldap\Bind(
             new TestData([
                 'authSourceData' => Configuration::loadFromArray($authSourceData),
                 'connection' => $connectionMock,
             ])
         );
-        $testResult = $confTest->getTestResult();
-
-        $this->assertEquals(State::FATAL, $testResult->getState());
     }
 }
