@@ -48,12 +48,14 @@ final class Bind extends \SimpleSAML\Module\monitor\TestCaseFactory
      */
     public function invokeTest(): void
     {
+        $error = null;
+
         try {
-            $bind = $this->connection->bind($this->username, $this->password);
+            $this->connection->bind($this->username, $this->password);
         } catch (Error\Error $error) {
             // Fallthru
         }
-        var_dump($bind);
+
         $testResult = new TestResult('LDAP Bind', $this->username);
         if (isset($error)) {
             $msg = str_replace('Library - LDAP bind(): ', '', $error->getMessage());
