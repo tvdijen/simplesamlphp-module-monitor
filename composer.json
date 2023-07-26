@@ -48,7 +48,7 @@
         "simplesamlphp/xml-security": "^0.6.6",
         "vimeo/psalm": "^5.13"
     },
-    "suggests": {
+    "suggest": {
         "ext-ldap": "*",
         "ext-krb5": "*"
     },
