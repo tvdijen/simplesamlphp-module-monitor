@@ -38,6 +38,7 @@
         "ext-session": "*",
 
         "simplesamlphp/assert": "^0.8.0",
+        "simplesamlphp/simplesamlphp": "*",
         "symfony/http-foundation": "^5.4"
     },
     "require-dev": {

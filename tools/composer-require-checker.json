@@ -10,21 +10,8 @@
   ],
   "symbol-whitelist": [
     "apache_get_modules",
-    "SimpleSAML\\Configuration",
-    "SimpleSAML\\Database",
-    "SimpleSAML\\Error\\Error",
-    "SimpleSAML\\Logger",
-    "SimpleSAML\\Memcache",
-    "SimpleSAML\\Metadata\\MetaDataStorageSource",
-    "SimpleSAML\\Module",
     "SimpleSAML\\Module\\ldap\\ConnectorInterface",
     "SimpleSAML\\Module\\ldap\\Connector\\Ldap",
-    "SimpleSAML\\Module\\negotiate\\Auth\\Negotiate",
-    "SimpleSAML\\Store\\SQLStore",
-    "SimpleSAML\\Utils\\Arrays",
-    "SimpleSAML\\Utils\\Config",
-    "SimpleSAML\\Utils\\HTTP",
-    "SimpleSAML\\Utils\\System",
-    "SimpleSAML\\XHTML\\Template"
+    "SimpleSAML\\Module\\negotiate\\Auth\\Negotiate"
   ]
 }
