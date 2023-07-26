@@ -10,6 +10,8 @@ use SimpleSAML\Module\monitor\State;
 
 /**
  * Tests for TestCase\FileSystem\FreeSpace
+ *
+ * @requires OSFAMILY Linux
  */
 class TestFreeSpaceTest extends \PHPUnit\Framework\TestCase
 {

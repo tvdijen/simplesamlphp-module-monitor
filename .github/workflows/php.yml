@@ -267,11 +267,11 @@ jobs:
           git config --global core.autocrlf false
           git config --global core.eol lf
 
-      - name: Create RAM-disk
-        run: |
-          mkdir /tmp/testdisk
-          sudo mount -t tmpfs -o size=100k tmpfs /tmp/testdisk
-          sudo chmod -R 777 /tmp/testdisk
+#      - name: Create RAM-disk
+#        run: |
+#          mkdir /tmp/testdisk
+#          sudo mount -t tmpfs -o size=100k tmpfs /tmp/testdisk
+#          sudo chmod -R 777 /tmp/testdisk
 
       - uses: actions/checkout@v3
 
