@@ -1,7 +1,9 @@
 monitor-root:
     path:       /
     defaults:   { _controller: 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController::urlRedirectAction', path: /monitor/xhtml, permanent: true }
+    methods:    [GET]
 
 monitor-main:
     path:       /{format}
     defaults:   { _controller: 'SimpleSAML\Module\monitor\Controller\MonitorController::main', format: 'xhtml' }
+    methods:    [GET]
