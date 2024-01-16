@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Module\monitor\Test;
 
+use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestCase;
 use SimpleSAML\Module\monitor\TestData;
-use SimpleSAML\Module\monitor\State;
 
 use function stream_context_create;
 

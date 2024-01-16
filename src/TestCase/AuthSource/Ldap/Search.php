@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Module\monitor\TestCase\AuthSource\Ldap;
 
-use SimpleSAML\Configuration;
 use SimpleSAML\Error;
 use SimpleSAML\Module\ldap\ConnectorInterface;
 use SimpleSAML\Module\monitor\State;

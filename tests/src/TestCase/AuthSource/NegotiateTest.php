@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace SimpleSAML\Module\monitor\Test;
 
 use KRB5NegotiateAuth;
-use SimpleSAML\Configuration;
+use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestCase;
 use SimpleSAML\Module\monitor\TestData;
-use SimpleSAML\Module\monitor\State;
 
 /**
  * Tests for TestCase\Negotiate

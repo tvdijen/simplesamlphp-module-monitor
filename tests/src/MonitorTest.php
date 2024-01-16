@@ -6,8 +6,8 @@ namespace SimpleSAML\Module\monitor\Test;
 
 use SimpleSAML\Configuration;
 use SimpleSAML\Module\monitor\DependencyInjection;
-use SimpleSAML\Module\monitor\TestConfiguration;
 use SimpleSAML\Module\monitor\Monitor;
+use SimpleSAML\Module\monitor\TestConfiguration;
 
 /**
  * Tests for Monitor

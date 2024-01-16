@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace SimpleSAML\Module\monitor\Test;
 
 use SimpleSAML\Configuration;
+use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestCase\Store\Sql;
 use SimpleSAML\Module\monitor\TestData;
-use SimpleSAML\Module\monitor\State;
 
 use function unlink;
 

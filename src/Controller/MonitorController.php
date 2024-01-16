@@ -6,9 +6,9 @@ namespace SimpleSAML\Module\monitor\Controller;
 
 use SimpleSAML\Configuration;
 use SimpleSAML\Module\monitor\DependencyInjection;
+use SimpleSAML\Module\monitor\Monitor;
 use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestConfiguration;
-use SimpleSAML\Module\monitor\Monitor;
 use SimpleSAML\XHTML\Template;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;

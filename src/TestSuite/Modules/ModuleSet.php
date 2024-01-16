@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Module\monitor\TestSuite\Modules;
 
-use SimpleSAML\Assert\Assert;
 use SimpleSAML\Module;
 use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestCase;

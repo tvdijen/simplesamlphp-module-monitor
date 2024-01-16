@@ -6,16 +6,15 @@ namespace SimpleSAML\Module\monitor\TestSuite;
 
 use SimpleSAML\Configuration;
 use SimpleSAML\Logger;
-use SimpleSAML\Module\monitor\TestConfiguration;
-use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestCase;
+use SimpleSAML\Module\monitor\TestConfiguration;
 use SimpleSAML\Module\monitor\TestData;
 
 use function array_merge;
 use function explode;
 use function ini_get;
-use function preg_split;
 use function parse_str;
+use function preg_split;
 use function session_save_path;
 use function substr;
 

@@ -7,9 +7,9 @@ namespace SimpleSAML\Module\monitor\Test;
 use SimpleSAML\Configuration;
 use SimpleSAML\Error;
 use SimpleSAML\Module\ldap\Connector\Ldap;
+use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestCase;
 use SimpleSAML\Module\monitor\TestData;
-use SimpleSAML\Module\monitor\State;
 use Symfony\Component\Ldap\Entry;
 
 /**
@@ -24,7 +24,10 @@ class TestLdapSearchTest extends \PHPUnit\Framework\TestCase
             'search.username' => 'testuser',
             'search.password' => 'password',
         ];
-        $entry = new Entry('DN=testuser,OU=example,DC=example,DC=org', ['firstName' => ['John'], 'lastName' => ['Doe']]);
+        $entry = new Entry(
+            'DN=testuser,OU=example,DC=example,DC=org',
+            ['firstName' => ['John'], 'lastName' => ['Doe']],
+        );
 
         $connectionMock = $this->getMockBuilder(Ldap::class)->onlyMethods(
             ['search']

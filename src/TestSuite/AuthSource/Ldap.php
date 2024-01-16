@@ -7,14 +7,13 @@ namespace SimpleSAML\Module\monitor\TestSuite\AuthSource;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\Configuration;
 use SimpleSAML\Module\monitor\State;
-use SimpleSAML\Module\monitor\TestConfiguration;
 use SimpleSAML\Module\monitor\TestCase;
+use SimpleSAML\Module\monitor\TestConfiguration;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\TestResult;
 
 use function array_key_exists;
 use function array_replace;
-use function explode;
 use function is_null;
 use function parse_url;
 use function preg_match;

@@ -6,11 +6,9 @@ namespace SimpleSAML\Module\monitor\TestSuite\AuthSource;
 
 use KRB5NegotiateAuth;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\Module\monitor\TestConfiguration;
 use SimpleSAML\Module\monitor\TestCase;
+use SimpleSAML\Module\monitor\TestConfiguration;
 use SimpleSAML\Module\monitor\TestData;
-
-use function is_array;
 
 final class Negotiate extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {

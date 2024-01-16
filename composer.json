@@ -18,7 +18,8 @@
         "allow-plugins": {
             "composer/package-versions-deprecated": true,
             "simplesamlphp/composer-module-installer": true,
-            "muglug/package-versions-56": true
+            "muglug/package-versions-56": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
     "autoload": {
@@ -42,9 +43,9 @@
         "symfony/http-foundation": "^6.0"
     },
     "require-dev": {
-        "simplesamlphp/simplesamlphp-module-ldap": "^2.0.0",
-        "simplesamlphp/simplesamlphp-test-framework": "^1.5.5",
-        "simplesamlphp/xml-security": "^0.6.6"
+        "simplesamlphp/simplesamlphp-module-ldap": "^2.3",
+        "simplesamlphp/simplesamlphp-test-framework": "^1.5",
+        "simplesamlphp/xml-security": "^1.7"
     },
     "suggest": {
         "ext-ldap": "*",

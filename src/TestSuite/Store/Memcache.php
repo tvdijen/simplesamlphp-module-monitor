@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace SimpleSAML\Module\monitor\TestSuite\Store;
 
 use SimpleSAML\Memcache as M;
-use SimpleSAML\Module\monitor\TestConfiguration;
+use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestCase;
+use SimpleSAML\Module\monitor\TestConfiguration;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\TestResult;
-use SimpleSAML\Module\monitor\State;
 
 use function class_exists;
 

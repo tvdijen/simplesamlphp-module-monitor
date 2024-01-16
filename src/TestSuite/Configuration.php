@@ -5,11 +5,6 @@ declare(strict_types=1);
 namespace SimpleSAML\Module\monitor\TestSuite;
 
 use SimpleSAML\Module\monitor\TestConfiguration;
-use SimpleSAML\Module\monitor\TestCase;
-use SimpleSAML\Module\monitor\TestData;
-use SimpleSAML\Module\monitor\TestResult;
-use SimpleSAML\Module\monitor\State;
-use SimpleSAML\Utils;
 
 final class Configuration extends \SimpleSAML\Module\monitor\TestSuiteFactory
 {

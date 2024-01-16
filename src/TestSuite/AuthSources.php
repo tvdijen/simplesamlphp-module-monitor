@@ -7,8 +7,8 @@ namespace SimpleSAML\Module\monitor\TestSuite;
 use SimpleSAML\Configuration as ApplicationConfiguration;
 use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestConfiguration;
-use SimpleSAML\Module\monitor\TestResult;
 use SimpleSAML\Module\monitor\TestData;
+use SimpleSAML\Module\monitor\TestResult;
 
 use function array_intersect;
 use function array_key_exists;

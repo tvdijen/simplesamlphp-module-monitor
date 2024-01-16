@@ -5,12 +5,10 @@ declare(strict_types=1);
 namespace SimpleSAML\Module\monitor\Test;
 
 use SimpleSAML\Configuration;
-use SimpleSAML\Module\monitor\State;
-use SimpleSAML\Module\monitor\TestData;
-use SimpleSAML\Module\monitor\TestResult;
 use SimpleSAML\Module\monitor\DependencyInjection;
+use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestConfiguration;
-use SimpleSAML\Module\monitor\TestSuiteFactory;
+use SimpleSAML\Module\monitor\TestData;
 use Tests\SimpleSAML\Module\monitor\TestFiles\TestSuiteImplementation;
 
 /**
