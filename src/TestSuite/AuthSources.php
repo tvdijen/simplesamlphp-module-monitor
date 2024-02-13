@@ -82,7 +82,14 @@ final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
                     $this->addTestResults($negoTest->getTestResults());
 
                     // We need to do some convertions from Negotiate > LDAP
-                    $authSourceData = $this->authSourceConfig->getValue($authSourceData['fallback']);
+                    switch ($authSourceData['fallback']) {
+                        case 'ldap:Ldap':
+                            $authSourceData = $this->authSourceConfig->getValue($authSourceDat$
+                        default:
+                            // Not implemented
+                            continue 3;
+                    };
+
                     $testData->setInput($authSourceData, 'authSourceData');
 
                     $ldapTest = new AuthSource\Ldap($configuration, $testData);
