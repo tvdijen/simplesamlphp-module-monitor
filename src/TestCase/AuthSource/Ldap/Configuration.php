@@ -37,6 +37,9 @@ final class Configuration extends \SimpleSAML\Module\monitor\TestCaseFactory
     /** @var bool */
     private bool $debug = false;
 
+    /** @var array */
+    private array $options = [];
+
 
     /**
      * @param \SimpleSAML\Module\monitor\TestData $testData
@@ -52,6 +55,10 @@ final class Configuration extends \SimpleSAML\Module\monitor\TestCaseFactory
         $this->timeout = $authSourceData->getOptionalInteger('timeout', 3);
         $this->referrals = $authSourceData->getOptionalBoolean('referrals', false);
         $this->debug = $authSourceData->getOptionalBoolean('debug', false);
+        $this->options = $authSourceData->getOptionalArray(
+            'opions',
+            ['network_timeout' => $this->timeout, 'referrals' => $this->referrals],
+        );
 
         $this->setSubject($this->hostname);
 
@@ -79,7 +86,7 @@ final class Configuration extends \SimpleSAML\Module\monitor\TestCaseFactory
                 $this->version,
                 'ext_ldap',
                 $this->debug,
-                ['network_timeout' => $this->timeout, 'referrals' => $this->referrals],
+                $this->options,
             );
             $state = State::OK;
         } catch (Exception $error) {
