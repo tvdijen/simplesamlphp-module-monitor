@@ -56,7 +56,7 @@ final class Configuration extends \SimpleSAML\Module\monitor\TestCaseFactory
         $this->referrals = $authSourceData->getOptionalBoolean('referrals', false);
         $this->debug = $authSourceData->getOptionalBoolean('debug', false);
         $this->options = $authSourceData->getOptionalArray(
-            'opions',
+            'options',
             ['network_timeout' => $this->timeout, 'referrals' => $this->referrals],
         );
 
