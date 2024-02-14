@@ -1,22 +1,46 @@
 .pure-table {
-    font-size: 8pt;
-    width: 100%;
-    text-indent: 6px;
+  font-size: 8pt;
+  width: 100%;
+  text-indent: 6px;
 }
 
 .pure-table thead {
-    border-bottom: 1px solid lightgrey;
-    background-color: transparent;
+  border-bottom: 1px solid lightgrey;
+  background-color: transparent;
 }
 
 .pure-table thead tr th {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .pure-table thead tr:first-child {
-    height: 25px;
-    vertical-align: middle;
-    background: linear-gradient(141deg, rgb(184 0 44) 0%, rgb(219 1 0) 51%, rgb(232 65 12) 75%) !important;
-    font-weight: bold;
-    color: rgb(248 248 248);
+  height: 25px;
+  vertical-align: middle;
+  background: linear-gradient(141deg, rgb(184 0 44) 0%, rgb(219 1 0) 51%, rgb(232 65 12) 75%) !important;
+  font-weight: bold;
+  color: rgb(248 248 248);
+}
+
+.state {
+  width: 10%;
+}
+
+.category {
+  width: 20%;
+}
+
+.subject {
+  width: 40%;
+}
+
+.health-green {
+  color: green;
+}
+
+.health-red {
+  color: red;
+}
+
+.health-yellow {
+  color: yellow;
 }

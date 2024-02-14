@@ -12,9 +12,9 @@
                 <th colspan="4">Required modules</th>
             </tr>
             <tr>
-                <th style="width: 10%;">State</th>
-                <th style="width: 20%;">Category</th>
-                <th style="width: 40%;">Subject</th>
+                <th class="state">State</th>
+                <th class="category">Category</th>
+                <th class="subject">Subject</th>
                 <th>Summary</th>
             </tr>
         </thead>
@@ -22,7 +22,7 @@
 {% for key, check in modules %}
 {% set health = check.state %}
             <tr>
-                <td style="color:{{ healthInfo[health][1] }};">{{ healthInfo[health][0] }}</td>
+                <td class="health-{{ healthInfo[health][1] }};">{{ healthInfo[health][0] }}</td>
                 <td>{{ check.category }}</td>
                 <td>{{ check.subject }}</td>
                 <td>{{ check.message }}</td>
@@ -39,9 +39,9 @@
                 <th colspan="4">Global configuration</th>
             </tr>
             <tr>
-                <th style="width:10%;">State</th>
-                <th style="width:20%;">Category</th>
-                <th style="width:40%;">Subject</th>
+                <th class="state">State</th>
+                <th class="category">Category</th>
+                <th class="subject">Subject</th>
                 <th>Summary</th>
             </tr>
         </thead>
@@ -49,7 +49,7 @@
 {% for key, check in configuration %}
 {% set health = check.state %}
             <tr>
-                <td style="color:{{ healthInfo[health][1] }};">{{ healthInfo[health][0] }}</td>
+                <td class="health-{{ healthInfo[health][1] }};">{{ healthInfo[health][0] }}</td>
                 <td>{{ check.category }}</td>
                 <td>{{ check.subject }}</td>
                 <td>{{ check.message }}</td>
@@ -66,9 +66,9 @@
                 <th colspan="4">Session store</th>
             </tr>
             <tr>
-                <th style="width:10%;">State</th>
-                <th style="width:20%;">Category</th>
-                <th style="width:40%;">Subject</th>
+                <th class="state">State</th>
+                <th class="category">Category</th>
+                <th class="subject">Subject</th>
                 <th>Summary</th>
             </tr>
         </thead>
@@ -76,7 +76,7 @@
 {% for key, check in store %}
 {% set health = check.state %}
             <tr>
-                <td style="color:{{ healthInfo[health][1] }};">{{ healthInfo[health][0] }}</td>
+                <td class="health-{{ healthInfo[health][1] }};">{{ healthInfo[health][0] }}</td>
                 <td>{{ check.category }}</td>
                 <td>{{ check.subject }}</td>
                 <td>{{ check.message }}</td>
@@ -95,9 +95,9 @@
             </tr>
 {% if loop.index == 1 %}
             <tr>
-                <th style="width:10%;">State</th>
-                <th style="width:20%;">Category</th>
-                <th style="width:40%;">Subject</th>
+                <th class="state">State</th>
+                <th class="category">Category</th>
+                <th class="subject">Subject</th>
                 <th>Summary</th>
             </tr>
 {% endif %}
@@ -106,9 +106,9 @@
 {% for key, check in authsource %}
 {% set health = check.state %}
             <tr>
-                <td style="width:10%; color:{{ healthInfo[health][1] }};">{{ healthInfo[health][0] }}</td>
-                <td style="width:20%;">{{ check.category }}</td>
-                <td style="width:40%;">{{ check.subject }}</td>
+                <td class="state" class="health-{{ healthInfo[health][1] }};">{{ healthInfo[health][0] }}</td>
+                <td class="category">{{ check.category }}</td>
+                <td class="subject">{{ check.subject }}</td>
                 <td>{{ check.message }}</td>
             </tr>
 {% endfor %}
@@ -126,9 +126,9 @@
             </tr>
 {% if loop.index == 1 %}
             <tr>
-                <th style="width:10%;">State</th>
-                <th style="width:20%;">Category</th>
-                <th style="width:40%;">Subject</th>
+                <th class="state">State</th>
+                <th class="category">Category</th>
+                <th class="subject">Subject</th>
                 <th>Summary</th>
             </tr>
 {% endif %}
@@ -137,9 +137,9 @@
 {% for entityid, check in entity %}
 {% set health = check.state %}
             <tr>
-                <td style="width:10%; color:{{ healthInfo[health][1] }}">{{ healthInfo[health][0] }}</td>
-                <td style="width:20%;">{{ check.category }}</td>
-                <td style="width:40%;">{{ check.subject }}</td>
+                <td class="state" class="health-{{ healthInfo[health][1] }}">{{ healthInfo[health][0] }}</td>
+                <td class="category">{{ check.category }}</td>
+                <td class="subject">{{ check.subject }}</td>
                 <td>{{ check.message }}</td>
             </tr>
 {% endfor %}
@@ -148,5 +148,5 @@
 {% endfor %}
 
     <br />
-    <span>Overall status: <span style="color: {{ healthInfo[overall][1] }};">{{ healthInfo[overall][0] }}</span></span>
+    <span>Overall status: <span class="health-{ healthInfo[overall][1] }};">{{ healthInfo[overall][0] }}</span></span>
 {% endblock %}
