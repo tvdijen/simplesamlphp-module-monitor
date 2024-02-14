@@ -51,7 +51,6 @@ class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
         'ldapRadius' => ['ldap', 'radius'],
         'memcacheMonitor' => 'memcached|memcache',
         'negotiate' => 'krb5',
-        'radius' => 'radius',
         'sqlauth' => 'PDO'
     ];
 
