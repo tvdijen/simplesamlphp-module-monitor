@@ -84,7 +84,7 @@ final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
                     // We need to do some convertions from Negotiate > LDAP
                     switch ($authSourceData['fallback']) {
                         case 'ldap:Ldap':
-                            $authSourceData = $this->authSourceConfig->getValue(authSourceData['fallback']);
+                            $authSourceData = $this->authSourceConfig->getValue($authSourceData['fallback']);
                         default:
                             // Not implemented
                             continue 3;
