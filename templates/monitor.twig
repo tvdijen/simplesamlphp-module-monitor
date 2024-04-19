@@ -22,7 +22,7 @@
 {% for key, check in modules %}
 {% set health = check.state %}
             <tr>
-                <td class="health-{{ healthInfo[health][1] }};">{{ healthInfo[health][0] }}</td>
+                <td class="health-{{ healthInfo[health][1] }}">{{ healthInfo[health][0] }}</td>
                 <td>{{ check.category }}</td>
                 <td>{{ check.subject }}</td>
                 <td>{{ check.message }}</td>
@@ -49,7 +49,7 @@
 {% for key, check in configuration %}
 {% set health = check.state %}
             <tr>
-                <td class="health-{{ healthInfo[health][1] }};">{{ healthInfo[health][0] }}</td>
+                <td class="health-{{ healthInfo[health][1] }}">{{ healthInfo[health][0] }}</td>
                 <td>{{ check.category }}</td>
                 <td>{{ check.subject }}</td>
                 <td>{{ check.message }}</td>
@@ -76,7 +76,7 @@
 {% for key, check in store %}
 {% set health = check.state %}
             <tr>
-                <td class="health-{{ healthInfo[health][1] }};">{{ healthInfo[health][0] }}</td>
+                <td class="health-{{ healthInfo[health][1] }}">{{ healthInfo[health][0] }}</td>
                 <td>{{ check.category }}</td>
                 <td>{{ check.subject }}</td>
                 <td>{{ check.message }}</td>
@@ -106,7 +106,7 @@
 {% for key, check in authsource %}
 {% set health = check.state %}
             <tr>
-                <td class="state" class="health-{{ healthInfo[health][1] }};">{{ healthInfo[health][0] }}</td>
+                <td class="state health-{{ healthInfo[health][1] }}">{{ healthInfo[health][0] }}</td>
                 <td class="category">{{ check.category }}</td>
                 <td class="subject">{{ check.subject }}</td>
                 <td>{{ check.message }}</td>
@@ -137,7 +137,7 @@
 {% for entityid, check in entity %}
 {% set health = check.state %}
             <tr>
-                <td class="state" class="health-{{ healthInfo[health][1] }}">{{ healthInfo[health][0] }}</td>
+                <td class="state health-{{ healthInfo[health][1] }}">{{ healthInfo[health][0] }}</td>
                 <td class="category">{{ check.category }}</td>
                 <td class="subject">{{ check.subject }}</td>
                 <td>{{ check.message }}</td>
@@ -148,5 +148,5 @@
 {% endfor %}
 
     <br />
-    <span>Overall status: <span class="health-{ healthInfo[overall][1] }};">{{ healthInfo[overall][0] }}</span></span>
+    <span>Overall status: <span class="health-{{ healthInfo[overall][1] }}">{{ healthInfo[overall][0] }}</span></span>
 {% endblock %}
