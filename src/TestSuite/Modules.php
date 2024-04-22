@@ -36,7 +36,7 @@ class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
     private array $storePhpDependencies = [
         'memcache' => 'memcached|memcache',
         'phpsession' => 'session',
-        'sql' => 'PDO'
+        'sql' => 'pdo'
     ];
 
     /** @var array */
@@ -45,13 +45,13 @@ class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
         'authYubiKey' => 'curl',
 // TODO: consent only requires pdo when database backend is used..
 //       Should probably add this to required-list when processing metadata
-//        'consent' => 'PDO',
-        'consentAdmin' => 'PDO',
+//        'consent' => 'pdo',
+        'consentAdmin' => 'pdo',
         'ldap' => 'ldap',
         'ldapRadius' => ['ldap'],
         'memcacheMonitor' => 'memcached|memcache',
         'negotiate' => 'krb5',
-        'sqlauth' => 'PDO'
+        'sqlauth' => 'pdo'
     ];
 
 
@@ -79,7 +79,7 @@ class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
     private function addRequiredApacheModule(string $module): void
     {
         if (!in_array($module, $this->requiredApacheModules)) {
-            $this->requiredApacheModules[] = $module;
+            $this->requiredApacheModules[] = strtolower($module);
         }
     }
 

@@ -192,7 +192,8 @@ final class TestConfiguration
      */
     private function setAvailablePhpModules(): void
     {
-        $this->availablePhpModules = array_merge(get_loaded_extensions(), get_loaded_extensions(true));
+        $availablePhpModules = array_merge(get_loaded_extensions(), get_loaded_extensions(true));
+        $this->availablePhpModules = array_map('strtolower', $availablePhpModules);
     }
 
 

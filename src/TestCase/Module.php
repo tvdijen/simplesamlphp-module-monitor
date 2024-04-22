@@ -54,7 +54,7 @@ class Module extends \SimpleSAML\Module\monitor\TestCaseFactory
         $available = $this->getAvailable();
 
         foreach ($this->parsed as $module) {
-            if (in_array($module, $available)) {
+            if (in_array(strtolower($module), $available)) {
                 $state = State::OK;
                 break 1;
             }
