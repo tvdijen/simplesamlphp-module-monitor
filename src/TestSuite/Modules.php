@@ -48,7 +48,7 @@ class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
 //        'consent' => 'PDO',
         'consentAdmin' => 'PDO',
         'ldap' => 'ldap',
-        'ldapRadius' => ['ldap', 'radius'],
+        'ldapRadius' => ['ldap'],
         'memcacheMonitor' => 'memcached|memcache',
         'negotiate' => 'krb5',
         'sqlauth' => 'PDO'
