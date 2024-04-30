@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Module\monitor\Test;
 
+use PHPUnit\Framework\Attributes\RequiresOperatingSystemFamily;
 use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestCase;
 use SimpleSAML\Module\monitor\TestData;
 
 /**
  * Tests for TestCase\FileSystem\FreeSpace
- *
- * @requires OSFAMILY Linux
  */
+#[RequiresOperatingSystemFamily('Linux')]
 class TestFreeSpaceTest extends \PHPUnit\Framework\TestCase
 {
     public function testFreeSpaceAvailable(): void

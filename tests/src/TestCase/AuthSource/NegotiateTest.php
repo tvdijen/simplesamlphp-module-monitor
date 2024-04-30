@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace SimpleSAML\Module\monitor\Test;
 
 use KRB5NegotiateAuth;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestCase;
 use SimpleSAML\Module\monitor\TestData;
 
 /**
  * Tests for TestCase\Negotiate
- *
- * @requires extension krb5
  */
+#[RequiresPhpExtension('krb5')]
 class TestNegotiateTest extends \PHPUnit\Framework\TestCase
 {
     public static function setUpBeforeClass(): void
