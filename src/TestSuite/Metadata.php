@@ -70,7 +70,7 @@ final class Metadata extends \SimpleSAML\Module\monitor\TestSuiteFactory
             foreach ($metadataSet as $entityId => $entityMetadata) {
                 $input = [
                     'entityId' => $entityId,
-                    'entityMetadata' => $entityMetadata
+                    'entityMetadata' => $entityMetadata,
                 ];
                 $testData = new TestData($input);
 

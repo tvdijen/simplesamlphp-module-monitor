@@ -108,7 +108,7 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
                 $bindTest = new TestCase\AuthSource\Ldap\Bind(
                     new TestData([
                         'authSourceData' => $this->authSourceData,
-                        'connection' => $connection
+                        'connection' => $connection,
                     ])
                 );
                 $bindTestResult = $bindTest->getTestResult();
@@ -119,7 +119,7 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
                     $searchTest = new TestCase\AuthSource\Ldap\Search(
                         new TestData([
                             'authSourceData' => $this->authSourceData,
-                            'connection' => $connection
+                            'connection' => $connection,
                         ])
                     );
                     $searchTestResult = $searchTest->getTestResult();

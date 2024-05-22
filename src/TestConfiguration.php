@@ -160,7 +160,7 @@ final class TestConfiguration
         $knownLocations = [
             '/usr/sbin/httpd',
             '/usr/sbin/apache2',
-            '/opt/rh/httpd24/root/usr/sbin/httpd'
+            '/opt/rh/httpd24/root/usr/sbin/httpd',
         ];
 
         $output = [];

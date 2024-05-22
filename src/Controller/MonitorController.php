@@ -46,7 +46,7 @@ class MonitorController
         State::ERROR   => ['NOK',     'red'   ],
         State::NOSTATE => ['NOSTATE',   'cyan'],
         State::WARNING => ['WARNING', 'orange'],
-        State::OK      => ['OK',      'green' ]
+        State::OK      => ['OK',      'green' ],
     ];
 
     /** @var \SimpleSAML\Module\monitor\TestConfiguration */

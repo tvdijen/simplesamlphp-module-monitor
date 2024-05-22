@@ -55,7 +55,7 @@ final class Memcache extends \SimpleSAML\Module\monitor\TestSuiteFactory
                 foreach ($serverGroup as $host => $serverStats) {
                     $input = [
                         'serverStats' => $serverStats,
-                        'host' => $host
+                        'host' => $host,
                     ];
                     $testData = new TestData($input);
                     $serverTest = new TestCase\Store\Memcache\Server($testData);
@@ -65,7 +65,7 @@ final class Memcache extends \SimpleSAML\Module\monitor\TestSuiteFactory
 
                 $input = [
                     'results' => $results,
-                    'group' => strval($i)
+                    'group' => strval($i),
                 ];
                 $testData = new TestData($input);
                 $groupTest = new TestCase\Store\Memcache\ServerGroup($testData);

@@ -30,10 +30,10 @@ class TestConfigurationTest extends \SimpleSAML\TestUtils\ClearStateTestCase
             ],
         ];
         $authSourceConfig_input = [
-            'test' => 'travis'
+            'test' => 'travis',
         ];
         $moduleConfig_input = [
-            'test' => 'travis'
+            'test' => 'travis',
         ];
 
         $globalConfig = Configuration::loadFromArray($globalConfig_input);

@@ -29,7 +29,7 @@ final class Files extends \SimpleSAML\Module\monitor\TestSuiteFactory
     {
         $input = [
             'path' => session_save_path(),
-            'category' => 'Session storage'
+            'category' => 'Session storage',
         ];
         $testData = new TestData($input);
 

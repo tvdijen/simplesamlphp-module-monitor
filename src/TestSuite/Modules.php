@@ -25,7 +25,7 @@ class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
 
     /** @var array */
     private array $moduleApacheDependencies = [
-        'negotiateext' => 'mod_auth_kerb|mod_auth_gssapi'
+        'negotiateext' => 'mod_auth_kerb|mod_auth_gssapi',
         // Note to self: mod_auth_kerb seems to no longer exist (02-2024)
     ];
 
@@ -36,7 +36,7 @@ class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
     private array $storePhpDependencies = [
         'memcache' => 'memcached|memcache',
         'phpsession' => 'session',
-        'sql' => 'PDO'
+        'sql' => 'PDO',
     ];
 
     /** @var array */
@@ -51,7 +51,7 @@ class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
         'ldapRadius' => ['ldap'],
         'memcacheMonitor' => 'memcached|memcache',
         'negotiate' => 'krb5',
-        'sqlauth' => 'PDO'
+        'sqlauth' => 'PDO',
     ];
 
 

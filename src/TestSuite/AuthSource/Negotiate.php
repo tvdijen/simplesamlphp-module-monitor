@@ -46,7 +46,7 @@ final class Negotiate extends \SimpleSAML\Module\monitor\TestSuiteFactory
     {
         $input = [
             'handle' => $this->handle,
-            'authorization' => $this->authorization
+            'authorization' => $this->authorization,
         ];
         $testData = new TestData($input);
 

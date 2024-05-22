@@ -34,10 +34,10 @@ class MonitorTest extends \SimpleSAML\TestUtils\ClearStateTestCase
             'database.dsn' => 'mysql:host=localhost;dbname=saml',
         ];
         $authSourceConfig_input = [
-            'test' => 'travis'
+            'test' => 'travis',
         ];
         $moduleConfig_input = [
-            'test' => 'travis'
+            'test' => 'travis',
         ];
         $globalConfig = Configuration::loadFromArray($globalConfig_input);
         $authSourceConfig = Configuration::loadFromArray($authSourceConfig_input);

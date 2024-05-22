@@ -47,7 +47,7 @@ final class TestResult
             'state' => $this->getState(),
             'category' => $this->getCategory(),
             'subject' => $this->getSubject(),
-            'message' => $this->getMessage()
+            'message' => $this->getMessage(),
         ];
 
         if ($includeOutput === true) {

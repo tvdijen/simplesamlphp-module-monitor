@@ -99,7 +99,7 @@ final class Store extends \SimpleSAML\Module\monitor\TestSuiteFactory
             case 'files':
                 $input = [
                     'path' => session_save_path(),
-                    'category' => 'Session storage'
+                    'category' => 'Session storage',
                 ];
                 $testData = new TestData($input);
                 $test = new TestCase\FileSystem\FreeSpace($testData);

@@ -23,8 +23,8 @@ class TestConnectUriTest extends \PHPUnit\Framework\TestCase
                 "ssl" => [
                     "capture_peer_cert" => true,
                     "verify_peer" => false,
-                    "verify_peer_name" => false
-                ]
+                    "verify_peer_name" => false,
+                ],
             ]),
         ]);
         $connectionTest = new TestCase\Network\ConnectUri($testData);
