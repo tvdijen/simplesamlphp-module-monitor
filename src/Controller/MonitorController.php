@@ -84,7 +84,7 @@ class MonitorController
             $this->requestVars,
             $this->config,
             $this->authsourceConfig,
-            $this->moduleConfig
+            $this->moduleConfig,
         );
         $this->monitor = new Monitor($this->testConfiguration);
     }
@@ -156,7 +156,7 @@ class MonitorController
         return JsonResponse::create(
             ['overall' => $this->healthInfo[$this->state][0],
             'results' => $results],
-            $this->responseCode
+            $this->responseCode,
         );
     }
 

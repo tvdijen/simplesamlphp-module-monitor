@@ -66,7 +66,7 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
     {
         // Test LDAP configuration
         $confTest = new TestCase\AuthSource\Ldap\Configuration(
-            new TestData(['authSourceData' => $this->authSourceData])
+            new TestData(['authSourceData' => $this->authSourceData]),
         );
         $confTestResult = $confTest->getTestResult();
         $this->addTestResult($confTestResult);
@@ -79,7 +79,7 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
             foreach ($this->hosts as $hostname) {
                 $preparedTestData = $this->prepareConnection($hostname);
                 $connTest = new TestCase\Network\ConnectUri(
-                    new TestData($preparedTestData)
+                    new TestData($preparedTestData),
                 );
                 $connTestResult = $connTest->getTestResult();
                 $this->addTestResult($connTestResult);
@@ -94,7 +94,7 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
                                 'certData' => $certData,
                                 'category' => 'LDAP Server Certificate',
                                 'certExpirationWarning' => $this->certExpirationWarning,
-                            ])
+                            ]),
                         );
                         $certTestResult = $certTest->getTestResult();
                         $this->addTestResult($certTestResult);
@@ -109,7 +109,7 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
                     new TestData([
                         'authSourceData' => $this->authSourceData,
                         'connection' => $connection,
-                    ])
+                    ]),
                 );
                 $bindTestResult = $bindTest->getTestResult();
                 $this->addTestResult($bindTestResult);
@@ -120,7 +120,7 @@ final class Ldap extends \SimpleSAML\Module\monitor\TestSuiteFactory
                         new TestData([
                             'authSourceData' => $this->authSourceData,
                             'connection' => $connection,
-                        ])
+                        ]),
                     );
                     $searchTestResult = $searchTest->getTestResult();
                     $this->addTestResult($searchTestResult);

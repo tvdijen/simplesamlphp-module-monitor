@@ -30,14 +30,14 @@ class TestLdapSearchTest extends \PHPUnit\Framework\TestCase
         );
 
         $connectionMock = $this->getMockBuilder(Ldap::class)->onlyMethods(
-            ['search']
+            ['search'],
         )->disableOriginalConstructor()->getMock();
         $connectionMock->expects($this->once())->method('search')->willReturn($entry);
         $confTest = new TestCase\AuthSource\Ldap\Search(
             new TestData([
                 'authSourceData' => Configuration::loadFromArray($authSourceData),
                 'connection' => $connectionMock,
-            ])
+            ]),
         );
         $testResult = $confTest->getTestResult();
 
@@ -52,16 +52,16 @@ class TestLdapSearchTest extends \PHPUnit\Framework\TestCase
             'search.password' => 'password',
         ];
         $connectionMock = $this->getMockBuilder(Ldap::class)->onlyMethods(
-            ['search']
+            ['search'],
         )->disableOriginalConstructor()->getMock();
         $connectionMock->expects($this->once())->method('search')->will(
-            $this->throwException(new Error\Error('UNHANDLEDEXCEPTION'))
+            $this->throwException(new Error\Error('UNHANDLEDEXCEPTION')),
         );
         $confTest = new TestCase\AuthSource\Ldap\Search(
             new TestData([
                 'authSourceData' => Configuration::loadFromArray($authSourceData),
                 'connection' => $connectionMock,
-            ])
+            ]),
         );
         $testResult = $confTest->getTestResult();
 

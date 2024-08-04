@@ -23,14 +23,14 @@ class TestLdapBindTest extends \PHPUnit\Framework\TestCase
             'search.password' => 'password',
         ];
         $connectionMock = $this->getMockBuilder(Ldap::class)->onlyMethods(
-            ['bind']
+            ['bind'],
         )->disableOriginalConstructor()->getMock();
         $connectionMock->expects($this->once())->method('bind')->willReturn(true);
         $confTest = new TestCase\AuthSource\Ldap\Bind(
             new TestData([
                 'authSourceData' => Configuration::loadFromArray($authSourceData),
                 'connection' => $connectionMock,
-            ])
+            ]),
         );
         $testResult = $confTest->getTestResult();
 
@@ -44,17 +44,17 @@ class TestLdapBindTest extends \PHPUnit\Framework\TestCase
             'search.password' => 'password',
         ];
         $connectionMock = $this->getMockBuilder(Ldap::class)->onlyMethods(
-            ['bind']
+            ['bind'],
         )->disableOriginalConstructor()->getMock();
         $connectionMock->expects($this->once())->method('bind')->will(
-            $this->throwException(new Error\Error('Invalid credentials.'))
+            $this->throwException(new Error\Error('Invalid credentials.')),
         );
 
         $confTest = new TestCase\AuthSource\Ldap\Bind(
             new TestData([
                 'authSourceData' => Configuration::loadFromArray($authSourceData),
                 'connection' => $connectionMock,
-            ])
+            ]),
         );
 
         $testResult = $confTest->getTestResult();

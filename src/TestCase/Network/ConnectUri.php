@@ -103,7 +103,7 @@ final class ConnectUri extends \SimpleSAML\Module\monitor\TestCaseFactory
             $errstr,
             $this->timeout,
             STREAM_CLIENT_CONNECT,
-            $this->context
+            $this->context,
         );
 
         $testResult = new TestResult('Network connection', $this->uri);

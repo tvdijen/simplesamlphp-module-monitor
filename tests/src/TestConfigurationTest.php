@@ -56,7 +56,7 @@ class TestConfigurationTest extends \SimpleSAML\TestUtils\ClearStateTestCase
         $metadataConfig = $testConf->getMetadataConfig();
         $this->assertArrayHasKey(
             'https://idp.example.org/saml2/idp/metadata.php',
-            $metadataConfig['saml20-idp-remote']
+            $metadataConfig['saml20-idp-remote'],
         );
 
         $this->assertNotEmpty($testConf->getAvailableApacheModules());

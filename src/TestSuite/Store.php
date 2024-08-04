@@ -110,7 +110,7 @@ final class Store extends \SimpleSAML\Module\monitor\TestSuiteFactory
                 $tmp_configuration = Configuration::getInstance();
                 $tmp_configuration = $tmp_configuration->toArray();
                 $tmp_configuration['memcache_store.servers'] = $this->parsePhpMemcachedConfiguration(
-                    session_save_path()
+                    session_save_path(),
                 );
                 $tmp_configuration = Configuration::loadFromArray($tmp_configuration);
                 Configuration::setPreloadedConfig($tmp_configuration);

@@ -23,7 +23,7 @@ class TestLdapConfigurationTest extends \PHPUnit\Framework\TestCase
         $confTest = new TestCase\AuthSource\Ldap\Configuration(
             new TestData([
                 'authSourceData' => Configuration::loadFromArray($authSourceData),
-            ])
+            ]),
         );
 
         $testResult = $confTest->getTestResult();

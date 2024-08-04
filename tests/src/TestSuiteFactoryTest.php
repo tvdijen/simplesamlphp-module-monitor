@@ -28,7 +28,7 @@ class TestSuiteFactoryTest extends \PHPUnit\Framework\TestCase
                 'enable.wsfed-sp' => false,
             ]),
             Configuration::loadFromArray([]),
-            Configuration::loadFromArray([])
+            Configuration::loadFromArray([]),
         );
         $testData = new TestData(['travis' => 'travis', 'test' => 'travis']);
         $testSuite = new TestSuiteImplementation($config, $testData);

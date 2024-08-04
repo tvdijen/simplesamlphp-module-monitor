@@ -98,7 +98,7 @@ final class AuthSources extends \SimpleSAML\Module\monitor\TestSuiteFactory
 
                     $output[$authSourceId] = array_merge(
                         $negoTest->getArrayizeTestResults(),
-                        $ldapTest->getArrayizeTestResults()
+                        $ldapTest->getArrayizeTestResults(),
                     );
                     break;
                 case 'multiauth:MultiAuth':

@@ -53,7 +53,7 @@ final class TestConfiguration
         DependencyInjection $requestVars,
         Configuration $globalConfig,
         Configuration $authSourceConfig,
-        Configuration $moduleConfig
+        Configuration $moduleConfig,
     ) {
         $this->serverVars = $serverVars;
         $this->requestVars = $requestVars;
