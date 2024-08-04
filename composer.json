@@ -45,7 +45,7 @@
     },
     "require-dev": {
         "simplesamlphp/simplesamlphp-module-ldap": "^2.3",
-        "simplesamlphp/simplesamlphp-test-framework": "^1.5",
+        "simplesamlphp/simplesamlphp-test-framework": "^1.7.9",
         "simplesamlphp/xml-security": "^1.7"
     },
     "suggest": {

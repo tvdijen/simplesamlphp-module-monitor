@@ -18,7 +18,7 @@ class TestCertificatesTest extends \PHPUnit\Framework\TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$certdir = getcwd() . '/vendor/simplesamlphp/xml-security/tests/resources/certificates/';
+        self::$certdir = getcwd() . '/vendor/simplesamlphp/xml-security/resources/certificates/';
     }
 
     public function testCertExpired(): void

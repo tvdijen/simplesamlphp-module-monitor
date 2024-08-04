@@ -167,9 +167,6 @@ jobs:
         php-versions: ['8.1', '8.2', '8.3']
 
     steps:
-      - name: Install Apache and Stunnel
-        run: sudo apt-get install stunnel4 apache2
-
       - name: Setup PHP, with composer and extensions
         # https://github.com/shivammathur/setup-php
         uses: shivammathur/setup-php@v2
@@ -294,8 +291,8 @@ jobs:
       - name: Run unit tests
         run: vendor/bin/phpunit --no-coverage
 
-      - name: Cleanup RAM-disk
-        run: sudo umount /tmp/testdisk; rm -rf /tmp/testdisk
+#      - name: Cleanup RAM-disk
+#        run: sudo umount /tmp/testdisk; rm -rf /tmp/testdisk
 
   coverage:
     name: Code coverage

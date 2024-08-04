@@ -49,10 +49,10 @@ class TestNegotiateTest extends \PHPUnit\Framework\TestCase
         $KRB5NegotiateAuthMock = $this->getMockBuilder(KRB5NegotiateAuth::class)->onlyMethods(
             ['doAuthentication', 'getAuthenticatedUser'],
         )->disableOriginalConstructor()->getMock();
-        $KRB5NegotiateAuthMock->expects($this->any())->method('doAuthentication')->will($this->returnValue(true));
-        $KRB5NegotiateAuthMock->expects($this->any())->method('getAuthenticatedUser')->will(
-            $this->returnValue('testuser@example.org'),
-        );
+        $KRB5NegotiateAuthMock->expects($this->any())->method('doAuthentication')->willReturn(true);
+        $KRB5NegotiateAuthMock->expects($this->any())
+            ->method('getAuthenticatedUser')
+            ->willReturn('testuser@example.org');
         $testData = new TestData([
             'handle' => $KRB5NegotiateAuthMock,
         ]);
@@ -67,7 +67,7 @@ class TestNegotiateTest extends \PHPUnit\Framework\TestCase
         $KRB5NegotiateAuthMock = $this->getMockBuilder(KRB5NegotiateAuth::class)->onlyMethods(
             ['doAuthentication', 'getAuthenticatedUser'],
         )->disableOriginalConstructor()->getMock();
-        $KRB5NegotiateAuthMock->expects($this->any())->method('doAuthentication')->will($this->returnValue(false));
+        $KRB5NegotiateAuthMock->expects($this->any())->method('doAuthentication')->willReturn(false);
         $testData = new TestData([
             'handle' => $KRB5NegotiateAuthMock,
         ]);
@@ -82,7 +82,7 @@ class TestNegotiateTest extends \PHPUnit\Framework\TestCase
         $KRB5NegotiateAuthMock = $this->getMockBuilder(KRB5NegotiateAuth::class)->onlyMethods(
             ['doAuthentication', 'getAuthenticatedUser'],
         )->disableOriginalConstructor()->getMock();
-        $KRB5NegotiateAuthMock->expects($this->any())->method('doAuthentication')->will($this->returnValue(false));
+        $KRB5NegotiateAuthMock->expects($this->any())->method('doAuthentication')->willReturn(false);
         $testData = new TestData([
             'handle' => $KRB5NegotiateAuthMock,
             'authorization' => 'test',

@@ -25,7 +25,7 @@ class TestLdapBindTest extends \PHPUnit\Framework\TestCase
         $connectionMock = $this->getMockBuilder(Ldap::class)->onlyMethods(
             ['bind'],
         )->disableOriginalConstructor()->getMock();
-        $connectionMock->expects($this->once())->method('bind')->willReturn(true);
+        $connectionMock->expects($this->once())->method('bind');
         $confTest = new TestCase\AuthSource\Ldap\Bind(
             new TestData([
                 'authSourceData' => Configuration::loadFromArray($authSourceData),

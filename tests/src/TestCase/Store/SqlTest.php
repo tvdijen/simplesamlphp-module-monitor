@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Module\monitor\Test;
 
+use PHPUnit\Framework\Attributes\RequiresOperatingSystem;
 use SimpleSAML\Configuration;
 use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestCase\Store\Sql;
@@ -16,6 +17,7 @@ use function unlink;
  */
 class TestSqlTest extends \SimpleSAML\TestUtils\ClearStateTestCase
 {
+    #[RequiresOperatingSystem('Linux')]
     public function testSqlSuccess(): void
     {
         $globalConfig_input = [
@@ -33,6 +35,7 @@ class TestSqlTest extends \SimpleSAML\TestUtils\ClearStateTestCase
         unlink('/tmp/test.sqlite');
     }
 
+    #[RequiresOperatingSystem('Linux')]
     public function testSqlFailure(): void
     {
         $globalConfig_input = [

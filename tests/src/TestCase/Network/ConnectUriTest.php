@@ -8,6 +8,8 @@ use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestCase;
 use SimpleSAML\Module\monitor\TestData;
 
+use function gethostbyname;
+use function sprintf;
 use function stream_context_create;
 
 /**
@@ -15,10 +17,18 @@ use function stream_context_create;
  */
 class TestConnectUriTest extends \PHPUnit\Framework\TestCase
 {
+    protected static string $host;
+
+    public static function setUpBeforeClass(): void
+    {
+        self::$host = gethostbyname('packagist.org');
+    }
+
     public function testConnectUriOK(): void
     {
         $testData = new TestData([
-            'uri' => 'ssl://127.0.0.1:443',
+            'uri' => sprintf('ssl://%s:443', self::$host),
+            'timeout' => 3,
             'context' => stream_context_create([
                 "ssl" => [
                     "capture_peer_cert" => true,
@@ -35,7 +45,8 @@ class TestConnectUriTest extends \PHPUnit\Framework\TestCase
     public function testConnectUriFailed(): void
     {
         $testData = new TestData([
-            'uri' => 'ssl://127.0.0.1:442',
+            'uri' => sprintf('ssl://%s:442', self::$host),
+            'timeout' => 3,
         ]);
         $connectionTest = new TestCase\Network\ConnectUri($testData);
         $testResult = $connectionTest->getTestResult();
