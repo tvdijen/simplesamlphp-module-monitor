@@ -1,6 +1,6 @@
 # simplesamlphp-module-monitor
 
-[![Build Status](https://scrutinizer-ci.com/g/tvdijen/simplesamlphp-module-monitor/badges/build.png?b=master)](https://scrutinizer-ci.com/g/tvdijen/simplesamlphp-module-monitor/build-status/master)
+[![Build Status](https://scrutinizer-ci.com/g/tvdijen/simplesamlphp-module-monitor/actions/workflows/php.yml/badge.svg)]
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/tvdijen/simplesamlphp-module-monitor/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/tvdijen/simplesamlphp-module-monitor/?branch=master)
 [![codecov](https://codecov.io/gh/tvdijen/simplesamlphp-module-monitor/branch/master/graph/badge.svg)](https://codecov.io/gh/tvdijen/simplesamlphp-module-monitor)
 
