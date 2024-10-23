@@ -1,59 +1,62 @@
 {
-    "name": "tvdijen/simplesamlphp-module-monitor",
-    "description": "A module that is able to perform various checks on the health of a SimpleSAMLphp installation",
-    "type": "simplesamlphp-module",
-    "keywords": ["simplesamlphp", "monitoring", "health"],
-    "license": "LGPL-2.1-or-later",
-    "authors": [
-        {
-            "name": "Tim van Dijen",
-            "email": "tvdijen@gmail.com"
-        }
-    ],
-    "config": {
-        "preferred-install": {
-            "simplesamlphp/simplesamlphp": "source",
-            "*": "dist"
-        },
-        "allow-plugins": {
-            "composer/package-versions-deprecated": true,
-            "simplesamlphp/composer-module-installer": true,
-            "muglug/package-versions-56": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true,
-            "phpstan/extension-installer": true
-        }
-    },
-    "autoload": {
-        "psr-4": {
-            "SimpleSAML\\Module\\monitor\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\SimpleSAML\\Module\\monitor\\TestFiles\\": "tests/files",
-            "SimpleSAML\\Test\\Utils\\": "vendor/simplesamlphp/simplesamlphp/tests/Utils"
-        }
-    },
-    "require": {
-        "php": "^8.1",
-        "ext-openssl": "*",
-        "ext-session": "*",
-
-        "simplesamlphp/assert": "^1.1.0",
-        "simplesamlphp/simplesamlphp": "^2.2",
-        "symfony/http-foundation": "^6.4"
-    },
-    "require-dev": {
-        "simplesamlphp/simplesamlphp-module-ldap": "^2.3",
-        "simplesamlphp/simplesamlphp-test-framework": "^1.7.9",
-        "simplesamlphp/xml-security": "^1.7"
-    },
-    "suggest": {
-        "ext-ldap": "*",
-        "ext-krb5": "*"
-    },
-    "support": {
-        "issues": "https://github.com/tvdijen/simplesamlphp-module-monitor/issues",
-        "source": "https://github.com/tvdijen/simplesamlphp-module-monitor"
+  "name": "tvdijen/simplesamlphp-module-monitor",
+  "description": "A module that is able to perform various checks on the health of a SimpleSAMLphp installation",
+  "type": "simplesamlphp-module",
+  "keywords": [
+    "simplesamlphp",
+    "monitoring",
+    "health"
+  ],
+  "license": "LGPL-2.1-or-later",
+  "authors": [
+    {
+      "name": "Tim van Dijen",
+      "email": "tvdijen@gmail.com"
     }
+  ],
+  "config": {
+    "preferred-install": {
+      "simplesamlphp/simplesamlphp": "source",
+      "*": "dist"
+    },
+    "allow-plugins": {
+      "composer/package-versions-deprecated": true,
+      "simplesamlphp/composer-module-installer": true,
+      "muglug/package-versions-56": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "phpstan/extension-installer": true
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "SimpleSAML\\Module\\monitor\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\SimpleSAML\\Module\\monitor\\TestFiles\\": "tests/files",
+      "SimpleSAML\\Test\\Utils\\": "vendor/simplesamlphp/simplesamlphp/tests/Utils"
+    }
+  },
+  "require": {
+    "php": "^8.1",
+    "ext-openssl": "*",
+    "ext-session": "*",
+    "simplesamlphp/assert": "^1.1.0",
+    "simplesamlphp/simplesamlphp": "2.3.2",
+    "symfony/http-foundation": "^6.4"
+  },
+  "require-dev": {
+    "simplesamlphp/simplesamlphp-module-ldap": "^2.3",
+    "simplesamlphp/simplesamlphp-test-framework": "^1.7.9",
+    "simplesamlphp/xml-security": "^1.7"
+  },
+  "suggest": {
+    "ext-ldap": "*",
+    "ext-krb5": "*"
+  },
+  "support": {
+    "issues": "https://github.com/tvdijen/simplesamlphp-module-monitor/issues",
+    "source": "https://github.com/tvdijen/simplesamlphp-module-monitor"
+  }
 }
