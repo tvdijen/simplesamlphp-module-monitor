@@ -153,10 +153,12 @@ class MonitorController
      */
     private function processJson(array $results): JsonResponse
     {
-        return JsonResponse::create(
-            ['overall' => $this->healthInfo[$this->state][0],
-            'results' => $results],
-            $this->responseCode
+        return new JsonResponse(
+            [
+                'overall' => $this->healthInfo[$this->state][0],
+                'results' => $results,
+            ],
+            $this->responseCode,
         );
     }
 
