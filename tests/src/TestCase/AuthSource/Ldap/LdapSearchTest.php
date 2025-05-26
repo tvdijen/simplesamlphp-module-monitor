@@ -15,7 +15,7 @@ use Symfony\Component\Ldap\Entry;
 /**
  * Tests for TestCase\Ldap\Search
  */
-class TestLdapSearchTest extends \PHPUnit\Framework\TestCase
+final class TestLdapSearchTest extends \PHPUnit\Framework\TestCase
 {
     public function testSearchSuccesful(): void
     {

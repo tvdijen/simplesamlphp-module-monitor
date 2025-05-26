@@ -60,7 +60,7 @@ class Modules extends \SimpleSAML\Module\monitor\TestSuiteFactory
      *
      * @return void
      */
-    protected function initialize(TestData $testData = null): void
+    protected function initialize(?TestData $testData = null): void
     {
         $this->setRequiredApacheModules();
         $this->setRequiredPhpModules();

@@ -13,7 +13,7 @@ use function time;
 /**
  * Tests for TestCase\Metadata\Expiration
  */
-class TestMetadataExpirationTest extends \PHPUnit\Framework\TestCase
+final class TestMetadataExpirationTest extends \PHPUnit\Framework\TestCase
 {
     public function testMetadataExpired(): void
     {

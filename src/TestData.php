@@ -32,7 +32,7 @@ final class TestData
      *
      * @return void
      */
-    public function setInput($input, string $key = null): void
+    public function setInput($input, ?string $key = null): void
     {
         if (is_null($key)) {
             Assert::isArray($input);
@@ -54,7 +54,7 @@ final class TestData
      *
      * @return void
      */
-    public function addInput(string $key, $value = null): void
+    public function addInput(string $key, mixed $value = null): void
     {
         if (isset($this->testData[$key])) {
             Assert::isArray($this->testData[$key]);

@@ -11,7 +11,7 @@ use SimpleSAML\Module\monitor\TestData;
 /**
  * Tests for TestCase\Ldap\Configuration
  */
-class TestLdapConfigurationTest extends \PHPUnit\Framework\TestCase
+final class TestLdapConfigurationTest extends \PHPUnit\Framework\TestCase
 {
     public function testLdapConfiguration(): void
     {

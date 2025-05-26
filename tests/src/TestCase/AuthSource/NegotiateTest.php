@@ -15,7 +15,7 @@ use SimpleSAML\Module\monitor\TestData;
  * Tests for TestCase\Negotiate
  */
 #[RequiresPhpExtension('krb5')]
-class TestNegotiateTest extends \PHPUnit\Framework\TestCase
+final class TestNegotiateTest extends \PHPUnit\Framework\TestCase
 {
     public static function setUpBeforeClass(): void
     {

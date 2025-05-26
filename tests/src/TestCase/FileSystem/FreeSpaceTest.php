@@ -13,7 +13,7 @@ use SimpleSAML\Module\monitor\TestData;
  * Tests for TestCase\FileSystem\FreeSpace
  */
 #[RequiresOperatingSystemFamily('Linux')]
-class TestFreeSpaceTest extends \PHPUnit\Framework\TestCase
+final class TestFreeSpaceTest extends \PHPUnit\Framework\TestCase
 {
     public function testFreeSpaceAvailable(): void
     {

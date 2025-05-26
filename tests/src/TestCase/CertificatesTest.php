@@ -11,7 +11,7 @@ use SimpleSAML\Module\monitor\TestData;
 /**
  * Tests for TestCase\Cert\Data and TestCase\Cert\File
  */
-class TestCertificatesTest extends \PHPUnit\Framework\TestCase
+final class TestCertificatesTest extends \PHPUnit\Framework\TestCase
 {
     /** @var string */
     private static $certdir;

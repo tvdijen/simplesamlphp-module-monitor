@@ -33,4 +33,3 @@ jobs:
           path: '**/*.md'
           check_filenames: true
           ignore_words_list: tekst
-

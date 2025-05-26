@@ -12,7 +12,7 @@ use SimpleSAML\Module\monitor\TestConfiguration;
 /**
  * Tests for Monitor
  */
-class MonitorTest extends \SimpleSAML\TestUtils\ClearStateTestCase
+final class MonitorTest extends \SimpleSAML\TestUtils\ClearStateTestCase
 {
     private const FRAMEWORK = 'vendor/simplesamlphp/simplesamlphp-test-framework';
 

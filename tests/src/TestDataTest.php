@@ -9,7 +9,7 @@ use SimpleSAML\Module\monitor\TestData;
 /**
  * Tests for TestData
  */
-class TestDataTest extends \PHPUnit\Framework\TestCase
+final class TestDataTest extends \PHPUnit\Framework\TestCase
 {
     public function testTestData(): void
     {

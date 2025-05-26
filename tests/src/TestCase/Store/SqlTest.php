@@ -15,7 +15,7 @@ use function unlink;
 /**
  * Tests for Sql
  */
-class TestSqlTest extends \SimpleSAML\TestUtils\ClearStateTestCase
+final class TestSqlTest extends \SimpleSAML\TestUtils\ClearStateTestCase
 {
     #[RequiresOperatingSystem('Linux')]
     public function testSqlSuccess(): void

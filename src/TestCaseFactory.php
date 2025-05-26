@@ -24,7 +24,7 @@ abstract class TestCaseFactory implements TestInterface
     /**
      * @param \SimpleSAML\Module\monitor\TestData|null $testData
      */
-    public function __construct(TestData $testData = null)
+    public function __construct(?TestData $testData = null)
     {
         if (is_null($testData)) {
             $testData = new TestData([]);

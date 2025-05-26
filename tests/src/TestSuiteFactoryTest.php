@@ -14,7 +14,7 @@ use Tests\SimpleSAML\Module\monitor\TestFiles\TestSuiteImplementation;
 /**
  * Tests for TestSuiteFactory
  */
-class TestSuiteFactoryTest extends \PHPUnit\Framework\TestCase
+final class TestSuiteFactoryTest extends \PHPUnit\Framework\TestCase
 {
     public function testTestSuiteFactory(): void
     {

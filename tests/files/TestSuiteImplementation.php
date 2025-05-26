@@ -8,7 +8,7 @@ use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestResult;
 use SimpleSAML\Module\monitor\TestSuiteFactory;
 
-class TestSuiteImplementation extends TestSuiteFactory
+final class TestSuiteImplementation extends TestSuiteFactory
 {
     public function prepareTests(): array
     {

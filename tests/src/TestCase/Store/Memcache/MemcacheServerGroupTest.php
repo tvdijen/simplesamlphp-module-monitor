@@ -12,7 +12,7 @@ use SimpleSAML\Module\monitor\TestResult;
 /**
  * Tests for MemcacheServerGroup
  */
-class TestMemcacheServerGroupTest extends \PHPUnit\Framework\TestCase
+final class TestMemcacheServerGroupTest extends \PHPUnit\Framework\TestCase
 {
     public function testMemcacheServerGroup(): void
     {

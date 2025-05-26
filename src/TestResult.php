@@ -134,7 +134,7 @@ final class TestResult
      *
      * @return void
      */
-    public function addOutput($value, string $index = null): void
+    public function addOutput($value, ?string $index = null): void
     {
         if ($index === null) {
             $this->output = array_merge($this->output, $value);
@@ -149,7 +149,7 @@ final class TestResult
      *
      * @return mixed
      */
-    public function getOutput(string $key = null)
+    public function getOutput(?string $key = null)
     {
         return is_null($key) ? $this->output : (isset($this->output[$key]) ? $this->output[$key] : null);
     }

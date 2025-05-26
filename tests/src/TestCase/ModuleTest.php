@@ -11,7 +11,7 @@ use SimpleSAML\Module\monitor\TestData;
 /**
  * Tests for TestCase\Module
  */
-class TestModuleTest extends \PHPUnit\Framework\TestCase
+final class TestModuleTest extends \PHPUnit\Framework\TestCase
 {
     public function testModuleAvailable(): void
     {

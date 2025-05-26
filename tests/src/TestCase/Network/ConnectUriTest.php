@@ -15,7 +15,7 @@ use function stream_context_create;
 /**
  * Tests for TestCase\Network\ConnectUri
  */
-class TestConnectUriTest extends \PHPUnit\Framework\TestCase
+final class TestConnectUriTest extends \PHPUnit\Framework\TestCase
 {
     protected static string $host;
 

@@ -11,7 +11,7 @@ use SimpleSAML\Module\monitor\TestData;
 /**
  * Tests for MemcacheServer
  */
-class TestMemcacheServerTest extends \PHPUnit\Framework\TestCase
+final class TestMemcacheServerTest extends \PHPUnit\Framework\TestCase
 {
     public function testMemcacheServerUp(): void
     {

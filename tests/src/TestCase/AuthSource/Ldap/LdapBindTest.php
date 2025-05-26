@@ -14,7 +14,7 @@ use SimpleSAML\Module\monitor\TestData;
 /**
  * Tests for TestCase\Ldap\Bind
  */
-class TestLdapBindTest extends \PHPUnit\Framework\TestCase
+final class TestLdapBindTest extends \PHPUnit\Framework\TestCase
 {
     public function testBindSuccesful(): void
     {

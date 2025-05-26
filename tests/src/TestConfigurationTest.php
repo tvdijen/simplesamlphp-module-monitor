@@ -11,7 +11,7 @@ use SimpleSAML\Module\monitor\TestConfiguration;
 /**
  * Tests for TestConfiguration
  */
-class TestConfigurationTest extends \SimpleSAML\TestUtils\ClearStateTestCase
+final class TestConfigurationTest extends \SimpleSAML\TestUtils\ClearStateTestCase
 {
     public function testTestConfiguration(): void
     {

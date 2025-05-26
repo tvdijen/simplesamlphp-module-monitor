@@ -20,7 +20,7 @@ abstract class TestSuiteFactory extends TestCaseFactory
      * @param \SimpleSAML\Module\monitor\TestConfiguration $configuration
      * @param \SimpleSAML\Module\monitor\TestData|null $testData
      */
-    public function __construct(TestConfiguration $configuration, TestData $testData = null)
+    public function __construct(TestConfiguration $configuration, ?TestData $testData = null)
     {
         $this->setConfiguration($configuration);
 
@@ -33,7 +33,7 @@ abstract class TestSuiteFactory extends TestCaseFactory
      *
      * @return void
      */
-    protected function initialize(TestData $testData = null): void
+    protected function initialize(?TestData $testData = null): void
     {
         if (!is_null($testData)) {
             parent::initialize($testData);
