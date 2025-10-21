@@ -130,7 +130,7 @@ jobs:
           php-version: ${{ matrix.php-versions }}
           extensions:
             ctype, date, dom, fileinfo, filter, hash, intl, ldap, mbstring, openssl,
-            pcre, session, spl, xml, krb5-php/pecl-authentication-krb5@master
+            pcre, session, spl, xml, krb5-php/pecl-authentication-krb5@master, zip
           tools: composer
           ini-values: error_reporting=E_ALL
           coverage: none
