@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SimpleSAML\Module\monitor\TestCase\AuthSource\Ldap;
 
 use Exception;
+use SimpleSAML\Assert\Assert;
 use SimpleSAML\Module\ldap\Connector\Ldap as LdapConnector;
 use SimpleSAML\Module\ldap\ConnectorInterface;
 use SimpleSAML\Module\monitor\State;
@@ -16,7 +17,7 @@ use function str_replace;
 
 final class Configuration extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
-    /** @var \SimpleSAML\Module\ConnectorInterface|null */
+    /** @var \SimpleSAML\Module\ldap\ConnectorInterface|null */
     private ?ConnectorInterface $connection = null;
 
     /** @var string */
@@ -71,12 +72,8 @@ final class Configuration extends \SimpleSAML\Module\monitor\TestCaseFactory
      */
     public function invokeTest(): void
     {
-        if (preg_match('/^(ldap[s]?:\/\/(.*))$/', $this->hostname, $matches)) {
-            $connectString = $this->hostname;
-        } else {
-            $connectString = $this->hostname . ':' . $this->port;
-        }
-
+        Assert::regex($this->hostname, '/^(ldap[s]?:\/\/(.*))$/');
+        $connectString = $this->hostname;
         $testResult = new TestResult('LDAP configuration', $connectString);
 
         try {

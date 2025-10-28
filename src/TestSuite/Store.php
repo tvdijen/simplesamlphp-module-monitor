@@ -152,7 +152,7 @@ final class Store extends \SimpleSAML\Module\monitor\TestSuiteFactory
             }
 
             $result['hostname'] = $hostname;
-            /** @psalm-suppress RedundantCondition  Remove for Psalm >= 3.6.3 */
+            /** @phpstan-ignore isset.variable */
             if (isset($port)) {
                 $result['port'] = $port;
                 unset($port);

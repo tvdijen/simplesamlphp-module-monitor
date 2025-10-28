@@ -10,6 +10,9 @@ use SimpleSAML\Module\monitor\TestSuiteFactory;
 
 final class TestSuiteImplementation extends TestSuiteFactory
 {
+    /**
+     * @return array<mixed>
+     */
     public function prepareTests(): array
     {
         $a = new TestResult('a', 'b');

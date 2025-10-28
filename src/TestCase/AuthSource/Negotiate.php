@@ -48,6 +48,7 @@ final class Negotiate extends \SimpleSAML\Module\monitor\TestCaseFactory
             $reply = @$this->handle->doAuthentication();
         } catch (Exception $error) {
             // Fallthru
+            $reply = null;
         }
 
         if (isset($error)) {

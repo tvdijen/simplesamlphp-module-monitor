@@ -25,8 +25,7 @@ class Cert extends \SimpleSAML\Module\monitor\TestCaseFactory
 
 
     /**
-     * @var \SimpleSAML\Module\monitor\TestData $testData
-     *
+     * @param \SimpleSAML\Module\monitor\TestData $testData
      * @return void
      */
     protected function initialize(TestData $testData): void
