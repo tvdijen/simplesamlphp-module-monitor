@@ -37,6 +37,7 @@ final class TestLdapBindTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(State::OK, $testResult->getState());
     }
 
+
     public function testBindFailed(): void
     {
         $authSourceData = [

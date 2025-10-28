@@ -13,12 +13,12 @@ use function is_null;
 
 final class TestData
 {
-    /** @var array */
+    /** @var array<mixed> */
     private array $testData = [];
 
 
     /**
-     * @param array $input
+     * @param array<mixed> $input
      */
     public function __construct(array $input = [])
     {
@@ -68,7 +68,7 @@ final class TestData
 
 
     /**
-     * @return array
+     * @return array<mixed>
      */
     public function getInput(): array
     {

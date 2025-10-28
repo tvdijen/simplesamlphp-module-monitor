@@ -16,6 +16,7 @@ final class MonitorTest extends \SimpleSAML\TestUtils\ClearStateTestCase
 {
     private const FRAMEWORK = 'vendor/simplesamlphp/simplesamlphp-test-framework';
 
+
     public function testMonitor(): void
     {
         $_SERVER['REQUEST_URI'] = '/';

@@ -19,10 +19,12 @@ final class TestConnectUriTest extends \PHPUnit\Framework\TestCase
 {
     protected static string $host;
 
+
     public static function setUpBeforeClass(): void
     {
         self::$host = gethostbyname('packagist.org');
     }
+
 
     public function testConnectUriOK(): void
     {
@@ -41,6 +43,7 @@ final class TestConnectUriTest extends \PHPUnit\Framework\TestCase
         $testResult = $connectionTest->getTestResult();
         $this->assertEquals(State::OK, $testResult->getState());
     }
+
 
     public function testConnectUriFailed(): void
     {

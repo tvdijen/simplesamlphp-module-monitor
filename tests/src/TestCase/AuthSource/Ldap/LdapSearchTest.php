@@ -44,6 +44,7 @@ final class TestLdapSearchTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(State::OK, $testResult->getState());
     }
 
+
     public function testSearchFailed(): void
     {
         $authSourceData = [

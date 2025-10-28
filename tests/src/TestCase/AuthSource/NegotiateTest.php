@@ -22,10 +22,12 @@ final class TestNegotiateTest extends \PHPUnit\Framework\TestCase
         $_SERVER['SERVER_NAME'] = 'localhost';
     }
 
+
     public static function tearDownAfterClass(): void
     {
         unset($_SERVER['SERVER_NAME']);
     }
+
 
     public function testNegotiateException(): void
     {
@@ -43,6 +45,7 @@ final class TestNegotiateTest extends \PHPUnit\Framework\TestCase
         $testResult = $confTest->getTestResult();
         $this->assertEquals(State::WARNING, $testResult->getState());
     }
+
 
     public function testNegotiateSuccess(): void
     {
@@ -62,6 +65,7 @@ final class TestNegotiateTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(State::OK, $testResult->getState());
     }
 
+
     public function testNegotiateNoAuthorzation(): void
     {
         $KRB5NegotiateAuthMock = $this->getMockBuilder(KRB5NegotiateAuth::class)->onlyMethods(
@@ -76,6 +80,7 @@ final class TestNegotiateTest extends \PHPUnit\Framework\TestCase
         $testResult = $confTest->getTestResult();
         $this->assertEquals(State::SKIPPED, $testResult->getState());
     }
+
 
     public function testNegotiateError(): void
     {

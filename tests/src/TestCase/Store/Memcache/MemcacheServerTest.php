@@ -28,6 +28,7 @@ final class TestMemcacheServerTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(50, $testOutput['freePercentage']);
     }
 
+
     public function testMemcacheServerDown(): void
     {
         $testData = new TestData([

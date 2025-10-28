@@ -29,6 +29,7 @@ final class TestSuiteImplementation extends TestSuiteFactory
         return [$a, $b, $c];
     }
 
+
     public function invokeTest(): void
     {
         $this->setCategory('travis');

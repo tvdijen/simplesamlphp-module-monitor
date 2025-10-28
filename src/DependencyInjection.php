@@ -8,12 +8,12 @@ use function array_key_exists;
 
 final class DependencyInjection
 {
-    /** @var array */
+    /** @var array<mixed> */
     private $vars;
 
 
     /**
-     * @param array $vars
+     * @param array<mixed> $vars
      */
     public function __construct(array $vars)
     {

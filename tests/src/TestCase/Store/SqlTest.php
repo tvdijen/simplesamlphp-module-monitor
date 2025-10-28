@@ -35,6 +35,7 @@ final class TestSqlTest extends \SimpleSAML\TestUtils\ClearStateTestCase
         unlink('/tmp/test.sqlite');
     }
 
+
     #[RequiresOperatingSystem('Linux')]
     public function testSqlFailure(): void
     {

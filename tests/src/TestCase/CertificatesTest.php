@@ -16,10 +16,12 @@ final class TestCertificatesTest extends \PHPUnit\Framework\TestCase
     /** @var string */
     private static $certdir;
 
+
     public static function setUpBeforeClass(): void
     {
         self::$certdir = getcwd() . '/vendor/simplesamlphp/xml-security/resources/certificates/';
     }
+
 
     public function testCertExpired(): void
     {
@@ -37,6 +39,7 @@ final class TestCertificatesTest extends \PHPUnit\Framework\TestCase
         $this->assertLessThanOrEqual(-1, $expiration);
         $this->assertEquals(State::ERROR, $testResult->getState());
     }
+
 
     public function testCertAboutToExpire(): void
     {
@@ -61,6 +64,7 @@ final class TestCertificatesTest extends \PHPUnit\Framework\TestCase
         $this->assertGreaterThanOrEqual($exp - 4, $expiration);
         $this->assertEquals(State::WARNING, $testResult->getState());
     }
+
 
     public function testCertFileValid(): void
     {

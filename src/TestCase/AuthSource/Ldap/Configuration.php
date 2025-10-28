@@ -12,7 +12,6 @@ use SimpleSAML\Module\monitor\State;
 use SimpleSAML\Module\monitor\TestData;
 use SimpleSAML\Module\monitor\TestResult;
 
-use function preg_match;
 use function str_replace;
 
 final class Configuration extends \SimpleSAML\Module\monitor\TestCaseFactory

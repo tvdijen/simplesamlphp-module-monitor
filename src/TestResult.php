@@ -21,7 +21,7 @@ final class TestResult
     /** @var string Message describing the result */
     private string $message = '';
 
-    /** @var array Data to be used by TestSuite or other TestCases */
+    /** @var array<mixed> Data to be used by TestSuite or other TestCases */
     private array $output = [];
 
 
@@ -39,7 +39,7 @@ final class TestResult
     /**
      * @param bool $includeOutput
      *
-     * @return array
+     * @return array<mixed>
      */
     public function arrayizeTestResult(bool $includeOutput = false): array
     {
@@ -118,7 +118,7 @@ final class TestResult
 
 
     /**
-     * @param array $value
+     * @param array<mixed> $value
      *
      * @return void
      */

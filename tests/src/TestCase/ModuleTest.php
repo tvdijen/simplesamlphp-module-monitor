@@ -27,6 +27,7 @@ final class TestModuleTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('mod_test', $moduleTest->getModuleName());
     }
 
+
     public function testEitherModuleAvailable(): void
     {
         $testData = new TestData([
@@ -40,6 +41,7 @@ final class TestModuleTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(State::OK, $testResult->getState());
         $this->assertEquals('mod_test', $moduleTest->getModuleName());
     }
+
 
     public function testBothModulesAvailable(): void
     {
@@ -55,6 +57,7 @@ final class TestModuleTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('mod_test', $moduleTest->getModuleName());
     }
 
+
     public function testModuleUnavailable(): void
     {
         $testData = new TestData([
@@ -68,6 +71,7 @@ final class TestModuleTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(State::ERROR, $testResult->getState());
         $this->assertEquals('mod_test', $moduleTest->getModuleName());
     }
+
 
     public function testBothModulesUnavailable(): void
     {

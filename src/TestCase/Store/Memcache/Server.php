@@ -12,9 +12,8 @@ use function round;
 
 final class Server extends \SimpleSAML\Module\monitor\TestCaseFactory
 {
-    /** @var array|false */
-    private $serverStats;
-
+    /** @var array<mixed>|false */
+    private array|bool $serverStats;
 
     /** @var string */
     private string $host;

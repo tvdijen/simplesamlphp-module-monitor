@@ -125,5 +125,6 @@ abstract class TestCaseFactory implements TestInterface
         return $this->subject;
     }
 
+
     abstract public function invokeTest(): void;
 }

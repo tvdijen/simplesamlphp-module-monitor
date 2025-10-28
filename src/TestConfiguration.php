@@ -25,13 +25,13 @@ final class TestConfiguration
     /** @var \SimpleSAML\Configuration */
     private Configuration $authSourceConfig;
 
-    /** @var array */
+    /** @var array<mixed> */
     private array $metadataConfig;
 
-    /** @var array */
+    /** @var string[] */
     private array $availableApacheModules;
 
-    /** @var array */
+    /** @var string[] */
     private array $availablePhpModules;
 
     /** @var \SimpleSAML\Module\monitor\DependencyInjection */
@@ -197,7 +197,7 @@ final class TestConfiguration
 
 
     /**
-     * @return array
+     * @return string[]
      */
     public function getAvailableApacheModules(): array
     {
@@ -206,7 +206,7 @@ final class TestConfiguration
 
 
     /**
-     * @return array
+     * @return string[]
      */
     public function getAvailablePhpModules(): array
     {
@@ -260,7 +260,7 @@ final class TestConfiguration
 
 
     /**
-     * @return array
+     * @return array<mixed>
      */
     public function getMetadataConfig(): array
     {

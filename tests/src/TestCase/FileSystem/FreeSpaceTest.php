@@ -30,6 +30,7 @@ final class TestFreeSpaceTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(State::OK, $testResult->getState());
     }
 
+
     public function testFreeSpaceAlmostOut(): void
     {
         // Fill /tmp/testdisk for 90%
@@ -50,6 +51,7 @@ final class TestFreeSpaceTest extends \PHPUnit\Framework\TestCase
 
         unlink('/tmp/testdisk/90percent.txt');
     }
+
 
     public function testFreeSpaceOut(): void
     {

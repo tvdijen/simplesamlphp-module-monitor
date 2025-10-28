@@ -27,6 +27,7 @@ final class TestMetadataExpirationTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(State::ERROR, $testResult->getState());
     }
 
+
     public function testMetadataValid(): void
     {
         $testData = new TestData([
@@ -38,6 +39,7 @@ final class TestMetadataExpirationTest extends \PHPUnit\Framework\TestCase
 
         $this->assertEquals(State::OK, $testResult->getState());
     }
+
 
     public function testMetadataNeverExpires(): void
     {
