@@ -36,18 +36,18 @@
         }
     },
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
         "ext-openssl": "*",
         "ext-session": "*",
 
-        "simplesamlphp/assert": "~1.8.2",
-        "simplesamlphp/simplesamlphp": "^2.4",
-        "symfony/http-foundation": "^6.4"
+        "simplesamlphp/assert": "^1.9",
+        "simplesamlphp/simplesamlphp": "^2.5@dev",
+        "symfony/http-foundation": "^7.4"
     },
     "require-dev": {
-        "simplesamlphp/simplesamlphp-module-ldap": "^2.4",
-        "simplesamlphp/simplesamlphp-test-framework": "^1.10.3",
-        "simplesamlphp/xml-security": "^1.13"
+        "simplesamlphp/simplesamlphp-module-ldap": "^2.5",
+        "simplesamlphp/simplesamlphp-test-framework": "^1.11",
+        "simplesamlphp/xml-security": "^2.1"
     },
     "suggest": {
         "ext-ldap": "*",
