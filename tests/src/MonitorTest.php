@@ -8,11 +8,12 @@ use SimpleSAML\Configuration;
 use SimpleSAML\Module\monitor\DependencyInjection;
 use SimpleSAML\Module\monitor\Monitor;
 use SimpleSAML\Module\monitor\TestConfiguration;
+use SimpleSAML\TestUtils\ClearStateTestCase;
 
 /**
  * Tests for Monitor
  */
-final class MonitorTest extends \SimpleSAML\TestUtils\ClearStateTestCase
+final class MonitorTest extends ClearStateTestCase
 {
     private const FRAMEWORK = 'vendor/simplesamlphp/simplesamlphp-test-framework';
 
