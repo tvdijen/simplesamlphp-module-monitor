@@ -15,7 +15,7 @@ use SimpleSAML\TestUtils\ClearStateTestCase;
  */
 final class MonitorTest extends ClearStateTestCase
 {
-    private const FRAMEWORK = 'vendor/simplesamlphp/simplesamlphp-test-framework';
+    private const string FRAMEWORK = 'vendor/simplesamlphp/simplesamlphp-test-framework';
 
 
     public function testMonitor(): void
