@@ -21,7 +21,7 @@ jobs:
       matrix:
         php-version: ['8.3', '8.4', '8.5']
 
-    uses: simplesamlphp/simplesamlphp-test-framework/.github/workflows/reusable_phplinter.yml@v1.11.0
+    uses: simplesamlphp/simplesamlphp-test-framework/.github/workflows/reusable_phplinter.yml@v1.11.1
     with:
       php-version: ${{ matrix.php-version }}
 
@@ -30,7 +30,7 @@ jobs:
     strategy:
       fail-fast: false
 
-    uses: simplesamlphp/simplesamlphp-test-framework/.github/workflows/reusable_linter.yml@v1.11.0
+    uses: simplesamlphp/simplesamlphp-test-framework/.github/workflows/reusable_linter.yml@v1.11.1
     with:
       enable_eslinter: false
       enable_jsonlinter: true
@@ -55,7 +55,7 @@ jobs:
           php-version: ${{ matrix.php-versions }}
           extensions:
             ctype, date, dom, fileinfo, filter, hash, intl, ldap, mbstring, openssl,
-            pcre, session, spl, xml, krb5-php/pecl-authentication-krb5@master
+            pcre, session, sodium, spl, xml, krb5-php/pecl-authentication-krb5@master
           tools: composer
           ini-values: error_reporting=E_ALL
           coverage: pcov
@@ -130,7 +130,7 @@ jobs:
           php-version: ${{ matrix.php-versions }}
           extensions:
             ctype, date, dom, fileinfo, filter, hash, intl, ldap, mbstring, openssl,
-            pcre, session, spl, xml, krb5-php/pecl-authentication-krb5@master, zip
+            pcre, session, sodium, spl, xml, krb5-php/pecl-authentication-krb5@master, zip
           tools: composer
           ini-values: error_reporting=E_ALL
           coverage: none
@@ -190,7 +190,7 @@ jobs:
           tools: composer, composer-require-checker, composer-unused
           extensions:
             ctype, date, dom, fileinfo, filter, hash, intl, ldap, mbstring, openssl,
-            pcre, session, spl, xml, krb5-php/pecl-authentication-krb5@master
+            pcre, session, sodium, spl, xml, krb5-php/pecl-authentication-krb5@master
         env:
           KRB5_LINUX_LIBS: libkrb5-dev
 
@@ -244,7 +244,7 @@ jobs:
           php-version: '8.3'
           extensions:
             ctype, date, dom, fileinfo, filter, hash, intl, ldap, mbstring, openssl,
-            pcre, session, spl, xml, krb5-php/pecl-authentication-krb5@master
+            pcre, session, sodium, spl, xml, krb5-php/pecl-authentication-krb5@master
           tools: composer
           coverage: none
         env:

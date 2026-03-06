@@ -40,14 +40,14 @@
         "ext-openssl": "*",
         "ext-session": "*",
 
-        "simplesamlphp/assert": "^1.9",
+        "simplesamlphp/assert": "^2.0",
         "simplesamlphp/simplesamlphp": "^2.5@dev",
         "symfony/http-foundation": "^7.4"
     },
     "require-dev": {
         "simplesamlphp/simplesamlphp-module-ldap": "^2.5",
         "simplesamlphp/simplesamlphp-test-framework": "^1.11",
-        "simplesamlphp/xml-security": "^2.1"
+        "simplesamlphp/xml-security": "^2.3"
     },
     "suggest": {
         "ext-ldap": "*",
