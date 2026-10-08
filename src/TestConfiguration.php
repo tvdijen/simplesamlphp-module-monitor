@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace SimpleSAML\Module\monitor;
 
 use SimpleSAML\Configuration;
-use SimpleSAML\Metadata\MetaDataStorageSource;
 use SimpleSAML\Metadata\MetaDataStorageHandler;
+use SimpleSAML\Metadata\MetaDataStorageSource;
 use SimpleSAML\Module\monitor\DependencyInjection;
 
 use function array_merge;
