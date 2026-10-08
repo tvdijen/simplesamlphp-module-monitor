@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SimpleSAML\Module\monitor;
 
 use SimpleSAML\Configuration;
+use SimpleSAML\Metadata\MetaDataStorageHandler;
 use SimpleSAML\Metadata\MetaDataStorageSource;
 use SimpleSAML\Module\monitor\DependencyInjection;
 
@@ -61,7 +62,7 @@ final class TestConfiguration
         $this->setAuthsourceConfig($authSourceConfig);
         $this->setModuleConfig($moduleConfig);
         $this->setGlobalConfig($globalConfig);
-        $this->setMetadataConfig();
+        $this->setMetadataConfig($this->moduleConfig);
         $this->setAvailableApacheModules();
         $this->setAvailablePhpModules();
     }
@@ -103,16 +104,29 @@ final class TestConfiguration
     /**
      * @return void
      */
-    private function setMetadataConfig(): void
+    private function setMetadataConfig(Configuration $moduleConfig): void
     {
         $sets = $this->getAvailableMetadataSets();
-        $sources = $this->globalConfig->getValue('metadata.sources');
-        $handlers = MetaDataStorageSource::parseSources($sources);
         $metadata = [];
-        if (!empty($sets)) {
-            foreach ($handlers as $handler) {
-                foreach ($sets as $set) {
-                    $metadata[$set] = $handler->getMetadataSet($set);
+        $monitorMetadata = $moduleConfig->getOptionalValue('checkMetadata', true);
+
+        if ($monitorMetadata === true) {
+            if (!empty($sets)) {
+                $sources = $this->globalConfig->getValue('metadata.sources');
+                $handlers = MetaDataStorageSource::parseSources($sources);
+                foreach ($handlers as $handler) {
+                    foreach ($sets as $set) {
+                        $metadata[$set] = $handler->getMetadataSet($set);
+                    }
+                }
+            }
+        } elseif (is_array($monitorMetadata)) {
+            $handler = MetaDataStorageHandler::getMetadataHandler();
+            foreach ($monitorMetadata as $set => $entityIds) {
+                $metadata[$set] = [];
+                foreach ($entityIds as $entityId) {
+                    $md = $handler->getMetaData($entityId, $set);
+                    $metadata[$set][$entityId] = $md;
                 }
             }
         }
